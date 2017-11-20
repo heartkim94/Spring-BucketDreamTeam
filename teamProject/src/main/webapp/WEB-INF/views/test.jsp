@@ -4,5 +4,6 @@
 <%@ include file="header.jsp" %>
 
 <P>  The time on the server is ${serverTime}. </P>
+<p>Page for testing.</p>
 
 <%@ include file="footer.jsp" %>
