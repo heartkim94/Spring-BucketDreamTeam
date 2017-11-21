@@ -23,8 +23,5 @@ public class HomeController {
 		System.out.println("hello");
 		return "home";
 	}
-	
-}		return "home";
-	}
-	
+		
 }
