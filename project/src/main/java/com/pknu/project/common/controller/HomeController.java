@@ -19,17 +19,9 @@ public class HomeController {
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-<<<<<<< HEAD
-		System.out.println("ahome");
-		System.out.println("hello"); 
-=======
 		System.out.println("ahomeㅋㅋㅋㅋㅋ");
 		System.out.println("hello");
->>>>>>> branch 'master' of https://github.com/heartkim94/Spring-BucketDreamTeam.git
 		return "home";
-	}
-	
-}		return "home";
 	}
 	
 }
