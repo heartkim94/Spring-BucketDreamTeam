@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
-<mapper namespace="com.monkey.temp.dao.BBSDao">
+<mapper namespace="com.pknu.project.community.dao.BBSDao">
 <!-- 	<select id="getArticleCount" resultType="int"> -->
 <!-- 		SELECT COUNT(*) FROM BBS2 -->
 <!-- 	</select> -->

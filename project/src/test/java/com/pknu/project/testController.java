@@ -1,4 +1,4 @@
-package com.monkey.temp;
+package com.pknu.project;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
