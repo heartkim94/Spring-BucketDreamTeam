@@ -1,1 +1,11 @@
 sql문
+
+CREATE TABLE user(
+id varchar(50) PRIMARY KEY,
+pass varchar(50) NOT NULL,
+name varchar(100) NOT NULL,
+nickName varchar(100) NOT NULL,
+email varchar(100) NOT NULL,
+phoneNumber int NOT NULL,
+gender varchar(10) NOT NULL
+);
