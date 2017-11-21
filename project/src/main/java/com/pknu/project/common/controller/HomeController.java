@@ -1,4 +1,4 @@
-package com.pknu.project;
+package com.pknu.project.common.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -19,7 +19,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		System.out.println("home");
+		System.out.println("ahomeㅋㅋㅋㅋㅋ");
+		System.out.println("hello");
 		return "home";
 	}
 	
