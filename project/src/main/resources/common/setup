@@ -1,6 +1,7 @@
 drop database project;
 create database project;
 use project;
+<<<<<<< HEAD
 <<<<<<< Upstream, based on master
 
 -- #User
@@ -46,3 +47,21 @@ create table Notice(
     writeDate date not null,
     fileStatus int(1) not null);
 >>>>>>> 872a311 sqlSetup 파일 수정
+=======
+-- #User
+-- table User
+-- 여기에 추가
+
+-- #Community
+-- table Notice
+create table Notice(
+    articleNum int primary key auto_increment,
+    id varchar(300) not null,
+    title varchar(500) not null,
+    content text not null,
+    depth int not null,
+    hit int not null,
+    groupId int not null,
+    writeDate date not null,
+    fileStatus int(1) not null);
+>>>>>>> branch 'community' of https://github.com/heartkim94/Spring-BucketDreamTeam.git
