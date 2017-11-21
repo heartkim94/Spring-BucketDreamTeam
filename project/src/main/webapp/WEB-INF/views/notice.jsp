@@ -9,17 +9,7 @@
 </head>
 
 <body>
-<img src="resources/img/002.png"/>
- <c:if test="${id!=null}">
- 	<%@include file="login_ok.jsp" %>
- </c:if>
- 
- <c:if test="${id==null}">
- 	<%@include file="login.jsp" %>
- </c:if>
 
-
-<center><b>글목록(전체 글:${totalCount})</b>
 <table width="700" >
   <tr>
     <td align="right" >
@@ -81,6 +71,5 @@
 	  </td>
   </tr>
 </table>
-</center>
 </body>
 </html>
