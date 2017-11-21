@@ -11,7 +11,7 @@
 	</header>
 	<section>
 		<P>  The time on the server is ${serverTime}. </P>
-		<p>Page for testing.</p>
+		<p>Page for testing.aaa</p>
 	</section>
 	<footer>
 		<p>This is footer</p>
