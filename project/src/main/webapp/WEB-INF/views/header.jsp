@@ -9,8 +9,8 @@
 </head>
 
 <body>
-	<br><p><h1>로고</h1></p><br>
-	<hr>
-	<br>
+	<header>
+		<h1>header</h1>
+	</header>
 </body>
 </html>
