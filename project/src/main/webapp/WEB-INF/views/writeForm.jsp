@@ -60,12 +60,30 @@ textarea {
 	text-align: center;
 }
 
+.uploadListWrap {
+	display: none;
+	margin-top: 10px;
+	width: 100%;
+	height: auto;
+	background-color: #fff;
+	border: 1px solid #bfbfbf;
+	box-sizing: border-box;
+}
+.upListHead {
+	width: 100%;
+	height: 20px;
+	border-bottom: 1px solid #bfbfbf;
+}
+.upListView {
+	width: 100%;
+	height: 90px;
+}
 </style>
 </head>
 <body>
 <div id="wrapper">
 
-	<header><jsp:include page="header.jsp"/> </header>
+	<jsp:include page="header.jsp"/>
 	<section>
 		<jsp:include page="aside.jsp"/>
 		<article>
@@ -92,16 +110,19 @@ textarea {
 								<td align="left"><textarea id="content" style="resize: none;" name="content" cols="40" rows="10"></textarea></td>
 							</tr>
 							<tr>
-							 	<th>
+							 	<th style="vertical-align: top;">
 							 		파일 첨부
-							 		<a href="#" title="파일 첨부 열기">▼</a>
+							 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a>
 							 	</th>
 								<td>
 									<div class="fForm">
 										<a href="#" class="fileUpBtn" >파일열기</a>
 										<input type="file" style="display: none;" />
 									</div>
-									<div class="UploadList"></div>
+									<div class="uploadListWrap">
+										<div class="upListHead"></div>
+										<div class="upListView"></div>
+									</div>
 								</td>
 							</tr>
 						</table>
@@ -117,13 +138,23 @@ textarea {
 			</div>
 		</article>
 	</section>
-	<footer><jsp:include page="footer.jsp"/> </footer>
+	<jsp:include page="footer.jsp"/>
 
 </div> <!-- wrapper End -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(function(){
+		$(".openFList").on("click", function(e){
+			e.preventDefault();
+			$(".uploadListWrap").toggle();
+			if($(".uploadListWrap").css('display') == 'block'){
+				$(".openFList").text('▲');
+			}else {
+				$(".openFList").text('▼');
+			}
+		});
+		
 		$(".fileUpBtn").on("click", function(e){
 			e.preventDefault();
 			$("input[type=file]").click();
