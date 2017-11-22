@@ -12,6 +12,7 @@ public class CommunityController {
 	@RequestMapping(value = "/notice.do", method = RequestMethod.GET)
 	public String home(Model model) {
 		System.out.println("***notice***");
+//		sa
 		return "notice";
 	}
 
