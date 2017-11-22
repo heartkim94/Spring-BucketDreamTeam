@@ -17,7 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations= {"classpath:spring/root-context.xml"})
-public class testController {
+public class TestController {
 	@Autowired
 	DataSource dataSource;
 	
