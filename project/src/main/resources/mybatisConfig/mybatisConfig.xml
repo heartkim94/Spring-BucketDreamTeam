@@ -23,5 +23,8 @@
 <!-- 	    <typeAlias alias="message" type="com.pknu.message.dto.MessageDto" />          -->
 <!-- 	</typeAliases> -->
 	
+		<typeAliases>
+			<typeAlias alias="user" type="com.pknu.project.user.dto.UserDto"/>
+		</typeAliases>
 	
 </configuration>
