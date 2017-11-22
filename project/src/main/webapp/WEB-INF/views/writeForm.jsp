@@ -6,31 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>새글등록</title>
+<link href="resources/style.css" rel="stylesheet" type="text/css">
 <style>
-* {
-	margin: 0;
-	padding: 0;
-}
-#wrapper {
-	width: 1024px;
-	height: auto;
-	margin: 0 auto;
-	overflow: hidden;
-	border: 1px solid black;
-	box-sizing: border-box;
-}
 
-section {
-	width: 100%;
-	height: auto;
-	overflow: hidden;
-}
-aside {
-	float: left;
-	width: 20%;
-	min-height: 400px;
-	background-color: skyblue;
-}
+
 article {
 	float: right;
 	width: 80%;
@@ -88,13 +67,7 @@ textarea {
 
 	<header><jsp:include page="header.jsp"/> </header>
 	<section>
-		<aside>
-			<ul>
-				<li><a href="#">NOTICE</a>
-				<li><a href="#">Q&A</a>
-				<li><a href="#">FAQ</a>
-			</ul>
-		</aside>
+		<jsp:include page="aside.jsp"/>
 		<article>
 			<div>
 				<nav>
