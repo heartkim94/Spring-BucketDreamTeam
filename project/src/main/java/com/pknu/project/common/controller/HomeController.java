@@ -23,9 +23,4 @@ public class HomeController {
 		System.out.println("hello");
 		return "home";
 	}
-<<<<<<< HEAD
-		
-=======
-	
->>>>>>> branch 'community' of https://github.com/heartkim94/Spring-BucketDreamTeam.git
 }
