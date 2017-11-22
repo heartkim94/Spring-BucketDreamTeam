@@ -7,12 +7,14 @@ use project;
 CREATE TABLE user(
 	id varchar(50) PRIMARY KEY,
 	pass varchar(50) NOT NULL,
-	name varchar(100) NOT NULL,
-	nickName varchar(100) NOT NULL,
-	email varchar(100) NOT NULL,
-	phoneNumber int NOT NULL,
-	gender varchar(10) NOT NULL
+	name varchar(100),
+	nickName varchar(100),
+	email varchar(100),
+	phoneNumber char(13),
+	gender enum('m', 'f')
 	);
+	
+insert into user values('test', '1234', 'Hong', 'KKong', '010-1111-1111', 'kkong@email', 'm');
 
 -- #Community
 -- table Notice
@@ -27,3 +29,15 @@ create table Notice(
     writeDate date not null,
     fileStatus int(1) not null);
     
+insert into Notice(id, title, content, depth, hit, groupId, writeDate, fileStatus)
+    values('test', 'test notice article1', 'no content', 0, 0, 0, '2017-11-22', 0);    
+insert into Notice(id, title, content, depth, hit, groupId, writeDate, fileStatus)
+    values('test', 'test notice article2', 'no content', 0, 0, 0, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, writeDate, fileStatus)
+    values('test', 'test notice article3', 'no content', 0, 0, 0, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, writeDate, fileStatus)
+    values('test', 'test reply article4', 'no content', 1, 0, 1, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, writeDate, fileStatus)
+    values('test', 'test reply article5', 'no content', 1, 0, 1, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, writeDate, fileStatus)
+    values('test', 'test reply article6', 'no content', 2, 0, 4, '2017-11-22', 0);
