@@ -22,12 +22,12 @@ public class UserController {
 	
 	@RequestMapping(value="userProvisionForm.user")
 	public String userProvisionForm() { //회원약관폼
-		return "userProvisionForm";
+		return "user/userProvisionForm";
 	}
 	
 	@RequestMapping(value="userJoinForm.user")
 	public String userJoinForm() { //회원가입폼
-		return "userJoinForm";
+		return "user/userJoinForm";
 	}
 	
 	@RequestMapping(value="joinIdCheck.user")
@@ -48,7 +48,7 @@ public class UserController {
 	@RequestMapping(value="userInsert.user")
 	public String memInsert(UserDto userDto) {
 		userService.userInsert(userDto);
-		return "main";
+		return "user/main";
 	}
 	
 	@RequestMapping(value="login.user", method=RequestMethod.POST)
@@ -59,8 +59,13 @@ public class UserController {
 	@RequestMapping(value="logout.user")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "main";
+		return "user/main";
 	}
+	
+//	@RequestMapping(value="mypage.user")
+//	public String mypage(HttpSession session, UserDto userDto, Model model) {
+//		userService.mypage(session,pass);
+//	}
 	
 	
 }

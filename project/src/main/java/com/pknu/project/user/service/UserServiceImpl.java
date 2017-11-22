@@ -35,16 +35,6 @@ public class UserServiceImpl implements UserService {
 //	}
 	
 	@Override
-	public int loginIdCheck(String inputId) {
-		String dbIdCheck = userDao.loginCheck(inputId);
-		if(dbIdCheck != null) {
-			return 2;
-		}else {
-			return 1;
-		}
-	}
-
-	@Override
 	public String userInsert(UserDto userDto) {
 		userDao.userInsert(userDto);
 		return null;
