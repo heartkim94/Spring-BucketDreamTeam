@@ -26,9 +26,4 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/writeForm.do")
-	@Transactional
-	public String list(){
-		return "writeForm";   
-	}
 }

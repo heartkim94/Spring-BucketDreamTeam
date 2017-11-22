@@ -3,6 +3,7 @@ package com.pknu.project.community.controller;
 import java.util.Locale;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,5 +15,10 @@ public class CommunityController {
 		System.out.println("***notice***");
 		return "notice";
 	}
-
+	
+	@RequestMapping(value="/writeForm.do", method=RequestMethod.GET)
+	public String writeForm(){
+		System.out.println("***writeForm***");
+		return "writeForm";   
+	}
 }
