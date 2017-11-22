@@ -1,37 +1,33 @@
 package com.pknu.project;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-
-import javax.sql.DataSource;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.pknu.project.common.dao.NoticeDao;
+import com.pknu.project.common.dto.ArticleDto;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations= {"classpath:spring/root-context.xml"})
-public class testController {
+public class TestController {
 	@Autowired
-	DataSource dataSource;
-	
+	NoticeDao dao;
 	
 	@Test
 	public void test() {
-		try {
-			Connection con = dataSource.getConnection();
-			ResultSet rs = con.prepareStatement("select 1 from dual").executeQuery();
-			while(rs.next()) {
-				System.out.println(rs.getString(1));
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
+		// 주석추가
+		List<ArticleDto> list = dao.list(null);
+		for(ArticleDto article : list) {
+			String text = article.getArticleNum()
+					 +"|"+article.getTitle()
+					 +"|"+article.getGroupId();
+			System.out.println(text);
 		}
 	}
 }
