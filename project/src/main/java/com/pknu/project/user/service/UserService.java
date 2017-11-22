@@ -9,6 +9,7 @@ import com.pknu.project.user.dto.UserDto;
 public interface UserService {
 	public int joinIdCheck(String inputId);
 //	public int joinEmailCheck(String inputEmail);
+	public int loginIdCheck(String inputId);
 	public String userInsert(UserDto userDto);
 	public String login(HttpSession session, String id, String pass, Model model);
 }

@@ -33,6 +33,16 @@ public class UserServiceImpl implements UserService {
 //			return 1;
 //		}
 //	}
+	
+	@Override
+	public int loginIdCheck(String inputId) {
+		String dbIdCheck = userDao.loginCheck(inputId);
+		if(dbIdCheck != null) {
+			return 2;
+		}else {
+			return 1;
+		}
+	}
 
 	@Override
 	public String userInsert(UserDto userDto) {
@@ -57,6 +67,8 @@ public class UserServiceImpl implements UserService {
 		}
 		return view;
 	}
+
+
 	
 	
 	

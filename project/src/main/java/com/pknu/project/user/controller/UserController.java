@@ -44,6 +44,7 @@ public class UserController {
 //		return userService.joinEmailCheck(inputEmail); 
 //	}
 	
+	
 	@RequestMapping(value="userInsert.user")
 	public String memInsert(UserDto userDto) {
 		userService.userInsert(userDto);
