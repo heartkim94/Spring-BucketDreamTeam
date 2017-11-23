@@ -7,5 +7,4 @@ import com.pknu.project.common.dto.ArticleDto;
 
 public interface NoticeDao {
 	List<ArticleDto> list(HashMap<String, String> paramMap);
-	ArticleDto get
 }
