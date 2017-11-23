@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>새글등록</title>
+<title>글보기</title>
 <link href="resources/style.css" rel="stylesheet" type="text/css">
 <style>
 
@@ -84,7 +84,7 @@ textarea {
 					<span>home > community > notice</span>
 				</nav>
 				<div>
-					<form action="write.do" method="post">
+					<form action="update.do" method="post">
 						<!-- 글쓰기 영역 전체 감쌈 -->
 						<div class="writeFormWrap"> 
 			<!-- 			<input type="hidden" name="id" value="#" /> 작성자 id -->
@@ -134,24 +134,6 @@ textarea {
 </div> <!-- wrapper End -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-	$(function(){
-		$(".openFList").on("click", function(e){
-			e.preventDefault();
-			$(".uploadListWrap").toggle();
-			if($(".uploadListWrap").css('display') == 'block'){
-				$(".openFList").text('▲');
-			}else {
-				$(".openFList").text('▼');
-			}
-		});
-		
-		$(".fileUpBtn").on("click", function(e){
-			e.preventDefault();
-			$("input[type=file]").click();
-		});
-	});
-</script>
  
 </body>
 </html>
