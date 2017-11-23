@@ -42,7 +42,7 @@
 								<c:if test="${article.depth == 0}">
 									<img src="images/image3.png" width="0" height="16">
 								</c:if>
-								<a href="content.bbs?articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
+								<a href="content.do?articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
 									${article.title}
 									<c:if test="${article.commentCount!=0}">
 										<span style="color: red">(${article.commentCount})</span>

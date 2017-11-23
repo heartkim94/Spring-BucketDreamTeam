@@ -8,6 +8,7 @@
 		SELECT COUNT(*) FROM notice
 	</select>
 	
+	<!-- notice 목록 보기 -->
 	<select id="getNoticeArticles" parameterType="HashMap" resultType="article">
 		SELECT articleNum, id, title, depth, hit, date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
         FROM (SELECT n.*, @rownum := @rownum+1 as rownum
@@ -15,4 +16,20 @@
 			  order by groupId desc, pos) n
 		WHERE rownum between #{startRow} and #{endRow}
 	</select>
+	
+	<!-- notice 글 상세보기 -->
+	<select id="getNoticeArticle" parameterType="int" resultType="article">
+		SELECT * FROM notice WHERE articleNum = #{articleNum}
+	</select>
+	
+	<!-- hit 수 증가 -->
+	<update id="upHit" parameterType="int" >
+		UPDATE notice SET hit = hit + 1 WHERE articleNum=#{articleNum}
+	</update>
+	<!-- 새 notice 쓰기 -->
+	<insert id="writeNotice" parameterType="article" useGeneratedKeys="true" keyProperty="articleNum" keyColumn="articleNum">
+		INSERT INTO notice (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
+					VALUES ('test', #{title}, #{content}, 0, 0, #{groupId}, 0, now(), #{fileStatus})
+<!-- 		INSERT INTO notice VALUES (null, test, #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus}) -->
+	</insert>
 </mapper>

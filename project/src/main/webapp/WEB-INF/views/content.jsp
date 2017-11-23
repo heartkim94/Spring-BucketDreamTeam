@@ -54,7 +54,7 @@ input.submitBtn {
 						<table border="1" width="500" align="center">
 							<tr>
 								<td>글쓴이 :</td>
-								<td>${user.name}</td>
+								<td>${article.id}</td>
 								<td>조회수 :</td>
 								<td>${article.hit}</td>
 							</tr>
@@ -87,7 +87,6 @@ input.submitBtn {
 							<tr>
 								<c:if test="${id !=null}">
 									<td colspan="4" align="right">
-										<input type="submit" value="답글달기"> 
 										<c:if test="${id ==article.id}">
 											<input type="button" value="수정하기" onclick="document.location.href='updateForm.bbs?articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
 											<input type="button" value="삭제하기" onclick="document.location.href='delete.bbs?articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
@@ -96,7 +95,7 @@ input.submitBtn {
 											<input type="button" value="수정하기" disabled="disabled">
 											<input type="button" value="삭제하기" disabled="disabled">
 										</c:if> 
-										<input type="button" value="목록으로" onclick="document.location.href='list.bbs?pageNum=${pageNum}'">
+										<input type="button" value="목록으로" onclick="document.location.href='notice.do?pageNum=${pageNum}'">
 									</td>
 								</c:if>
 	
@@ -104,35 +103,35 @@ input.submitBtn {
 									<td colspan="4" align="right">
 										<input type="button" value="수정하기" disabled="disabled"> 
 										<input type="button" value="삭제하기" disabled="disabled"> 
-										<input type="button" value="목록으로" onclick="document.location.href='list.bbs?pageNum=${pageNum}'">
+										<input type="button" value="목록으로" onclick="document.location.href='notice.do?pageNum=${pageNum}'">
 									</td>
 								</c:if>
 							</tr>
-							<tr>
-								<td colspan="4">
-									<textarea rows="5" cols="70" id="commentContent"></textarea><br><br> 
-									<c:if test="${id ==null}">
-										<input type="button" value="comment 쓰기" disabled="disabled">
-									</c:if> 
-									<c:if test="${id !=null}">
-										<input type="button" value="comment 쓰기" id="commentWrite">
-									</c:if> 
-									<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead">
-								</td>
-							</tr>
+<!-- 							<tr> -->
+<!-- 								<td colspan="4"> -->
+<!-- 									<textarea rows="5" cols="70" id="commentContent"></textarea><br><br>  -->
+<%-- 									<c:if test="${id ==null}"> --%>
+<!-- 										<input type="button" value="comment 쓰기" disabled="disabled"> -->
+<%-- 									</c:if>  --%>
+<%-- 									<c:if test="${id !=null}"> --%>
+<!-- 										<input type="button" value="comment 쓰기" id="commentWrite"> -->
+<%-- 									</c:if>  --%>
+<%-- 									<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead"> --%>
+<!-- 								</td> -->
+<!-- 							</tr> -->
 						</table>
 						<div class="btnConfirm">
 							<input type="submit" value="작성 완료" class="submitBtn" /> 
-							<a href="/project/notice.do">취소</a>
+							<a href="/project/notice.do?pageNum=${pageNum}">취소</a>
 						</div>
 					</form>
 	
-					<form>
-						<div>
-							<div id="showComment" align="center"></div>
-							<input type="hidden" id="commPageNum" value="1">
-						</div>
-					</form>
+<!-- 					<form> -->
+<!-- 						<div> -->
+<!-- 							<div id="showComment" align="center"></div> -->
+<!-- 							<input type="hidden" id="commPageNum" value="1"> -->
+<!-- 						</div> -->
+<!-- 					</form> -->
 				</div>
 			</div>
 		</section>
