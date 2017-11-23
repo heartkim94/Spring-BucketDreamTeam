@@ -11,7 +11,14 @@ public class ArticleDto {
 	private int pos;
 	private String writeDate;
 	private int fileStatus;
+	private int commentCount;
 	
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
 	public int getArticleNum() {
 		return articleNum;
 	}

@@ -138,7 +138,7 @@ input.submitBtn {
 					<!-- 글 작성 버튼 영역 -->
 					<div class="btnConfirm">
 						<input type="submit" value="작성 완료" class="submitBtn" />
-						<a href="/project/notice.do" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
+						<a href="/project/notice.do?pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
 					</div>
 				</form>
 			</div>
