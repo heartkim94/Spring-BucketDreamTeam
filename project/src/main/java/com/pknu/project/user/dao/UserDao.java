@@ -6,4 +6,5 @@ public interface UserDao {
 	public String loginCheck(String id);
 //	public String emailCheck(String email);
 	public void userInsert(UserDto userDto);
+	public void userUpdate(UserDto userDto);
 }

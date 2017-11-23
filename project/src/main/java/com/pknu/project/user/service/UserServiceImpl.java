@@ -48,15 +48,31 @@ public class UserServiceImpl implements UserService {
 			if(dbPassCheck.equals(pass)) { // db에 있는 pass랑 입력한 pass랑 같다면
 				session.setAttribute("id", id);
 				model.addAttribute("id",id);
-				view="loginOk";
+				view="user/loginOk";
 			}else { // 아이디는 맞고 패스워드 틀렸을때
-				view="passFail";
+				view="user/passFail";
 			}
 		}else {
-			view="main";
+			view="user/main";
 		}
 		return view;
 	}
+
+	@Override
+	public String mypage(HttpSession session, UserDto userDto, Model model) {
+		userDto.setId((String)session.getAttribute("id"));
+		model.addAttribute("id",session.getAttribute("id"));
+		return null;
+	}
+
+	@Override
+	public String userUpdate(HttpSession session, UserDto userDto) {
+		userDto.setId((String)session.getAttribute("id"));
+		userDao.userUpdate(userDto);
+		return null;
+	}
+
+
 
 
 	

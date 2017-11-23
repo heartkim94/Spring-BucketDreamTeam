@@ -11,4 +11,6 @@ public interface UserService {
 //	public int joinEmailCheck(String inputEmail);
 	public String userInsert(UserDto userDto);
 	public String login(HttpSession session, String id, String pass, Model model);
+	public String mypage(HttpSession session, UserDto userDto, Model model);
+	public String userUpdate(HttpSession session, UserDto userDto);
 }

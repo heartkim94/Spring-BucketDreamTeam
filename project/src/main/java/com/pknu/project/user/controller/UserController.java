@@ -62,10 +62,17 @@ public class UserController {
 		return "user/main";
 	}
 	
-//	@RequestMapping(value="mypage.user")
-//	public String mypage(HttpSession session, UserDto userDto, Model model) {
-//		userService.mypage(session,pass);
-//	}
+	@RequestMapping(value="mypage.user")
+	public String mypageForm(HttpSession session, UserDto userDto, Model model) {
+		userService.mypage(session,userDto,model);
+		return "user/mypage";
+	}
+	
+	@RequestMapping(value="userUpdate.user")
+	public String userUpdate(HttpSession session, UserDto userDto) {
+		userService.userUpdate(session, userDto);
+		return "user/main";
+	}
 	
 	
 }
