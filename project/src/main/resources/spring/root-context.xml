@@ -36,13 +36,11 @@
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
-<<<<<<< HEAD
 	<mybatis-spring:scan base-package="com.pknu.project.*.dao"/>
-=======
+	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
->>>>>>> refs/remotes/origin/community
 	
 	<mybatis-spring:scan base-package="com.pknu.project.*.dao"/>
 	
