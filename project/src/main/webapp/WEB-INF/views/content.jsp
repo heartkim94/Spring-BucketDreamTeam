@@ -1,54 +1,78 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글보기</title>
-<link href="resources/style.css" rel="stylesheet" type="text/css">
+<title>글 상세 보기</title>
 <style>
-
-
-article nav {
-	position: relative;
-	width: 100%;
-	height: 70px;
-	border-bottom: 1px solid #e9e9e9;
-}
-article nav h1, span {
-	position: absolute;
-	bottom: 10px;
-}
-article nav span {
-	right: 0px;
-}
-
 .writeFormWrap {
 	width: 100%;
 }
+
 .writeFormWrap table {
 	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 .writeFormWrap th, td {
 	background-color: transparent;
 	padding: 5px 10px;
 	box-sizing: border-box;
 }
+
 .writeFormWrap th {
-	background-color: #f5f8f9;
-	width: 15%;
+	width: 120px;
+	padding: 7px 13px;
+	border: 1px solid #e9e9e9;
+	border-left: 0;
+	background: #f5f8f9;
 	text-align: left;
 }
+
+.writeFormWrap td {
+	padding: 7px 10px;
+	border-top: 1px solid #e9e9e9;
+	border-bottom: 1px solid #e9e9e9;
+	background: transparent;
+}
+
+input, textarea {
+	border: 1px solid #e4eaec;
+	background: #f7f7f7;
+	color: #000;
+	vertical-align: middle;
+	line-height: 2em;
+}
+
 textarea {
 	width: 100%;
 	height: 300px;
 }
+
 .btnConfirm {
 	margin: 20px 0;
 	text-align: center;
+}
+
+input.submitBtn {
+	padding: 8px;
+	border: 0;
+	background-color: orange;
+	color: #fff;
+	letter-spacing: -0.1em;
+	cursor: pointer;
+}
+
+.cancelBtn {
+	display: inline-block;
+	padding: 7px;
+	border: 1px solid #ccc;
+	background: #fafafa;
+	color: #000;
+	text-decoration: none;
+	vertical-align: middle;
 }
 
 .uploadListWrap {
@@ -60,11 +84,13 @@ textarea {
 	border: 1px solid #bfbfbf;
 	box-sizing: border-box;
 }
+
 .upListHead {
 	width: 100%;
 	height: 20px;
 	border-bottom: 1px solid #bfbfbf;
 }
+
 .upListView {
 	width: 100%;
 	height: 90px;
@@ -72,68 +98,114 @@ textarea {
 </style>
 </head>
 <body>
-<div id="wrapper">
+	<div id="wrapper">
 
-	<jsp:include page="header.jsp"/>
-	<section>
-		<jsp:include page="aside.jsp"/>
-		<article>
-			<div>
+		<jsp:include page="header.jsp" />
+		<section> 
+			<jsp:include page="aside.jsp" />
+			<div class="subContent">
 				<nav>
-					<h1>NOTICE</h1>
-					<span>home > community > notice</span>
-				</nav>
+				<h1>NOTICE</h1>
+				<span>home > community > notice</span> </nav>
 				<div>
 					<form action="update.do" method="post">
-						<!-- 글쓰기 영역 전체 감쌈 -->
-						<div class="writeFormWrap"> 
-			<!-- 			<input type="hidden" name="id" value="#" /> 작성자 id -->
-							<table border="1" cellpadding="0" cellspacing="0">
-								<tr>
-									<th><label for="title">제목</label></th>
-									<td align="left"><input type="text" name="title" id="title"/></td>
-								</tr>
-								<tr>
-									<th>작성자</th>
-									<td align="left">작성자이름</td>
-								</tr>
-								<tr>
-									<th><label for="content">내용</label></th>
-									<td align="left"><textarea id="content" style="resize: none;" name="content" cols="40" rows="10"></textarea></td>
-								</tr>
-								<tr>
-								 	<th style="vertical-align: top;">
-								 		파일 첨부
-								 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a>
-								 	</th>
-									<td>
-										<div class="fForm">
-											<a href="#" class="fileUpBtn" >파일열기</a>
-											<input type="file" style="display: none;" />
-										</div>
-										<div class="uploadListWrap">
-											<div class="upListHead"></div>
-											<div class="upListView"></div>
-										</div>
+						<input type="hidden" name="pageNum" value="${pageNum}">
+						<input type="hidden" name="depth" value="${article.depth}">
+						<!--     계층형 쿼리 사용을 위해서 부모글의 글 번호가 답글의 groupId가 되어야 함 -->
+						<input type="hidden" name="groupId" value="${article.articleNum}">
+						<table border="1" width="500" align="center">
+							<tr>
+								<td>글쓴이 :</td>
+								<td>${article.id}</td>
+								<td>조회수 :</td>
+								<td>${article.hit}</td>
+							</tr>
+							<tr>
+								<td>제목 :</td>
+								<td>${article.title}</td>
+								<td>날짜 :</td>
+								<td>${article.writeDate}</td>
+							</tr>
+							<tr>
+								<td colspan="2">다운로드</td>
+								<td colspan="2">
+									<c:if test="${article.fileStatus !=0 }">
+										<c:if test="${fileList!=null}">
+											<ul>
+												<c:forEach var="storedFname" items="${fileList}">
+													<li>
+														<a href="/bbs/download.bbs?storedFname=${storedFname}">${storedFname.substring(storedFname.indexOf("_")+1)}</a>
+													</li>
+												</c:forEach>
+											</ul>
+										</c:if>
+									</c:if>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4"><xmp>${article.content}</xmp></td>
+							</tr>
+	
+							<tr>
+								<c:if test="${id !=null}">
+									<td colspan="4" align="right">
+										<input type="submit" value="답글달기"> 
+										<c:if test="${id ==article.id}">
+											<input type="button" value="수정하기" onclick="document.location.href='updateForm.bbs?articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+											<input type="button" value="삭제하기" onclick="document.location.href='delete.bbs?articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+										</c:if> 
+										<c:if test="${id !=article.id}">
+											<input type="button" value="수정하기" disabled="disabled">
+											<input type="button" value="삭제하기" disabled="disabled">
+										</c:if> 
+										<input type="button" value="목록으로" onclick="document.location.href='list.bbs?pageNum=${pageNum}'">
 									</td>
-								</tr>
-							</table>
-						</div>
-						<!-- 글 작성 버튼 영역 -->
+								</c:if>
+	
+								<c:if test="${id ==null}">
+									<td colspan="4" align="right"><input type="submit"
+										value="답글달기" disabled="disabled"> <input type="button"
+										value="수정하기" disabled="disabled"> <input type="button"
+										value="삭제하기" disabled="disabled"> <input type="button"
+										value="목록으로"
+										onclick="document.location.href='list.bbs?pageNum=${pageNum}'">
+									</td>
+								</c:if>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<textarea rows="5" cols="70" id="commentContent"></textarea><br><br> 
+									<c:if test="${id ==null}">
+										<input type="button" value="comment 쓰기" disabled="disabled">
+									</c:if> 
+									<c:if test="${id !=null}">
+										<input type="button" value="comment 쓰기" id="commentWrite">
+									</c:if> 
+									<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead">
+								</td>
+							</tr>
+						</table>
 						<div class="btnConfirm">
-							<input type="submit" value="작성 완료" class="submitBtn" />
-							<a href="/project/notice.do" >취소</a><!-- 클릭시 리스트 페이지로 이동 -->
+							<input type="submit" value="작성 완료" class="submitBtn" /> 
+							<a href="/project/notice.do">취소</a>
+						</div>
+					</form>
+	
+					<form>
+						<div>
+							<div id="showComment" align="center"></div>
+							<input type="hidden" id="commPageNum" value="1">
 						</div>
 					</form>
 				</div>
 			</div>
-		</article>
-	</section>
-	<jsp:include page="footer.jsp"/>
+		</section>
+		<jsp:include page="footer.jsp" />
 
-</div> <!-- wrapper End -->
+	</div>
+	<!-- wrapper End -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </body>
 </html>

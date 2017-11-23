@@ -32,4 +32,10 @@ public class CommunityController {
 		System.out.println("***write***");
 		return "notice";   
 	}
+	
+	@RequestMapping(value="/content.do" )
+	public String getNoticeArticle(){
+		System.out.println("***getNoticeArticle***");
+		return "content";   
+	}
 }

@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<link href="resources/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="resources/css/style.css">
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 

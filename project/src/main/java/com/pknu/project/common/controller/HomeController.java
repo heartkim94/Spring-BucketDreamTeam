@@ -25,11 +25,4 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/writeForm.do")
-	@Transactional
-	public String list(){
-		System.out.println("writeForm");
-		return "writeForm";   
-	}
-
 }
