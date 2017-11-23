@@ -86,7 +86,7 @@ textarea {
 				<div>
 					<form action="write.do" method="post">
 						<!-- 글쓰기 영역 전체 감쌈 -->
-						<div class="writeFormWrap"> 
+						<div class="writeFormWrap">
 			<!-- 			<input type="hidden" name="id" value="#" /> 작성자 id -->
 							<table border="1" cellpadding="0" cellspacing="0">
 								<tr>
@@ -104,7 +104,7 @@ textarea {
 								<tr>
 								 	<th style="vertical-align: top;">
 								 		파일 첨부
-								 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a>
+								 		<a href="#" title="파일 첨부 열기" class="openFList" style="text-decoration: none;">▼</a>
 								 	</th>
 									<td>
 										<div class="fForm">
@@ -122,7 +122,7 @@ textarea {
 						<!-- 글 작성 버튼 영역 -->
 						<div class="btnConfirm">
 							<input type="submit" value="작성 완료" class="submitBtn" />
-							<a href="/project/notice.do" >취소</a><!-- 클릭시 리스트 페이지로 이동 -->
+							<a href="/project/notice.do?pageNum=1" >취소</a><!-- 클릭시 리스트 페이지로 이동 -->
 						</div>
 					</form>
 				</div>
