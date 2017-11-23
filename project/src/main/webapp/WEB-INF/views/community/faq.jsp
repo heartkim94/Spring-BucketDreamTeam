@@ -22,37 +22,12 @@
 		</table>
 		<table border="1" width="700" cellpadding="2" cellspacing="2">
 			<tr height="30">
-				<td align="center" width="50">번 호</td>
 				<td align="center" width="250">제 목</td>
-				<td align="center" width="100">작성자</td>
-				<td align="center" width="150">작성일</td>
-				<td align="center" width="50">조 회</td>
 			</tr>
 	
 			<c:forEach var="article" items="${articleList}">
 				<tr height="30">
-					<td align="center" width="50"><c:out value="${article.articleNum}" /></td>
-					<td width="250">
-						<c:if test="${article.depth > 0}">
-							<img src="images/image3.png" width="${10 * article.depth}" height="16">
-							<img src="images/cut.gif">
-						</c:if>
-						<c:if test="${article.depth == 0}">
-							<img src="images/image3.png" width="0" height="16">
-						</c:if>
-						<a href="content.bbs?articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
-							${article.title}
-							<c:if test="${article.commentCount!=0}">
-								<span style="color: red">(${article.commentCount})</span>
-							</c:if>
-						</a>
-						<c:if test="${article.hit >= 20}">
-							<img src="images/image3.png" border="0" height="16">
-						</c:if>
-					</td>
-					<td align="center" width="100">${article.id}</td>
-					<td align="center" width="150">${article.writeDate}</td>
-					<td align="center" width="50">${article.hit}</td>
+					<td align="center" width="50"><c:out value="${article.title}" /></td>
 				</tr>
 			</c:forEach>
 			<tr>

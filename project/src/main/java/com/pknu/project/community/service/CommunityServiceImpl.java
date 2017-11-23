@@ -42,4 +42,21 @@ public class CommunityServiceImpl implements CommunityService {
 		return model;
 	}
 
+	@Override
+	public void faqList(int pageNum, Model model){
+		int totalCount = 0;
+		int pageSize = 10; //한페이지에 보여줄 글의 갯수
+		int pageBlock = 10; //한 블럭당 보여줄 페이지 갯수
+
+		totalCount = communityDao.getNoticeCount();
+		page.paging(pageNum, totalCount, pageSize, pageBlock);
+		paramMap = new HashMap<>();
+		paramMap.put("startRow", page.getStartRow());
+		paramMap.put("endRow", page.getEndRow());
+		
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("articleList", communityDao.getFaqArticles(paramMap));
+		model.addAttribute("pageCode",page.getSb().toString());
+	}
+
 }

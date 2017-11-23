@@ -32,4 +32,11 @@ public class CommunityController {
 		System.out.println("***write***");
 		return "notice";   
 	}
+	
+	@RequestMapping(value="/faq.do", method=RequestMethod.GET)
+	public String faqList(@ModelAttribute("pageNum") int pageNum, Model model) {
+		System.out.println("***faq.do***");
+		svc.faqList(pageNum, model);
+		return "community/faq";
+	}
 }
