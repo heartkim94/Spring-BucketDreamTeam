@@ -15,7 +15,7 @@ CREATE TABLE user(
     isAdmin boolean not null default false
 	);
 	
-insert into user values('test', '1234', 'Hong', 'KKong', '010-1111-1111', 'kkong@email', 'm', false);
+insert into user values('test', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', false);
 
 -- #Community
 -- table Notice
