@@ -4,7 +4,58 @@
               "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="com.pknu.project.community.dao.CommunityDao">
-<!-- 	<select id="" parameterType="" resultType=""> -->
-<!-- 		SELECT COUNT(*) FROM BBS2 -->
-<!-- 	</select> -->
+	<select id="getNoticeCount" resultType="int">
+		SELECT COUNT(*) FROM BBS2
+	</select>
+	
+	<select id="getArticles" parameterType="HashMap" resultType="article">
+		SELECT articleNum,id,title,depth,hit,
+			   to_char(writeDate,'YYYY-MM-DD') as writeDate,fileStatus,commentCount
+		FROM (SELECT ROWNUM RM, human.*
+								FROM (SELECT BBS2.*,(select count(*)
+													 from comments2
+													 where bbs2.articleNum=comments2.articleNum	
+													) as commentCount 
+									  FROM  BBS2 
+									  START WITH groupId=0 
+									  CONNECT BY PRIOR articleNum=groupId 
+									  ORDER SIBLINGS BY articleNum desc) human)  
+		WHERE RM BETWEEN #{startRow} and #{endRow}
+	</select>
 </mapper>
+
+
+
+
+
+
+drop database project;
+create database project;
+use project;
+<<<<<<< HEAD
+<<<<<<< Upstream, based on master
+
+-- #User
+-- table User
+CREATE TABLE user(
+	id varchar(50) PRIMARY KEY,
+	pass varchar(50) NOT NULL,
+	name varchar(100) NOT NULL,
+	nickName varchar(100) NOT NULL,
+	email varchar(100) NOT NULL,
+	phoneNumber int NOT NULL,
+	gender varchar(10) NOT NULL
+	);
+
+-- #Community
+-- table Notice
+create table Notice(
+    articleNum int primary key auto_increment,
+    id varchar(300) not null,
+    title varchar(500) not null,
+    content text not null,
+    depth int not null,
+    hit int not null,
+    groupId int not null,
+    writeDate date not null,
+    fileStatus int(1) not null);

@@ -12,12 +12,12 @@
 <body>
 	<%@ include file="header.jsp" %>
 	<div id="includeHeader"></div>
-	<div class="contents">
+	<div class="content">
 		<div class="intro">
-			<img alt="홈페이지 소개 사진이나 글, 슬라이드" src="resources/img/흐엉.jpg" width="300" height="300"><br>
+			<img src="resources/img/흐엉.jpg" width="300" height="300" alt="홈페이지 소개 사진이나 글, 슬라이드"><br>
 			<h1>Hello, world!</h1>
 			<p>blah blah</p>
-			<button type="button" onclick="alert('Coming Soon!')">Click!!</button>
+			<button type="button" onclick="alert('Coming Soon!!!')">Click!!</button>
 		</div>
 		
 		<div class="login">

@@ -21,7 +21,6 @@ public class HomeController {
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		System.out.println("ahomeㅋㅋㅋㅋㅋ");
 		System.out.println("hello");
 		return "home";
 	}
@@ -29,6 +28,7 @@ public class HomeController {
 	@RequestMapping(value="/writeForm.do")
 	@Transactional
 	public String list(){
+		System.out.println("writeForm");
 		return "writeForm";   
 	}
 }
