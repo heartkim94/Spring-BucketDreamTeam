@@ -38,11 +38,11 @@ public class UserController {
 		
 	}
 	
-//	@RequestMapping(value="joinEmailCheck.user")
-//	@ResponseBody
-//	public int joinEmailCheck(@RequestParam("inputEmail") String inputEmail) { //회원가입 이메일 중복체크
-//		return userService.joinEmailCheck(inputEmail); 
-//	}
+	@RequestMapping(value="joinEmailCheck.user")
+	@ResponseBody
+	public int joinEmailCheck(@RequestParam("inputEmail") String inputEmail) { //회원가입 이메일 중복체크
+		return userService.joinEmailCheck(inputEmail); 
+	}
 	
 	
 	@RequestMapping(value="userInsert.user")
@@ -72,6 +72,12 @@ public class UserController {
 	public String userUpdate(HttpSession session, UserDto userDto) {
 		userService.userUpdate(session, userDto);
 		return "user/main";
+	}
+	
+	@RequestMapping(value="/checkJoin.user")
+	public String checkJoin(@RequestParam("certKey") String certKey,Model model) {
+		userService.checkJoin(certKey,model);
+		return "user/emailAlertPage";
 	}
 	
 	

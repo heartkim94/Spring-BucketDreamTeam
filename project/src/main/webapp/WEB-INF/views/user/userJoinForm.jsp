@@ -8,6 +8,8 @@
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script>
+	let idcheck = false;
+	let emailcheck = false;
 	$.ajaxSetup({
 		type:"POST",
 		async:true,
@@ -30,44 +32,60 @@
 						if(data==1){
 							html="<b>사용 가능한 아이디입니다.</b>"
 							$("#idcheck").html(html).css("color","green");
+							idcheck=true;
 						}else{
 							html="<b>중복된 아이디입니다.<b>";
 							$("#idcheck").html(html).css("color","red");
+							idcheck=false;
 						}
 					}else{
 						html="<b>아이디를 입력해주세요.<b>";
 						$("#idcheck").html(html).css("color","red");
+						idcheck=false;
 					}
 				}
 			});
 		});
 	});
 	
-// 	$(function(){
-// 		$("#email").on("blur",function(){
-// 			$.ajax({
-// 				url:"/project/joinEmailCheck.user",
-// 				data:{
-// 					inputEmail:$("#email").val()
-// 				},
-// 				success:function(data){
-// 					let html;
-// 					if($("#email").val()!=""){
-// 						if(data==1){
-// 							html="<b>사용 가능한 이메일입니다.</b>"
-// 							$("#emailcheck").html(html).css("color","green");
-// 						}else{
-// 							html="<b>중복된 이메일입니다.<b>";
-// 							$("#emailcheck").html(html).css("color","red");
-// 						}
-// 					}else {
-// 						html="<b>이메일을 입력해주세요.<b>";
-// 						$("#emailcheck").html(html).css("color","red");
-// 					}
-// 				}
-// 			});
-// 		});
-// 	});
+	$(function(){
+		$("#email").on("blur",function(){
+			$.ajax({
+				url:"/project/joinEmailCheck.user",
+				data:{
+					inputEmail:$("#email").val()
+				},
+				success:function(data){
+					let html;
+					if($("#email").val()!=""){
+						if(data==1){
+							html="<b>사용 가능한 이메일입니다.</b>"
+							$("#emailcheck").html(html).css("color","green");
+							emailcheck=true;
+						}else{
+							html="<b>중복된 이메일입니다.<b>";
+							$("#emailcheck").html(html).css("color","red");
+							emailcheck=false;
+						}
+					}else {
+						html="<b>이메일을 입력해주세요.<b>";
+						$("#emailcheck").html(html).css("color","red");
+						emailcheck=false;
+					}
+				}
+			});
+		});
+	});
+	
+	function availability(){
+		if(idcheck==true&&emailcheck==true){
+			alert("메일인증을 보냈습니다\n잠시만기다려주세요");
+			return true;
+		}else if(!idcheck || !emailcheck){
+			alert("확인해주세요");
+			return false;
+		}
+	}
 	</script>
 	  <title>회원가입</title>
 		<!--부트스트랩-->
@@ -117,7 +135,7 @@
                  
  
  
-        <form class="form-horizontal" role="form" method="post" action="/project/userInsert.user">
+        <form class="form-horizontal" role="form" method="post" action="/project/userInsert.user" onsubmit="return availability()">
             <div class="form-group" id="divId">
                 <label for="id" class="col-lg-2 control-label">아이디</label>
                 <div class="col-lg-5">
@@ -318,7 +336,7 @@
                     var divPasswordCheck = $('#divPasswordCheck');
 //                     var divName = $('#divName');
 //                     var divNickname = $('#divNickname');
-//                     var divEmail = $('#divEmail');
+                    var divEmail = $('#divEmail');
 //                     var divPhoneNumber = $('#divPhoneNumber');
                      
                     //아이디 검사
@@ -407,19 +425,7 @@
                         divNickname.addClass("has-success");
                     }
                      
-                    //이메일
-                    if($('#email').val()==""){
-                        modalContents.text("이메일을 입력하여 주시기 바랍니다.");
-                        modal.modal('show');
-                         
-                        divEmail.removeClass("has-success");
-                        divEmail.addClass("has-error");
-                        $('#email').focus();
-                        return false;
-                    }else{
-                        divEmail.removeClass("has-error");
-                        divEmail.addClass("has-success");
-                    }
+
                      
                     //휴대폰 번호
                     if($('#phoneNumber').val()==""){
@@ -435,6 +441,19 @@
                         divPhoneNumber.addClass("has-success");
                     }  
                  	*/
+                    //이메일
+                    if($('#email').val()==""){
+                        modalContents.text("이메일을 입력하여 주시기 바랍니다.");
+                        modal.modal('show');
+                         
+                        divEmail.removeClass("has-success");
+                        divEmail.addClass("has-error");
+                        $('#email').focus();
+                        return false;
+                    }else{
+                        divEmail.removeClass("has-error");
+                        divEmail.addClass("has-success");
+                    }
                 });
                  
             });

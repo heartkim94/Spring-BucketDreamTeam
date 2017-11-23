@@ -1,6 +1,9 @@
 package com.pknu.project.user.dto;
 
 public class UserDto {
+	public static final int SUCCESS = 1;
+	public static final int FAIL = 0;
+	
 	private String id;
 	private String pass;
 	private String name;
@@ -8,6 +11,8 @@ public class UserDto {
 	private String email;
 	private String phoneNumber;
 	private String gender;
+	private String certKey;
+	private int certify;
 	
 	public String getId() {
 		return id;
@@ -51,13 +56,25 @@ public class UserDto {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	public String getCertKey() {
+		return certKey;
+	}
+	public void setCertKey(String certKey) {
+		this.certKey = certKey;
+	}
+	public int getCertify() {
+		return certify;
+	}
+	public void setCertify(int certify) {
+		this.certify = certify;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserDto [id=" + id + ", pass=" + pass + ", name=" + name + ", nickName=" + nickName + ", email=" + email
-				+ ", phoneNumber=" + phoneNumber + ", gender=" + gender + "]";
+				+ ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", certKey=" + certKey + ", certify="
+				+ certify + "]";
 	}
-	
-	
 }
 
 /*
@@ -71,9 +88,11 @@ id varchar(50) PRIMARY KEY,
 pass varchar(50) NOT NULL,
 name varchar(100),
 nickName varchar(100),
-email varchar(100),
+email varchar(100) not null,
 phoneNumber varchar(100),
-gender varchar(10) NOT NULL
+gender varchar(10) NOT NULL,
+certkey varchar(100) not null,
+certify int default 0 not null
 );
 
 */
