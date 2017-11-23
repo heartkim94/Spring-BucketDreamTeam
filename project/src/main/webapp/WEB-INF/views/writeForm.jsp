@@ -111,7 +111,7 @@ input.submitBtn {
 							</tr>
 							<tr>
 								<th>작성자</th>
-								<td align="left">작성자이름</td>
+								<td align="left">${user.name }</td>
 							</tr>
 							<tr>
 								<th><label for="content">내용</label></th>

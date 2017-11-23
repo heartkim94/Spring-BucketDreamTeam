@@ -6,50 +6,7 @@
 <meta charset="UTF-8">
 <title>글 상세 보기</title>
 <style>
-.writeFormWrap {
-	width: 100%;
-}
 
-.writeFormWrap table {
-	width: 100%;
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-.writeFormWrap th, td {
-	background-color: transparent;
-	padding: 5px 10px;
-	box-sizing: border-box;
-}
-
-.writeFormWrap th {
-	width: 120px;
-	padding: 7px 13px;
-	border: 1px solid #e9e9e9;
-	border-left: 0;
-	background: #f5f8f9;
-	text-align: left;
-}
-
-.writeFormWrap td {
-	padding: 7px 10px;
-	border-top: 1px solid #e9e9e9;
-	border-bottom: 1px solid #e9e9e9;
-	background: transparent;
-}
-
-input, textarea {
-	border: 1px solid #e4eaec;
-	background: #f7f7f7;
-	color: #000;
-	vertical-align: middle;
-	line-height: 2em;
-}
-
-textarea {
-	width: 100%;
-	height: 300px;
-}
 
 .btnConfirm {
 	margin: 20px 0;
@@ -75,26 +32,7 @@ input.submitBtn {
 	vertical-align: middle;
 }
 
-.uploadListWrap {
-	display: none;
-	margin-top: 10px;
-	width: 100%;
-	height: auto;
-	background-color: #fff;
-	border: 1px solid #bfbfbf;
-	box-sizing: border-box;
-}
 
-.upListHead {
-	width: 100%;
-	height: 20px;
-	border-bottom: 1px solid #bfbfbf;
-}
-
-.upListView {
-	width: 100%;
-	height: 90px;
-}
 </style>
 </head>
 <body>
@@ -116,7 +54,7 @@ input.submitBtn {
 						<table border="1" width="500" align="center">
 							<tr>
 								<td>글쓴이 :</td>
-								<td>${article.id}</td>
+								<td>${user.name}</td>
 								<td>조회수 :</td>
 								<td>${article.hit}</td>
 							</tr>
@@ -126,22 +64,22 @@ input.submitBtn {
 								<td>날짜 :</td>
 								<td>${article.writeDate}</td>
 							</tr>
-							<tr>
-								<td colspan="2">다운로드</td>
-								<td colspan="2">
-									<c:if test="${article.fileStatus !=0 }">
-										<c:if test="${fileList!=null}">
-											<ul>
-												<c:forEach var="storedFname" items="${fileList}">
-													<li>
-														<a href="/bbs/download.bbs?storedFname=${storedFname}">${storedFname.substring(storedFname.indexOf("_")+1)}</a>
-													</li>
-												</c:forEach>
-											</ul>
-										</c:if>
-									</c:if>
-								</td>
-							</tr>
+<!-- 							<tr> -->
+<!-- 								<td colspan="2">다운로드</td> -->
+<!-- 								<td colspan="2"> -->
+<%-- 									<c:if test="${article.fileStatus !=0 }"> --%>
+<%-- 										<c:if test="${fileList!=null}"> --%>
+<!-- 											<ul> -->
+<%-- 												<c:forEach var="storedFname" items="${fileList}"> --%>
+<!-- 													<li> -->
+<%-- 														<a href="/bbs/download.bbs?storedFname=${storedFname}">${storedFname.substring(storedFname.indexOf("_")+1)}</a> --%>
+<!-- 													</li> -->
+<%-- 												</c:forEach> --%>
+<!-- 											</ul> -->
+<%-- 										</c:if> --%>
+<%-- 									</c:if> --%>
+<!-- 								</td> -->
+<!-- 							</tr> -->
 							<tr>
 								<td colspan="4"><xmp>${article.content}</xmp></td>
 							</tr>
@@ -163,12 +101,10 @@ input.submitBtn {
 								</c:if>
 	
 								<c:if test="${id ==null}">
-									<td colspan="4" align="right"><input type="submit"
-										value="답글달기" disabled="disabled"> <input type="button"
-										value="수정하기" disabled="disabled"> <input type="button"
-										value="삭제하기" disabled="disabled"> <input type="button"
-										value="목록으로"
-										onclick="document.location.href='list.bbs?pageNum=${pageNum}'">
+									<td colspan="4" align="right">
+										<input type="button" value="수정하기" disabled="disabled"> 
+										<input type="button" value="삭제하기" disabled="disabled"> 
+										<input type="button" value="목록으로" onclick="document.location.href='list.bbs?pageNum=${pageNum}'">
 									</td>
 								</c:if>
 							</tr>
