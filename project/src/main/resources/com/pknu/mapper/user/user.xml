@@ -10,5 +10,5 @@
 	</select>
 	<insert id="userInsert" parameterType="user">
 		insert into user values(#{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender})
-	</insert>
+	</insert> 
 </mapper>
