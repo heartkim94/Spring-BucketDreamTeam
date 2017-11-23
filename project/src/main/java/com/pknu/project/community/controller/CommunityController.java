@@ -16,9 +16,15 @@ public class CommunityController {
 		return "notice";
 	}
 	
-	@RequestMapping(value="/writeForm.do", method=RequestMethod.GET)
+	@RequestMapping(value="/write.do", method=RequestMethod.GET)
 	public String writeForm(){
 		System.out.println("***writeForm***");
 		return "writeForm";   
+	}
+	
+	@RequestMapping(value="/write.do", method=RequestMethod.POST)
+	public String write(){
+		System.out.println("***write***");
+		return "notice";   
 	}
 }

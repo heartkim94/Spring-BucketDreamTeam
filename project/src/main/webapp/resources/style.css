@@ -22,7 +22,18 @@ section {
 	height: auto;
 	overflow: hidden;
 }
-
+article {
+	float: right;
+	width: 80%;
+	padding-left: 5%;
+	box-sizing: border-box;
+}
+article > div {
+	float: right;
+	width: 100%;
+	border: 1px solid blue;
+	box-sizing: border-box;
+}
 div{
 /* 	border:1px solid #8000ff; */
 }

@@ -10,13 +10,6 @@
 <style>
 
 
-article {
-	float: right;
-	width: 80%;
-	background-color: pink;
-	padding-left: 5%;
-	box-sizing: border-box;
-}
 article nav {
 	position: relative;
 	width: 100%;
@@ -30,25 +23,23 @@ article nav h1, span {
 article nav span {
 	right: 0px;
 }
-article > div {
-	float: right;
-	width: 100%;
-	border: 1px solid blue;
-	box-sizing: border-box;
-}
+
 .writeFormWrap {
 	width: 100%;
 }
 .writeFormWrap table {
 	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 .writeFormWrap th, td {
+	background-color: transparent;
 	padding: 5px 10px;
 	box-sizing: border-box;
 }
 .writeFormWrap th {
-	background-color: orange;
-	width: 20%;
+	background-color: #f5f8f9;
+	width: 15%;
 	text-align: left;
 }
 textarea {
@@ -89,52 +80,52 @@ textarea {
 		<article>
 			<div>
 				<nav>
-					<h1>Q&A</h1>
-					<span>home > community > qna</span>
+					<h1>NOTICE</h1>
+					<span>home > community > notice</span>
 				</nav>
-				<form action="#" method="post">
-					<!-- 글쓰기 영역 전체 감쌈 -->
-					<div class="writeFormWrap"> 
-		<!-- 			<input type="hidden" name="id" value="#" /> 작성자 id -->
-						<table border="1" cellpadding="0" cellspacing="0">
-							<tr>
-								<th><label for="title">제목</label></th>
-								<td align="left"><input type="text" name="title" id="title"/></td>
-							</tr>
-							<tr>
-								<th>작성자</th>
-								<td align="left">작성자이름</td>
-							</tr>
-							<tr>
-								<th><label for="content">내용</label></th>
-								<td align="left"><textarea id="content" style="resize: none;" name="content" cols="40" rows="10"></textarea></td>
-							</tr>
-							<tr>
-							 	<th style="vertical-align: top;">
-							 		파일 첨부
-							 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a>
-							 	</th>
-								<td>
-									<div class="fForm">
-										<a href="#" class="fileUpBtn" >파일열기</a>
-										<input type="file" style="display: none;" />
-									</div>
-									<div class="uploadListWrap">
-										<div class="upListHead"></div>
-										<div class="upListView"></div>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-					<!-- 글 작성 버튼 영역 -->
-					<div class="btnConfirm">
-						<input type="submit" value="작성 완료" class="submitBtn" />
-						<a href="#" >취소</a><!-- 클릭시 리스트 페이지로 이동 -->
-					</div>
-				</form>
-				<hr>
-				<a href="/project/home">글 목록 바로가기</a>
+				<div>
+					<form action="write.do" method="post">
+						<!-- 글쓰기 영역 전체 감쌈 -->
+						<div class="writeFormWrap"> 
+			<!-- 			<input type="hidden" name="id" value="#" /> 작성자 id -->
+							<table border="1" cellpadding="0" cellspacing="0">
+								<tr>
+									<th><label for="title">제목</label></th>
+									<td align="left"><input type="text" name="title" id="title"/></td>
+								</tr>
+								<tr>
+									<th>작성자</th>
+									<td align="left">작성자이름</td>
+								</tr>
+								<tr>
+									<th><label for="content">내용</label></th>
+									<td align="left"><textarea id="content" style="resize: none;" name="content" cols="40" rows="10"></textarea></td>
+								</tr>
+								<tr>
+								 	<th style="vertical-align: top;">
+								 		파일 첨부
+								 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a>
+								 	</th>
+									<td>
+										<div class="fForm">
+											<a href="#" class="fileUpBtn" >파일열기</a>
+											<input type="file" style="display: none;" />
+										</div>
+										<div class="uploadListWrap">
+											<div class="upListHead"></div>
+											<div class="upListView"></div>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<!-- 글 작성 버튼 영역 -->
+						<div class="btnConfirm">
+							<input type="submit" value="작성 완료" class="submitBtn" />
+							<a href="/project/notice.do" >취소</a><!-- 클릭시 리스트 페이지로 이동 -->
+						</div>
+					</form>
+				</div>
 			</div>
 		</article>
 	</section>
