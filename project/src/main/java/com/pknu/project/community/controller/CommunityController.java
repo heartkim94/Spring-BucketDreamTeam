@@ -21,6 +21,7 @@ public class CommunityController {
 		return "notice";
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
 	public String writeForm(){
 		System.out.println("***writeForm***");
@@ -33,3 +34,7 @@ public class CommunityController {
 		return "notice";   
 	}
 }
+=======
+	@RequestMapping(value = "/faq.do", method = RequestMethod.GET)
+}
+>>>>>>> refs/heads/communityFaqView
