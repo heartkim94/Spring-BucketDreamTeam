@@ -211,7 +211,7 @@
                 $(".onlyNumber").keyup(function(event){ // 숫자 + - 
                     if (!(event.keyCode >=37 && event.keyCode<=40)) {
                         var inputVal = $(this).val();
-                        $(this).val(inputVal.replace(/[^-0-9]/gi,''));
+                        $(this).val(inputVal.replace(/^01[016789]-\d{3,4}-\d{4}$/gi,''));
                     }
                 });
                  

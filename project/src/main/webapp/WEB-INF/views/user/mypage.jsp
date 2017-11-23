@@ -56,7 +56,10 @@
  
         <form class="form-horizontal" role="form" method="post" action="/project/userUpdate.user">
             <div class="form-group" id="divId">
-                <label for="id" class="col-lg-2 control-label">아이디</label>${id}
+				<label for="id" class="col-lg-2 control-label">아이디</label>
+				<div class="col-lg-5">
+               		 <input type="text" class="form-control" id="id" name="id" value="${id}" readonly="readonly">
+           		</div>
             </div>
             <div class="form-group" id="divPassword">
                 <label for="pass" class="col-lg-2 control-label">패스워드(수정)</label>
