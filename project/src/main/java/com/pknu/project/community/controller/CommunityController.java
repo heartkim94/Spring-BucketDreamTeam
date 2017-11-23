@@ -14,5 +14,6 @@ public class CommunityController {
 		System.out.println("***notice***");
 		return "notice";
 	}
-
+	
+	@RequestMapping(value = "/faq.do", method = RequestMethod.GET)
 }
