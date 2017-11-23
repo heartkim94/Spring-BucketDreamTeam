@@ -3,8 +3,74 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
-<mapper namespace="com.pknu.project.community.dao.BBSDao">
-<!-- 	<select id="getArticleCount" resultType="int"> -->
-<!-- 		SELECT COUNT(*) FROM BBS2 -->
-<!-- 	</select> -->
+<mapper namespace="com.pknu.project.community.dao.CommunityDao">
+	<select id="getNoticeCount" resultType="int">
+		SELECT COUNT(*) FROM BBS2
+	</select>
+	
+	<select id="getArticles" parameterType="HashMap" resultType="article">
+		SELECT articleNum,id,title,depth,hit,
+			   to_char(writeDate,'YYYY-MM-DD') as writeDate,fileStatus,commentCount
+		FROM (SELECT ROWNUM RM, human.*
+								FROM (SELECT BBS2.*,(select count(*)
+													 from comments2
+													 where bbs2.articleNum=comments2.articleNum	
+													) as commentCount 
+									  FROM  BBS2 
+									  START WITH groupId=0 
+									  CONNECT BY PRIOR articleNum=groupId 
+									  ORDER SIBLINGS BY articleNum desc) human)  
+		WHERE RM BETWEEN #{startRow} and #{endRow}
+	</select>
 </mapper>
+
+
+
+
+
+
+drop database project;
+create database project;
+use project;
+
+-- #User
+-- table User
+CREATE TABLE user(
+	id varchar(50) PRIMARY KEY,
+	pass varchar(50) NOT NULL,
+	name varchar(100),
+	nickName varchar(100),
+	email varchar(100),
+	phoneNumber char(13),
+	gender enum('m', 'f'),
+    isAdmin boolean not null default false
+	);
+	
+insert into user values('test', '1234', 'Hong', 'KKong', 'kkong@email', '010-1111-1111', 'm', false);
+
+-- #Community
+-- table Notice
+create table Notice(
+    articleNum int primary key auto_increment,
+    id varchar(300) not null,
+    title varchar(500) not null,
+    content text not null,
+    depth int not null,
+    hit int not null,
+    groupId int not null,
+    pos int not null,
+    writeDate date not null,
+    fileStatus int(1) not null);
+    
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test notice article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0);    
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test notice article2', 'no content', 0, 0, 2, 0, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test notice article3', 'no content', 0, 0, 3, 0, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test reply article4', 'no content', 1, 0, 1, 1, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test reply article5', 'no content', 1, 0, 1, 3, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test reply article6', 'no content', 2, 0, 1, 2, '2017-11-22', 0);
