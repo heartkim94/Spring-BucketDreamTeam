@@ -32,20 +32,21 @@
 drop database project;
 create database project;
 use project;
-<<<<<<< HEAD
-<<<<<<< Upstream, based on master
 
 -- #User
 -- table User
 CREATE TABLE user(
 	id varchar(50) PRIMARY KEY,
 	pass varchar(50) NOT NULL,
-	name varchar(100) NOT NULL,
-	nickName varchar(100) NOT NULL,
-	email varchar(100) NOT NULL,
-	phoneNumber int NOT NULL,
-	gender varchar(10) NOT NULL
+	name varchar(100),
+	nickName varchar(100),
+	email varchar(100),
+	phoneNumber char(13),
+	gender enum('m', 'f'),
+    isAdmin boolean not null default false
 	);
+	
+insert into user values('test', '1234', 'Hong', 'KKong', 'kkong@email', '010-1111-1111', 'm', false);
 
 -- #Community
 -- table Notice
@@ -57,5 +58,19 @@ create table Notice(
     depth int not null,
     hit int not null,
     groupId int not null,
+    pos int not null,
     writeDate date not null,
     fileStatus int(1) not null);
+    
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test notice article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0);    
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test notice article2', 'no content', 0, 0, 2, 0, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test notice article3', 'no content', 0, 0, 3, 0, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test reply article4', 'no content', 1, 0, 1, 1, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test reply article5', 'no content', 1, 0, 1, 3, '2017-11-22', 0);
+insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    values('test', 'test reply article6', 'no content', 2, 0, 1, 2, '2017-11-22', 0);
