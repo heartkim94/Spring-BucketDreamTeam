@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.community.Page;
 import com.pknu.project.community.dao.CommunityDao;
 import com.pknu.project.community.dto.NoticeDto;
@@ -42,6 +43,7 @@ public class CommunityServiceImpl implements CommunityService {
 		return model;
 	}
 
+	/* FAQ */
 	@Override
 	public void faqList(int pageNum, Model model){
 		int totalCount = 0;
@@ -59,4 +61,10 @@ public class CommunityServiceImpl implements CommunityService {
 		model.addAttribute("pageCode",page.getSb().toString());
 	}
 
+	@Override
+	public ArticleDto getFaqArticle(int articleNum) {
+		ArticleDto article = communityDao.getFaqArticle(articleNum);
+		System.out.println(article.getTitle());
+		return communityDao.getFaqArticle(articleNum);
+	}
 }

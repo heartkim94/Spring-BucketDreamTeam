@@ -4,15 +4,30 @@
               "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="com.pknu.project.community.dao.CommunityDao">
-	<select id="getFaqArticles" parameterType="HashMap" resultType="artcle">
+	<select id="getNoticeCount" resultType="int">
+		select count(*) from Notice
+	</select>
+	
+	<select id="getNoticeArticles" parameterType="HashMap" resultType="article">
+		select count(*) from Notice
+	</select>
+	
+	<!-- FAQ -->
+	<select id="getFaqArticles" parameterType="HashMap" resultType="article">
 		select	articleNum, id, title, depth, hit,
             	date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
         from 	(
         		select	board.*, @rownum := @rownum+1 as rownum
               	from	Faq board,
                			(select	@rownum := 0) vars
-              	order by groupId desc, pos
+              	order by groupId desc, pos 
               	) board
         where	rownum between #{startRow} and #{endRow};
+	</select>
+	
+	<select id="getFaqArticle" parameterType="int" resultType="article">
+		select	id, title, content, writeDate, fileStatus
+		from	Faq board
+		where	articleNum = #{articleNum}
 	</select>
 </mapper>

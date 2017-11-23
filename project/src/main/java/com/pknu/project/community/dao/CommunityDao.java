@@ -11,4 +11,5 @@ public interface CommunityDao {
 	public List<NoticeDto> getArticles(HashMap<String, Integer> paramMap);
 	/* FAQ */
 	public List<ArticleDto> getFaqArticles(HashMap<String, Integer> paramMap);
+	public ArticleDto getFaqArticle(int articleNum);
 }
