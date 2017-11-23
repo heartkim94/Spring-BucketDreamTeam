@@ -43,7 +43,7 @@
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
-	<mybatis-spring:scan base-package="com.pknu.*.dao"/>
+	<mybatis-spring:scan base-package="com.pknu.project.*.dao"/>
 	
 	
 	<bean id="saveDir" class="java.lang.String">
