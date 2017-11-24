@@ -2,10 +2,25 @@ drop database project;
 create database project;
 use project;
 
+-- #Common
+-- Board
+create table BoardList(
+    boardNum int primary key auto_increment,
+    boardName varchar(200) not null,
+    groupNum int not null);
+    
+create table FileList(
+    fileNum int primary key,
+    storedfname varchar(400) not null,
+    filelength int not null,
+    articleNum int not null,
+    boardNum int not null);
+    
 -- #User
 -- table User
 CREATE TABLE user(
-	id varchar(50) PRIMARY KEY,
+    userNum int primary key auto_increment,
+	id varchar(50) unique,
 	pass varchar(50) NOT NULL,
 	name varchar(100),
 	nickName varchar(100),
@@ -17,13 +32,32 @@ CREATE TABLE user(
 	certify int default 0 not null
 	);
 	
-insert into user values('test', '1234', 'Hong', 'KKong',
-    'kkong@email','010-1111-1111', 'm', false, 'test certkey', 1);
-insert into user values('admin', '1234', 'Hong', 'KKong',
-    'kkong@email','010-1111-1111', 'm', true, 'test certkey', 1);
+-- #Group
+create table `Group`(
+    groupNum int primary key auto_increment,
+    groupName varchar(200) not null,
+    groupOwner int not null,
+    catNum int not null);
+    
+create table Category(
+    catNum int primary key auto_increment,
+    catName varchar(200) not null,
+    parentNum int not null);
+    
+create table Member(
+    groupNum int,
+    userNum int,
+    primary key(groupNum, userNum));
+    
+-- #Data for admin
+insert into user(userNum, id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
+    values(-1, 'admin', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
+insert into Category(catNum, catName, parentNum) values(-1, 'hidden', 0);
+insert into `Group`(groupNum, groupName, groupOwner, catNum) values(-1, 'AdminGroup', 1, 1);
+insert into Member values(-1, -1);
 
 -- #Community
--- table Notice
+insert into BoardList(boardName, groupNum) values('Notice', 1);
 create table Notice(
     articleNum int primary key auto_increment,
     id varchar(300) not null,
@@ -50,7 +84,22 @@ create table Faq(
     writeDate date not null,
     fileStatus int(1) not null
 );
+
+-- #Data for test
+-- User
+insert into user(id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
+    values('test', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
     
+-- Group
+insert into Category(catName, parentNum) values('generic', 0);
+insert into Category(catName, parentNum) values('philosophy', 0);
+insert into Category(catName, parentNum) values('religion', 0);
+insert into Category(catName, parentNum) values('bibliography', 1);
+insert into Category(catName, parentNum) values('information science', 1);
+insert into Category(catName, parentNum) values('encyclopedia', 1);
+    
+-- Community
+-- Notice
 insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test notice article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0);    
 insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
