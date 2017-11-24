@@ -18,6 +18,8 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	Page page;
 	
+	private ArticleDto article;
+	
 	List<ArticleDto> noticeList;
 	
 	HashMap<String, Integer> paramMap;
@@ -40,4 +42,30 @@ public class CommunityServiceImpl implements CommunityService {
 		return model;
 	}
 
+	@Override
+	public void getNoticeArticle(int articleNum, int fileStatus, Model model) {
+		article=communityDao.getNoticeArticle(articleNum);
+//		article.setCommentCount(bbsDao.getCommentCount(articleNum));
+		communityDao.upHit(articleNum);
+		model.addAttribute("article", article);
+//		if(fileStatus == 1) {
+//			model.addAttribute("fileList", communityDao.getFiles(articleNum));
+//		}
+	}
+
+	@Override
+	public void writeNotice(ArticleDto article) {
+		communityDao.writeNotice(article);
+//		if(article.getFileNames()==null) {
+//			communityDao.writeNotice(article);
+//		}else {
+//			article.setFileStatus((byte)1);
+//			// 리턴을 하지 않아도 article에 값이 넘어옴
+//			communityDao.writeNotice(article);
+//			commonFileUpload(article.getArticleNum(), article.getFileNames());
+//		}
+	}
+	
+	
+	
 }
