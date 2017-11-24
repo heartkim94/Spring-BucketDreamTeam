@@ -12,9 +12,8 @@
 
 <body>
 <div id="wrapper">
-	<jsp:include page="header.jsp"/>
+	<%@ include file="header.jsp" %>
 	<section>
-		<jsp:include page="aside.jsp"/>
 		<article>
 			<div>
 				<table width="700">
@@ -65,7 +64,7 @@
 		</article>
 	</section>
 	
-	<jsp:include page="footer.jsp"/>
+	<%@ include file="footer.jsp" %>
 </div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>
