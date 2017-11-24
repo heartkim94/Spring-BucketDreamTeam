@@ -35,7 +35,19 @@
 	</insert>
 	
 	
-	<!-- FAQ -->		
+	<!-- FAQ -->
+	<select id="getFaqArticles" parameterType="HashMap" resultType="article">
+		select	articleNum, id, title, depth, hit,
+            	date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
+        from 	(
+        		select	board.*, @rownum := @rownum+1 as rownum
+              	from	Faq board,
+               			(select	@rownum := 0) vars
+              	order by groupId desc, pos 
+              	) board
+        where	rownum between #{startRow} and #{endRow};
+	</select>
+	
 	<select id="getFaqArticle" parameterType="int" resultType="article">
 		select	id, title, content, writeDate, fileStatus
 		from	Faq board
