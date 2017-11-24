@@ -19,11 +19,11 @@ public class CommunityController {
 	@Autowired
 	CommunityService communityService;
 	
-	@RequestMapping(value = "/notice.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/noticeList.do", method = RequestMethod.GET)
 	public String noticeList(@ModelAttribute("pageNum") int pageNum, Model model) {
 		communityService.noticeList(pageNum, model);
-		System.out.println("***notice***");
-		return "notice";
+		System.out.println("***noticeList***");
+		return "noticeList";
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
@@ -37,7 +37,7 @@ public class CommunityController {
 //		article.setId((String)session.getAttribute("id"));
 		communityService.writeNotice(article);
 		System.out.println("***write***");
-		return "redirect:notice.do?pageNum=1";   
+		return "redirect:noticeList.do?pageNum=1";   
 	}
 	
 	
@@ -55,7 +55,7 @@ public class CommunityController {
 	@RequestMapping(value="/faq.do", method=RequestMethod.GET)
 	public String faqList(@ModelAttribute("pageNum") int pageNum, Model model) {
 		System.out.println("***faq.do***");
-		svc.faqList(pageNum, model);
+		communityService.faqList(pageNum, model);
 		return "community/faq";
 	}
 	
@@ -65,6 +65,6 @@ public class CommunityController {
 		System.out.println("***getFaqArticle.do***");
 		System.out.println(articleNum);
 		
-		return svc.getFaqArticle(articleNum);
+		return communityService.getFaqArticle(articleNum);
 	}
 }
