@@ -60,7 +60,7 @@
             <div class="form-group" id="divId">
 				<label for="id" class="col-lg-2 control-label">아이디</label>
 				<div class="col-lg-5">
-               		 <input type="text" class="form-control" id="id" name="id" value="${id}" readonly="readonly">
+               		 <input type="text" class="form-control" id="id" name="id" value="${user.id}" readonly="readonly">
            		</div>
             </div>
             <div class="form-group" id="divPassword">
@@ -92,7 +92,7 @@
             <div class="form-group" id="divEmail">
                 <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
                 <div class="col-lg-5">
-                	<input type="text" class="form-control" id="email" name="email" value="${email}" readonly="readonly">
+                	<input type="text" class="form-control" id="email" name="email" value="${user.email}" readonly="readonly">
                 </div>
                 <div id="emailcheck"></div>
             </div>

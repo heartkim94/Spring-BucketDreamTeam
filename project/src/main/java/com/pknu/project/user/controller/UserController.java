@@ -68,8 +68,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="mypage.do")
-	public String mypageForm(HttpSession session, UserDto userDto, Model model) {
-		userService.mypage(session,userDto,model);
+	public String mypageForm(HttpSession session, Model model) {
+		userService.mypage(session,model);
 		return "user/mypage";
 	}
 	
