@@ -461,7 +461,7 @@
         </script>
                 <!--// 본문 들어가는 부분 -->
             <hr/>
-            <jsp:include page="../footer.jsp"/>
+            <%@ include file="../footer.jsp" %>
         </div>
     </body>
 </html>

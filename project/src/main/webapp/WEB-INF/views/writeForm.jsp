@@ -91,9 +91,9 @@ input.submitBtn {
 <body>
 <div id="wrapper">
 
-	<jsp:include page="header.jsp"/>
+	<%@ include file="header.jsp" %>
 	<section>
-		<jsp:include page="aside.jsp"/>
+		<%@ include file="aside.jsp" %>
 		<div class="subContent">
 			<nav>
 				<h1>NOTICE</h1>
@@ -144,7 +144,7 @@ input.submitBtn {
 			</div>
 		</div>
 	</section>
-	<jsp:include page="footer.jsp"/>
+	<%@ include file="footer.jsp" %>
 
 </div> <!-- wrapper End -->
 
