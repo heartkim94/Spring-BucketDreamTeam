@@ -37,7 +37,7 @@
 	</script>
 </head>
 <body>
-	<form name="fr" method="post" action="/project/userJoinForm.user" onsubmit="return check()">
+	<form name="fr" method="post" action="/project/userJoinForm.do" onsubmit="return check()">
 		<table width="960px" align="center">
 			<tr>
 				<td>

@@ -22,7 +22,7 @@
 	$(function(){
 		$("#id").on("blur",function(){
 			$.ajax({
-				url:"/project/joinIdCheck.user",
+				url:"/project/joinIdCheck.do",
 				data:{
 					inputId:$("#id").val()
 				},
@@ -51,7 +51,7 @@
 	$(function(){
 		$("#email").on("blur",function(){
 			$.ajax({
-				url:"/project/joinEmailCheck.user",
+				url:"/project/joinEmailCheck.do",
 				data:{
 					inputEmail:$("#email").val()
 				},
@@ -78,7 +78,7 @@
 	});
 	
 	function availability(){
-		if(idcheck==true&&emailcheck==true){
+		if(idcheck==true && emailcheck==true && ($('#pass').val()==$('#passCheck'))){
 			alert("메일인증을 보냈습니다\n잠시만기다려주세요");
 			return true;
 		}else if(!idcheck || !emailcheck){
@@ -135,7 +135,7 @@
                  
  
  
-        <form class="form-horizontal" role="form" method="post" action="/project/userInsert.user" onsubmit="return availability()">
+        <form class="form-horizontal" role="form" method="post" action="/project/userInsert.do" onsubmit="return availability()">
             <div class="form-group" id="divId">
                 <label for="id" class="col-lg-2 control-label">아이디</label>
                 <div class="col-lg-5">

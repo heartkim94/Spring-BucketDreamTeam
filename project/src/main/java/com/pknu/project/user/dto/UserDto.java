@@ -95,4 +95,20 @@ certkey varchar(100) not null,
 certify int default 0 not null
 );
 
+
+CREATE TABLE user(
+	id varchar(50) PRIMARY KEY,
+	pass varchar(50) NOT NULL,
+	name varchar(100),
+	nickName varchar(100),
+	email varchar(100) not null,
+	phoneNumber char(13),
+	gender enum('m', 'f') not null,
+    isAdmin boolean not null default false,
+    certkey varchar(100) not null,
+	certify int default 0 not null
+	);
+	
+insert into user values('test', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', false, 'test certkey', 1);
+insert into user values('admin', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', true, 'test certkey', 1);
 */
