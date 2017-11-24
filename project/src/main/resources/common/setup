@@ -9,13 +9,16 @@ CREATE TABLE user(
 	pass varchar(50) NOT NULL,
 	name varchar(100),
 	nickName varchar(100),
-	email varchar(100),
+	email varchar(100) not null,
 	phoneNumber char(13),
-	gender enum('m', 'f'),
-    isAdmin boolean not null default false
+	gender enum('m', 'f') not null,
+    isAdmin boolean not null default false,
+    certkey varchar(100) not null,
+	certify int default 0 not null
 	);
 	
-insert into user values('test', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', false);
+insert into user values('test', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', false, 'test certkey', 1);
+insert into user values('admin', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', true, 'test certkey', 1);
 
 -- #Community
 -- table Notice
@@ -44,4 +47,3 @@ insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, file
     values('test', 'test reply article5', 'no content', 1, 0, 1, 3, '2017-11-22', 0);
 insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test reply article6', 'no content', 2, 0, 1, 2, '2017-11-22', 0);
-    fileStatus int(1) not null);

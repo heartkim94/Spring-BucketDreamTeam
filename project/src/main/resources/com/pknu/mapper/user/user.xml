@@ -9,7 +9,7 @@
 		select email from user where email=#{email}
 	</select>
 	<insert id="userInsert" parameterType="user">
-		insert into user values(#{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender},#{certKey},#{certify})
+		insert into user values(#{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, false, #{certKey},#{certify})
 	</insert> 
 	<update id="userUpdate" parameterType="String">
 		update user set pass=#{pass},name=#{name},nickName=#{nickName},email=#{email},phoneNumber=#{phoneNumber},gender=#{gender} where id=#{id}
