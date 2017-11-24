@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.community.service.CommunityService;
@@ -48,5 +49,22 @@ public class CommunityController {
 		communityService.getNoticeArticle(articleNum, fileStatus, model);	
 		System.out.println("***getNoticeArticle***");
 		return "content";
+	}
+	
+	/* FAQ */
+	@RequestMapping(value="/faq.do", method=RequestMethod.GET)
+	public String faqList(@ModelAttribute("pageNum") int pageNum, Model model) {
+		System.out.println("***faq.do***");
+		svc.faqList(pageNum, model);
+		return "community/faq";
+	}
+	
+	@RequestMapping(value="/getFaqArticle.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ArticleDto getFaqArticle(@RequestParam int articleNum) {
+		System.out.println("***getFaqArticle.do***");
+		System.out.println(articleNum);
+		
+		return svc.getFaqArticle(articleNum);
 	}
 }

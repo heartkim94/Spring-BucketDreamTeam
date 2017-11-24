@@ -32,4 +32,12 @@
 		INSERT INTO notice (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
 					VALUES ('test', #{title}, #{content}, 0, 0, 1, 0, now(), #{fileStatus})
 	</insert>
+	
+	
+	<!-- FAQ -->		
+	<select id="getFaqArticle" parameterType="int" resultType="article">
+		select	id, title, content, writeDate, fileStatus
+		from	Faq board
+		where	articleNum = #{articleNum}
+	</select>
 </mapper>

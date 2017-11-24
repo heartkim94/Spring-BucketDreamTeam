@@ -12,4 +12,7 @@ public interface CommunityDao {
 	public void upHit(int articleNum);
 	// 새 notice 쓰기
 	public void writeNotice(ArticleDto article);
+	/* FAQ */
+	public List<ArticleDto> getFaqArticles(HashMap<String, Integer> paramMap);
+	public ArticleDto getFaqArticle(int articleNum);
 }
