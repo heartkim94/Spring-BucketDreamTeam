@@ -45,18 +45,18 @@ public class UserController {
 //	}
 	
 	
-	@RequestMapping(value="userInsert.user")
+	@RequestMapping(value="/userInsert.user")
 	public String memInsert(UserDto userDto) {
 		userService.userInsert(userDto);
 		return "user/main";
 	}
 	
-	@RequestMapping(value="login.user", method=RequestMethod.POST)
+	@RequestMapping(value="/login.user", method=RequestMethod.POST)
 	public String login(HttpSession session, String id, String pass, Model model) {
 		return userService.login(session,id,pass,model);
 	}
 	
-	@RequestMapping(value="logout.user")
+	@RequestMapping(value="/logout.user")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "user/main";

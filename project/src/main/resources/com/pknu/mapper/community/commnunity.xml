@@ -26,10 +26,10 @@
 	<update id="upHit" parameterType="int" >
 		UPDATE notice SET hit = hit + 1 WHERE articleNum=#{articleNum}
 	</update>
+	
 	<!-- 새 notice 쓰기 -->
 	<insert id="writeNotice" parameterType="article" useGeneratedKeys="true" keyProperty="articleNum" keyColumn="articleNum">
 		INSERT INTO notice (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
-					VALUES ('test', #{title}, #{content}, 0, 0, #{groupId}, 0, now(), #{fileStatus})
-<!-- 		INSERT INTO notice VALUES (null, test, #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus}) -->
+					VALUES ('test', #{title}, #{content}, 0, 0, 1, 0, now(), #{fileStatus})
 	</insert>
 </mapper>
