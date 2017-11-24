@@ -75,14 +75,14 @@ public class UserServiceImpl implements UserService {
 			if (dbPassCheck.equals(pass)) {//로그인성공
 				session.setAttribute("id", id);
 				model.addAttribute("id", id);
-				view = "user/loginOk";
+				view = "group/groupMain";
 			} else {//비밀번호 실패
 				model.addAttribute("passFail",passFail);
 				view = "user/loginFail";
 			}
 		} else if(dbPassCheck!=null&&dbCertifyCheck==0) {//이메일인증 않함	
 			model.addAttribute("dbCertify",dbCertifyCheckNo);
-			view="user/main";
+			view="home";
 		}else if(dbPassCheck==null&&dbCertifyCheck==2) {//회원가입
 			model.addAttribute("Notmember",Notmember);
 			view = "user/loginFail";
