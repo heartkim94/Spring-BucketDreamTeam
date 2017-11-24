@@ -28,10 +28,10 @@ public class Page {
 			sb.append("<img src='resources/img/hot.gif' width='30' height='9'>");
 		} else {
 			sb.append("<img src='resources/img/hot.gif' width='30' height='9'");
-			sb.append(" onclick='location.href=\"notice.do?pageNum=");
+			sb.append(" onclick='location.href=\"noticeList.do?pageNum=");
 			sb.append(startPage - pageBlock);
 			sb.append("\"' style='cursor:pointer'>");
-		}
+		} 
 		
 		sb.append("&nbsp;&nbsp;|");
 		for(int i = startPage; i <= endPage; i++) {
@@ -40,7 +40,7 @@ public class Page {
 				sb.append(i);
 				sb.append("</font></b>");
 			} else {
-				sb.append("&nbsp;&nbsp;<a href='notice.do?pageNum=");
+				sb.append("&nbsp;&nbsp;<a href='noticeList.do?pageNum=");
 				sb.append(i);
 				sb.append("'>");
 				sb.append(i);
@@ -51,7 +51,7 @@ public class Page {
 		sb.append("&nbsp;&nbsp;|");
 		if(endPage < totalPage) {
 			sb.append("<img src='resources/img/hot.gif' width='30' height='9'");
-			sb.append(" onclick='location.href=\"notice.do?pageNum=");
+			sb.append(" onclick='location.href=\"noticeList.do?pageNum=");
 			sb.append(startPage + pageBlock);
 			sb.append("\"' style='cursor:pointer'> ");
 		} else {

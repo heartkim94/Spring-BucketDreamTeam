@@ -30,7 +30,8 @@
 	<!-- 새 notice 쓰기 -->
 	<insert id="writeNotice" parameterType="article" useGeneratedKeys="true" keyProperty="articleNum" keyColumn="articleNum">
 		INSERT INTO notice (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
-					VALUES ('test', #{title}, #{content}, 0, 0, 1, 0, now(), #{fileStatus})
+					VALUES ('test', #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus});
+		update notice set groupId = articleNum where articleNum = last_insert_id();
 	</insert>
 	
 	

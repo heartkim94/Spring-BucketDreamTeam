@@ -95,7 +95,7 @@ input.submitBtn {
 											<input type="button" value="수정하기" disabled="disabled">
 											<input type="button" value="삭제하기" disabled="disabled">
 										</c:if> 
-										<input type="button" value="목록으로" onclick="document.location.href='notice.do?pageNum=${pageNum}'">
+										<input type="button" value="목록으로" onclick="document.location.href='noticeList.do?pageNum=${pageNum}'">
 									</td>
 								</c:if>
 	
@@ -103,7 +103,7 @@ input.submitBtn {
 									<td colspan="4" align="right">
 										<input type="button" value="수정하기" disabled="disabled"> 
 										<input type="button" value="삭제하기" disabled="disabled"> 
-										<input type="button" value="목록으로" onclick="document.location.href='notice.do?pageNum=${pageNum}'">
+										<input type="button" value="목록으로" onclick="document.location.href='noticeList.do?pageNum=${pageNum}'">
 									</td>
 								</c:if>
 							</tr>
