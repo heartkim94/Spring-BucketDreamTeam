@@ -136,6 +136,8 @@
  
  
         <form class="form-horizontal" role="form" method="post" action="/project/userInsert.do" onsubmit="return availability()">
+          	<div align="center"><h1>회원 가입</h1></div><br>
+          
             <div class="form-group" id="divId">
                 <label for="id" class="col-lg-2 control-label">아이디</label>
                 <div class="col-lg-5">

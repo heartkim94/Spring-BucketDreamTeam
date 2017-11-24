@@ -55,6 +55,8 @@
  
  
         <form class="form-horizontal" role="form" method="post" action="/project/userUpdate.user">
+            <div align="center"><h1>회원 수정</h1></div><br>
+            
             <div class="form-group" id="divId">
 				<label for="id" class="col-lg-2 control-label">아이디</label>
 				<div class="col-lg-5">
@@ -90,14 +92,13 @@
             <div class="form-group" id="divEmail">
                 <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
                 <div class="col-lg-5">
-                    <input type="email" class="form-control" id="email" name="email" data-rule-required="true" placeholder="이메일" maxlength="40">
+                	<input type="text" class="form-control" id="email" name="email" value="${email}" readonly="readonly">
                 </div>
                 <div id="emailcheck"></div>
             </div>
             <div class="form-group" id="divPhoneNumber">
                 <label for="inputPhoneNumber" class="col-lg-2 control-label">휴대폰 번호</label>
                 <div class="col-lg-5">
-<!--                     <input type="tel" class="form-control onlyNumber" id="phoneNumber" name="phoneNumber" data-rule-required="true" placeholder="-를 제외하고 숫자만 입력하세요." maxlength="11"> -->
               		<input type="tel" class="form-control onlyNumber" id="phoneNumber" name="phoneNumber" data-rule-required="true" placeholder="ex) 010-1111-1111" maxlength="13">
                 </div>
             </div>

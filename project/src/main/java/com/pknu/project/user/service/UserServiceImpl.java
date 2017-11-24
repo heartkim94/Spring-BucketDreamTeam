@@ -97,12 +97,15 @@ public class UserServiceImpl implements UserService {
 	public String mypage(HttpSession session, UserDto userDto, Model model) {
 		userDto.setId((String)session.getAttribute("id"));
 		model.addAttribute("id",session.getAttribute("id"));
+		userDto.setEmail((String)session.getAttribute("email"));
+		model.addAttribute("email",session.getAttribute("email"));
 		return null;
 	}
 
 	@Override
 	public String userUpdate(HttpSession session, UserDto userDto) {
 		userDto.setId((String)session.getAttribute("id"));
+		userDto.setEmail((String)session.getAttribute("Email"));
 		userDao.userUpdate(userDto);
 		return null;
 	}
