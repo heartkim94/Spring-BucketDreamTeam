@@ -57,7 +57,7 @@
 	
 			<c:forEach var="article" items="${articleList}">
 				<tr height="30">
-					<td class="titleBox" align="center" width="50" articleNum="${article.articleNum}">
+					<td class="titleBox" align="center" width="50" articleNum="${article.articleNum}" style="cursor:pointer">
 						${article.title}
 					</td>
 				</tr>

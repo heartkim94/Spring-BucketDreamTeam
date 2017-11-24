@@ -37,7 +37,7 @@ public class CommunityController {
 //		article.setId((String)session.getAttribute("id"));
 		communityService.writeNotice(article);
 		System.out.println("***write***");
-		return "redirect:noticeList.do?pageNum=1";   
+		return "redirect:noticeList.do?pageNum=1";
 	}
 	
 	
