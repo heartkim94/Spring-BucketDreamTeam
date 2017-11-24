@@ -59,7 +59,7 @@ public class UserController {
 	@RequestMapping(value="/logout.user")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "user/main";
+		return "home";
 	}
 	
 	@RequestMapping(value="mypage.user")
