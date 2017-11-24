@@ -1,5 +1,6 @@
 package com.pknu.project.user.service;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -51,8 +52,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String login(HttpSession session, String id, String pass, Model model) {
-		String dbPassCheck=userDao.loginCheck(id);
-		int dbCertifyCheck=userDao.certifyCheck(id);
+//		String dbPassCheck=userDao.loginCheck(id);
+//		int dbCertifyCheck=userDao.certifyCheck(id);
+		UserDto user=userDao.checkLogin(id);
+		String dbPassCheck=user.getPass();
+		boolean dbAdminCheck=user.getIsAdmin();
+		int dbCertifyCheck=user.getCertify();
 		String view=null;
 		int dbCertifyCheckNo=0;
 		int passFail=0;
@@ -71,9 +76,10 @@ public class UserServiceImpl implements UserService {
 //		}
 //		return view;
 		
-		if (dbPassCheck != null && dbCertifyCheck == 1) {
+		if (dbPassCheck != null && dbCertifyCheck==1) {
 			if (dbPassCheck.equals(pass)) {//로그인성공
 				session.setAttribute("id", id);
+				session.setAttribute("isAdmin", dbAdminCheck);
 				model.addAttribute("id", id);
 				view = "user/loginOk";
 			} else {//비밀번호 실패
@@ -83,7 +89,7 @@ public class UserServiceImpl implements UserService {
 		} else if(dbPassCheck!=null&&dbCertifyCheck==0) {//이메일인증 않함	
 			model.addAttribute("dbCertify",dbCertifyCheckNo);
 			view="user/main";
-		}else if(dbPassCheck==null&&dbCertifyCheck==2) {//회원가입
+		}else if(dbPassCheck==null) {//회원가입
 			model.addAttribute("Notmember",Notmember);
 			view = "user/loginFail";
 		}

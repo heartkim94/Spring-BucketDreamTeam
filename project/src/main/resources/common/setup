@@ -17,8 +17,10 @@ CREATE TABLE user(
 	certify int default 0 not null
 	);
 	
-insert into user values('test', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', false, 'test certkey', 1);
-insert into user values('admin', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', true, 'test certkey', 1);
+insert into user values('test', '1234', 'Hong', 'KKong',
+    'kkong@email','010-1111-1111', 'm', false, 'test certkey', 1);
+insert into user values('admin', '1234', 'Hong', 'KKong',
+    'kkong@email','010-1111-1111', 'm', true, 'test certkey', 1);
 
 -- #Community
 -- table Notice
