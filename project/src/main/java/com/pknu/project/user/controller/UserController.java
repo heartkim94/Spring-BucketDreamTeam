@@ -38,11 +38,11 @@ public class UserController {
 		
 	}
 	
-//	@RequestMapping(value="joinEmailCheck.user")
-//	@ResponseBody
-//	public int joinEmailCheck(@RequestParam("inputEmail") String inputEmail) { //회원가입 이메일 중복체크
-//		return userService.joinEmailCheck(inputEmail); 
-//	}
+	@RequestMapping(value="joinEmailCheck.user")
+	@ResponseBody
+	public int joinEmailCheck(@RequestParam("inputEmail") String inputEmail) { //회원가입 이메일 중복체크
+		return userService.joinEmailCheck(inputEmail); 
+	}
 	
 	
 	@RequestMapping(value="/userInsert.user")
@@ -62,10 +62,23 @@ public class UserController {
 		return "user/main";
 	}
 	
-//	@RequestMapping(value="mypage.user")
-//	public String mypage(HttpSession session, UserDto userDto, Model model) {
-//		userService.mypage(session,pass);
-//	}
+	@RequestMapping(value="mypage.user")
+	public String mypageForm(HttpSession session, UserDto userDto, Model model) {
+		userService.mypage(session,userDto,model);
+		return "user/mypage";
+	}
+	
+	@RequestMapping(value="userUpdate.user")
+	public String userUpdate(HttpSession session, UserDto userDto) {
+		userService.userUpdate(session, userDto);
+		return "user/main";
+	}
+	
+	@RequestMapping(value="/checkJoin.user")
+	public String checkJoin(@RequestParam("certKey") String certKey,Model model) {
+		userService.checkJoin(certKey,model);
+		return "user/emailAlertPage";
+	}
 	
 	
 }
