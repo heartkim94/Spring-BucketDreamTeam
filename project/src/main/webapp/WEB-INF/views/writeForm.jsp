@@ -111,7 +111,7 @@ input.submitBtn {
 							</tr>
 							<tr>
 								<th>작성자</th>
-								<td align="left">test</td>
+								<td align="left">${id}</td>
 							</tr>
 							<tr>
 								<th><label for="content">내용</label></th>
@@ -128,7 +128,9 @@ input.submitBtn {
 										<input type="file" style="display: none;" />
 									</div>
 									<div class="uploadListWrap">
-										<div class="upListHead"></div>
+										<div class="upListHead">
+											업로드 파일명 / 파일용량 / 업로드 날짜
+										</div>
 										<div class="upListView"></div>
 									</div>
 								</td>
@@ -138,7 +140,7 @@ input.submitBtn {
 					<!-- 글 작성 버튼 영역 -->
 					<div class="btnConfirm">
 						<input type="submit" value="작성 완료" class="submitBtn" />
-						<a href="/project/notice.do?pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
+						<a href="/project/noticeList.do?pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
 					</div>
 				</form>
 			</div>

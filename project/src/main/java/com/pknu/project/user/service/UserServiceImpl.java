@@ -55,9 +55,9 @@ public class UserServiceImpl implements UserService {
 //		String dbPassCheck=userDao.loginCheck(id);
 //		int dbCertifyCheck=userDao.certifyCheck(id);
 		UserDto user=userDao.checkLogin(id);
-		String dbPassCheck=user.getPass();
-		boolean dbAdminCheck=user.getIsAdmin();
-		int dbCertifyCheck=user.getCertify();
+//		String dbPassCheck=user.getPass();
+//		boolean dbAdminCheck=user.getIsAdmin();
+//		int dbCertifyCheck=user.getCertify();
 		String view=null;
 		int dbCertifyCheckNo=0;
 		int passFail=0;
@@ -76,20 +76,37 @@ public class UserServiceImpl implements UserService {
 //		}
 //		return view;
 		
-		if (dbPassCheck != null && dbCertifyCheck==1) {
-			if (dbPassCheck.equals(pass)) {//로그인성공
+//		if (dbPassCheck != null && dbCertifyCheck==1) {
+//			if (dbPassCheck.equals(pass)) {//로그인성공
+//				session.setAttribute("id", id);
+//				session.setAttribute("isAdmin", dbAdminCheck);
+//				model.addAttribute("id", id);
+//				view = "group/groupMain";
+//			} else {//비밀번호 실패
+//				model.addAttribute("passFail",passFail);
+//				view = "user/loginFail";
+//			}
+//		} else if(dbPassCheck!=null&&dbCertifyCheck==0) {//이메일인증 않함	
+//			model.addAttribute("dbCertify",dbCertifyCheckNo);
+//			view="home";
+//		}else if(dbPassCheck==null && user.getId()!=id) {//회원가입
+//			model.addAttribute("Notmember",Notmember);
+//			view = "user/loginFail";
+//		}
+		if (user!=null && user.getCertify()==1) {
+			if (user.getPass().equals(pass)) {//로그인성공
 				session.setAttribute("id", id);
-				session.setAttribute("isAdmin", dbAdminCheck);
+				session.setAttribute("isAdmin", user.getIsAdmin());
 				model.addAttribute("id", id);
 				view = "group/groupMain";
 			} else {//비밀번호 실패
 				model.addAttribute("passFail",passFail);
 				view = "user/loginFail";
 			}
-		} else if(dbPassCheck!=null&&dbCertifyCheck==0) {//이메일인증 않함	
-			model.addAttribute("dbCertify",dbCertifyCheckNo);
+		} else if(user!=null&&user.getCertify()==0) {//이메일인증 않함	
+			model.addAttribute("dbCertify", dbCertifyCheckNo);
 			view="home";
-		}else if(dbPassCheck==null) {//회원가입
+		}else if(user==null) {//회원가입
 			model.addAttribute("Notmember",Notmember);
 			view = "user/loginFail";
 		}
