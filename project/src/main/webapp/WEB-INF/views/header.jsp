@@ -5,7 +5,11 @@
 <html>
 <head>
 	<meta charset="UTf-8">
-	<title>asfqwtqwgtaweyhesrgetrjrythgdrtiudrthaweryhQEHJDTLKTR7OISEDTG</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<title>header</title>
+	<link rel="stylesheet" href="resources/css/normalize.css" >
+	<link rel="stylesheet" href="resources/css/style.css" >
+	<script src="resources/js/prefixfree.min.js"></script>
 </head>
 
 <body>

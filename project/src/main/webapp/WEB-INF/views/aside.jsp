@@ -3,14 +3,15 @@
 <html>
 <head>
 <meta charset="UTf-8">
-<title>Insert title here</title>
+<title>aside</title>
 </head>
 <body>
 <aside class="sidebar2">
-	<h1>h1</h1>
-	<h2>h2</h2>
-	<h3>h3</h3>
-	<p>p sidebar2 p</p>
+	<ul>
+		<li><a href="#">NOTICE</a></li>
+		<li><a href="#">QnA</a></li>
+		<li><a href="#">FAQ</a></li>
+	</ul>
 </aside>
 </body>
 </html>

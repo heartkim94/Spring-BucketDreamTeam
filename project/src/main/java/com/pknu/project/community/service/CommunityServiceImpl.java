@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.pknu.project.community.Page;
+import com.pknu.project.common.Page;
+import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.community.dao.CommunityDao;
-import com.pknu.project.community.dto.NoticeDto;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
@@ -18,8 +18,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	Page page;
 	
-//	@Autowired
-	List<NoticeDto> noticeList;
+	List<ArticleDto> noticeList;
 	
 	HashMap<String, Integer> paramMap;
 	
@@ -33,8 +32,7 @@ public class CommunityServiceImpl implements CommunityService {
 		paramMap = new HashMap<>();
 		paramMap.put("startRow", page.getStartRow());
 		paramMap.put("endRow", page.getEndRow());
-		//		articleList=bbsDao.getArticles(page.getStartRow(),page.getEndRow());
-		noticeList = communityDao.getArticles(paramMap);
+		noticeList = communityDao.getNoticeArticles(paramMap);
 		model.addAttribute("totalCount",totalCount);
 		model.addAttribute("articleList",noticeList);
 		model.addAttribute("pageCode",page.getSb().toString());

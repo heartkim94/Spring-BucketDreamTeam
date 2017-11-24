@@ -1,4 +1,4 @@
-package com.pknu.project.community;
+package com.pknu.project.common;
 
 import javax.inject.Named;
 

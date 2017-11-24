@@ -1,8 +1,6 @@
 drop database project;
 create database project;
 use project;
-<<<<<<< HEAD
-<<<<<<< Upstream, based on master
 
 -- #User
 -- table User
@@ -31,8 +29,8 @@ create table Notice(
     groupId int not null,
     pos int not null,
     writeDate date not null,
-<<<<<<< HEAD
-    fileStatus int(1) not null);
+    fileStatus int(1) not null
+);
     
 insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test notice article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0);    
@@ -46,6 +44,4 @@ insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, file
     values('test', 'test reply article5', 'no content', 1, 0, 1, 3, '2017-11-22', 0);
 insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test reply article6', 'no content', 2, 0, 1, 2, '2017-11-22', 0);
-=======
     fileStatus int(1) not null);
->>>>>>> refs/remotes/origin/community

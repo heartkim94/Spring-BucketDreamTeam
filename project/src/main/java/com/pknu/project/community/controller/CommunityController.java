@@ -12,11 +12,11 @@ import com.pknu.project.community.service.CommunityService;
 @Controller
 public class CommunityController {
 	@Autowired
-	CommunityService svc;
+	CommunityService communityService;
 	
 	@RequestMapping(value = "/notice.do", method = RequestMethod.GET)
 	public String noticeList(@ModelAttribute("pageNum") int pageNum, Model model) {
-		svc.noticeList(pageNum, model);
+		communityService.noticeList(pageNum, model);
 		System.out.println("***notice***");
 		return "notice";
 	}
@@ -31,5 +31,11 @@ public class CommunityController {
 	public String write(){
 		System.out.println("***write***");
 		return "notice";   
+	}
+	
+	@RequestMapping(value="/content.do" )
+	public String getNoticeArticle(){
+		System.out.println("***getNoticeArticle***");
+		return "content";   
 	}
 }
