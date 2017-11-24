@@ -10,8 +10,9 @@
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 	$(function() {
+		let articleBox = null;
 		$(".titleBox").on("click", function() {
-			let titleBox = $(this);
+			let titleRow = $(this).parent();
 			let articleNum = $(this).attr("articleNum");
 			$.ajax({
 				url: "getFaqArticle.do",
@@ -20,10 +21,14 @@
 					articleNum: articleNum
 				},
 				success: function(data) {
-					let str = "<td class='articleBox' articleNum='"+articleNum+"'>"
+					let str = "<tr><td class='articleBox' articleNum='"+articleNum+"'>"
 							+ data.content
-							+ "</td>";
-					$(str).insertAfter(titleBox);
+							+ "</td></tr>";
+					if(articleBox!=null) {
+						$(articleBox).remove();
+					}
+					articleBox = $(str);
+					$(articleBox).insertAfter(titleRow);
 				},
 				error: function(xhr) {
 					alert("error html = "+xhr.statusText);
