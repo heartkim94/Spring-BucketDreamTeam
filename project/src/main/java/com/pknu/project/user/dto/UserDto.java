@@ -4,6 +4,7 @@ public class UserDto {
 	public static final int SUCCESS = 1;
 	public static final int FAIL = 0;
 	
+	private int userNum;
 	private String id;
 	private String pass;
 	private String name;
@@ -11,10 +12,15 @@ public class UserDto {
 	private String email;
 	private String phoneNumber;
 	private String gender;
-	private boolean isAdmin;
 	private String certKey;
 	private int certify;
 	
+	public int getUserNum() {
+		return userNum;
+	}
+	public void setUserNum(int userNum) {
+		this.userNum = userNum;
+	}
 	public String getId() {
 		return id;
 	}
@@ -56,12 +62,6 @@ public class UserDto {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
-	}
-	public boolean getIsAdmin() {
-		return isAdmin;
-	}
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
 	}
 	public String getCertKey() {
 		return certKey;
