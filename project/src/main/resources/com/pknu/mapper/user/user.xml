@@ -11,8 +11,8 @@
 	<insert id="userInsert" parameterType="user">
 		insert into user values(#{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, false, #{certKey},#{certify})
 	</insert> 
-	<update id="userUpdate" parameterType="String">
-		update user set id=#{id},pass=#{pass},name=#{name},nickName=#{nickName},email=#{email},phoneNumber=#{phoneNumber},gender=#{gender},isAdmin={isAdmin},certKey=#{certKey},certify=#{certify} where id=#{id}
+	<update id="userUpdate" parameterType="user">
+		update user set pass=#{pass},name=#{name},nickName=#{nickName},phoneNumber=#{phoneNumber},gender=#{gender} where id=#{id}
 	</update>
 	
 	<select id="checkJoin" resultType="user" parameterType="String">
