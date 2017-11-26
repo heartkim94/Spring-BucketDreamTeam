@@ -133,6 +133,13 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public String userIdFind(UserDto userDto, Model model) {
+		String myId = userDao.userIdFind(userDto);
+		model.addAttribute("myId",myId);
+		return null;
+	}
+
 
 
 

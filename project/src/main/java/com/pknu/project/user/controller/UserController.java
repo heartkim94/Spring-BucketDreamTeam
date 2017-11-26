@@ -85,5 +85,16 @@ public class UserController {
 		return "user/emailAlertPage";
 	}
 	
+	@RequestMapping(value="userIdPassFind")
+	public String userIdPassFind() { //아이디 비밀번호 찾기 폼
+		return "user/userIdPassFind";
+	}
+	
+	@RequestMapping(value="userIdFind")
+	public String userIdFind(UserDto userDto, String email,Model model) {
+		userDto.setEmail(email);
+		userService.userIdFind(userDto, model);
+		return "user/userIdShow";
+	}
 	
 }

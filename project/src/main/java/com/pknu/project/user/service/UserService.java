@@ -15,4 +15,5 @@ public interface UserService {
 	public String userUpdate(HttpSession session, UserDto userDto);
 	
 	public int checkJoin(String certKey,Model model);
+	public String userIdFind(UserDto userDto, Model model);
 }
