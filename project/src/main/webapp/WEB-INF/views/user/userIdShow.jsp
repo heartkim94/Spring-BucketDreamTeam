@@ -10,7 +10,7 @@
 <body>
 		<form>
 			<div>
-				<p>당신의아이디는:${myId} 입니다.</p>
+				<p>아이디 : ${myId} 입니다.</p>
 			</div>
 		</form>
 </body>

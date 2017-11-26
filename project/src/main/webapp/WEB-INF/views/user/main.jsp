@@ -34,14 +34,10 @@
 			<div>
 				<input type="submit" value="로그인"/>
 				<input type="button" value="회원가입" onclick="document.location.href='userProvisionForm.do'">
-				<a href="/project/userIdPassFind.do">아이디/비밀번호 찾기</a>
-<!-- 				<a href="#">Register</a> -->
+<!-- 				<a href="/project/userIdPassFind.do"></a> -->
+				<a href="javascript:void(window.open('/project/userIdPassFind.do', '_blank','width=450, height=250'))">아이디/비밀번호 찾기</a>
 			</div>
 		</form><!-- form -->
-<!-- 		<div class="button"> -->
-<!-- 			<a href="#">Download source file</a> -->
-<!-- 		</div> -->
-		<!-- button -->
 	</section><!-- content -->
 </div><!-- container -->
 </body>
