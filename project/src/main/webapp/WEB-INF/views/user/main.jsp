@@ -35,7 +35,7 @@
 				<input type="submit" value="로그인"/>
 				<input type="button" value="회원가입" onclick="document.location.href='userProvisionForm.do'">
 <!-- 				<a href="/project/userIdPassFind.do"></a> -->
-				<a href="javascript:void(window.open('/project/userIdPassFind.do', '_blank','width=450, height=250'))">아이디/비밀번호 찾기</a>
+				<a href="javascript:void(window.open('/project/userIdPassFind.do', '_blank','width=450, height=270'))">아이디/비밀번호 찾기</a>
 			</div>
 		</form><!-- form -->
 	</section><!-- content -->

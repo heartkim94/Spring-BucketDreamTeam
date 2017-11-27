@@ -59,9 +59,9 @@ body {
 	
 	function pw_search() {
 		var f = document.pw_f;
-		if(f.mem_id.value=="") {
+		if(f.id.value=="") {
 			alert("아이디를 입력해주세요.");
-			f.mem_id.focus();
+			f.id.focus();
 			return;
 		}
 		if(f.email.value=="") {
@@ -71,6 +71,8 @@ body {
 		}
 		f.submit();
 	}
+	
+
 </script>
 </head>
 <body>
@@ -109,7 +111,7 @@ body {
 							</table>
 						</form>
 						
-						<form action="pw_find_ok.php" name="pw_f" id="pw_f" method="post">
+						<form action="#" name="pw_f" id="pw_f" method="post">
             				<table width="380" border="0" cellspacing="0" cellpadding="0">
 			                <tbody>
              				<tr>
@@ -122,7 +124,7 @@ body {
 			                <tr>
                			   	    <td width="100" height="25" bgcolor="#f4f4f4">ID</td>
                				    <td width="130">
-               				  	    <input type="text" name="mem_id" tabindex="5" id="mem_id" > 
+               				  	    <input type="text" name="id" tabindex="5" id="id" > 
                    			    </td>
 	                            <td align="center" rowspan="2">
                  		       	    <div class="bts"> 
@@ -146,19 +148,19 @@ body {
 				</tbody>
 			</table>
 			
-<!-- 			<table align="right" border="0" cellspacing="0" cellpadding="0"> -->
-<!--        			<tbody> -->
-<!--         			<tr> -->
-<!-- 		  	          <td height="40" style="padding: 0px 13px 0px 0px;"> -->
-<!-- 	      	            <div class="bts"> -->
-<!-- 	      	            	<a href="javascript:self.close();"> -->
-<!-- 	      	            		<span style="width: 50px;">닫기</span> -->
-<!-- 	      	            	</a> -->
-<!-- 	      	            </div> -->
-<!-- 	      	          </td> -->
-<!-- 	      	        </tr> -->
-<!-- 	      	    </tbody> -->
-<!-- 	      	</table> -->
+			<table align="right" border="0" cellspacing="0" cellpadding="0">
+       			<tbody>
+        			<tr>
+		  	          <td height="40" style="padding: 0px 13px 0px 0px;">
+	      	            <div class="bts">
+	      	            	<a href="javascript:self.close();">
+	      	            		<span style="width: 50px;">닫기</span>
+	      	            	</a>
+	      	            </div>
+	      	          </td>
+	      	        </tr>
+	      	    </tbody>
+	      	</table>
 		</td>
 	</tr>
 	</tbody>
