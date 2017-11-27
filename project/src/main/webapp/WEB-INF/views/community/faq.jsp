@@ -48,34 +48,36 @@
 <body>
 <div id="wrapper">
 	<%@ include file="../header.jsp"%>
-	<div class="section">
-		<c:if test="${isAdmin}">
-			<table width="700">
+	<section>
+		<div class="subContent">
+			<c:if test="${isAdmin}">
+				<table width="100%">
+					<tr>
+						<td align="right"><a href="writeFaqFrom.do">글쓰기</a></td>
+					</tr>
+				</table>
+			</c:if>
+			<table border="1" width="100%" cellpadding="2" cellspacing="2">
+				<tr height="30">
+					<td align="center" width="250">제 목</td>
+				</tr>
+		
+				<c:forEach var="article" items="${articleList}">
+					<tr height="30">
+						<td class="titleBox" align="center" width="50" articleNum="${article.articleNum}" style="cursor:pointer">
+							${article.title}
+						</td>
+					</tr>
+				</c:forEach>
 				<tr>
-					<td align="right"><a href="writeFaqFrom.do">글쓰기</a></td>
+					<td colspan="5" align="center" height="40">${pageCode}</td>
 				</tr>
 			</table>
-		</c:if>
-		<table border="1" width="700" cellpadding="2" cellspacing="2">
-			<tr height="30">
-				<td align="center" width="250">제 목</td>
-			</tr>
-	
-			<c:forEach var="article" items="${articleList}">
-				<tr height="30">
-					<td class="titleBox" align="center" width="50" articleNum="${article.articleNum}" style="cursor:pointer">
-						${article.title}
-					</td>
-				</tr>
-			</c:forEach>
-			<tr>
-				<td colspan="5" align="center" height="40">${pageCode}</td>
-			</tr>
-		</table>
-	</div>
-</div>
+		</div>
+	</section>
 	
 	<%@ include file="../footer.jsp"%>
+</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>
 </html>

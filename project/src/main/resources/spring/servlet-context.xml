@@ -24,7 +24,7 @@
 	
 	<context:component-scan base-package="com.pknu.project" />
 	
-		<bean id="mailSender"
+	<bean id="mailSender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587"/>
@@ -40,5 +40,9 @@
 		</property>
 	</bean>
 	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000000"></property>
+	</bean>
 	
 </beans>
