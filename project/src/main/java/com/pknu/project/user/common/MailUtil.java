@@ -33,7 +33,7 @@ public class MailUtil {
 	public void sendPass(String pass,String email) {
 		String subject="비밀번호 찾기 관련 메일입니다.";
 		StringBuffer sb=new StringBuffer();
-		sb.append(pass);		
+		sb.append("임시 비밀번호는 " + pass + " 입니다.");
 		send(subject, sb.toString(),"bum6613@gmail.com", email);
 	}
 	
