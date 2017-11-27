@@ -10,7 +10,7 @@
 	<footer>
 		<div>
 			<a href="/project/noticeList.do?pageNum=1"><strong>공지사항</strong></a>&nbsp;&nbsp;&nbsp;
-			<a href="/project/faq.do?pageNum=1"><strong>QnA</strong></a>&nbsp;&nbsp;&nbsp;
+			<a href="/project/qna.do?pageNum=1"><strong>QnA</strong></a>&nbsp;&nbsp;&nbsp;
 			<a href="/project/faq.do?pageNum=1"><strong>FAQ</strong></a>
 		</div>
 		<br>
