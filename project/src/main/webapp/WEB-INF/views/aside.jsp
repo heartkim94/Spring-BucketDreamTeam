@@ -8,9 +8,9 @@
 <body>
 <aside class="sidebar2">
 	<ul>
-		<li><a href="#">NOTICE</a></li>
-		<li><a href="#">QnA</a></li>
-		<li><a href="#">FAQ</a></li>
+		<li><a href="/project/noticeList.do?pageNum=1"><strong>공지사항</strong></a></li>
+		<li><a href="/project/faq.do?pageNum=1"><strong>QnA</strong></a></li>
+		<li><a href="/project/faq.do?pageNum=1"><strong>FAQ</strong></a></li>
 	</ul>
 </aside>
 </body>

@@ -6,11 +6,12 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<link href="resources/style.css" rel="stylesheet" type="text/css">
+<link href="resources/css/style.css" rel="stylesheet" type="text/css">
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 	$(function() {
 		let articleBox = null;
+		let preArticle = null;
 		$(".titleBox").on("click", function() {
 			let titleRow = $(this).parent();
 			let articleNum = $(this).attr("articleNum");
@@ -28,7 +29,12 @@
 						$(articleBox).remove();
 					}
 					articleBox = $(str);
-					$(articleBox).insertAfter(titleRow);
+					if(preArticle!=articleNum) {
+						$(articleBox).insertAfter(titleRow);
+						preArticle = articleNum;
+					} else {
+						preArticle = null;
+					}
 				},
 				error: function(xhr) {
 					alert("error html = "+xhr.statusText);
@@ -40,8 +46,8 @@
 </head>
 
 <body>
+<div id="wrapper">
 	<%@ include file="../header.jsp"%>
-	<%@ include file="/WEB-INF/views/aside.jsp"%>
 	<div class="section">
 		<c:if test="${isAdmin}">
 			<table width="700">
@@ -67,6 +73,7 @@
 			</tr>
 		</table>
 	</div>
+</div>
 	
 	<%@ include file="../footer.jsp"%>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
