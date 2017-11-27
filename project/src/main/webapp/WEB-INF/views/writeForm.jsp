@@ -82,9 +82,15 @@ input.submitBtn {
 	height: 20px;
 	border-bottom: 1px solid #bfbfbf;
 }
-.upListView {
+.fileDrop {
+	
 	width: 100%;
-	height: 90px;
+	min-height: 90px;
+	height: auto;
+	border-bottom: 1px solid #bfbfbf;
+}
+.allDelete {
+	cursor: pointer;
 }
 </style>
 </head>
@@ -93,7 +99,7 @@ input.submitBtn {
 
 	<%@ include file="header.jsp" %>
 	<section>
-		<%@ include file="aside.jsp" %>
+<%-- 		<%@ include file="aside.jsp" %> --%>
 		<div class="subContent">
 			<nav>
 				<h1>NOTICE</h1>
@@ -131,8 +137,13 @@ input.submitBtn {
 										<div class="upListHead">
 											업로드 파일명 / 파일용량 / 업로드 날짜
 										</div>
-										<div class="upListView"></div>
+										<div class="fileDrop">
+											
+										</div>
+										<br>
+										<input type="button" class="allDelete" value="모두 삭제">
 									</div>
+									
 								</td>
 							</tr>
 						</table>
@@ -153,6 +164,7 @@ input.submitBtn {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(function(){
+		/* 화살표 누름 동작 */
 		$(".openFList").on("click", function(e){
 			e.preventDefault();
 			$(".uploadListWrap").toggle();
@@ -162,11 +174,125 @@ input.submitBtn {
 				$(".openFList").text('▼');
 			}
 		});
-		
+		/* 파일 열기 버튼 클릭 동작 */
 		$(".fileUpBtn").on("click", function(e){
 			e.preventDefault();
 			$("input[type=file]").click();
 		});
+		//글쓰기 취소시에 업로드 되어있는 파일 삭제
+		$(".cancelBtn").on("click", function(){	 
+			   allDeleteFiles();	
+			});
+		$(".fileDrop").on("dragenter dragover", function(e){
+			e.preventDefault();
+		});
+		$(".fileDrop").on("drop", function(e){
+			e.preventDefault();
+			let files = e.originalEvent.dataTransfer.files;
+			let formData = new FormData();
+			$.each(files,function(index,item){
+				formData.append("multiFile", item);
+			});	
+			$.ajax({
+				  url: '/project/uploadAjax.do',
+				  data: formData,
+//					  복수개를 업로드시 
+				  dataType:'json',		  
+				  processData: false,
+				  contentType: false,
+				  type: 'POST',
+				  success: function(data){
+					  var str ="";				 
+					  alert(data);				  
+					  $.each(data,function(index, fileName){					  					 
+						  if(checkImageType(fileName)){						 
+							  str ="<div><img src='displayFile.do?fileName="+fileName+"'/>"	
+								  +"<small class='human' data-src='"+fileName+"'>X</small>"
+//			 				 이미지 파일일 경우에는 이름에 s_ 가 포함되어있으므로 테이블에 바로 입력하면
+//			 				 다운로드시 썸네일 파일을 다운로드 받게됨...이름에 s_ 제거하고 테이블에 입력
+								  +"<input type='hidden' name='fileNames' value='"+getImageLink(fileName)+"'></div>";
+						  }else{
+						 	  str ="<div>"+ getOriginFname(fileName)
+								  +"<small class='human' data-src='"+fileName+"'>X</small>"
+								  +"<input type='hidden' name='fileNames' value='"+fileName+"'></div>";
+						  }
+						  
+						  $(".fileDrop").append(str);
+					  });				 
+				  },
+				  error : function(xhr){
+						alert("error html = " + xhr.statusText);
+				  }			  
+				});	//$.ajax END
+				
+			$(".fileDrop").on("click", "small", function(event){			
+				let that = $(this);
+				$.ajax({
+					   url:"/project/deleteFile.do",
+					   type:"post",
+					   data: {
+						   fileName:$(this).attr("data-src")
+					   },
+					   dataType:"text",		 
+					   success:function(result){
+						   if(result == 'deleted'){				   
+							   that.parent("div").remove();
+							   alert("삭제성공");
+						   }
+					   }
+				});
+			});
+
+			$(".allDelete").on("click", function(event){			
+				allDeleteFiles();
+			});
+
+			function allDeleteFiles(){
+				let files=[];
+				$.each($(".human"),function(index,item){
+//						files[index]=$(this).attr("data-src");
+					files.push($(this).attr("data-src"));						
+				});	
+//				배열을 직렬화해서 전송함 
+				jQuery.ajaxSettings.traditional = true;
+				$.ajax({
+					   url:"/project/deleteAllFiles.do",
+					   type:"post",
+					   data: {files: files},
+					   dataType:"text",		  
+					   success:function(result){
+						   if(result == 'deleted'){
+							   $(".fileDrop").children().remove();
+							   alert("삭제성공");
+						   }
+					   }
+				});
+			}
+
+			function checkImageType(fileName){	
+//					/i는 대소문자 구분 하지 말라는 뜻임
+				var pattern = /.jpg|.gif|.png/i;		
+				return fileName.match(pattern);		
+			}
+
+			function getImageLink(fileName){
+				if(!checkImageType(fileName)){
+					return;
+				}	
+				var front = fileName.substr(0,12);
+				var end = fileName.substr(14);			
+				return front + end;	
+			}
+
+			function getOriginFname(fileName){
+				if(checkImageType(fileName)){
+					return;
+				}
+				
+				var idx = fileName.indexOf("_") + 1 ;
+				return fileName.substr(idx);	
+			}
+		}); // $(".fileDrop") END
 	});
 </script>
  

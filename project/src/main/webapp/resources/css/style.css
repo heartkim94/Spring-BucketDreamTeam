@@ -110,15 +110,9 @@ div.login {
 
 /* 서브 페이지 콘텐츠 영역 스타일 */
 div.subContent {
-	float: right;
-	width: 80%;
-	padding: 50px 0;
-	padding-left: 5%;
-	box-sizing: border-box;
-}
-div.subContent > div {
-	float: right;
 	width: 100%;
+	padding: 20px 50px;
+	box-sizing: border-box;
 }
 div.subContent nav {
 	position: relative;
@@ -134,7 +128,12 @@ div.subContent nav h1, span {
 div.subContent nav span {
 	right: 0px;
 }
-
+div.subContent table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	
+}
 
 
 
