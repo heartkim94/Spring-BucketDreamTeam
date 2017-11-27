@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis map 선언 표시 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+              "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.pknu.project.common.dao.BoardDao">
+<!-- 	<update id="createBoard" parameterType="HashMap"> -->
+<!-- 		create table board#{} -->
+<!-- 	</update> -->
+	<select id="getCount" parameterType="int" resultType="int">
+		select count(*) from `board#{boardNum}`
+	</select>
+	<select id="getArticles" parameterType="HashMap" resultType="article">
+		SELECT articleNum, id, title, depth, hit, date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
+        FROM (SELECT b.*, @rownum := @rownum+1 as rownum
+              FROM `board#{boardNum}` b, (SELECT @rownum := 0) vars
+			  order by groupId desc, pos) n
+		WHERE rownum between #{startRow} and #{endRow}
+	</select>
+	<select id="getArticle" parameterType="HashMap" resultType="article">
+		SELECT * FROM `board#{boardNum}` WHERE articleNum = #{articleNum}
+	</select>
+</mapper>
