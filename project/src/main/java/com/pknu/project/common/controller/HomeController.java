@@ -24,5 +24,4 @@ public class HomeController {
 		System.out.println("hello");
 		return "home";
 	}
-	
 }

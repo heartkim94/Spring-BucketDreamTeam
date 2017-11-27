@@ -109,6 +109,7 @@ public class UserServiceImpl implements UserService {
 		}else if(user==null) {//회원가입
 			model.addAttribute("Notmember",Notmember);
 			view = "user/loginFail";
+			
 		}
 		System.out.println(session.getAttribute("id"));
 		return view;

@@ -40,7 +40,6 @@ input.submitBtn {
 
 		<%@ include file="header.jsp" %>
 		<section> 
-			<%@ include file="aside.jsp" %>
 			<div class="subContent">
 				<nav>
 				<h1>NOTICE</h1>
@@ -51,7 +50,7 @@ input.submitBtn {
 						<input type="hidden" name="depth" value="${article.depth}">
 						<!--     계층형 쿼리 사용을 위해서 부모글의 글 번호가 답글의 groupId가 되어야 함 -->
 						<input type="hidden" name="groupId" value="${article.articleNum}">
-						<table border="1" width="500" align="center">
+						<table border="1" width="100%" align="center" cellpadding="2" cellspacing="2">
 							<tr>
 								<td>글쓴이 :</td>
 								<td>${article.id}</td>
@@ -122,7 +121,7 @@ input.submitBtn {
 						</table>
 						<div class="btnConfirm">
 							<input type="submit" value="작성 완료" class="submitBtn" /> 
-							<a href="/project/notice.do?pageNum=${pageNum}">취소</a>
+							<a href="/project/noticeList.do?pageNum=${pageNum}">취소</a>
 						</div>
 					</form>
 	
