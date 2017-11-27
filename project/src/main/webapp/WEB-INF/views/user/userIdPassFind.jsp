@@ -10,16 +10,77 @@
 <script language="javascript">
 	function id_search() {
 		var f = document.id_f;
-		if(f.email.value=="") {
-			alert("email을 입력해주세요.");
-			f.email.focus();
-			return;
-		}
-		f.submit();
+		$.ajax({
+			url:"/project/joinEmailCheck.do", // 이메일 체크 재사용했음
+			data:{
+				inputEmail:$("#email").val()
+			},
+			success:function(data){
+				if($("#email").val()!=""){
+					if(data==1){
+						alert("잘못된 email 입니다.");
+			 			f.email.focus();
+					}else {
+						f.submit();
+					}
+				}else {
+		 			alert("email을 입력해주세요.");
+		 			f.email.focus();
+				}
+			}
+		});
 	}
+
 	
 	function pw_search() {
 		var f = document.pw_f;
+		$.ajax({
+			url:"/project/joinIdCheck.do", // 이메일 체크 재사용했음
+			data:{
+				inputId:$("#id").val()
+			},
+			success:function(data){
+				if($("#id").val()!=""){
+					if(data==1){
+						alert("잘못된 ID 입니다.");
+			 			f.id.focus();
+					}else {
+						f.submit();
+					}
+				}else {
+		 			alert("ID를 입력해주세요.");
+		 			f.id.focus();
+				}
+			}
+		});
+		$.ajax({
+			url:"/project/joinEmailCheck.do", // 이메일 체크 재사용했음
+			data:{
+				inputEmail:$("#email").val()
+			},
+			success:function(data){
+				if($("#email").val()!=""){
+					if(data==1){
+						alert("잘못된 EMAIL 입니다.");
+			 			f.email.focus();
+					}else {
+						f.submit();
+					}
+				}else {
+		 			alert("EMAIL을 입력해주세요.");
+		 			f.email.focus();
+				}
+			}
+		});
+	}
+	
+	
+	
+	
+/*	
+	function pw_search() {
+		var f = document.pw_f;
+
 		if(f.id.value=="") {
 			alert("아이디를 입력해주세요.");
 			f.id.focus();
@@ -32,6 +93,7 @@
 		}
 		f.submit();
 	}
+*/
 </script>
 </head>
 <body>

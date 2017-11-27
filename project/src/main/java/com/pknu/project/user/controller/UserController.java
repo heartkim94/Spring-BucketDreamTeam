@@ -88,12 +88,12 @@ public class UserController {
 		return "user/emailAlertPage";
 	}
 	
-	@RequestMapping(value="userIdPassFind")
+	@RequestMapping(value="userIdPassFind.do")
 	public String userIdPassFind() { //아이디 비밀번호 찾기 폼
 		return "user/userIdPassFind";
 	}
 	
-	@RequestMapping(value="userIdFind")
+	@RequestMapping(value="userIdFind.do")
 	public String userIdFind(UserDto userDto,@RequestParam("email") String email, Model model) {
 		userDto.setEmail(email);
 		userService.userIdFind(userDto, model);
@@ -107,7 +107,6 @@ public class UserController {
 		userService.userPassFind(userDto);
 		return "user/userIdPassFind";
 	}
-	
 
 	
 }
