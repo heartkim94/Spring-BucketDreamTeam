@@ -44,11 +44,14 @@ public class UserController {
 		return userService.joinEmailCheck(inputEmail); 
 	}
 	
-	@RequestMapping(value="main.do")
+//	@RequestMapping(value="main.do")
+//	public String mainPage() {
+//		return "user/main";
+//	}
+	@RequestMapping(value="home.do")
 	public String mainPage() {
-		return "user/main";
+		return "home";
 	}
-	
 	
 	@RequestMapping(value="/userInsert.do")
 	public String memInsert(UserDto userDto) {
