@@ -24,7 +24,7 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	HashMap<String, Integer> paramMap;
 	
-	public Model noticeList(int pageNum, Model model){
+	public Model noticeList(int pageNum, Model model, String searchCondition, String searchKeyword ){
 		int totalCount = 0;
 		int pageSize = 10; //한페이지에 보여줄 글의 갯수
 		int pageBlock = 10; //한 블럭당 보여줄 페이지 갯수
@@ -34,12 +34,14 @@ public class CommunityServiceImpl implements CommunityService {
 		paramMap = new HashMap<>();
 		paramMap.put("startRow", page.getStartRow());
 		paramMap.put("endRow", page.getEndRow());
-		noticeList = communityDao.getNoticeArticles(paramMap);
+		noticeList = communityDao.getNoticeArticles(paramMap, searchCondition, searchKeyword);
 		model.addAttribute("totalCount",totalCount);
 		model.addAttribute("articleList",noticeList);
 		model.addAttribute("pageCode",page.getSb().toString());
+		model.addAttribute("searchCondition", searchCondition);
+		model.addAttribute("searchKeyword", searchKeyword);
 
-		return model;
+		return model; 
 	}
 
 	@Override
@@ -65,7 +67,6 @@ public class CommunityServiceImpl implements CommunityService {
 //			commonFileUpload(article.getArticleNum(), article.getFileNames());
 //		}
 	}
-	
 	
 	
 	/* FAQ */

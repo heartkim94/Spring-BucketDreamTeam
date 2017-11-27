@@ -12,10 +12,20 @@
 	<select id="getNoticeArticles" parameterType="HashMap" resultType="article">
 		SELECT articleNum, id, title, depth, hit, date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
         FROM (SELECT n.*, @rownum := @rownum+1 as rownum
-              FROM notice n, (SELECT @rownum := 0) vars
+              FROM notice <include refid="search"></include> n, (SELECT @rownum := 0) vars
 			  order by groupId desc, pos) n
 		WHERE rownum between #{startRow} and #{endRow}
 	</select>
+	<sql id="search">
+	    <choose>
+	        <when test="searchCondition == 'title'">
+	            WHERE TITLE LIKE '%'||#{searchKeyword}||'%' ORDER BY SEQ DESC
+	        </when>
+	        <when test="searchCondition == 'content'">
+	        	 WHERE CONTENT LIKE '%'||#{searchKeyword}||'%' ORDER BY SEQ DESC
+	        </when>
+	    </choose>
+	</sql>
 	
 	<!-- notice 글 상세보기 -->
 	<select id="getNoticeArticle" parameterType="int" resultType="article">
@@ -33,7 +43,6 @@
 					VALUES ('test', #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus});
 		update notice set groupId = articleNum where articleNum = last_insert_id();
 	</insert>
-	
 	
 	<!-- FAQ -->
 	<select id="getFaqArticles" parameterType="HashMap" resultType="article">

@@ -1,5 +1,8 @@
 package com.pknu.project.community.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +23,19 @@ public class CommunityController {
 	@Autowired
 	CommunityService communityService;
 	
-	@RequestMapping(value = "/noticeList.do", method = RequestMethod.GET)
-	public String noticeList(@ModelAttribute("pageNum") int pageNum, Model model) {
-		communityService.noticeList(pageNum, model);
+	// 검색 조건 목록 설정
+	@ModelAttribute("conditionMap")
+	public Map<String, String> searchConditionMap(){
+		Map<String, String> conditionMap = new HashMap<String, String>();
+		conditionMap.put("제목", "TITLE");
+		conditionMap.put("내용", "CONTENT");
+		return conditionMap;
+	}
+	@RequestMapping(value = "/noticeList.do")
+	public String noticeList(@ModelAttribute("pageNum") int pageNum, Model model, ArticleDto article, String searchCondition, String searchKeyword ) {
+		if(article.getSearchCondition() == null) article.setSearchCondition("TITLE");
+		if(article.getSearchKeyword() == null) article.setSearchKeyword("");
+		communityService.noticeList(pageNum, model, searchCondition, searchKeyword);
 		System.out.println("***noticeList***");
 		return "noticeList";
 	}

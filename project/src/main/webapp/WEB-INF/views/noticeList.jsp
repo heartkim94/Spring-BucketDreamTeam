@@ -40,6 +40,23 @@
 					<td align="right"><a href="write.do">글쓰기</a></td>
 				</tr>
 			</table>
+			<!-- 검색시작 -->
+			<form action="noticeList.do" method="post">
+				<table border="1" cellpadding="0" cellspacing="0" width="100%">
+					<tr>
+						<td align="right">
+							<select name="searchCondition">
+								<c:forEach items="${conditionMap }" var="option">
+									<option value="${option.value }">${option.key }</option>
+								</c:forEach>
+							</select>
+							<input name="searchKeyword" type="text">
+							<input type="submit" value="검색"> 
+						</td>
+					</tr>
+				</table>
+			</form>
+			<!-- 검색종료 -->
 			<table border="1" width="100%" cellpadding="2" cellspacing="2">
 				<tr height="30">
 					<td align="center" width="50">번 호</td>
