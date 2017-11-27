@@ -23,26 +23,11 @@ public class TestController {
 	@Autowired
 	BoardService service;
 	HashMap<String, String> paramMap;
+	
 	@Test
 	public void test() {
-		service.createBoard("Notice", -1);
-		service.createBoard("QnA", -1);
-		service.createBoard("FAQ", -1);
-		
-		ArticleDto article = new ArticleDto();
-		article.setTitle("test notice article1");
-		article.setContent("no content");
-		article.setFileStatus(0);
-		article.setBoardNum(1);
-		service.writeArticle(article);
-		
 		paramMap = new HashMap<>();
-		paramMap.put("startRow", "1");
-		paramMap.put("endRow", "10");
-		paramMap.put("boardNum", "1");
-		List<ArticleDto> list = dao.getArticles(paramMap);
-		for(ArticleDto dto: list) {
-			System.out.println(dto.getArticleNum()+", "+dto.getTitle());
-		}
+		paramMap.put("boardNum", "-1");
+		dao.createTableBoard(paramMap);
 	}
 }

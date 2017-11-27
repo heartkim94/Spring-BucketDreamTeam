@@ -15,7 +15,7 @@
 		insert into BoardList(boardName, groupNum) values(#{boardName}, #{groupNum});
 	</update>
 	<update id="createTableBoard" parameterType="HashMap">
-		create table board${boardNum} (
+		create table `board${boardNum}` (
 		    articleNum int primary key auto_increment,
 		    id varchar(300) not null,
 		    title varchar(500) not null,

@@ -19,10 +19,7 @@ public class BoardController {
 			@ModelAttribute("boardNum") int boardNum,
 			@ModelAttribute("pageNum") int pageNum,
 			Model model) {
-		System.out.println("***TestCon:getAminArticles.do***");
-		System.out.println("***TestCon:getArticles***");
 		boardService.getArticles(boardNum, pageNum, model);
-		System.out.println("***TestCon:getAdminBoardSetting***");
 		String view = boardService.getAdminBoardSetting(boardNum);
 		return view;
 	}
