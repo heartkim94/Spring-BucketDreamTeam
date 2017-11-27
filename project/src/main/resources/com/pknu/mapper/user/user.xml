@@ -33,5 +33,7 @@
 	<select id="userIdFind" parameterType="String" resultType="String">
 		select id from user where email=#{email}
 	</select>
+	
+
 	 
 </mapper>

@@ -94,10 +94,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="userIdFind")
-	public String userIdFind(UserDto userDto, String email,Model model) {
+	public String userIdFind(UserDto userDto,@RequestParam("email") String email, Model model) {
 		userDto.setEmail(email);
 		userService.userIdFind(userDto, model);
 		return "user/userIdShow";
 	}
+	
+	
+
 	
 }

@@ -7,15 +7,8 @@
 <title>아이디를 찾았습니다</title>
 <link rel="stylesheet" href="./resources/css/userIdPassFind.css">
 <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
-
-
 </head>
 <body>
-<!-- 		<form> -->
-<!-- 			<div> -->
-<%-- 				<p>아이디 : ${myId} 입니다.</p> --%>
-<!-- 			</div> -->
-<!-- 		</form> -->
 	<table width="450" class="grey12" border="0" cellspacing="0" cellpadding="0">
 	<tbody>
 	<tr>

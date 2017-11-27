@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>아이디/비밀번호 찾기</title>
 <link rel="stylesheet" href="./resources/css/userIdPassFind.css">
-
+<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 <script language="javascript">
 	function id_search() {
 		var f = document.id_f;
