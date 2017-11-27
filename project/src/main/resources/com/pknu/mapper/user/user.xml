@@ -27,4 +27,7 @@
 	 <select id="checkLogin" parameterType="String" resultType="user">
 	 	select pass, certify, isAdmin from user where id = #{id}
 	 </select>
+	 <select id="getUser" parameterType="String" resultType="user">
+	 	select * from user where id=#{id}
+	 </select>
 </mapper>
