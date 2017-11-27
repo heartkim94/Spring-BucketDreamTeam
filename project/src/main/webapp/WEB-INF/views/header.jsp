@@ -29,7 +29,7 @@
 <!-- 				<input type="button" value="로그인input" onclick="document.location.href='main.do'"> -->
 			</div>
 		</c:if>
-		<a href="home.do"><strong>header</strong></a>
+		<a href="home.do"><strong>header(여기에 사이트 이름)</strong></a>
 	</header>
 	<hr>
 </body>

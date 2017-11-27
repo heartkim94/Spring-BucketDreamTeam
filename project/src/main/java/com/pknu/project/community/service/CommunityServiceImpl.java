@@ -75,7 +75,7 @@ public class CommunityServiceImpl implements CommunityService {
 		int pageSize = 10; //한페이지에 보여줄 글의 갯수
 		int pageBlock = 10; //한 블럭당 보여줄 페이지 갯수
 
-		totalCount = communityDao.getNoticeCount();
+		totalCount = communityDao.getFaqCount();
 		page.paging(pageNum, totalCount, pageSize, pageBlock);
 		paramMap = new HashMap<>();
 		paramMap.put("startRow", page.getStartRow());
@@ -91,5 +91,31 @@ public class CommunityServiceImpl implements CommunityService {
 		ArticleDto article = communityDao.getFaqArticle(articleNum);
 		System.out.println(article.getTitle());
 		return communityDao.getFaqArticle(articleNum);
+	}
+	
+	
+	
+	
+	/* QnA */
+	@Override
+	public void qnaList(int pageNum, Model model){
+		int totalCount = 0;
+		int pageSize = 10; //한페이지에 보여줄 글의 갯수
+		int pageBlock = 10; //한 블럭당 보여줄 페이지 갯수
+
+		totalCount = communityDao.getQnaCount();
+		page.paging(pageNum, totalCount, pageSize, pageBlock);
+		paramMap = new HashMap<>();
+		paramMap.put("startRow", page.getStartRow());
+		paramMap.put("endRow", page.getEndRow());
+		
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("articleList", communityDao.getQnaArticles(paramMap));
+		model.addAttribute("pageCode",page.getSb().toString());
+	}
+
+	@Override
+	public ArticleDto getQnaArticle(int articleNum) {
+		return communityDao.getQnaArticle(articleNum);
 	}
 }

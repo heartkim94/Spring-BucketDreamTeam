@@ -12,4 +12,6 @@ public interface CommunityService {
 	/* FAQ */
 	public void faqList(int pageNum,Model model);
 	public ArticleDto getFaqArticle(int articleNum);
+	public void qnaList(int pageNum,Model model);
+	public ArticleDto getQnaArticle(int articleNum);
 }

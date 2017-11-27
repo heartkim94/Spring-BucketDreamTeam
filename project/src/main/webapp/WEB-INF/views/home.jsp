@@ -24,37 +24,44 @@
 </head>
 
 <body>
-
-	<div id="wrapper">
+<div id="wrapper">
+	<%@ include file="header.jsp" %>
 	
-		<%@ include file="header.jsp" %>
-		<section>
-			<div class="mainContent">
-				<div class="contentRow">
-					<div class="intro">
-						<img src="resources/img/흐엉.jpg" width="300" height="300" alt="홈페이지 소개 사진이나 글, 슬라이드"><br>
-						<h1>Hello, world!</h1>
-						<p>blah blah</p>
-						<button type="button" onclick="alert('Coming Soon!!!')">Click!!</button>
-					</div>
-					
-					<div class="login">
+	<section>
+		<div class="mainContent">
+			<div class="contentRow">
+				<div class="intro">
+					<img src="resources/img/흐엉.jpg" width="300" height="300" alt="홈페이지 소개 사진이나 글, 슬라이드"><br>
+					<h1>Hello, world!</h1>
+					<p>blah blah</p>
+					<button type="button" onclick="alert('Coming Soon!!!')">Click!!</button>
+				</div>
+				
+				<div class="login">
+					<c:if test="${id == null}">
 						<form action="/project/login.do" method="post" id="loginForm">
 							<br>
 							<input type="text" id="id" name="id" placeholder="아이디" required=""/><br>
 							<input type="password" id="pass" name="pass" placeholder="비밀번호" required=""/><br>
 							<input type="submit" value="로그인"><br>
-							<a href="#">ID / PW 찾기</a> | <a href="userProvisionForm.do">회원가입</a>
+							<a href="#">ID / PW 찾기</a> &nbsp; | &nbsp; <a href="userProvisionForm.do">회원가입</a>
 						</form>
-					</div>
+					</c:if>
+					<c:if test="${id != null}">
+						<center>
+							<form action="/project/logout.do" method="post">
+							 	<p>${id}님 환영합니다</p>
+							 	<a href="/project/mypage.do">회원정보수정</a><br>
+								<button id="logout">로그아웃</button>
+							</form>
+						</center>
+					</c:if>
 				</div>
 			</div>
-		</section>
-		<%@ include file="footer.jsp" %>
+		</div>
+	</section>
 	
-	</div> <!-- wrapper End -->
-	
-	
-	
+	<%@ include file="footer.jsp" %>
+</div> <!-- wrapper End -->
 </body>
 </html>
