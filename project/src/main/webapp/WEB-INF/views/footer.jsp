@@ -8,7 +8,19 @@
 </head>
 <body>
 	<footer>
-		<h1>footer</h1>
+		<div>
+			<a href="/project/noticeList.do?pageNum=1"><strong>공지사항</strong></a>&nbsp;&nbsp;&nbsp;
+			<a href="/project/faq.do?pageNum=1"><strong>QnA</strong></a>&nbsp;&nbsp;&nbsp;
+			<a href="/project/faq.do?pageNum=1"><strong>FAQ</strong></a>
+		</div>
+		<br>
+		<div>
+			<p class="text-center">
+				<small><strong> 사거리</strong></small><br>
+				<small>대표 : 홍길동 ㆍ 주소 :  사거리 ㆍ 사업자등록번호:123-12-12345 ㆍ 전화 : 064-123-1234</small><br>
+				<small>Copyrightⓒ test.com All rights reserved.</small>
+			</p>
+		</div>
 	</footer>
 </body>
 </html>

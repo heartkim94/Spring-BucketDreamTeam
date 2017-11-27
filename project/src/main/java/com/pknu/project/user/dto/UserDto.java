@@ -57,7 +57,7 @@ public class UserDto {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public boolean isAdmin() {
+	public boolean getIsAdmin() {
 		return isAdmin;
 	}
 	public void setAdmin(boolean isAdmin) {

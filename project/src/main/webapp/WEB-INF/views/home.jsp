@@ -5,7 +5,22 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Home</title>
+	<title>MAIN</title>
+<!-- 	<link rel="stylesheet" href="./resources/css/login.css"> -->
+<!-- 	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script>
+		
+		$(document).ready(function(){
+			
+			let Certify=${dbCertify};
+			if(Certify == 0) {
+				alert("회원가입 이메일 인증을 안하셨습니다.");
+			}
+			document.location.href="./";
+		});
+	
+	</script>  
 </head>
 
 <body>
@@ -24,12 +39,12 @@
 					</div>
 					
 					<div class="login">
-						<form action="" method="post" id="loginForm">
+						<form action="/project/login.do" method="post" id="loginForm">
 							<br>
-							<input type="text" placeholder="아이디" name="id" id="id"></label><br>
-							<input type="password" placeholder="비밀번호" name="password" id="password"></label><br>
+							<input type="text" id="id" name="id" placeholder="아이디" required=""/><br>
+							<input type="password" id="pass" name="pass" placeholder="비밀번호" required=""/><br>
 							<input type="submit" value="로그인"><br>
-							<a href="#">ID / PW 찾기</a> | <a href="#">회원가입</a>
+							<a href="#">ID / PW 찾기</a> | <a href="userProvisionForm.do">회원가입</a>
 						</form>
 					</div>
 				</div>
@@ -40,6 +55,6 @@
 	</div> <!-- wrapper End -->
 	
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	
 </body>
 </html>

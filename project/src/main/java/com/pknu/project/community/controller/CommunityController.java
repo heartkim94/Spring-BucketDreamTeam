@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.community.service.CommunityService;
+import com.pknu.project.user.dto.UserDto;
 
 @Controller
 public class CommunityController {
@@ -27,7 +28,8 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
-	public String writeForm(){
+	public String writeForm(HttpSession session){
+		session.getId();
 		System.out.println("***writeForm***");
 		return "writeForm";   
 	}
@@ -37,7 +39,7 @@ public class CommunityController {
 //		article.setId((String)session.getAttribute("id"));
 		communityService.writeNotice(article);
 		System.out.println("***write***");
-		return "redirect:noticeList.do?pageNum=1";   
+		return "redirect:noticeList.do?pageNum=1";
 	}
 	
 	

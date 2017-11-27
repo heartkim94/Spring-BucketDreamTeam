@@ -43,11 +43,13 @@
 	<%@ include file="../header.jsp"%>
 	<%@ include file="/WEB-INF/views/aside.jsp"%>
 	<div class="section">
-		<table width="700">
-			<tr>
-				<td align="right"><a href="writeFaq.do">글쓰기</a></td>
-			</tr>
-		</table>
+		<c:if test="${isAdmin}">
+			<table width="700">
+				<tr>
+					<td align="right"><a href="writeFaqFrom.do">글쓰기</a></td>
+				</tr>
+			</table>
+		</c:if>
 		<table border="1" width="700" cellpadding="2" cellspacing="2">
 			<tr height="30">
 				<td align="center" width="250">제 목</td>
@@ -55,7 +57,7 @@
 	
 			<c:forEach var="article" items="${articleList}">
 				<tr height="30">
-					<td class="titleBox" align="center" width="50" articleNum="${article.articleNum}">
+					<td class="titleBox" align="center" width="50" articleNum="${article.articleNum}" style="cursor:pointer">
 						${article.title}
 					</td>
 				</tr>

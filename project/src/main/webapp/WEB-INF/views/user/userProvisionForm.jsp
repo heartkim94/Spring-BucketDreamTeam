@@ -422,7 +422,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 				</td>
 			</tr>
 		</table>
-		<div>
+		<div style="text-align: center">
         	<button type="submit">확인</button>
         </div>
 	</form>

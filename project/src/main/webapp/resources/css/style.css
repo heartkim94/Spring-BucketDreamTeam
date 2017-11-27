@@ -52,11 +52,17 @@ h4 {
 header {
 	height: 150px;
 	padding: 5px 30px;
-	background-image: url(../img/DreamTeam.jpg);
+	background-color:#aaa;
+	background-image: url(../img/흐엉_small.jpg);
 	background-repeat: no-repeat;
-	background-position: left top;
+	background-position: left center ;
 	text-align:center;
 	box-sizing: border-box;
+}
+div.loginbtn {
+	height:30px;
+	text-align:right;
+	padding:20px 20px 0 0;
 }
 
 /* 푸터 스타일 */
@@ -210,28 +216,3 @@ div.section {
 	border:1px solid #000;	
 	opacity:1.0;
 }
-
-/* header, section, footer, aside, div.subContent, figure { */
-/* 	display: block; */
-/* } */
-/* a img {  */
-/* 	border: none; */
-/* } */
-/* a:link { */
-/* 	color: #42413C; */
-/* 	text-decoration: none; */
-/* } */
-/* a:visited { */
-/* 	color: #000; */
-/* 	text-decoration: underline; */
-/* } */
-/* a:hover, a:active, a:focus { */
-/* 	text-decoration: none; */
-/* } */
-/* .container { */
-/* 	width: 960px; */
-/* 	margin : 0 auto; */
-/* 	background-color:#888; */
-/* 	border:1px solid #E7E7E7 */
-/* } */
-

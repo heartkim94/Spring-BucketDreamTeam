@@ -1,9 +1,12 @@
 package com.pknu.project.user.dao;
 
+import java.util.HashMap;
+
 import com.pknu.project.user.dto.UserDto;
 
 public interface UserDao {
 	public String loginCheck(String id);
+	public UserDto checkLogin(String id);
 	public String emailCheck(String email);
 	public void userInsert(UserDto userDto);
 	public void userUpdate(UserDto userDto);
