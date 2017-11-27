@@ -36,6 +36,7 @@ public class BoardServiceImpl implements BoardService {
 	public String getAdminBoardSetting(int boardNum) {
 		return boardDao.getAdminBoardSetting(boardNum);
 	}
+	
 	@Override
 	public void createBoard(String boardName, int groupNum) {
 		paramMap = new HashMap<>();

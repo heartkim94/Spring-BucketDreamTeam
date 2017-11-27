@@ -21,23 +21,30 @@ import com.pknu.project.community.service.CommunityService;
 @Controller
 public class CommunityController {
 	@Autowired
-	CommunityService communityService;
+	private CommunityService communityService;
 	@Autowired
-	BoardService boardSerivce;
+	private BoardService boardService;
 	@Autowired
 	private ServletContext servletContext;
 	
 	@PostConstruct
 	public void init() {
-		servletContext.setAttribute("communityBoardList", boardSerivce.getBoards(-1));
+		communityService.getAdminBoards(servletContext);
 	}
 	
-	@RequestMapping(value="/community/getBoards.do", method=RequestMethod.POST)
-	@ResponseBody
-	public String getBoards(HttpServletRequest request) {
-		request.getServletContext().setAttribute("communityBoardList", boardSerivce.getBoards(-1));
-		return "success";
+	@RequestMapping(value="/community.do", method=RequestMethod.GET)
+	public String community(
+			@ModelAttribute("boardNum") int boardNum,
+			@ModelAttribute("pageNum") int pageNum,
+			Model model) {
+		boardService.getArticles(boardNum, pageNum, model);
+		String view = communityService.getAdminBoardSetting(boardNum);
+		return view;
 	}
+	
+	
+	
+	/* Old Method */
 	@RequestMapping(value = "/noticeList.do", method = RequestMethod.GET)
 	public String noticeList(@ModelAttribute("pageNum") int pageNum, Model model) {
 		communityService.noticeList(pageNum, model);
@@ -77,7 +84,6 @@ public class CommunityController {
 		System.out.println("***faq.do***");
 		 communityService.faqList(pageNum, model);
 		// boardSerivce.getArticles(pageNum, model);
-		 request.getServletContext().setAttribute("communityBoardList", boardSerivce.getBoards(-1));
 		return "community/faq";
 	}
 	

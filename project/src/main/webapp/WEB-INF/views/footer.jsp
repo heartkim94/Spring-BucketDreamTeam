@@ -13,7 +13,7 @@
 	<footer>
 		<div>
 			<c:forEach var="board" items="${communityBoardList}" varStatus="status">
-				<a href="/project/testGetAdminArticles.do?pageNum=1&boardNum=${board.boardNum}">
+				<a href="/project/community.do?pageNum=1&boardNum=${board.boardNum}">
 					<strong>${board.boardName}</strong>
 				</a><c:if test="${!status.last}">&nbsp;&nbsp;&nbsp;</c:if>
 			</c:forEach>
