@@ -1,5 +1,8 @@
 package com.pknu.project.community.controller;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +15,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pknu.project.common.dto.ArticleDto;
+import com.pknu.project.common.service.BoardService;
 import com.pknu.project.community.service.CommunityService;
-import com.pknu.project.user.dto.UserDto;
 
 @Controller
 public class CommunityController {
 	@Autowired
 	CommunityService communityService;
+	@Autowired
+	BoardService boardSerivce;
+	@Autowired
+	private ServletContext servletContext;
 	
+	@PostConstruct
+	public void init() {
+		servletContext.setAttribute("communityBoardList", boardSerivce.getBoards(-1));
+	}
+	
+	@RequestMapping(value="/community/getBoards.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String getBoards(HttpServletRequest request) {
+		request.getServletContext().setAttribute("communityBoardList", boardSerivce.getBoards(-1));
+		return "success";
+	}
 	@RequestMapping(value = "/noticeList.do", method = RequestMethod.GET)
 	public String noticeList(@ModelAttribute("pageNum") int pageNum, Model model) {
 		communityService.noticeList(pageNum, model);
@@ -55,9 +73,11 @@ public class CommunityController {
 	
 	/* FAQ */
 	@RequestMapping(value="/faq.do", method=RequestMethod.GET)
-	public String faqList(@ModelAttribute("pageNum") int pageNum, Model model) {
+	public String faqList(@ModelAttribute("pageNum") int pageNum, Model model, HttpServletRequest request) {
 		System.out.println("***faq.do***");
-		communityService.faqList(pageNum, model);
+		 communityService.faqList(pageNum, model);
+		// boardSerivce.getArticles(pageNum, model);
+		 request.getServletContext().setAttribute("communityBoardList", boardSerivce.getBoards(-1));
 		return "community/faq";
 	}
 	

@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.pknu.project.common.Page;
 import com.pknu.project.common.dao.BoardDao;
 import com.pknu.project.common.dto.ArticleDto;
-import com.pknu.project.community.dao.CommunityDao;
+import com.pknu.project.common.dto.BoardDto;
+import com.pknu.project.common.utils.Page;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -22,20 +22,40 @@ public class BoardServiceImpl implements BoardService {
 	private ArticleDto article;
 	
 	List<ArticleDto> noticeList;
+	List<BoardDto> boardList;
 	
-	HashMap<String, Integer> paramMap;
+	HashMap<String, String> paramMap;
 	
+	@Override
+	public List<BoardDto> getBoards(int groupNum) {
+		boardList = boardDao.getBoards(groupNum);
+		return boardList;
+	}
+	
+	@Override
+	public String getAdminBoardSetting(int boardNum) {
+		return boardDao.getAdminBoardSetting(boardNum);
+	}
+	@Override
+	public void createBoard(String boardName, int groupNum) {
+		paramMap = new HashMap<>();
+		paramMap.put("boardName", boardName);
+		paramMap.put("groupNum", String.valueOf(groupNum));
+		boardDao.addBoardList(paramMap);
+		boardDao.createTableBoard(paramMap);
+	}
 	@Override
 	public void getArticles(int boardNum, int pageNum, Model model){
 		int totalCount = 0;
 		int pageSize = 10; //한페이지에 보여줄 글의 갯수
 		int pageBlock = 10; //한 블럭당 보여줄 페이지 갯수
 
-		totalCount = boardDao.getCount(boardNum);
-		page.paging(pageNum, totalCount, pageSize, pageBlock);
 		paramMap = new HashMap<>();
-		paramMap.put("startRow", page.getStartRow());
-		paramMap.put("endRow", page.getEndRow());
+		paramMap.put("boardNum", String.valueOf(boardNum));
+		totalCount = boardDao.getCount(paramMap);
+		page.paging(pageNum, totalCount, pageSize, pageBlock);
+		paramMap.put("startRow", String.valueOf(page.getStartRow()));
+		paramMap.put("endRow", String.valueOf(page.getEndRow()));
 		noticeList = boardDao.getArticles(paramMap);
 		model.addAttribute("totalCount",totalCount);
 		model.addAttribute("articleList",noticeList);
@@ -43,10 +63,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void getNoticeArticle(int articleNum, int fileStatus, Model model) {
-		article=boardDao.getArticle(articleNum);
+	public void getArticle(String boardNum, String articleNum, String fileStatus, Model model) {
+		paramMap = new HashMap<>();
+		paramMap.put("boardNum", boardNum);
+		paramMap.put("articleNum", articleNum);
+		article=boardDao.getArticle(paramMap);
 //		article.setCommentCount(bbsDao.getCommentCount(articleNum));
-		boardDao.upHit(articleNum);
+//		boardDao.upHit(boardNum, articleNum);
 		model.addAttribute("article", article);
 //		if(fileStatus == 1) {
 //			model.addAttribute("fileList", communityDao.getFiles(articleNum));
@@ -54,8 +77,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void writeNotice(ArticleDto article) {
-		boardDao.writeNotice(article);
+	public void writeArticle(ArticleDto article) {
+		boardDao.writeArticle(article);
 //		if(article.getFileNames()==null) {
 //			communityDao.writeNotice(article);
 //		}else {
@@ -64,32 +87,6 @@ public class BoardServiceImpl implements BoardService {
 //			communityDao.writeNotice(article);
 //			commonFileUpload(article.getArticleNum(), article.getFileNames());
 //		}
-	}
-	
-	
-	
-	/* FAQ */
-	@Override
-	public void faqList(int pageNum, Model model){
-		int totalCount = 0;
-		int pageSize = 10; //한페이지에 보여줄 글의 갯수
-		int pageBlock = 10; //한 블럭당 보여줄 페이지 갯수
-
-		totalCount = boardDao.getNoticeCount();
-		page.paging(pageNum, totalCount, pageSize, pageBlock);
-		paramMap = new HashMap<>();
-		paramMap.put("startRow", page.getStartRow());
-		paramMap.put("endRow", page.getEndRow());
-		
-		model.addAttribute("totalCount",totalCount);
-		model.addAttribute("articleList", boardDao.getFaqArticles(paramMap));
-		model.addAttribute("pageCode",page.getSb().toString());
-	}
-
-	@Override
-	public ArticleDto getFaqArticle(int articleNum) {
-		ArticleDto article = boardDao.getFaqArticle(articleNum);
-		System.out.println(article.getTitle());
-		return boardDao.getFaqArticle(articleNum);
+		boardDao.writeArticle(article);
 	}
 }
