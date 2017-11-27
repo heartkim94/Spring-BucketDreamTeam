@@ -20,15 +20,8 @@ public class MailUtil {
 	}
 	
 	public void sendMail(String certKey, String email) {
-//		String url = "http://localhost/project/checkJoin.user?certKey=";
-//		
-//		String subject = "회원 가입 인증 관련 메일입니다";
-//		StringBuilder sb = new StringBuilder();
-//		sb.append(url).append(certKey);
-//		send(subject, sb.toString(), "bum6613@gmail.com", email);
-		
 		String linkFront = "<a href=\"";
-		String url = "http://localhost/project/checkJoin.user?certKey=";
+		String url = "http://localhost/project/checkJoin.do?certKey=";
 		String linkBack = "\">인증하기</a>";
 		
 		String subject = "회원 가입 인증 관련 메일입니다";

@@ -15,4 +15,5 @@ public interface UserDao {
 	public UserDto checkJoin(String certKey);
 	public void checkJoinUpdate(String certKey);
 	public int certifyCheck(String id);
+	public UserDto getUser(String id);
 }

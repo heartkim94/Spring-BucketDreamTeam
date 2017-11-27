@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -13,8 +13,25 @@
 </head>
 
 <body>
+	<%
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+	%>
 	<header>
+		<c:if test="${id != null}">
+			<div class="loginbtn">
+				<button onclick="document.location.href='logout.user'">로그아웃</button>
+				<input type="button" value="로그아웃input" onclick="document.location.href='logout.user'">
+			</div>
+		</c:if>
+		<c:if test="${id == null}">
+			<div class="loginbtn">
+				<button onclick="document.location.href='main.do'">로그인</button>
+				<input type="button" value="로그인input" onclick="document.location.href='main.do'">
+			</div>
+		</c:if>
 		<h1>header</h1>
 	</header>
+	<hr>
 </body>
 </html>

@@ -32,4 +32,7 @@
 		from	member
 		where	groupNum = -1 and userNum = #{userNum};
 	</select>
+	 <select id="getUser" parameterType="String" resultType="user">
+	 	select * from user where id=#{id}
+	 </select>
 </mapper>
