@@ -27,4 +27,9 @@
 	 <select id="checkLogin" parameterType="String" resultType="user">
 	 	select userNum, pass, certify from user where id = #{id}
 	 </select>
+	 <select id="isAdminMember" parameterType="int" resultType="boolean">
+		select	count(*)
+		from	member
+		where	groupNum = -1 and userNum = #{userNum};
+	</select>
 </mapper>
