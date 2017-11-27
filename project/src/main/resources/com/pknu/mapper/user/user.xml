@@ -33,7 +33,9 @@
 	<select id="userIdFind" parameterType="String" resultType="String">
 		select id from user where email=#{email}
 	</select>
-	
+	<update id="userPassFind" parameterType="String">
+		update user set pass=#{pass} where id=#{id} and email=#{email}
+	</update>
 
 	 
 </mapper>

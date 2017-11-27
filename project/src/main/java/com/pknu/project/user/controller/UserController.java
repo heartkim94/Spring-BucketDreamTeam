@@ -79,7 +79,7 @@ public class UserController {
 	@RequestMapping(value="userUpdate.do")
 	public String userUpdate(HttpSession session, UserDto userDto) {
 		userService.userUpdate(session, userDto);
-		return "user/main";
+		return "home";
 	}
 	
 	@RequestMapping(value="/checkJoin.do")
@@ -100,6 +100,13 @@ public class UserController {
 		return "user/userIdShow";
 	}
 	
+	@RequestMapping(value="userPassFind.do")
+	public String userPassFind(UserDto userDto, String id, String email, Model model) {
+		userDto.setId(id);
+		userDto.setEmail(email);
+		userService.userPassFind(userDto);
+		return "user/userIdPassFind";
+	}
 	
 
 	

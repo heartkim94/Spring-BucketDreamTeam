@@ -1,7 +1,5 @@
 package com.pknu.project.user.dao;
 
-import java.util.HashMap;
-
 import com.pknu.project.user.dto.UserDto;
 
 public interface UserDao {
@@ -16,4 +14,5 @@ public interface UserDao {
 	public int certifyCheck(String id);
 	public UserDto getUser(String id);
 	public String userIdFind(UserDto userDto);
+	public void userPassFind(UserDto userDto);
 }

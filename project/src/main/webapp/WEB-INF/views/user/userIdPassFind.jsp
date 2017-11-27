@@ -70,7 +70,7 @@
 							</table>
 						</form>
 						
-						<form action="#" name="pw_f" id="pw_f" method="post">
+						<form action="/project/userPassFind.do" name="pw_f" id="pw_f" method="post">
             				<table width="380" border="0" cellspacing="0" cellpadding="0">
 			                <tbody>
              				<tr>
@@ -83,7 +83,7 @@
 			                <tr>
                			   	    <td width="100" height="25" bgcolor="#f4f4f4">ID</td>
                				    <td width="130">
-               				  	    <input type="text" name="id" tabindex="5" id="id" > 
+               				  	    <input type="text" name="id" id="id" tabindex="5"> 
                    			    </td>
 	                            <td align="center" rowspan="2">
                  		       	    <div class="bts"> 
@@ -96,7 +96,7 @@
 			                <tr>
                					<td height="25" bgcolor="#f4f4f4">email</td>
 			                    <td>
-			                    	<input name="email" tabindex="6" id="email" type="text"> 
+			                    	<input type="text" name="email" id="email" tabindex="6"> 
                    				</td>
                    			</tr>
                    			</tbody>

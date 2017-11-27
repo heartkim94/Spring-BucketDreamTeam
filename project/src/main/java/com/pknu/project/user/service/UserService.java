@@ -16,4 +16,5 @@ public interface UserService {
 	
 	public int checkJoin(String certKey,Model model);
 	public String userIdFind(UserDto userDto, Model model);
+	public String userPassFind(UserDto userDto);
 }
