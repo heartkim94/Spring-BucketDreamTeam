@@ -56,9 +56,20 @@ insert into Category(catNum, catName, parentNum) values(-1, 'hidden', 0);
 insert into `Group`(groupNum, groupName, groupOwner, catNum) values(-1, 'AdminGroup', 1, 1);
 insert into Member values(-1, -1);
 
+-- #Table for admin setting
+create table AdminBoardSetting(
+    boardNum int primary key,
+    `show` boolean not null,
+    `view` varchar(200) not null
+);
+
+insert into AdminBoardSetting values(1, true, 'noticeList');
+insert into AdminBoardSetting values(2, true, 'noticeList');
+insert into AdminBoardSetting values(3, true, 'community/faq');
+
 -- #Community
-insert into BoardList(boardName, groupNum) values('Notice', 1);
-create table Notice(
+insert into BoardList(boardName, groupNum) values('Notice', -1);
+create table Board1(
     articleNum int primary key auto_increment,
     id varchar(300) not null,
     title varchar(500) not null,
@@ -71,8 +82,22 @@ create table Notice(
     fileStatus int(1) not null
 );
 
+insert into BoardList(boardName, groupNum) values('QnA', -1);
+create table Board2(
+    articleNum int primary key auto_increment,
+    id varchar(300) not null,
+    title varchar(500) not null,
+    content text not null,
+    depth int not null,
+    hit int not null,
+    groupId int not null,
+    pos int not null,
+    writeDate date not null,
+    fileStatus int(1) not null
+);
 
-create table Faq(
+insert into BoardList(boardName, groupNum) values('FAQ', -1);
+create table Board3(
     articleNum int primary key auto_increment,
     id varchar(300) not null,
     title varchar(500) not null,
@@ -100,27 +125,27 @@ insert into Category(catName, parentNum) values('encyclopedia', 1);
     
 -- Community
 -- Notice
-insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board1(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test notice article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0);    
-insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board1(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test notice article2', 'no content', 0, 0, 2, 0, '2017-11-22', 0);
-insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board1(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test notice article3', 'no content', 0, 0, 3, 0, '2017-11-22', 0);
-insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board1(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test reply article4', 'no content', 1, 0, 1, 1, '2017-11-22', 0);
-insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board1(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test reply article5', 'no content', 1, 0, 1, 3, '2017-11-22', 0);
-insert into Notice(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board1(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test reply article6', 'no content', 2, 0, 1, 2, '2017-11-22', 0);
     
     
-insert into Faq(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board3(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test faq article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0);
-insert into Faq(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board3(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test faq article2', 'no content', 0, 0, 2, 0, '2017-11-22', 0);
-insert into Faq(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board3(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test faq article3', 'no content', 0, 0, 3, 0, '2017-11-22', 0);
-insert into Faq(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board3(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test faq article4', 'no content', 0, 0, 4, 0, '2017-11-22', 0);
-insert into Faq(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+insert into Board3(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test faq article5', 'no content', 0, 0, 5, 0, '2017-11-22', 0);
