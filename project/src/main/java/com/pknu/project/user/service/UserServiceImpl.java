@@ -1,6 +1,5 @@
 package com.pknu.project.user.service;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -24,6 +23,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int joinIdCheck(String inputId) {
 		String dbIdCheck = userDao.loginCheck(inputId);
+		System.out.println(dbIdCheck+"아이디");
 		if(dbIdCheck != null) {  // db에 id가 존재하면
 			return 2;
 		}else {
@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int joinEmailCheck(String inputEmail) {
 		String dbEmailCheck = userDao.emailCheck(inputEmail);
+		System.out.println(dbEmailCheck+"이메일");
 		if(dbEmailCheck != null) { // db에 email이 존재하면
 			return 2;
 		}else {
@@ -157,7 +158,36 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public String userIdFind(UserDto userDto, Model model) {
+		String myId = userDao.userIdFind(userDto);
+		model.addAttribute("myId",myId);
+		return null;
+	}
 
+	@Override
+	public String userPassFind(UserDto userDto) {
+		String pass="";
+		char pwCollection[] = new char[] { 
+                '1','2','3','4','5','6','7','8','9','0', 
+                'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z', 
+                'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', 
+                '!','@','#','$','%','^','&','*','(',')'};//배열에 선언 
+		
+		for(int i=0; i<10; i++) {
+			 int selectRandomPw = (int)(Math.random()*(pwCollection.length));//Math.rondom()은 0.0이상 1.0미만의 난수를 생성해 준다. 
+			 pass += pwCollection[selectRandomPw]; 
+		}
+		userDto.setPass(pass);
+		userDao.userPassFind(userDto);
+		mailUtil.sendPass(pass,userDto.getEmail());
+		return null;
+	}
+
+	
+	
+	
+	
 
 
 	

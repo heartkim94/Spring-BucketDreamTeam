@@ -44,7 +44,8 @@
 							<input type="text" id="id" name="id" placeholder="아이디" required=""/><br>
 							<input type="password" id="pass" name="pass" placeholder="비밀번호" required=""/><br>
 							<input type="submit" value="로그인"><br>
-							<a href="#">ID / PW 찾기</a> &nbsp; | &nbsp; <a href="userProvisionForm.do">회원가입</a>
+							<!-- <a href="#">ID / PW 찾기</a> &nbsp; | &nbsp; <a href="userProvisionForm.do">회원가입</a> -->
+							<a href="javascript:void(window.open('/project/userIdPassFind.do', '_blank','width=450, height=270'))">ID / PW 찾기</a> | <a href="userProvisionForm.do">회원가입</a>
 						</form>
 					</c:if>
 					<c:if test="${id != null}">

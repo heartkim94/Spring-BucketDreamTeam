@@ -75,13 +75,21 @@ public class UserDto {
 	public void setCertify(int certify) {
 		this.certify = certify;
 	}
+	public static int getSuccess() {
+		return SUCCESS;
+	}
+	public static int getFail() {
+		return FAIL;
+	}
 	
 	@Override
 	public String toString() {
 		return "UserDto [id=" + id + ", pass=" + pass + ", name=" + name + ", nickName=" + nickName + ", email=" + email
-				+ ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", certKey=" + certKey + ", certify="
-				+ certify + "]";
+				+ ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", isAdmin=" + isAdmin + ", certKey="
+				+ certKey + ", certify=" + certify + "]";
 	}
+	
+	
 }
 
 /*

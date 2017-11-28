@@ -44,11 +44,14 @@ public class UserController {
 		return userService.joinEmailCheck(inputEmail); 
 	}
 	
-	@RequestMapping(value="main.do")
+//	@RequestMapping(value="main.do")
+//	public String mainPage() {
+//		return "user/main";
+//	}
+	@RequestMapping(value="home.do")
 	public String mainPage() {
-		return "user/main";
+		return "home";
 	}
-	
 	
 	@RequestMapping(value="/userInsert.do")
 	public String memInsert(UserDto userDto) {
@@ -76,7 +79,7 @@ public class UserController {
 	@RequestMapping(value="userUpdate.do")
 	public String userUpdate(HttpSession session, UserDto userDto) {
 		userService.userUpdate(session, userDto);
-		return "user/main";
+		return "home";
 	}
 	
 	@RequestMapping(value="/checkJoin.do")
@@ -85,5 +88,25 @@ public class UserController {
 		return "user/emailAlertPage";
 	}
 	
+	@RequestMapping(value="userIdPassFind.do")
+	public String userIdPassFind() { //아이디 비밀번호 찾기 폼
+		return "user/userIdPassFind";
+	}
+	
+	@RequestMapping(value="userIdFind.do")
+	public String userIdFind(UserDto userDto,@RequestParam("email") String email, Model model) {
+		userDto.setEmail(email);
+		userService.userIdFind(userDto, model);
+		return "user/userIdShow";
+	}
+	
+	@RequestMapping(value="userPassFind.do")
+	public String userPassFind(UserDto userDto, String id, String email, Model model) {
+		userDto.setId(id);
+		userDto.setEmail(email);
+		userService.userPassFind(userDto);
+		return "user/userIdPassFind";
+	}
+
 	
 }

@@ -20,13 +20,13 @@
 		<c:if test="${id != null}">
 			<div class="loginbtn">
 				<button onclick="document.location.href='logout.do'">로그아웃</button>
-<!-- 				<input type="button" value="로그아웃input" onclick="document.location.href='logout.do'"> -->
+				<input type="button" value="로그아웃input" onclick="document.location.href='logout.do'">
 			</div>
 		</c:if>
 		<c:if test="${id == null}">
 			<div class="loginbtn">
-				<button onclick="document.location.href='main.do'">로그인</button>
-<!-- 				<input type="button" value="로그인input" onclick="document.location.href='main.do'"> -->
+				<button onclick="document.location.href='home.do'">로그인</button>
+				<input type="button" value="로그인input" onclick="document.location.href='home.do'">
 			</div>
 		</c:if>
 		<c:if test="${id != null}">

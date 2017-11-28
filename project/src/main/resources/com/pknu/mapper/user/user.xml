@@ -11,23 +11,31 @@
 	<insert id="userInsert" parameterType="user">
 		insert into user values(#{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, false, #{certKey},#{certify})
 	</insert> 
-	<update id="userUpdate" parameterType="String">
-		update user set pass=#{pass},name=#{name},nickName=#{nickName},email=#{email},phoneNumber=#{phoneNumber},gender=#{gender} where id=#{id}
+	<update id="userUpdate" parameterType="user">
+		update user set pass=#{pass},name=#{name},nickName=#{nickName},phoneNumber=#{phoneNumber},gender=#{gender} where id=#{id}
 	</update>
 	
 	<select id="checkJoin" resultType="user" parameterType="String">
- 		select * from user where CERTKEY=#{certkey}
+ 		select * from user where CERTKEY=#{certKey}
  	</select>
  	<update id="checkJoinUpdate" parameterType="String">
-		update user set certify=1 where CERTKEY=#{certkey}
+		update user set certify=1 where CERTKEY=#{certKey}
 	</update>
 	<select id="certifyCheck" resultType="int" parameterType="String">
 	 	SELECT IFNULL(MAX(CERTIFY),'2') FROM user WHERE ID=#{id}
-	 </select>
+	</select>
 	 <select id="checkLogin" parameterType="String" resultType="user">
 	 	select pass, certify, isAdmin from user where id = #{id}
 	 </select>
-	 <select id="getUser" parameterType="String" resultType="user">
+	<select id="getUser" parameterType="String" resultType="user">
 	 	select * from user where id=#{id}
-	 </select>
+	</select>
+	<select id="userIdFind" parameterType="String" resultType="String">
+		select id from user where email=#{email}
+	</select>
+	<update id="userPassFind" parameterType="String">
+		update user set pass=#{pass} where id=#{id} and email=#{email}
+	</update>
+
+	 
 </mapper>
