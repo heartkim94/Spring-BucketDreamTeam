@@ -36,8 +36,6 @@
 		<c:if test="${id == null}">
 			<a href="home.do"><strong>header</strong></a>			
 		</c:if>
-		
-		
 	</header>
 	<hr>
 </body>

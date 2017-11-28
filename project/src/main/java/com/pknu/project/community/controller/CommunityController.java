@@ -80,12 +80,15 @@ public class CommunityController {
 		return communityService.getFaqArticle(articleNum);
 	}
 	
+	
+	
+	
 	/* QnA */
 	@RequestMapping(value="/qna.do", method=RequestMethod.GET)
 	public String qnaList(@ModelAttribute("pageNum") int pageNum, Model model) {
 		System.out.println("***qna.do***");
-		communityService.faqList(pageNum, model);
-		return "community/faq";
+		communityService.qnaList(pageNum, model);
+		return "community/qna";
 	}
 	
 	@RequestMapping(value="/getQnaArticle.do", method=RequestMethod.POST)
@@ -94,6 +97,6 @@ public class CommunityController {
 		System.out.println("***getQnaArticle.do***");
 		System.out.println(articleNum);
 		
-		return communityService.getFaqArticle(articleNum);
+		return communityService.getQnaArticle(articleNum);
 	}
 }

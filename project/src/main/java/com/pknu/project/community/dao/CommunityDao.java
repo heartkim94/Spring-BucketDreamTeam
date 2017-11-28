@@ -6,17 +6,22 @@ import java.util.List;
 import com.pknu.project.common.dto.ArticleDto;
 
 public interface CommunityDao {
-	public int getNoticeCount();
-	public List<ArticleDto> getNoticeArticles(HashMap<String, Integer> paramMap);
 	/* 검색 */
 	public ArticleDto search(HashMap<String, String> searchMap);
-	/* 게시글 읽기 */
+	
+	/* Notice */
+	public int getNoticeCount();
+	public List<ArticleDto> getNoticeArticles(HashMap<String, Integer> paramMap);
 	public ArticleDto getNoticeArticle(int articleNum);
-	public void upHit(int articleNum);
-	/* 새 notice 쓰기 */
 	public void writeNotice(ArticleDto article);
 	/* FAQ */
+	public int getFaqCount();
 	public List<ArticleDto> getFaqArticles(HashMap<String, Integer> paramMap);
 	public ArticleDto getFaqArticle(int articleNum);
-	
+	/* QnA */
+	public int getQnaCount();
+	public List<ArticleDto> getQnaArticles(HashMap<String, Integer> paramMap);
+	public ArticleDto getQnaArticle(int articleNum);
+	/* Util */
+	public void upHit(int articleNum);
 }
