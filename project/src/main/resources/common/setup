@@ -64,7 +64,7 @@ create table AdminBoardSetting(
 );
 
 insert into AdminBoardSetting values(1, true, 'noticeList');
-insert into AdminBoardSetting values(2, true, 'community/qna');
+insert into AdminBoardSetting values(2, true, 'noticeList');
 insert into AdminBoardSetting values(3, true, 'community/faq');
 
 -- #Community
