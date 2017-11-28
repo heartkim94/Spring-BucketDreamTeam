@@ -8,6 +8,7 @@ public class GroupDto {
 	private String groupName;
 	private int groupOwner;
 	private int catNum;
+	private int memberCount;
 	
 	public int getGroupNum() {
 		return groupNum;
@@ -32,5 +33,11 @@ public class GroupDto {
 	}
 	public void setCatNum(int catNum) {
 		this.catNum = catNum;
+	}
+	public int getMemberCount() {
+		return memberCount;
+	}
+	public void setMemberCount(int memberCount) {
+		this.memberCount = memberCount;
 	}
 }

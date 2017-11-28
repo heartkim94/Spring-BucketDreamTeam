@@ -7,42 +7,6 @@
 <meta charset="utf-8">
 <title>공지사항</title>
 <link href="/project/resources/css/style.css" rel="stylesheet" type="text/css">
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>
-	$(function() {
-		let articleBox = null;
-		let preArticle = null;
-		$(".titleBox").on("click", function() {
-			let titleRow = $(this).parent();
-			let articleNum = $(this).attr("articleNum");
-			$.ajax({
-				url: "content.do",
-				type: "post",
-				data: {
-					articleNum: articleNum
-				},
-				success: function(data) {
-					let str = "<tr><td class='articleBox' articleNum='"+articleNum+"'>"
-							+ data.content
-							+ "</td></tr>";
-					if(articleBox!=null) {
-						$(articleBox).remove();
-					}
-					articleBox = $(str);
-					if(preArticle!=articleNum) {
-						$(articleBox).insertAfter(titleRow);
-						preArticle = articleNum;
-					} else {
-						preArticle = null;
-					}
-				},
-				error: function(xhr) {
-					alert("error html = "+xhr.statusText);
-				}
-			});
-		});
-	});
-</script>
 </head>
 
 <body>
@@ -64,7 +28,9 @@
 		
 				<c:forEach var="article" items="${articleList}">
 					<tr height="30">
-						<td class="titleBox" align="center" width="50" articleNum="${article.articleNum}" style="cursor:pointer">
+						<td class="titleBox" align="center" width="50"
+							articleNum="${article.articleNum}" fileStatus="${article.fileStatus}"
+							style="cursor:pointer">
 							${article.title}
 						</td>
 					</tr>
@@ -78,6 +44,43 @@
 	
 	<%@ include file="../footer.jsp"%>
 </div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>
+<script>
+$(function() {
+	let articleBox = null;
+	let preArticle = null;
+	$(".titleBox").on("click", function() {
+		let titleRow = $(this).parent();
+		let articleNum = $(this).attr("articleNum");
+		let fileStatus = $(this).attr("fileStatus");
+		$.ajax({
+			url: "content.do",
+			type: "post",
+			data: {
+				boardNum: "${boardNum}",
+				articleNum: articleNum,
+				fileStatus: fileStatus
+			},
+			success: function(data) {
+				let str = "<tr><td class='articleBox' articleNum='"+articleNum+"'>"
+						+ data.content
+						+ "</td></tr>";
+				if(articleBox!=null) {
+					$(articleBox).remove();
+				}
+				articleBox = $(str);
+				if(preArticle!=articleNum) {
+					$(articleBox).insertAfter(titleRow);
+					preArticle = articleNum;
+				} else {
+					preArticle = null;
+				}
+			},
+			error: function(xhr) {
+				alert("error html = "+xhr.statusText);
+			}
+		});
+	});
+});
+</script>
 </html>

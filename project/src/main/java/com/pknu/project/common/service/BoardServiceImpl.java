@@ -66,10 +66,11 @@ public class BoardServiceImpl implements BoardService {
 		paramMap = new HashMap<>();
 		paramMap.put("boardNum", boardNum);
 		paramMap.put("articleNum", articleNum);
+		
+		boardDao.upHit(paramMap);
 		article=boardDao.getArticle(paramMap);
 //		article.setCommentCount(bbsDao.getCommentCount(articleNum));
 		
-		boardDao.upHit(paramMap);
 		model.addAttribute("article", article);
 //		if(fileStatus == 1) {
 //			model.addAttribute("fileList", communityDao.getFiles(articleNum));

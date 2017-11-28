@@ -86,13 +86,12 @@ public class CommunityController {
 	@RequestMapping(value="/content.do", method=RequestMethod.POST)
 	@ResponseBody
 	public ArticleDto getArticleAsync(
-//			@RequestParam("boardNum") String boardNum,
-//			@RequestParam("articleNum") String articleNum,
-//			@RequestParam("fileStatus") int fileStatus,
-//			Model model, HttpSession session){
-			){
+			@RequestParam("boardNum") String boardNum,
+			@RequestParam("articleNum") String articleNum,
+			@RequestParam("fileStatus") int fileStatus,
+			Model model, HttpSession session){
 		System.out.println("***getNoticeArticle***");
-//		return boardService.getArticle(boardNum, articleNum, fileStatus, model);
-		return null;
+		return boardService.getArticle(boardNum, articleNum, fileStatus, model);
+//		return null;
 	}
 }

@@ -43,6 +43,7 @@ private static final Logger logger = LoggerFactory.getLogger(UploadController.cl
 			fileList.add(UploadFileUtils.uploadFile(saveDir,file.getOriginalFilename(),
 					file.getBytes()));
 		}
+		System.out.println("upload run");
 		return fileList;
 	}
 	

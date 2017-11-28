@@ -27,7 +27,6 @@ CREATE TABLE user(
 	email varchar(100) not null,
 	phoneNumber char(13),
 	gender enum('m', 'f') not null,
-    isAdmin boolean not null default false,
     certkey varchar(100) not null,
 	certify int default 0 not null
 	);
@@ -122,6 +121,7 @@ insert into Category(catName, parentNum) values('religion', 0);
 insert into Category(catName, parentNum) values('bibliography', 1);
 insert into Category(catName, parentNum) values('information science', 1);
 insert into Category(catName, parentNum) values('encyclopedia', 1);
+insert into `Group`(groupName, groupOwner, catNum) values('TestGroup', 1, 1);
     
 -- Community
 -- Notice

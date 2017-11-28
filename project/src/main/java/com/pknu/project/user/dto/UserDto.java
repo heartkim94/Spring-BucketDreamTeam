@@ -14,6 +14,7 @@ public class UserDto {
 	private String gender;
 	private String certKey;
 	private int certify;
+	private boolean admin;
 	
 	public int getUserNum() {
 		return userNum;
@@ -80,6 +81,12 @@ public class UserDto {
 	}
 	public static int getFail() {
 		return FAIL;
+	}
+	public boolean getIsAdmin() {
+		return admin;
+	}
+	public void setIsAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	
 	@Override

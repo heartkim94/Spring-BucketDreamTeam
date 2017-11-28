@@ -12,4 +12,15 @@
 		where	g.groupNum = -1
 				and userNum = #{userNum};
 	</select>
+	<select id="getMyGroup" parameterType="String" resultType="group">
+		select	g.*, ifnull(cnt, 0) as memberCount
+		from	`group` g
+				 left join	member m	on g.groupNum = m.groupNum
+				 left join	user u		on m.userNum = u.userNum
+				 left join 	(select	groupNum, count(groupNum) as cnt
+		           			from	member
+		            		group by groupNum) c
+		            					on g.groupNum = c.groupNum
+		where 	u.id = #{id};
+	</select>
 </mapper>

@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="/project/resources/css/normalize.css" >
 	<link rel="stylesheet" href="/project/resources/css/style.css" >
 	<script src="/project/resources/js/prefixfree.min.js"></script>
+	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
@@ -31,7 +32,7 @@
 		</c:if>
 		<c:if test="${id != null}">
 			<!-- homeController에 mapping -->
-			<a href="/project/groupMain.do"><strong>header</strong></a>
+			<a href="/project/group/main.do"><strong>header</strong></a>
 		</c:if>
 		<c:if test="${id == null}">
 			<a href="/project/home.do"><strong>header</strong></a>			

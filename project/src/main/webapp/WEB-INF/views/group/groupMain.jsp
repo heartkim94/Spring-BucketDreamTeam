@@ -6,6 +6,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>Home</title>
+	<style>
+		.myGroupContainer article {
+			border: 1px solid black;
+			width: 200px;
+			height: 200px;
+		}
+	</style>
 </head>
 
 <body>
@@ -25,12 +32,33 @@
 					</form>
 				</center>
 			</div>
+			<div class="myGroupContainer">
+				내 그룹
+				<div class="myGroup">
+					<article>
+						프로필이미지<br>
+						그룹명<br>
+						멤버수
+					</article>
+					<c:forEach var="group" items="${groupList}">
+						<article>
+							프로필이미지<br>
+							${group.groupName}<br>
+							멤버:${group.memberCount}명
+						</article>
+					</c:forEach>
+				</div>
+			</div> <!-- myGroupContainer End -->
+			<hr>
+			<div class="groupListContainer">
+				그룹목록
+			</div> <!-- groupListContainer End -->
 		</section>
 		<%@ include file="../footer.jsp" %>
 	
 	</div> <!-- wrapper End -->
 	
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 </body>
 </html>

@@ -44,15 +44,6 @@ public class UserController {
 		return userService.joinEmailCheck(inputEmail); 
 	}
 	
-//	@RequestMapping(value="main.do")
-//	public String mainPage() {
-//		return "user/main";
-//	}
-	@RequestMapping(value="home.do")
-	public String mainPage() {
-		return "home";
-	}
-	
 	@RequestMapping(value="/userInsert.do")
 	public String memInsert(UserDto userDto) {
 		userService.userInsert(userDto);
@@ -67,7 +58,7 @@ public class UserController {
 	@RequestMapping(value="/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "home";
+		return "redirect:home.do";
 	}
 	
 	@RequestMapping(value="mypage.do")
@@ -79,7 +70,7 @@ public class UserController {
 	@RequestMapping(value="userUpdate.do")
 	public String userUpdate(HttpSession session, UserDto userDto) {
 		userService.userUpdate(session, userDto);
-		return "home";
+		return "reirect:home.do";
 	}
 	
 	@RequestMapping(value="/checkJoin.do")

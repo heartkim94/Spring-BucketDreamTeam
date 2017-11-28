@@ -25,7 +25,13 @@
 	 	SELECT IFNULL(MAX(CERTIFY),'2') FROM user WHERE ID=#{id}
 	</select>
 	 <select id="checkLogin" parameterType="String" resultType="user">
-	 	select userNum, pass, certify from user where id = #{id}
+	 	select pass, certify, if(groupNum is not null, true, false) as isAdmin
+		from user u
+		left join   (select *
+		            from member
+		            where groupNum = -1) m
+		on u.userNum=m.userNum
+		where id = #{id}
 	 </select>
 	<select id="getUser" parameterType="String" resultType="user">
 	 	select * from user where id=#{id}
@@ -36,10 +42,5 @@
 	<update id="userPassFind" parameterType="String">
 		update user set pass=#{pass} where id=#{id} and email=#{email}
 	</update>
-	<select id="isAdminMember" parameterType="int" resultType="boolean">
-		select	count(*)
-		from	member
-		where	groupNum = -1 and userNum = #{userNum};
-	</select>
 	 
 </mapper>
