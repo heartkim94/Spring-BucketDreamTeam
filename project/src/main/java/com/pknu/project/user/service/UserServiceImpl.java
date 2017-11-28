@@ -1,5 +1,6 @@
 package com.pknu.project.user.service;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserDao userDao;
+	
+	HashMap<String, String> paramMap;
 
 	@Override
 	public int joinIdCheck(String inputId) {
@@ -32,8 +35,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int joinEmailCheck(String inputEmail) {
+		System.out.println("***id***");
 		String dbEmailCheck = userDao.emailCheck(inputEmail);
-		System.out.println(dbEmailCheck+"이메일");
+		System.out.println("이메일 : " + dbEmailCheck);
 		if(dbEmailCheck != null) { // db에 email이 존재하면
 			return 2;
 		}else {
@@ -43,8 +47,14 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public int findIdEmailCheck(String inputId, String inputEmail) {
-		String dbIdPassCheck = userDao.findIdEmailCheck(inputId, inputEmail);
-		System.out.println(dbIdPassCheck+"아이디 이메일");
+		System.out.println("***id+email***");
+		paramMap = new HashMap<>();
+		paramMap.put("id", inputId);
+		paramMap.put("email", inputEmail);
+		System.out.println("아이디 : " + inputId);
+		System.out.println("이메일 : " + inputEmail);
+		String dbIdPassCheck = userDao.findIdEmailCheck(paramMap);
+//		System.out.println(dbIdPassCheck+"아이디 이메일");
 		if(dbIdPassCheck != null) {  // db에 id가 존재하면
 			return 2;
 		}else {

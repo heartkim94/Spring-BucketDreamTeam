@@ -32,84 +32,41 @@
 	}
 
 	
-// 	let idcheck = false;
-// 	let emailcheck = false;
-// 	function pw_search() {
-// 		var f = document.pw_f;
-// 		$.ajax({
-// 			type:"POST",
-// 			async:true,
-// 			url:"/project/findIdEmailCheck.do", 
-// 			data:{
-// 				inputId:$("#id").val(),
-// 				inputEmail:$("#email").val()
-// 			},
-// 			success:function(data){
-// 				if($("#id").val()!="" && $("#email").val()!=""){
-// 					if(data==1){
-// 						alert("잘못된 ID 또는 EMAIL 입니다.");
-// 			 			f.id.focus();
-// 					}else {
-// 						idcheck==true
-// 						emailcheck==true
-// 						f.submit();
-// 					}
-// 				}else {
-// 		 			alert("ID또는 EMAIL을 입력해주세요.");
-// 		 			f.id.focus();
-// 				}
-// 			}
-// 		});
-// 		$.ajax({
-// 			url:"/project/joinEmailCheck.do", // 이메일 체크 재사용했음
-// 			async:false,
-// 			data:{
-// 				inputEmail:$("#email").val()
-// 			},
-// 			success:function(data){
-// 				if($("#email").val()!=""){
-// 					if(data==1){
-// 						alert("잘못된 EMAIL 입니다.");
-// 			 			f.email.focus();
-// 					}else {
-// 						f.submit();
-// 					}
-// 				}else {
-// 		 			alert("EMAIL을 입력해주세요.");
-// 		 			f.email.focus();
-// 				}
-// 			}
-// 		});
-//	}
-	
-// 	function availability(){
-// 		if(idcheck==true && emailcheck==true){
-// 			alert("임시비밀번호를 전송하였습니다.");
-// 			return true;
-// 		}else if(!idcheck || !emailcheck){
-// 			alert("확인해주세요");
-// 			return false;
-// 		}
-// 	}
-	
-	
-	
 	function pw_search() {
 		var f = document.pw_f;
-
-		if(f.id.value=="") {
-			alert("아이디를 입력해주세요.");
-			f.id.focus();
-			return;
-		}
-		if(f.email.value=="") {
-			alert("email을 입력해주세요.");
-			f.email.focus();
-			return;
-		}
-		f.submit();
+		$.ajax({
+			type:"POST",
+			async:true,
+			url:"/project/findIdEmailCheck.do", 
+			data:{
+				inputId:$("#id").val(),
+				inputEmail:$("#email2").val()
+			},
+			success:function(data){
+				if($("#id").val()!="" && $("#email2").val()!=""){
+					if(data==1){
+						alert("잘못된 ID 또는 EMAIL 입니다.");
+			 			f.id.focus();
+					}else {
+						f.submit();
+						alert("임시비밀번호를 전송하였습니다.");
+					}
+				}else if($("#id").val()=="" && $("#email2").val()!="") {
+		 			alert("ID를 입력해주세요.");
+		 			f.id.focus();
+				}else if($("#id").val()!="" && $("#email2").val()=="") {
+					alert("EMAIL을 입력해주세요.");
+		 			f.email.focus();
+				}else {
+					alert("EMAIL과 ID를 입력해주세요.");
+		 			f.id.focus();
+				}
+			},
+			error : function(xhr) {
+				alert("error html=" + xhr.statusText);
+			}
+		});
 	}
-
 </script>
 </head>
 <body>
@@ -148,7 +105,7 @@
 							</table>
 						</form>
 						
-						<form action="/project/userPassFind.do" name="pw_f" id="pw_f" method="post" onsubmit="return availability()">
+						<form action="/project/userPassFind.do" name="pw_f" id="pw_f" method="post">
             				<table width="380" border="0" cellspacing="0" cellpadding="0">
 			                <tbody>
              				<tr>
@@ -174,7 +131,7 @@
 			                <tr>
                					<td height="25" bgcolor="#f4f4f4">email</td>
 			                    <td>
-			                    	<input type="text" name="email" id="email" tabindex="6"> 
+			                    	<input type="text" name="email" id="email2" tabindex="6"> 
                    				</td>
                    			</tr>
                    			</tbody>

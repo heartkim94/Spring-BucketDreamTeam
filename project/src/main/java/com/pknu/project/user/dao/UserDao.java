@@ -1,5 +1,7 @@
 package com.pknu.project.user.dao;
 
+import java.util.HashMap;
+
 import com.pknu.project.user.dto.UserDto;
 
 public interface UserDao {
@@ -7,7 +9,7 @@ public interface UserDao {
 	public UserDto checkLogin(String id);
 	public boolean isAdminMember(int userNum);
 	public String emailCheck(String email);
-	public String findIdEmailCheck(String id, String email);
+	public String findIdEmailCheck(HashMap<String, String> paramMap);
 	public void userInsert(UserDto userDto);
 	public void userUpdate(UserDto userDto);
 	
