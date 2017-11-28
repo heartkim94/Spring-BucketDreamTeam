@@ -43,6 +43,22 @@
 		});
 	});
 </script>
+<style>
+
+	.faqTable {
+		border-top: 2px solid #444547
+	}
+	.faqTable th {
+		padding 10px 20px 10px 60px;
+		border-bottom: 1px solid #e1e1e1;
+	}
+	.faqTable td {
+		padding 10px 20px 10px 60px;
+		border-bottom: 1px solid #e1e1e1;
+		background: #f7f7f7;
+    	color: #555;
+	}
+</style>
 </head>
 
 <body>
@@ -57,15 +73,16 @@
 					</tr>
 				</table>
 			</c:if>
-			<table border="1" width="100%" cellpadding="2" cellspacing="2">
+			<table class="faqTable">
 				<tr height="30">
-					<td align="center" width="250">제 목</td>
+					<th align="center" width="250">제 목</th>
 				</tr>
 		
 				<c:forEach var="article" items="${articleList}">
 					<tr height="30">
 						<td class="titleBox" align="center" width="50" articleNum="${article.articleNum}" style="cursor:pointer">
-							${article.title}
+							
+							<button><span>Q: </span>${article.title}</button>
 						</td>
 					</tr>
 				</c:forEach>

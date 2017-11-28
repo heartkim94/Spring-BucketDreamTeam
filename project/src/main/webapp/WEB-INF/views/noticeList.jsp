@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<link rel="stylesheet" href="/project/resources/css/style.css">
+<link href="/project/resources/css/style.css" rel="stylesheet" type="text/css">
 <!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <style>
 	
@@ -27,7 +27,25 @@
  			font-weight: bolder;
 		}
 	}
-
+	.listTable th {
+		padding: 10px 0;
+		text-align: center;
+		border-top: 2px solid #444547;
+		color: #666;
+		background-color: #e9e9e9;
+		border-bottom: 2px solid #e0e0e0;
+	}
+	.listTable tbody td {
+		padding: 10px 0;
+		text-align: center;
+		background-color: #fff;
+		border-bottom: 1px solid #e1e1e1;
+		color: #777;
+	}
+	.listTable tbody td.alignL {
+		padding-left: 10px;
+		text-align: left;
+	}
 </style>
 </head>
 <body>
@@ -45,7 +63,7 @@
 			
 			<!-- 검색시작 -->
 			<form action="#" method="get">
-				<table border="1" cellpadding="0" cellspacing="0" width="100%">
+				<table>
 					<tr>
 						<td align="right">
 							<select name="searchCondition">
@@ -60,19 +78,21 @@
 				</table>
 			</form>
 			<!-- 검색종료 -->
-			<table border="1" width="100%" cellpadding="2" cellspacing="2">
-				<tr height="30">
-					<td align="center" width="50">번 호</td>
-					<td align="center" width="250">제 목</td>
-					<td align="center" width="100">작성자</td>
-					<td align="center" width="150">작성일</td>
-					<td align="center" width="50">조 회</td>
-				</tr>
-		
+			<table class="listTable">
+				<thead>
+					<tr height="30">
+						<th align="center" width="50">번 호</th>
+						<th align="center" width="250">제 목</th>
+						<th align="center" width="100">작성자</th>
+						<th align="center" width="150">작성일</th>
+						<th align="center" width="50">조 회</th>
+					</tr>
+				</thead>
+				<tbody>
 				<c:forEach var="article" items="${articleList}">
 					<tr height="30">
-						<td align="center" width="50"><c:out value="${article.articleNum}" /></td>
-						<td width="250">
+						<td><c:out value="${article.articleNum}" /></td>
+						<td class="alignL">
 							<c:if test="${article.depth > 0}">
 								<img src="/project/resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">
 								<img src="">RE: 
@@ -90,14 +110,15 @@
 								<span class="hit">hit!</span>
 							</c:if>
 						</td>
-						<td align="center" width="100">${article.id}</td>
-						<td align="center" width="150">${article.writeDate}</td>
-						<td align="center" width="50">${article.hit}</td>
+						<td>${article.id}</td>
+						<td>${article.writeDate}</td>
+						<td>${article.hit}</td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td colspan="5" align="center" height="40">${pageCode}</td>
 				</tr>
+				</tbody>
 			</table>
 		</div>
 	</section>
