@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.pknu.project.common.Page;
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.service.BoardService;
+import com.pknu.project.common.utils.Page;
 import com.pknu.project.community.dao.CommunityDao;
 
 @Service

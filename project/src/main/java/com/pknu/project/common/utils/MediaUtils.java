@@ -1,4 +1,4 @@
-package com.pknu.project.common;
+package com.pknu.project.common.utils;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -46,6 +46,7 @@ input.submitBtn {
 				<span>home > community > notice</span> </nav>
 				<div>
 					<form action="update.do" method="post">
+						<input type="hidden" name="boardNum" value="${boardNum}">
 						<input type="hidden" name="pageNum" value="${pageNum}">
 						<input type="hidden" name="depth" value="${article.depth}">
 						<!--     계층형 쿼리 사용을 위해서 부모글의 글 번호가 답글의 groupId가 되어야 함 -->
@@ -87,14 +88,14 @@ input.submitBtn {
 								<c:if test="${id !=null}">
 									<td colspan="4" align="right">
 										<c:if test="${id ==article.id}">
-											<input type="button" value="수정하기" onclick="document.location.href='updateForm.bbs?articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
-											<input type="button" value="삭제하기" onclick="document.location.href='delete.bbs?articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+											<input type="button" value="수정하기" onclick="document.location.href='updateForm.bbs?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+											<input type="button" value="삭제하기" onclick="document.location.href='delete.bbs?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
 										</c:if> 
 										<c:if test="${id !=article.id}">
 											<input type="button" value="수정하기" disabled="disabled">
 											<input type="button" value="삭제하기" disabled="disabled">
 										</c:if> 
-										<input type="button" value="목록으로" onclick="document.location.href='noticeList.do?pageNum=${pageNum}'">
+										<input type="button" value="목록으로" onclick="document.location.href='list.do?boardNum=${boardNum}&pageNum=${pageNum}'">
 									</td>
 								</c:if>
 	
@@ -102,7 +103,7 @@ input.submitBtn {
 									<td colspan="4" align="right">
 										<input type="button" value="수정하기" disabled="disabled"> 
 										<input type="button" value="삭제하기" disabled="disabled"> 
-										<input type="button" value="목록으로" onclick="document.location.href='noticeList.do?pageNum=${pageNum}'">
+										<input type="button" value="목록으로" onclick="document.location.href='list.do?boardNum=${boardNum}&pageNum=${pageNum}'">
 									</td>
 								</c:if>
 							</tr>
@@ -121,7 +122,7 @@ input.submitBtn {
 						</table>
 						<div class="btnConfirm">
 							<input type="submit" value="작성 완료" class="submitBtn" /> 
-							<a href="/project/noticeList.do?pageNum=${pageNum}">취소</a>
+							<a href="/project/community/list.do?boardNum=${boardNum}&pageNum=${pageNum}">취소</a>
 						</div>
 					</form>
 	

@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.pknu.project.common.MediaUtils;
-import com.pknu.project.common.UploadFileUtils;
+import com.pknu.project.common.utils.MediaUtils;
+import com.pknu.project.common.utils.UploadFileUtils;
 
 
 @Controller

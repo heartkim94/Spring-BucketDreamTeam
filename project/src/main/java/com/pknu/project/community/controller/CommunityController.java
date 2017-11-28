@@ -65,7 +65,7 @@ public class CommunityController {
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
 	public String write(ArticleDto article, HttpSession session){
 //		article.setId((String)session.getAttribute("id"));
-		boardService.writeArticle(article);
+		System.out.println(article.getBoardNum());
 		System.out.println("***write***");
 		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
 	}

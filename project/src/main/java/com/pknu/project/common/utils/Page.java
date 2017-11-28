@@ -2,6 +2,9 @@ package com.pknu.project.common.utils;
 
 import javax.inject.Named;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 @Named
 //@Qualifier("bbs")
 public class Page {

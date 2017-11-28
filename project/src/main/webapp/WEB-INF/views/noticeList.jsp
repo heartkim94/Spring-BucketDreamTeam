@@ -38,7 +38,7 @@
 			<c:if test="${isAdmin}">
 			<table width="100%">
 				<tr>
-					<td align="right"><a href="write.do">글쓰기</a></td>
+					<td align="right"><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
 				</tr>
 			</table>
 			</c:if>

@@ -109,7 +109,8 @@ input.submitBtn {
 				<form action="write.do" method="post">
 					<!-- 글쓰기 영역 전체 감쌈 -->
 					<div class="writeFormWrap"> 
-		<!-- 			<input type="hidden" name="id" value="#" /> 작성자 id -->
+						<input type="hidden" name="boardNum" value="${boardNum}">
+						<input type="hidden" name="id" value="${id}" /> <!-- 작성자 id -->
 						<table>
 							<tr>
 								<th><label for="title">제목</label></th>
@@ -151,7 +152,7 @@ input.submitBtn {
 					<!-- 글 작성 버튼 영역 -->
 					<div class="btnConfirm">
 						<input type="submit" value="작성 완료" class="submitBtn" />
-						<a href="/project/noticeList.do?pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
+						<a href="/list.do?boardNum=${boardNum}&pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
 					</div>
 				</form>
 			</div>

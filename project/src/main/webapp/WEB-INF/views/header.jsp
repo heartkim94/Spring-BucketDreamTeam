@@ -19,14 +19,14 @@
 	<header>
 		<c:if test="${id != null}">
 			<div class="loginbtn">
-				<button onclick="document.location.href='logout.do'">로그아웃</button>
-				<input type="button" value="로그아웃input" onclick="document.location.href='logout.do'">
+				<button onclick="document.location.href='/project/logout.do'">로그아웃</button>
+<!-- 				<input type="button" value="로그아웃input" onclick="document.location.href='logout.do'"> -->
 			</div>
 		</c:if>
 		<c:if test="${id == null}">
 			<div class="loginbtn">
-				<button onclick="document.location.href='home.do'">로그인</button>
-				<input type="button" value="로그인input" onclick="document.location.href='home.do'">
+				<button onclick="document.location.href='/project/home.do'">로그인</button>
+<!-- 				<input type="button" value="로그인input" onclick="document.location.href='home.do'"> -->
 			</div>
 		</c:if>
 		<c:if test="${id != null}">
@@ -34,7 +34,7 @@
 			<a href="/project/groupMain.do"><strong>header</strong></a>
 		</c:if>
 		<c:if test="${id == null}">
-			<a href="home.do"><strong>header</strong></a>			
+			<a href="/project/home.do"><strong>header</strong></a>			
 		</c:if>
 	</header>
 	<hr>
