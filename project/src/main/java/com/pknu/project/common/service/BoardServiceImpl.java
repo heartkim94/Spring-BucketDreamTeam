@@ -33,11 +33,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public String getAdminBoardSetting(int boardNum) {
-		return boardDao.getAdminBoardSetting(boardNum);
-	}
-	
-	@Override
 	public void createBoard(String boardName, int groupNum) {
 		paramMap = new HashMap<>();
 		paramMap.put("boardName", boardName);
@@ -45,6 +40,7 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.addBoardList(paramMap);
 		boardDao.createTableBoard(paramMap);
 	}
+	
 	@Override
 	public void getArticles(int boardNum, int pageNum, Model model){
 		int totalCount = 0;
@@ -54,27 +50,31 @@ public class BoardServiceImpl implements BoardService {
 		paramMap = new HashMap<>();
 		paramMap.put("boardNum", String.valueOf(boardNum));
 		totalCount = boardDao.getCount(paramMap);
+		
 		page.paging(pageNum, totalCount, pageSize, pageBlock);
 		paramMap.put("startRow", String.valueOf(page.getStartRow()));
 		paramMap.put("endRow", String.valueOf(page.getEndRow()));
 		noticeList = boardDao.getArticles(paramMap);
+		
 		model.addAttribute("totalCount",totalCount);
 		model.addAttribute("articleList",noticeList);
 		model.addAttribute("pageCode",page.getSb().toString());
 	}
 
 	@Override
-	public void getArticle(String boardNum, String articleNum, String fileStatus, Model model) {
+	public ArticleDto getArticle(String boardNum, String articleNum, int fileStatus, Model model) {
 		paramMap = new HashMap<>();
 		paramMap.put("boardNum", boardNum);
 		paramMap.put("articleNum", articleNum);
 		article=boardDao.getArticle(paramMap);
 //		article.setCommentCount(bbsDao.getCommentCount(articleNum));
-//		boardDao.upHit(boardNum, articleNum);
+		
+		boardDao.upHit(paramMap);
 		model.addAttribute("article", article);
 //		if(fileStatus == 1) {
 //			model.addAttribute("fileList", communityDao.getFiles(articleNum));
 //		}
+		return article;
 	}
 
 	@Override
@@ -88,6 +88,5 @@ public class BoardServiceImpl implements BoardService {
 //			communityDao.writeNotice(article);
 //			commonFileUpload(article.getArticleNum(), article.getFileNames());
 //		}
-		boardDao.writeArticle(article);
 	}
 }

@@ -19,6 +19,7 @@ import com.pknu.project.common.service.BoardService;
 import com.pknu.project.community.service.CommunityService;
 
 @Controller
+@RequestMapping(value="/community")
 public class CommunityController {
 	@Autowired
 	private CommunityService communityService;
@@ -32,7 +33,7 @@ public class CommunityController {
 		communityService.getAdminBoards(servletContext);
 	}
 	
-	@RequestMapping(value="/community.do", method=RequestMethod.GET)
+	@RequestMapping(value="/list.do", method=RequestMethod.GET)
 	public String community(
 			@ModelAttribute("boardNum") int boardNum,
 			@ModelAttribute("pageNum") int pageNum,
@@ -41,75 +42,46 @@ public class CommunityController {
 		String view = communityService.getAdminBoardSetting(boardNum);
 		return view;
 	}
-	
-	
-	
-	/* Old Method */
-	@RequestMapping(value = "/noticeList.do", method = RequestMethod.GET)
-	public String noticeList(@ModelAttribute("pageNum") int pageNum, Model model) {
-		communityService.noticeList(pageNum, model);
-		System.out.println("***noticeList***");
-		return "noticeList";
-	}
-	
+
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
-	public String writeForm(HttpSession session){
+	public String writeForm(HttpSession session,
+			@ModelAttribute("boardNum") int boardNum){
 		session.getId();
 		System.out.println("***writeForm***");
-		return "writeForm";   
+		return "writeForm";
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
 	public String write(ArticleDto article, HttpSession session){
 //		article.setId((String)session.getAttribute("id"));
-		communityService.writeNotice(article);
+		boardService.writeArticle(article);
 		System.out.println("***write***");
-		return "redirect:noticeList.do?pageNum=1";
+		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
 	
-	@RequestMapping(value="/content.do")
-	public String getNoticeArticle(@RequestParam("articleNum") int articleNum,
-						  @ModelAttribute("pageNum") int pageNum,
-						  @RequestParam("fileStatus") int fileStatus,
-						  Model model, HttpSession session){						
-		communityService.getNoticeArticle(articleNum, fileStatus, model);	
+	@RequestMapping(value="/content.do", method=RequestMethod.GET)
+	public String getArticle(
+			@ModelAttribute("boardNum") String boardNum,
+			@RequestParam("articleNum") String articleNum,
+			@ModelAttribute("pageNum") String pageNum,
+			@RequestParam("fileStatus") int fileStatus,
+			Model model, HttpSession session){						
+		boardService.getArticle(boardNum, articleNum, fileStatus, model);
 		System.out.println("***getNoticeArticle***");
 		return "content";
 	}
 	
-	/* FAQ */
-	@RequestMapping(value="/faq.do", method=RequestMethod.GET)
-	public String faqList(@ModelAttribute("pageNum") int pageNum, Model model, HttpServletRequest request) {
-		System.out.println("***faq.do***");
-		 communityService.faqList(pageNum, model);
-		// boardSerivce.getArticles(pageNum, model);
-		return "community/faq";
-	}
-	
-	@RequestMapping(value="/getFaqArticle.do", method=RequestMethod.POST)
+	@RequestMapping(value="/content.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ArticleDto getFaqArticle(@RequestParam int articleNum) {
-		System.out.println("***getFaqArticle.do***");
-		System.out.println(articleNum);
-		
-		return communityService.getFaqArticle(articleNum);
-	}
-	
-	/* QnA */
-	@RequestMapping(value="/qna.do", method=RequestMethod.GET)
-	public String qnaList(@ModelAttribute("pageNum") int pageNum, Model model) {
-		System.out.println("***qna.do***");
-		communityService.faqList(pageNum, model);
-		return "community/faq";
-	}
-	
-	@RequestMapping(value="/getQnaArticle.do", method=RequestMethod.POST)
-	@ResponseBody
-	public ArticleDto getQnaArticle(@RequestParam int articleNum) {
-		System.out.println("***getQnaArticle.do***");
-		System.out.println(articleNum);
-		
-		return communityService.getFaqArticle(articleNum);
+	public ArticleDto getArticleAsync(
+//			@RequestParam("boardNum") String boardNum,
+//			@RequestParam("articleNum") String articleNum,
+//			@RequestParam("fileStatus") int fileStatus,
+//			Model model, HttpSession session){
+			){
+		System.out.println("***getNoticeArticle***");
+//		return boardService.getArticle(boardNum, articleNum, fileStatus, model);
+		return null;
 	}
 }

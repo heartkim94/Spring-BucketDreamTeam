@@ -29,10 +29,13 @@
 		);
 	</update>
 	
-	<!-- Article -->
+	<!-- #Article -->
+	<!-- Board 글개수 가져오기 -->
 	<select id="getCount" parameterType="HashMap" resultType="int">
 		select count(*) from board${boardNum}
 	</select>
+	
+	<!-- Board 목록 보기 -->
 	<select id="getArticles" parameterType="HashMap" resultType="article">
 		SELECT articleNum, id, title, depth, hit, date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
         FROM (SELECT b.*, @rownum := @rownum+1 as rownum
@@ -40,9 +43,18 @@
 			  order by groupId desc, pos) n
 		WHERE rownum between #{startRow} and #{endRow}
 	</select>
+	
+	<!-- Board 글 상세보기 -->
 	<select id="getArticle" parameterType="HashMap" resultType="article">
-		SELECT * FROM `board#{boardNum}` WHERE articleNum = #{articleNum}
+		SELECT * FROM `board${boardNum}` WHERE articleNum = #{articleNum}
 	</select>
+	
+	<!-- hit 수 증가 -->
+	<update id="upHit" parameterType="HashMap">
+		UPDATE Board${boardNum} SET hit = hit + 1 WHERE articleNum=#{articleNum}
+	</update>
+	
+	<!-- Board 새 글 쓰기 -->
 	<insert id="writeArticle" parameterType="article" useGeneratedKeys="true" keyProperty="articleNum" keyColumn="articleNum">
 		INSERT INTO board${boardNum} (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
 					VALUES ('test', #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus});

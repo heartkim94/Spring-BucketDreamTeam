@@ -14,13 +14,13 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
-	@RequestMapping(value="/testGetAdminArticles.do", method=RequestMethod.GET)
-	public String getAdminArticles(
-			@ModelAttribute("boardNum") int boardNum,
-			@ModelAttribute("pageNum") int pageNum,
-			Model model) {
-		boardService.getArticles(boardNum, pageNum, model);
-		String view = boardService.getAdminBoardSetting(boardNum);
-		return view;
-	}
+//	@RequestMapping(value="/testGetAdminArticles.do", method=RequestMethod.GET)
+//	public String getAdminArticles(
+//			@ModelAttribute("boardNum") int boardNum,
+//			@ModelAttribute("pageNum") int pageNum,
+//			Model model) {
+//		boardService.getArticles(boardNum, pageNum, model);
+//		String view = boardService.getAdminBoardSetting(boardNum);
+//		return view;
+//	}
 }
