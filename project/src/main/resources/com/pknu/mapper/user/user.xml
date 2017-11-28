@@ -8,6 +8,9 @@
 	<select id="emailCheck" resultType="String" parameterType="String">
 		select email from user where email=#{email}
 	</select>
+	<select id="findIdEmailCheck" resultType="String" parameterType="String">
+		select id email from user where id=#{id} and email=#{email}
+	</select>
 	<insert id="userInsert" parameterType="user">
 		insert into user values(#{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, false, #{certKey},#{certify})
 	</insert> 

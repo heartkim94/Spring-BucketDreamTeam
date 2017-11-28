@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int joinIdCheck(String inputId) {
 		String dbIdCheck = userDao.loginCheck(inputId);
-		System.out.println(dbIdCheck+"아이디");
 		if(dbIdCheck != null) {  // db에 id가 존재하면
 			return 2;
 		}else {
@@ -36,6 +35,17 @@ public class UserServiceImpl implements UserService {
 		String dbEmailCheck = userDao.emailCheck(inputEmail);
 		System.out.println(dbEmailCheck+"이메일");
 		if(dbEmailCheck != null) { // db에 email이 존재하면
+			return 2;
+		}else {
+			return 1;
+		}
+	}
+	
+	@Override
+	public int findIdEmailCheck(String inputId, String inputEmail) {
+		String dbIdPassCheck = userDao.findIdEmailCheck(inputId, inputEmail);
+		System.out.println(dbIdPassCheck+"아이디 이메일");
+		if(dbIdPassCheck != null) {  // db에 id가 존재하면
 			return 2;
 		}else {
 			return 1;
@@ -182,6 +192,8 @@ public class UserServiceImpl implements UserService {
 		mailUtil.sendPass(pass,userDto.getEmail());
 		return null;
 	}
+
+
 
 	
 	

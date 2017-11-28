@@ -32,52 +32,68 @@
 	}
 
 	
-	function pw_search() {
-		var f = document.pw_f;
-		$.ajax({
-			url:"/project/joinIdCheck.do", // 이메일 체크 재사용했음
-			data:{
-				inputId:$("#id").val()
-			},
-			success:function(data){
-				if($("#id").val()!=""){
-					if(data==1){
-						alert("잘못된 ID 입니다.");
-			 			f.id.focus();
-					}else {
-						f.submit();
-					}
-				}else {
-		 			alert("ID를 입력해주세요.");
-		 			f.id.focus();
-				}
-			}
-		});
-		$.ajax({
-			url:"/project/joinEmailCheck.do", // 이메일 체크 재사용했음
-			data:{
-				inputEmail:$("#email").val()
-			},
-			success:function(data){
-				if($("#email").val()!=""){
-					if(data==1){
-						alert("잘못된 EMAIL 입니다.");
-			 			f.email.focus();
-					}else {
-						f.submit();
-					}
-				}else {
-		 			alert("EMAIL을 입력해주세요.");
-		 			f.email.focus();
-				}
-			}
-		});
-	}
+// 	let idcheck = false;
+// 	let emailcheck = false;
+// 	function pw_search() {
+// 		var f = document.pw_f;
+// 		$.ajax({
+// 			type:"POST",
+// 			async:true,
+// 			url:"/project/findIdEmailCheck.do", 
+// 			data:{
+// 				inputId:$("#id").val(),
+// 				inputEmail:$("#email").val()
+// 			},
+// 			success:function(data){
+// 				if($("#id").val()!="" && $("#email").val()!=""){
+// 					if(data==1){
+// 						alert("잘못된 ID 또는 EMAIL 입니다.");
+// 			 			f.id.focus();
+// 					}else {
+// 						idcheck==true
+// 						emailcheck==true
+// 						f.submit();
+// 					}
+// 				}else {
+// 		 			alert("ID또는 EMAIL을 입력해주세요.");
+// 		 			f.id.focus();
+// 				}
+// 			}
+// 		});
+// 		$.ajax({
+// 			url:"/project/joinEmailCheck.do", // 이메일 체크 재사용했음
+// 			async:false,
+// 			data:{
+// 				inputEmail:$("#email").val()
+// 			},
+// 			success:function(data){
+// 				if($("#email").val()!=""){
+// 					if(data==1){
+// 						alert("잘못된 EMAIL 입니다.");
+// 			 			f.email.focus();
+// 					}else {
+// 						f.submit();
+// 					}
+// 				}else {
+// 		 			alert("EMAIL을 입력해주세요.");
+// 		 			f.email.focus();
+// 				}
+// 			}
+// 		});
+//	}
+	
+// 	function availability(){
+// 		if(idcheck==true && emailcheck==true){
+// 			alert("임시비밀번호를 전송하였습니다.");
+// 			return true;
+// 		}else if(!idcheck || !emailcheck){
+// 			alert("확인해주세요");
+// 			return false;
+// 		}
+// 	}
 	
 	
 	
-	
-/*	
 	function pw_search() {
 		var f = document.pw_f;
 
@@ -93,7 +109,7 @@
 		}
 		f.submit();
 	}
-*/
+
 </script>
 </head>
 <body>
@@ -132,7 +148,7 @@
 							</table>
 						</form>
 						
-						<form action="/project/userPassFind.do" name="pw_f" id="pw_f" method="post">
+						<form action="/project/userPassFind.do" name="pw_f" id="pw_f" method="post" onsubmit="return availability()">
             				<table width="380" border="0" cellspacing="0" cellpadding="0">
 			                <tbody>
              				<tr>

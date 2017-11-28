@@ -44,6 +44,12 @@ public class UserController {
 		return userService.joinEmailCheck(inputEmail); 
 	}
 	
+	@RequestMapping(value="findIdEmailCheck.do")
+	@ResponseBody
+	public int findIdEmailCheck(@RequestParam("inputId") String inputId, @RequestParam("inputEmail") String inputEmail) { //비밀번호 찾기에서 아이디와 이메일비교
+		return userService.findIdEmailCheck(inputId, inputEmail);
+	}
+	
 //	@RequestMapping(value="main.do")
 //	public String mainPage() {
 //		return "user/main";

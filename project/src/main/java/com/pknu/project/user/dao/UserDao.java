@@ -6,6 +6,7 @@ public interface UserDao {
 	public String loginCheck(String id);
 	public UserDto checkLogin(String id);
 	public String emailCheck(String email);
+	public String findIdEmailCheck(String id, String email);
 	public void userInsert(UserDto userDto);
 	public void userUpdate(UserDto userDto);
 	
