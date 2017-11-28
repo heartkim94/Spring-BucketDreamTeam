@@ -59,13 +59,13 @@ public class CommunityController {
 			@ModelAttribute("boardNum") int boardNum){
 		session.getId();
 		System.out.println("***writeForm***");
-		return "writeForm";   
+		return "writeForm";
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
 	public String write(ArticleDto article, HttpSession session){
 //		article.setId((String)session.getAttribute("id"));
-		System.out.println(article.getBoardNum());
+		boardService.writeArticle(article);
 		System.out.println("***write***");
 		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
 	}

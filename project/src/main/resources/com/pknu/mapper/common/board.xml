@@ -57,7 +57,7 @@
 	<!-- Board 새 글 쓰기 -->
 	<insert id="writeArticle" parameterType="article" useGeneratedKeys="true" keyProperty="articleNum" keyColumn="articleNum">
 		INSERT INTO board${boardNum} (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
-					VALUES ('test', #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus});
+					VALUES (#{id}, #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus});
 		update board${boardNum} set groupId = articleNum where articleNum = last_insert_id();
 	</insert>
 </mapper>
