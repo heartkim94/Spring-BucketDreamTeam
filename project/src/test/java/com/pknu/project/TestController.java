@@ -1,5 +1,6 @@
 package com.pknu.project;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
@@ -9,25 +10,24 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.pknu.project.common.dao.BoardDao;
 import com.pknu.project.common.dto.ArticleDto;
-import com.pknu.project.community.dao.CommunityDao;
+import com.pknu.project.common.service.BoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations= {"classpath:spring/root-context.xml"})
+@ContextConfiguration(locations= {"classpath:spring/root-context.xml", "classpath:spring/servlet-context.xml"})
 public class TestController {
 	@Autowired
-	CommunityDao dao;
+	BoardDao dao;
+	@Autowired
+	BoardService service;
+	HashMap<String, String> paramMap;
 	
-//	@Test
-//	public void test() {
-//		// 주석추가
-//		List<ArticleDto> list = dao.getNoticeArticles(null);
-//		for(ArticleDto article : list) {
-//			String text = article.getArticleNum()
-//					 +"|"+article.getTitle()
-//					 +"|"+article.getGroupId();
-//			System.out.println(text);
-//		}
-//	}
+	@Test
+	public void test() {
+		paramMap = new HashMap<>();
+		paramMap.put("boardNum", "-1");
+		dao.createTableBoard(paramMap);
+	}
 }

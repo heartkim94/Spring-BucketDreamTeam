@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
 		if (user!=null && user.getCertify()==1) {
 			if (user.getPass().equals(pass)) {//로그인성공
 				session.setAttribute("id", id);
-				session.setAttribute("isAdmin", user.getIsAdmin());
+				session.setAttribute("isAdmin", userDao.isAdminMember(user.getUserNum()));
 				model.addAttribute("id", id);
 				view = "group/groupMain";
 			} else {//비밀번호 실패

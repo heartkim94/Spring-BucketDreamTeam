@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="/project/resources/css/style.css">
 <!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <style>
 	
@@ -80,7 +80,7 @@
 							<c:if test="${article.depth == 0}">
 								<img src="" width="0" height="16">
 							</c:if>
-							<a href="content.do?articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
+							<a href="content.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
 								${article.title}
 								<c:if test="${article.commentCount!=0}">
 									<span style="color: red">(${article.commentCount})</span>

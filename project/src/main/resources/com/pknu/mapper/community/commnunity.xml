@@ -5,6 +5,13 @@
 
 <mapper namespace="com.pknu.project.community.dao.CommunityDao">
 
+	
+	<select id="getAdminBoardSetting" parameterType="int" resultType="String">
+		select `view` from AdminBoardSetting where boardNum=#{boardNum}
+	</select>
+	
+	
+	<!-- Old Method -->
 	<!-- Notice -->
 	<select id="getNoticeCount" resultType="int">
 		SELECT COUNT(*) FROM notice

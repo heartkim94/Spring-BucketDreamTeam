@@ -13,16 +13,11 @@ public class ArticleDto {
 	private String writeDate;
 	private int fileStatus;
 	private int commentCount;
+	private int boardNum;
 	private String searchCondition;
 	private String searchKeyword;
 	
 	
-	public int getCommentCount() {
-		return commentCount;
-	}
-	public void setCommentCount(int commentCount) {
-		this.commentCount = commentCount;
-	}
 	public int getArticleNum() {
 		return articleNum;
 	}
@@ -83,6 +78,18 @@ public class ArticleDto {
 	public void setFileStatus(int fileStatus) {
 		this.fileStatus = fileStatus;
 	}
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+	public int getBoardNum() {
+		return boardNum;
+	}
+	public void setBoardNum(int boardNum) {
+		this.boardNum = boardNum;
+	}
 	public String getSearchCondition() {
 		return searchCondition;
 	}
@@ -95,5 +102,4 @@ public class ArticleDto {
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
 	}
-	
 }
