@@ -24,4 +24,10 @@ public class HomeController {
 		System.out.println("hello");
 		return "home";
 	}
+	
+	@RequestMapping(value = "/groupMain.do")
+	public String groupMain(Locale locale, Model model) {
+		System.out.println("groupMain");
+		return "/group/groupMain";
+	}
 }

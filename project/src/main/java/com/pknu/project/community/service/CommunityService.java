@@ -6,7 +6,7 @@ import com.pknu.project.common.dto.ArticleDto;
 
 
 public interface CommunityService {
-	public Model noticeList(int pageNum, Model model, String searchCondition, String searchKeyword );
+	public Model noticeList(int pageNum, Model model);
 	public void getNoticeArticle(int articleNum, int fileStatus, Model model);
 	public void writeNotice(ArticleDto article);
 	/* FAQ */

@@ -19,15 +19,15 @@ public class TestController {
 	@Autowired
 	CommunityDao dao;
 	
-	@Test
-	public void test() {
-		// 주석추가
-		List<ArticleDto> list = dao.getNoticeArticles(null);
-		for(ArticleDto article : list) {
-			String text = article.getArticleNum()
-					 +"|"+article.getTitle()
-					 +"|"+article.getGroupId();
-			System.out.println(text);
-		}
-	}
+//	@Test
+//	public void test() {
+//		// 주석추가
+//		List<ArticleDto> list = dao.getNoticeArticles(null);
+//		for(ArticleDto article : list) {
+//			String text = article.getArticleNum()
+//					 +"|"+article.getTitle()
+//					 +"|"+article.getGroupId();
+//			System.out.println(text);
+//		}
+//	}
 }

@@ -1,6 +1,5 @@
 package com.pknu.project.common.dto;
 
-import javax.xml.bind.annotation.XmlTransient;
 
 public class ArticleDto {
 	private int articleNum;
@@ -16,6 +15,7 @@ public class ArticleDto {
 	private int commentCount;
 	private String searchCondition;
 	private String searchKeyword;
+	
 	
 	public int getCommentCount() {
 		return commentCount;
@@ -95,4 +95,5 @@ public class ArticleDto {
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
 	}
+	
 }

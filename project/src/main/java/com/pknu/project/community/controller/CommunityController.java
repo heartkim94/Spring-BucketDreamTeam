@@ -32,11 +32,8 @@ public class CommunityController {
 		return conditionMap;
 	}
 	@RequestMapping(value = "/noticeList.do")
-	public String noticeList(@ModelAttribute("pageNum") int pageNum, Model model, ArticleDto article, String searchCondition, String searchKeyword ) {
-		if(article.getSearchCondition() == null) article.setSearchCondition("TITLE");
-		if(article.getSearchKeyword() == null) article.setSearchKeyword("");
-		communityService.noticeList(pageNum, model, searchCondition, searchKeyword);
-		System.out.println("***noticeList***");
+	public String noticeList(@ModelAttribute("pageNum") int pageNum, Model model) {
+		communityService.noticeList(pageNum, model);
 		return "noticeList";
 	}
 	

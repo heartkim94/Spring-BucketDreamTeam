@@ -35,13 +35,16 @@
 	<%@ include file="header.jsp" %>
 	<section>
 		<div class="subContent">
+			<c:if test="${isAdmin}">
 			<table width="100%">
 				<tr>
 					<td align="right"><a href="write.do">글쓰기</a></td>
 				</tr>
 			</table>
+			</c:if>
+			
 			<!-- 검색시작 -->
-			<form action="noticeList.do" method="post">
+			<form action="#" method="get">
 				<table border="1" cellpadding="0" cellspacing="0" width="100%">
 					<tr>
 						<td align="right">

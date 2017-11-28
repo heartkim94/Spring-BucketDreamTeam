@@ -29,7 +29,15 @@
 <!-- 				<input type="button" value="로그인input" onclick="document.location.href='main.do'"> -->
 			</div>
 		</c:if>
-		<a href="home.do"><strong>header</strong></a>
+		<c:if test="${id != null}">
+			<!-- homeController에 mapping -->
+			<a href="/project/groupMain.do"><strong>header</strong></a>
+		</c:if>
+		<c:if test="${id == null}">
+			<a href="home.do"><strong>header</strong></a>			
+		</c:if>
+		
+		
 	</header>
 	<hr>
 </body>
