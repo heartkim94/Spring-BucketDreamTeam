@@ -4,6 +4,15 @@
               "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="com.pknu.project.community.dao.CommunityDao">
+
+	
+	<select id="getAdminBoardSetting" parameterType="int" resultType="String">
+		select `view` from AdminBoardSetting where boardNum=#{boardNum}
+	</select>
+	
+	
+	<!-- Old Method -->
+	<!-- Notice -->
 	<select id="getNoticeCount" resultType="int">
 		SELECT COUNT(*) FROM notice
 	</select>
@@ -16,16 +25,11 @@
 			  order by groupId desc, pos) n
 		WHERE rownum between #{startRow} and #{endRow}
 	</select>
-	
+
 	<!-- notice 글 상세보기 -->
 	<select id="getNoticeArticle" parameterType="int" resultType="article">
 		SELECT * FROM notice WHERE articleNum = #{articleNum}
 	</select>
-	
-	<!-- hit 수 증가 -->
-	<update id="upHit" parameterType="int" >
-		UPDATE notice SET hit = hit + 1 WHERE articleNum=#{articleNum}
-	</update>
 	
 	<!-- 새 notice 쓰기 -->
 	<insert id="writeNotice" parameterType="article" useGeneratedKeys="true" keyProperty="articleNum" keyColumn="articleNum">
@@ -34,8 +38,11 @@
 		update notice set groupId = articleNum where articleNum = last_insert_id();
 	</insert>
 	
-	
 	<!-- FAQ -->
+	<select id="getFaqCount" resultType="int">
+		SELECT COUNT(*) FROM faq
+	</select>
+	
 	<select id="getFaqArticles" parameterType="HashMap" resultType="article">
 		select	articleNum, id, title, depth, hit,
             	date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
@@ -53,4 +60,33 @@
 		from	Faq board
 		where	articleNum = #{articleNum}
 	</select>
+	
+	
+	<!-- QnA -->
+	<select id="getQnaCount" resultType="int">
+		SELECT COUNT(*) FROM qna
+	</select>
+	
+	<select id="getQnaArticles" parameterType="HashMap" resultType="article">
+		select	articleNum, id, title, depth, hit,
+            	date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
+        from 	(
+        		select	board.*, @rownum := @rownum+1 as rownum
+              	from	qna board, (select @rownum := 0) vars
+              	order by groupId desc, pos) board
+        where	rownum between #{startRow} and #{endRow};
+	</select>
+	
+	<select id="getQnaArticle" parameterType="int" resultType="article">
+		select	id, title, content, writeDate, fileStatus
+		from	qna board
+		where	articleNum = #{articleNum}
+	</select>
+	
+	
+	<!-- Util -->
+	<!-- hit 수 증가 -->
+	<update id="upHit" parameterType="int" >
+		UPDATE notice SET hit = hit + 1 WHERE articleNum=#{articleNum}
+	</update>
 </mapper>

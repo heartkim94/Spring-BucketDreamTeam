@@ -1,4 +1,4 @@
-package com.pknu.project.common;
+package com.pknu.project.common.utils;
 
 import javax.inject.Named;
 
@@ -25,13 +25,13 @@ public class Page {
 		
 		sb = new StringBuffer();
 		if(startPage < pageBlock) {
-			sb.append("<img src='resources/img/hot.gif' width='30' height='9'>");
+			sb.append("<img src='resources/img/left.jpg' width='30' height='9'>");
 		} else {
-			sb.append("<img src='resources/img/hot.gif' width='30' height='9'");
+			sb.append("<img src='resources/img/left.jpg' width='30' height='9'");
 			sb.append(" onclick='location.href=\"noticeList.do?pageNum=");
 			sb.append(startPage - pageBlock);
 			sb.append("\"' style='cursor:pointer'>");
-		} 
+		}
 		
 		sb.append("&nbsp;&nbsp;|");
 		for(int i = startPage; i <= endPage; i++) {
@@ -50,12 +50,12 @@ public class Page {
 		
 		sb.append("&nbsp;&nbsp;|");
 		if(endPage < totalPage) {
-			sb.append("<img src='resources/img/hot.gif' width='30' height='9'");
+			sb.append("<img src='resources/img/right.jpg' width='30' height='9'");
 			sb.append(" onclick='location.href=\"noticeList.do?pageNum=");
 			sb.append(startPage + pageBlock);
 			sb.append("\"' style='cursor:pointer'> ");
 		} else {
-			sb.append("<img src='resources/img/hot.gif' width='30' height='9'>");
+			sb.append("<img src='resources/img/right.jpg' width='30' height='9'>");
 		}
 	}
 	

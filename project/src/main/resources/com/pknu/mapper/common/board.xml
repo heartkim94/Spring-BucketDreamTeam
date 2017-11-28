@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis map 선언 표시 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+              "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.pknu.project.common.dao.BoardDao">
+	<!-- Board -->
+	<select id="getBoards" parameterType="int" resultType="board">
+		select * from boardList where groupNum = #{groupNum}
+	</select>
+	<select id="getAdminBoardSetting" parameterType="int" resultType="String">
+		select `view` from AdminBoardSetting where boardNum=#{boardNum}
+	</select>
+	<update id="addBoardList" parameterType="HashMap"  useGeneratedKeys="true" keyColumn="boardNum" keyProperty="boardNum">
+		insert into BoardList(boardName, groupNum) values(#{boardName}, #{groupNum});
+	</update>
+	<update id="createTableBoard" parameterType="HashMap">
+		create table `board${boardNum}` (
+		    articleNum int primary key auto_increment,
+		    id varchar(300) not null,
+		    title varchar(500) not null,
+		    content text not null,
+		    depth int not null,
+		    hit int not null,
+		    groupId int not null,
+		    pos int not null,
+		    writeDate date not null,
+		    fileStatus int(1) not null
+		);
+	</update>
+	
+	<!-- #Article -->
+	<!-- Board 글개수 가져오기 -->
+	<select id="getCount" parameterType="HashMap" resultType="int">
+		select count(*) from board${boardNum}
+	</select>
+	
+	<!-- Board 목록 보기 -->
+	<select id="getArticles" parameterType="HashMap" resultType="article">
+		SELECT articleNum, id, title, depth, hit, date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
+        FROM (SELECT b.*, @rownum := @rownum+1 as rownum
+              FROM board${boardNum} b, (SELECT @rownum := 0) vars
+			  order by groupId desc, pos) n
+		WHERE rownum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- Board 글 상세보기 -->
+	<select id="getArticle" parameterType="HashMap" resultType="article">
+		SELECT * FROM `board${boardNum}` WHERE articleNum = #{articleNum}
+	</select>
+	
+	<!-- hit 수 증가 -->
+	<update id="upHit" parameterType="HashMap">
+		UPDATE Board${boardNum} SET hit = hit + 1 WHERE articleNum=#{articleNum}
+	</update>
+	
+	<!-- Board 새 글 쓰기 -->
+	<insert id="writeArticle" parameterType="article" useGeneratedKeys="true" keyProperty="articleNum" keyColumn="articleNum">
+		INSERT INTO board${boardNum} (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
+					VALUES (#{id}, #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus});
+		update board${boardNum} set groupId = articleNum where articleNum = last_insert_id();
+	</insert>
+</mapper>
