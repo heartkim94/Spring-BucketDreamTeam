@@ -74,7 +74,7 @@
 						<td align="center" width="50"><c:out value="${article.articleNum}" /></td>
 						<td width="250">
 							<c:if test="${article.depth > 0}">
-								<img src="resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">
+								<img src="/project/resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">
 								<img src="">RE: 
 							</c:if>
 							<c:if test="${article.depth == 0}">

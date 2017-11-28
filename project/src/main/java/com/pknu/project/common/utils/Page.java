@@ -25,13 +25,22 @@ public class Page {
 		
 		sb = new StringBuffer();
 		if(startPage < pageBlock) {
-			sb.append("<img src='resources/img/left.jpg' width='30' height='9'>");
+			sb.append("<a><<</a>");
 		} else {
-			sb.append("<img src='resources/img/left.jpg' width='30' height='9'");
-			sb.append(" onclick='location.href=\"noticeList.do?pageNum=");
+			sb.append("<a href='document.location.href=\"list.do?pageNum=");
 			sb.append(startPage - pageBlock);
-			sb.append("\"' style='cursor:pointer'>");
+			sb.append("\"' style='cursor:pointer'><<</a>");
 		}
+		
+//		sb = new StringBuffer();
+//		if(startPage < pageBlock) {
+//			sb.append("<img src='/project/resources/img/left.jpg' width='30' height='20'>");
+//		} else {
+//			sb.append("<img src='/project/resources/img/left.jpg' width='30' height='20'");
+//			sb.append(" onclick='location.href=\"list.do?pageNum=");
+//			sb.append(startPage - pageBlock);
+//			sb.append("\"' style='cursor:pointer'>");
+//		}
 		
 		sb.append("&nbsp;&nbsp;|");
 		for(int i = startPage; i <= endPage; i++) {
@@ -40,7 +49,7 @@ public class Page {
 				sb.append(i);
 				sb.append("</font></b>");
 			} else {
-				sb.append("&nbsp;&nbsp;<a href='noticeList.do?pageNum=");
+				sb.append("&nbsp;&nbsp;<a href='list.do?pageNum=");
 				sb.append(i);
 				sb.append("'>");
 				sb.append(i);
@@ -48,15 +57,24 @@ public class Page {
 			}
 		}
 		
-		sb.append("&nbsp;&nbsp;|");
+		sb.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
 		if(endPage < totalPage) {
-			sb.append("<img src='resources/img/right.jpg' width='30' height='9'");
-			sb.append(" onclick='location.href=\"noticeList.do?pageNum=");
+			sb.append("<a href='document.location.href=\\\"list.do?pageNum=");
 			sb.append(startPage + pageBlock);
-			sb.append("\"' style='cursor:pointer'> ");
+			sb.append("\"' style='cursor:pointer'>>></a>");
 		} else {
-			sb.append("<img src='resources/img/right.jpg' width='30' height='9'>");
+			sb.append("<a>>></a>");
 		}
+		
+//		sb.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
+//		if(endPage < totalPage) {
+//			sb.append("<img src='/project/resources/img/right.jpg' width='30' height='15'");
+//			sb.append(" onclick='location.href=\"list.do?pageNum=");
+//			sb.append(startPage + pageBlock);
+//			sb.append("\"' style='cursor:pointer'> ");
+//		} else {
+//			sb.append("<img src='/project/resources/img/right.jpg' width='30' height='15'>");
+//		}
 	}
 	
 	public int getStartRow() {
