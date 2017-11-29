@@ -1,73 +1,101 @@
-drop database project;
-create database project;
-use project;
+DROP DATABASE `project`;
+CREATE DATABASE `project`;
+USE `project`;
 
--- #Common
--- Board
-create table BoardList(
-    boardNum int primary key auto_increment,
-    boardName varchar(200) not null,
-    groupNum int not null);
-    
-create table FileList(
-    fileNum int primary key,
-    storedfname varchar(400) not null,
-    filelength int not null,
-    articleNum int not null,
-    boardNum int not null);
-    
--- #User
--- table User
-CREATE TABLE user(
-    userNum int primary key auto_increment,
-	id varchar(50) unique,
-	pass varchar(50) NOT NULL,
-	name varchar(100),
-	nickName varchar(100),
-	email varchar(100) not null,
-	phoneNumber char(13),
-	gender enum('m', 'f') not null,
-    certkey varchar(100) not null,
-	certify int default 0 not null
-	);
+
+-- User
+CREATE TABLE `User`(
+    `userNum` int auto_increment PRIMARY KEY,
+	`id` varchar(50) UNIQUE,
+	`pass` varchar(50) NOT NULL,
+	`name` varchar(100),
+	`nickName` varchar(100),
+	`email` varchar(100) NOT NULL,
+	`phoneNumber` char(13),
+	`gender` enum('m', 'f') NOT NULL,
+    `certkey` varchar(100) NOT NULL,
+	`certify` int default 0 NOT NULL
+) ENGINE=InnoDB;
 	
 -- #Group
-create table `Group`(
-    groupNum int primary key auto_increment,
-    groupName varchar(200) not null,
-    groupOwner int not null,
-    catNum int not null);
+CREATE TABLE `Category`(
+    `catNum` int auto_increment PRIMARY KEY,
+    `catName` varchar(200) NOT NULL,
+    `parentNum` int NOT NULL
+) ENGINE=InnoDB;
     
-create table Category(
-    catNum int primary key auto_increment,
-    catName varchar(200) not null,
-    parentNum int not null);
+CREATE TABLE `Group`(
+    `groupNum` int auto_increment PRIMARY KEY,
+    `groupName` varchar(200) NOT NULL,
+    `groupOwner` int NOT NULL,
+    `catNum` int NOT NULL,
+    FOREIGN KEY(`groupOwner`) REFERENCES `User`(`userNum`),
+    FOREIGN KEY(`catNum`) REFERENCES `Category`(`catNum`)
+) ENGINE=InnoDb;
     
-create table Member(
-    groupNum int,
-    userNum int,
-    primary key(groupNum, userNum));
+CREATE TABLE `Member`(
+    `groupNum` INT NOT NULL,
+    `userNum` INT NOT NULL,
+    PRIMARY KEY(`groupNum`, `userNum`),
+    FOREIGN KEY(`groupNum`) REFERENCES `Group`(`groupNum`),
+    FOREIGN KEY(`userNum`) REFERENCES `User`(`userNum`)
+) ENGINE=InnoDB;
+    
+    
+-- Board
+CREATE TABLE `BoardList`(
+    `boardNum` int auto_increment PRIMARY KEY,
+    `boardName` varchar(200) NOT NULL,
+    `groupNum` int NOT NULL,
+    FOREIGN KEY(`groupNum`) REFERENCES `Group`(`groupNum`)
+) ENGINE=InnoDB;
+    
+-- File
+CREATE TABLE `FileList`(
+    `fileNum` int auto_increment PRIMARY KEY,
+    `storedfname` varchar(400) NOT NULL,
+    `filelength` int NOT NULL
+) ENGINE=InnoDB;
+    
+CREATE TABLE `Attached`(
+	`fileNum` int PRIMARY KEY,
+	`boardNum` int NOT NULL,
+	`articleNum` int NOT NULL,
+    FOREIGN KEY(`fileNum`) REFERENCES `FileList`(`fileNum`),
+    FOREIGN KEY(`boardNum`) REFERENCES `BoardList`(`boardNum`)
+) ENGINE=InnoDB;
+	
+CREATE TABLE `ProfileOf`(
+	`fileNum` int PRIMARY KEY,
+	`groupNum` int NOT NULL,
+    FOREIGN KEY(`fileNum`) REFERENCES `FileList`(`fileNum`),
+    FOREIGN KEY(`groupNum`) REFERENCES `Group`(`groupNum`)
+) ENGINE=InnoDB;
     
 -- #Data for admin
-insert into user(userNum, id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
-    values(-1, 'admin', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
-insert into Category(catNum, catName, parentNum) values(-1, 'hidden', 0);
-insert into `Group`(groupNum, groupName, groupOwner, catNum) values(-1, 'AdminGroup', 1, 1);
-insert into Member values(-1, -1);
+INSERT INTO `User`(`userNum`, `id`, `pass`, `name`, `nickname`, `email`, `phoneNumber`, `gender`, `certkey`, `certify`)
+    VALUES(-1, 'admin', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
+INSERT INTO `Category`(`catNum`, `catName`, `parentNum`) VALUES(-1, 'hidden', 0);
+INSERT INTO `Group`(`groupNum`, `groupName`, `groupOwner`, `catNum`) VALUES(-1, 'AdminGroup', -1, -1);
+INSERT INTO `Member` VALUES(-1, -1);
 
 -- #Table for admin setting
-create table AdminBoardSetting(
-    boardNum int primary key,
-    `show` boolean not null,
-    `view` varchar(200) not null
-);
+CREATE TABLE `AdminBoardSetting`(
+    `boardNum` int PRIMARY KEY,
+    `show` boolean NOT NULL,
+    `view` varchar(200) NOT NULL,
+    FOREIGN KEY(`boardNum`) REFERENCES `BoardList`(`boardNum`)
+) ENGINE=InnoDB;
+
+-- #Community
+insert into BoardList(boardName, groupNum) values('Notice', -1);
+insert into BoardList(boardName, groupNum) values('QnA', -1);
+insert into BoardList(boardName, groupNum) values('FAQ', -1);
 
 insert into AdminBoardSetting values(1, true, 'noticeList');
 insert into AdminBoardSetting values(2, true, 'noticeList');
 insert into AdminBoardSetting values(3, true, 'community/faq');
 
--- #Community
-insert into BoardList(boardName, groupNum) values('Notice', -1);
 create table Board1(
     articleNum int primary key auto_increment,
     id varchar(300) not null,
@@ -79,9 +107,8 @@ create table Board1(
     pos int not null,
     writeDate date not null,
     fileStatus int(1) not null
-);
+) ENGINE=InnoDB;
 
-insert into BoardList(boardName, groupNum) values('QnA', -1);
 create table Board2(
     articleNum int primary key auto_increment,
     id varchar(300) not null,
@@ -93,9 +120,8 @@ create table Board2(
     pos int not null,
     writeDate date not null,
     fileStatus int(1) not null
-);
+) ENGINE=InnoDB;
 
-insert into BoardList(boardName, groupNum) values('FAQ', -1);
 create table Board3(
     articleNum int primary key auto_increment,
     id varchar(300) not null,
@@ -107,7 +133,7 @@ create table Board3(
     pos int not null,
     writeDate date not null,
     fileStatus int(1) not null
-);
+) ENGINE=InnoDB;
 
 -- #Data for test
 -- User
@@ -121,6 +147,7 @@ insert into Category(catName, parentNum) values('religion', 0);
 insert into Category(catName, parentNum) values('bibliography', 1);
 insert into Category(catName, parentNum) values('information science', 1);
 insert into Category(catName, parentNum) values('encyclopedia', 1);
+
 insert into `Group`(groupName, groupOwner, catNum) values('TestGroup', 1, 1);
     
 -- Community
