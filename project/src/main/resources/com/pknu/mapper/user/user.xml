@@ -11,6 +11,9 @@
 	<select id="findIdEmailCheck" resultType="String" parameterType="HashMap">
 		select id email from user where id=#{id} and email=#{email}
 	</select>
+	<select id="passCheck" resultType="String" parameterType="String">
+		select pass from user where pass=#{pass}
+	</select>
 	<insert id="userInsert" parameterType="user">
 		insert into user values(null, #{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, false, #{certKey},#{certify})
 	</insert> 
@@ -27,22 +30,28 @@
 	<select id="certifyCheck" resultType="int" parameterType="String">
 	 	SELECT IFNULL(MAX(CERTIFY),'2') FROM user WHERE ID=#{id}
 	</select>
-	 <select id="checkLogin" parameterType="String" resultType="user">
+	 <select id="checkLogin" resultType="user" parameterType="String">
 	 	select userNum, pass, certify from user where id = #{id}
 	 </select>
-	<select id="getUser" parameterType="String" resultType="user">
+	<select id="getUser" resultType="user" parameterType="String">
 	 	select * from user where id=#{id}
 	</select>
-	<select id="userIdFind" parameterType="String" resultType="String">
+	<select id="userIdFind" resultType="String" parameterType="String">
 		select id from user where email=#{email}
 	</select>
 	<update id="userPassFind" parameterType="String">
 		update user set pass=#{pass} where id=#{id} and email=#{email}
 	</update>
-	<select id="isAdminMember" parameterType="int" resultType="boolean">
+	<select id="isAdminMember" resultType="boolean" parameterType="int">
 		select	count(*)
 		from	member
 		where	groupNum = -1 and userNum = #{userNum};
 	</select>
+	<select id="getIdPass" resultType="user" parameterType="String">
+		select id pass from user where id=#{id}
+	</select>
+	<delete id="myInfoDel" parameterType="HashMap">
+		delete from user where id=#{id} and pass=#{pass}
+	</delete>
 	 
 </mapper>

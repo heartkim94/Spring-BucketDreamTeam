@@ -50,6 +50,12 @@ public class UserController {
 		return userService.findIdEmailCheck(inputId, inputEmail);
 	}
 	
+	@RequestMapping(value="delPassCheck.do")
+	@ResponseBody
+	public int delPassCheck(@RequestParam("inputPass") String inputPass) {
+		return userService.delPassCheck(inputPass);
+	}
+	
 //	@RequestMapping(value="main.do")
 //	public String mainPage() {
 //		return "user/main";
@@ -114,5 +120,18 @@ public class UserController {
 		return "user/userIdPassFind";
 	}
 
+	@RequestMapping(value="myInfoDelForm.do")
+	public String myInfoDelForm() { //회원탈퇴폼
+		return "user/myInfoDelForm";
+	}
+						
+	@RequestMapping(value="myInfoDel.do")
+	public String myInfoDel(HttpSession session, String pass) { // 회원탈퇴
+		System.out.println(session.getAttribute("id")); 
+		System.out.println(pass);
+		userService.myInfoDel(session, pass);
+		session.invalidate();
+		return "home";
+	}
 	
 }

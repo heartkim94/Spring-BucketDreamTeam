@@ -10,6 +10,7 @@ public interface UserDao {
 	public boolean isAdminMember(int userNum);
 	public String emailCheck(String email);
 	public String findIdEmailCheck(HashMap<String, String> paramMap);
+	public String passCheck(String pass);
 	public void userInsert(UserDto userDto);
 	public void userUpdate(UserDto userDto);
 	
@@ -19,4 +20,6 @@ public interface UserDao {
 	public UserDto getUser(String id);
 	public String userIdFind(UserDto userDto);
 	public void userPassFind(UserDto userDto);
+	
+	public void myInfoDel(HashMap<String, String> paramMap);
 }

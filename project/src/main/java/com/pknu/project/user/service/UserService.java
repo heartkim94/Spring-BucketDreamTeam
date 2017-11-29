@@ -10,6 +10,7 @@ public interface UserService {
 	public int joinIdCheck(String inputId);
 	public int joinEmailCheck(String inputEmail);
 	public int findIdEmailCheck(String inputId, String inputEmail2);
+	public int delPassCheck(String inputPass);
 	public String userInsert(UserDto userDto);
 	public String login(HttpSession session, String id, String pass, Model model);
 	public String mypage(HttpSession session, Model model);
@@ -18,4 +19,6 @@ public interface UserService {
 	public int checkJoin(String certKey,Model model);
 	public String userIdFind(UserDto userDto, Model model);
 	public String userPassFind(UserDto userDto);
+	
+	public void myInfoDel(HttpSession session, String pass);
 }

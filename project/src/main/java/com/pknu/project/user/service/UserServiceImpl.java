@@ -63,6 +63,16 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public int delPassCheck(String inputPass) {
+		String dbPassCheck = userDao.passCheck(inputPass);
+		if(dbPassCheck != null) {
+			return 2;
+		}else {
+			return 1;
+		}
+	}
+	
+	@Override
 	public String userInsert(UserDto userDto) {
 		String certKey = UUID.randomUUID().toString().replaceAll("-", "");
 		userDto.setCertKey(certKey);
@@ -204,16 +214,17 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	@Override
+	public void myInfoDel(HttpSession session, String pass) {
+		String id = (String)session.getAttribute("id");
+		System.out.println(id); 
+		System.out.println(pass);
+		paramMap = new HashMap<>();
+		paramMap.put("id", id);
+		paramMap.put("pass", pass);
+		userDao.myInfoDel(paramMap);
+	}
 
 
-	
-	
-	
-	
 
-
-	
-	
-	
-	
 }
