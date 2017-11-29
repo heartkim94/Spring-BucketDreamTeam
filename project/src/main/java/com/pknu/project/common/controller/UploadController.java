@@ -47,7 +47,7 @@ private static final Logger logger = LoggerFactory.getLogger(UploadController.cl
 	}
 	
 	@ResponseBody
-	@RequestMapping("/displayFile.do")
+	@RequestMapping("/displayFile.bbs")
 	public ResponseEntity<byte[]>  displayFile(String fileName)
 			throws Exception{
 		InputStream in = null; 

@@ -6,46 +6,11 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<link href="/project/resources/css/style.css" rel="stylesheet" type="text/css">
+<!-- <link href="/project/resources/css/style.css" rel="stylesheet" type="text/css"> -->
 <!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <style>
 	
-	.hit {
-		position: relative;
-		bottom: 0;
-		color: orange;
-		animation-name: hitAniAction;
-		animation-duration: 0.5s;
-		animation-timing-function: linear;
-		animation-iteration-count: infinite;
-	}
-	@keyframes hitAniAction {
-		0%{
-			font-weight: normal;
-		}
-		100%{
- 			font-weight: bolder;
-		}
-	}
-	.listTable th {
-		padding: 10px 0;
-		text-align: center;
-		border-top: 2px solid #444547;
-		color: #666;
-		background-color: #e9e9e9;
-		border-bottom: 2px solid #e0e0e0;
-	}
-	.listTable tbody td {
-		padding: 10px 0;
-		text-align: center;
-		background-color: #fff;
-		border-bottom: 1px solid #e1e1e1;
-		color: #777;
-	}
-	.listTable tbody td.alignL {
-		padding-left: 10px;
-		text-align: left;
-	}
+	
 </style>
 </head>
 <body>
@@ -53,73 +18,69 @@
 	<%@ include file="header.jsp" %>
 	<section>
 		<div class="subContent">
-			<c:if test="${isAdmin}">
-			<table width="100%">
-				<tr>
-					<td align="right"><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
-				</tr>
-			</table>
-			</c:if>
-			
 			<!-- 검색시작 -->
 			<form action="#" method="get">
-				<table>
-					<tr>
-						<td align="right">
-							<select name="searchCondition">
-								<c:forEach items="${conditionMap }" var="option">
-									<option value="${option.value }">${option.key }</option>
-								</c:forEach>
-							</select>
-							<input name="searchKeyword" type="text">
-							<input type="submit" value="검색"> 
-						</td>
-					</tr>
-				</table>
+				<div class="searchBox">
+					<select name="searchCondition">
+						<c:forEach items="${conditionMap }" var="option">
+							<option value="${option.value }">${option.key }</option>
+						</c:forEach>
+					</select>
+					<input name="searchKeyword" type="text">
+					<input type="submit" value="검색"> 
+				</div>
 			</form>
 			<!-- 검색종료 -->
 			<table class="listTable">
 				<thead>
-					<tr height="30">
-						<th align="center" width="50">번 호</th>
-						<th align="center" width="250">제 목</th>
-						<th align="center" width="100">작성자</th>
-						<th align="center" width="150">작성일</th>
-						<th align="center" width="50">조 회</th>
+					<tr>
+						<th>번 호</th>
+						<th>제 목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조 회</th>
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="article" items="${articleList}">
-					<tr height="30">
-						<td><c:out value="${article.articleNum}" /></td>
-						<td class="alignL">
-							<c:if test="${article.depth > 0}">
-								<img src="/project/resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">
-								<img src="">RE: 
-							</c:if>
-							<c:if test="${article.depth == 0}">
-								<img src="" width="0" height="16">
-							</c:if>
-							<a href="content.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
-								${article.title}
-								<c:if test="${article.commentCount!=0}">
-									<span style="color: red">(${article.commentCount})</span>
+					<c:forEach var="article" items="${articleList}">
+						<tr>
+							<td><c:out value="${article.articleNum}" /></td>
+							<td class="alignL">
+								<c:if test="${article.depth > 0}">
+									<img src="/project/resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">
+									<img src="">RE: 
 								</c:if>
-							</a>
-							<c:if test="${article.hit >= 20}">
-								<span class="hit">hit!</span>
-							</c:if>
-						</td>
-						<td>${article.id}</td>
-						<td>${article.writeDate}</td>
-						<td>${article.hit}</td>
-					</tr>
-				</c:forEach>
-				<tr>
-					<td colspan="5" align="center" height="40">${pageCode}</td>
-				</tr>
+								<c:if test="${article.depth == 0}">
+									<img src="" width="0" height="16">
+								</c:if>
+								<a href="content.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
+									${article.title}
+									<c:if test="${article.commentCount!=0}">
+										<span style="color: red">(${article.commentCount})</span>
+									</c:if>
+								</a>
+								<c:if test="${article.hit >= 20}">
+									<span class="hit">hit!</span>
+								</c:if>
+							</td>
+							<td>${article.id}</td>
+							<td>${article.writeDate}</td>
+							<td>${article.hit}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
+			<div class="btnArea">
+				<c:if test="${boardNum == 1 || boardNum == 3 }">
+					<c:if test="${isAdmin}">
+						<td><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
+					</c:if>
+				</c:if>
+				<c:if test="${boardNum == 2 }">
+					<td><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
+				</c:if>
+			</div>
+			<div class="pageNav">${pageCode}</div>
 		</div>
 	</section>
 	

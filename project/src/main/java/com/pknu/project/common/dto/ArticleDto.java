@@ -1,5 +1,6 @@
 package com.pknu.project.common.dto;
 
+import java.util.List;
 
 public class ArticleDto {
 	private int articleNum;
@@ -17,6 +18,7 @@ public class ArticleDto {
 	private String searchCondition;
 	private String searchKeyword;
 	
+	private List<String> fileNames;
 	
 	public int getArticleNum() {
 		return articleNum;
@@ -101,5 +103,12 @@ public class ArticleDto {
 	}
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
+	}
+	
+	public List<String> getFileNames() {
+		return fileNames;
+	}
+	public void setFileNames(List<String> fileNames) {
+		this.fileNames = fileNames;
 	}
 }

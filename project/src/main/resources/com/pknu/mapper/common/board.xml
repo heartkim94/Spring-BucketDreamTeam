@@ -60,4 +60,10 @@
 					VALUES (#{id}, #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus});
 		update board${boardNum} set groupId = articleNum where articleNum = last_insert_id();
 	</insert>
+	
+	<!-- filelist 테이블에 업데이트 된 파일 정보 담기 -->
+	<insert id="insertFile" parameterType="file">
+		INSERT INTO FILELIST (fileNum, storedFname, fileLength, articleNum, boardNum) 
+		VALUES (0, #{storedFname}, #{fileLength}, #{articleNum}, #{boardNum})
+	</insert>
 </mapper>

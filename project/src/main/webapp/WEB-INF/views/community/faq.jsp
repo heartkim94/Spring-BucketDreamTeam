@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<link href="/project/resources/css/style.css" rel="stylesheet" type="text/css">
+<!-- <link href="/project/resources/css/style.css" rel="stylesheet" type="text/css"> -->
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 	$(function() {
@@ -23,6 +23,7 @@
 				},
 				success: function(data) {
 					let str = "<tr><td class='articleBox' articleNum='"+articleNum+"'>"
+							+"<span>A: </span>"
 							+ data.content
 							+ "</td></tr>";
 					if(articleBox!=null) {
@@ -44,20 +45,13 @@
 	});
 </script>
 <style>
-
-	.faqTable {
-		border-top: 2px solid #444547
+	.faqTable tbody th {
+		cursor: pointer;
 	}
-	.faqTable th {
-		padding 10px 20px 10px 60px;
-		border-bottom: 1px solid #e1e1e1;
+	.faqTable tbody th:hover button {
+		color: orange;
 	}
-	.faqTable td {
-		padding 10px 20px 10px 60px;
-		border-bottom: 1px solid #e1e1e1;
-		background: #f7f7f7;
-    	color: #555;
-	}
+	
 </style>
 </head>
 
@@ -66,30 +60,28 @@
 	<%@ include file="../header.jsp"%>
 	<section>
 		<div class="subContent">
-			<c:if test="${isAdmin}">
-				<table width="100%">
-					<tr>
-						<td align="right"><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
-					</tr>
-				</table>
-			</c:if>
 			<table class="faqTable">
-				<tr height="30">
-					<th align="center" width="250">제 목</th>
-				</tr>
-		
-				<c:forEach var="article" items="${articleList}">
-					<tr height="30">
-						<td class="titleBox" align="center" width="50" articleNum="${article.articleNum}" style="cursor:pointer">
-							
-							<button><span>Q: </span>${article.title}</button>
-						</td>
+				<thead>
+					<tr>
+						<th align="center" width="250">제 목</th>
 					</tr>
-				</c:forEach>
-				<tr>
-					<td colspan="5" align="center" height="40">${pageCode}</td>
-				</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="article" items="${articleList}">
+						<tr>
+							<th class="titleBox"  articleNum="${article.articleNum}">
+								<button><span>Q: </span>${article.title}</button>
+							</th>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
+			<div class="btnArea">
+				<c:if test="${isAdmin}">
+					<td align="right"><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
+				</c:if>
+			</div>
+			<div class="pageNav">${pageCode}</div>
 		</div>
 	</section>
 	

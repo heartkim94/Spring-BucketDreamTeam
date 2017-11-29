@@ -29,5 +29,6 @@
 			<typeAlias alias="user" type="com.pknu.project.user.dto.UserDto"/>
 			<typeAlias alias="article" type="com.pknu.project.common.dto.ArticleDto"/>
 			<typeAlias alias="board" type="com.pknu.project.common.dto.BoardDto"/>
+			<typeAlias alias="file" type="com.pknu.project.common.dto.FileDto"/>
 		</typeAliases>
 </configuration>
