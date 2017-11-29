@@ -31,7 +31,7 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public void getAdminBoards(ServletContext servletContext) {
-		servletContext.setAttribute("communityBoardList", boardService.getBoards(-1));
+		servletContext.setAttribute("communityBoardList", boardService.getBoards(-1, null));
 	}
 	
 	@Override

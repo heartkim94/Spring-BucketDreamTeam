@@ -4,12 +4,9 @@
               "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="com.pknu.project.common.dao.BoardDao">
-	<!-- Board -->
+	<!-- #Board -->
 	<select id="getBoards" parameterType="int" resultType="board">
 		select * from boardList where groupNum = #{groupNum}
-	</select>
-	<select id="getAdminBoardSetting" parameterType="int" resultType="String">
-		select `view` from AdminBoardSetting where boardNum=#{boardNum}
 	</select>
 	<update id="addBoardList" parameterType="HashMap"  useGeneratedKeys="true" keyColumn="boardNum" keyProperty="boardNum">
 		insert into BoardList(boardName, groupNum) values(#{boardName}, #{groupNum});
@@ -28,6 +25,13 @@
 		    fileStatus int(1) not null
 		);
 	</update>
+	<update id="renameBoard" parameterType="board">
+		UPDATE BoardList SET boardName=#{boardName} WHERE boardNum=#{boardNum}
+	</update>
+	<delete id="deleteBoard" parameterType="HashMap">
+		DELETE FROM BoardList WHERE boardNum = #{boardNum};
+		DROP TABLE `Board${boardNum}`;
+	</delete>
 	
 	<!-- #Article -->
 	<!-- Board 글개수 가져오기 -->

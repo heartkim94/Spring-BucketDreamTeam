@@ -23,4 +23,28 @@
 		            					on g.groupNum = c.groupNum
 		where 	u.id = #{id};
 	</select>
+	<select id="getCategory" resultType="category">
+		SELECT c2.*
+		FROM Category c1, category c2
+		WHERE c1.parentNum=0
+			  and (c1.catNum=c2.parentNum or c1.catNum=c2.catNum)
+			  and c1.catNum!=-1
+		ORDER BY c1.catNum, c2.parentNum;
+	</select>
+	<update id="newGroup" parameterType="group"
+			useGeneratedKeys="true" keyColumn="groupNum" keyProperty="groupNum">
+		INSERT INTO `Group`(groupName, groupOwner, catNum)
+		VALUES(#{groupName},
+			   (SELECT	userNum
+			   FROM		User
+			   WHERE	id=#{groupOwnerId}),
+			   #{catNum}
+		);
+		INSERT INTO Member VALUES(
+			last_insert_id(),
+			(SELECT	userNum
+			   FROM		User
+			   WHERE	id=#{groupOwnerId})
+		);
+	</update>
 </mapper>

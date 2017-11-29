@@ -7,10 +7,15 @@
 	<meta charset="utf-8">
 	<title>Home</title>
 	<style>
-		.myGroupContainer article {
+		.group, .newGroup {
 			border: 1px solid black;
 			width: 200px;
 			height: 200px;
+			cursor: pointer;
+			float: left;
+		}
+		.clear {
+			clear: both;
 		}
 	</style>
 </head>
@@ -35,30 +40,47 @@
 			<div class="myGroupContainer">
 				내 그룹
 				<div class="myGroup">
-					<article>
-						프로필이미지<br>
-						그룹명<br>
-						멤버수
-					</article>
+					<div class="newGroup">
+						그룹추가하기
+					</div>
 					<c:forEach var="group" items="${groupList}">
-						<article>
+						<div class="group" groupNum="${group.groupNum}">
 							프로필이미지<br>
 							${group.groupName}<br>
 							멤버:${group.memberCount}명
-						</article>
+						</div>
 					</c:forEach>
-				</div>
+					<div class="clear"></div>
+				</div> <!-- myGroup End -->
+				<div class="clear"></div>
 			</div> <!-- myGroupContainer End -->
 			<hr>
 			<div class="groupListContainer">
 				그룹목록
+				<div class="groupList">
+					<c:forEach begin="1" end="10" step="1" var="i">
+						<div class="group">
+							프로필이미지<br>
+							예시그룹${i}<br>
+							멤버:${i}명
+						</div>
+					</c:forEach>
+					<div class="clear"></div>
+				</div> <!-- groupList End -->
 			</div> <!-- groupListContainer End -->
 		</section>
 		<%@ include file="../footer.jsp" %>
 	
 	</div> <!-- wrapper End -->
-	
-	
-<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 </body>
+<script>
+$(function() {
+	$(".newGroup").on("click", function() {
+		location.href = "new.do";
+	});
+	$(".group").on("click", function() {
+		location.href = $(this).attr("groupNum")+"/view.do";
+	});
+});
+</script>
 </html>

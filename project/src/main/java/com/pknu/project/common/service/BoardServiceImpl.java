@@ -26,21 +26,40 @@ public class BoardServiceImpl implements BoardService {
 	
 	HashMap<String, String> paramMap;
 	
+	/* Board */
 	@Override
-	public List<BoardDto> getBoards(int groupNum) {
+	public List<BoardDto> getBoards(int groupNum, Model model) {
 		boardList = boardDao.getBoards(groupNum);
+		if(model!=null) {
+			model.addAttribute("boardList", boardList);
+		}
 		return boardList;
 	}
 	
 	@Override
-	public void createBoard(String boardName, int groupNum) {
+	public int newBoard(String boardName, int groupNum) {
 		paramMap = new HashMap<>();
 		paramMap.put("boardName", boardName);
 		paramMap.put("groupNum", String.valueOf(groupNum));
 		boardDao.addBoardList(paramMap);
 		boardDao.createTableBoard(paramMap);
+		return Integer.parseInt(String.valueOf((paramMap.get("boardNum"))));
 	}
 	
+	@Override
+	public void renameBoard(BoardDto board) {
+		boardDao.renameBoard(board);
+	}
+	
+	@Override
+	public String deleteBoard(int boardNum) {
+		paramMap = new HashMap<>();
+		paramMap.put("boardNum", String.valueOf(boardNum));
+		boardDao.deleteBoard(paramMap);
+		return "success";
+	}
+	
+	/* Article */
 	@Override
 	public void getArticles(int boardNum, int pageNum, Model model){
 		int totalCount = 0;

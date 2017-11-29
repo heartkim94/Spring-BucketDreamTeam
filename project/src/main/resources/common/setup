@@ -139,7 +139,7 @@ create table Board3(
 -- User
 insert into user(id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
     values('test', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
-    
+
 -- Group
 insert into Category(catName, parentNum) values('generic', 0);
 insert into Category(catName, parentNum) values('philosophy', 0);
@@ -149,7 +149,9 @@ insert into Category(catName, parentNum) values('information science', 1);
 insert into Category(catName, parentNum) values('encyclopedia', 1);
 
 insert into `Group`(groupName, groupOwner, catNum) values('TestGroup', 1, 1);
-    
+insert into BoardList values(0, 'Board', 1);
+INSERT INTO Member VALUES(1, 1);
+
 -- Community
 -- Notice
 insert into Board1(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
