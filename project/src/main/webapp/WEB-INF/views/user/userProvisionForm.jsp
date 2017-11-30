@@ -10,7 +10,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	 
+	 <style type="text/css">
+	.memCheck td {
+		border-bottom: none;
+	}
+	 </style>
 	<script>
 		function check() {
 			if(fr.memberagree.checked == false) {
@@ -37,8 +41,10 @@
 	</script>
 </head>
 <body>
+	<div id="wrapper">
+	<%@ include file="../common/header.jsp" %>
 	<form name="fr" method="post" action="/project/userJoinForm.do" onsubmit="return check()">
-		<table width="960px" align="center">
+		<table class="memCheck" width="960px" align="center">
 			<tr>
 				<td>
 					<h1>회원약관</h1>
@@ -47,9 +53,9 @@
 	
 			<tr>
 				<td align="center">
-					<table width="800px">
+					<table  width="800px">
 						<!-- 전체 동의 체크박스 시작 -->							                  
-						<div>                       
+						<div align="center">                       
 							<input type="checkbox" id="allchecked">                        
 							<span class="checkbox"></span>                        
 							<label for="allchecked">전체 동의</label>                    
@@ -60,7 +66,7 @@
 							<td>
 								<div>
 									<font color="#f67001" size="4">01</font> <font size="3">이용약관</font>
-								</div>
+								</div><br>
 							</td>
 						</tr>
 						<tr>
@@ -294,7 +300,7 @@
 						<tr>
 							<td>
 								<input type="checkbox" id="memberagree" name="memberagree">
-								<label for="memberagree">이용약관에 동의합니다.<span>&nbsp;(필수 사항)&nbsp;</span></label> 
+								<label for="memberagree">이용약관에 동의합니다. <b>(필수 사항)</b></label><br><br>
 							</td>
 						</tr>
 						
@@ -415,7 +421,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 				        <tr>
 				        	<td>
 				        		<input type="checkbox" id="privacyagree" name="privacyagree">
-				        		<label for="privacyagree">개인정보 수집 및 이용에 대한 안내에 동의합니다.<span class="offscreen">&nbsp;(필수 사항)&nbsp;</span></label>
+				        		<label for="privacyagree">개인정보 수집 및 이용에 대한 안내에 동의합니다.	 <b>(필수 사항)</b></label><br><br>
 				        	</td>
 				        </tr>
 					</table>
@@ -424,7 +430,9 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 		</table>
 		<div style="text-align: center">
         	<button type="submit">확인</button>
-        </div>
+        </div><br><br>
 	</form>
+	<%@ include file="../common/footer.jsp" %>
+	</div>
 </body>
 </html>

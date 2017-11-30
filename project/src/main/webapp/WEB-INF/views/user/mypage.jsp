@@ -14,23 +14,8 @@
     </head>
     <body>
         <div class="container"><!-- 좌우측의 공간 확보 -->
-            <!-- 헤더 들어가는 부분 -->
-             
-            <div class="row">
-                <p></p>
-                <div class="col-md-6">
-                    <small>
-                    <a href="#">로그인</a> | <a href="/user/signUp">회원가입</a>
-                    </small></div>
-                <div class="col-md-6">
-                    <p class="text-right">
-                        <a href="http://www.naver.com" target="_blank"><img src="/resources/image/icon/naverIcon.png" alt="네이버 블로그" width="20" height="20" class="img-rounded"></a>
-                        <a href="http://www.facebook.com" target="_blank"><img src="/resources/image/icon/facebookIcon.png" alt="네이버 블로그" width="20" height="20" class="img-rounded"></a>
-                        <a href="http://www.twitter.com" target="_blank"><img src="/resources/image/icon/twitterIcon.png" alt="네이버 블로그" width="21" height="21" class="img-rounded"></a>
-                    </p>
-                </div>
-            </div>
-            <!--// 헤더 들어가는 부분 -->
+			<%@ include file="../common/header.jsp" %>
+			
             <!-- 모달창 -->
             <div class="modal fade" id="defaultModal">
                 <div class="modal-dialog">
@@ -49,7 +34,6 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
             <!--// 모달창 -->
-            <hr/>
                 <!-- 본문 들어가는 부분 -->
                  
  
@@ -353,14 +337,8 @@
             <hr/>
             <!-- 푸터 들어가는 부분 -->
              
-            <div>
-                <p class="text-center">
-                    <small><strong> 사거리</strong></small><br>
-                    <small>대표 : 홍길동 ㆍ 주소 :  사거리 ㆍ 사업자등록번호:123-12-12345 ㆍ 전화 : 064-123-1234</small><br>
-                    <small>Copyrightⓒ test.com All rights reserved.</small>
-                </p>
-            </div>
             <!--// 푸터 들어가는 부분 -->
+            <%@ include file="../common/footer.jsp" %>
         </div>
     </body>
 </html>

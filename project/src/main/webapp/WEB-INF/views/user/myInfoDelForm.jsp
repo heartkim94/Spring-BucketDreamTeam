@@ -14,15 +14,6 @@
 	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  
 	  <script>
-// 		$.ajaxSetup({
-// 			type:"POST",
-// 			async:true,
-// 			dataType:"json",
-// 			error:function(xhr){
-// 				alert("error html="+xhr.statusText);
-// 			}
-// 		});
-		
 		$(function(){
 			$('#passCheckBtn').on("click", function sendit(event){
 				event.preventDefault();
@@ -60,23 +51,7 @@
     </head>
     <body>
         <div class="container"><!-- 좌우측의 공간 확보 -->
-            <!-- 헤더 들어가는 부분 -->
-             
-            <div class="row">
-                <p></p>
-                <div class="col-md-6">
-                    <small>
-                    <a href="#">로그인</a> | <a href="/user/signUp">회원가입</a>
-                    </small></div>
-                <div class="col-md-6">
-                    <p class="text-right">
-                        <a href="http://www.naver.com" target="_blank"><img src="/resources/image/icon/naverIcon.png" alt="네이버 블로그" width="20" height="20" class="img-rounded"></a>
-                        <a href="http://www.facebook.com" target="_blank"><img src="/resources/image/icon/facebookIcon.png" alt="네이버 블로그" width="20" height="20" class="img-rounded"></a>
-                        <a href="http://www.twitter.com" target="_blank"><img src="/resources/image/icon/twitterIcon.png" alt="네이버 블로그" width="21" height="21" class="img-rounded"></a>
-                    </p>
-                </div>
-            </div>
-            <!--// 헤더 들어가는 부분 -->
+			<%@ include file="../common/header.jsp" %>
             <!-- 모달창 -->
             <div class="modal fade" id="defaultModal">
                 <div class="modal-dialog">
@@ -95,7 +70,6 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
             <!--// 모달창 -->
-            <hr/>
                 <!-- 본문 들어가는 부분 -->
                  
  
