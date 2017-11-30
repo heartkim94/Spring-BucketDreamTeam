@@ -12,6 +12,7 @@ public interface GroupService {
 	public void newGroup(GroupDto group);
 	/* view */
 	public void getBoards(int groupNum, Model model);
+	public void getArticles(int boardNum, int pageNum, Model model);
 	/* setting */
 	public String renameBoard(BoardDto board);
 	public int newBoard(String boardName, int groupNum);

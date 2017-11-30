@@ -31,6 +31,9 @@
 					</ul>
 					<br>
 					<button class="newBoard">새로만들기</button>
+					<hr>
+					<br>
+					<button onclick="location.href='view.do'">완료</button>
 				</div>
 			</div>
 		</section>

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,8 +41,14 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="/{groupNum}/view.do", method=RequestMethod.GET)
-	public String view(@PathVariable("groupNum") int groupNum, Model model) {
+	public String view(@PathVariable("groupNum") int groupNum,
+			Integer boardNum, Integer pageNum, Model model) {
 		groupService.getBoards(groupNum, model);
+		if(boardNum!=null && pageNum!=null) {
+			groupService.getArticles(boardNum, pageNum, model);
+			model.addAttribute("boardNum", boardNum);
+			model.addAttribute("pageNum", pageNum);
+		}
 		return "group/view";
 	}
 	

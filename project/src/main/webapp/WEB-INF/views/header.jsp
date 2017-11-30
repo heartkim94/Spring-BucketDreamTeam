@@ -14,9 +14,11 @@
 </head>
 
 <body>
-	<%
-		String id = (String)session.getAttribute("id");
-	%>
+<%--
+<%
+//  		String id = (String)session.getAttribute("id");
+%>
+--%>
 	<header>
 		<c:if test="${id != null}">
 			<div class="loginbtn">

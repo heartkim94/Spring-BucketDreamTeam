@@ -40,6 +40,11 @@ public class GroupServiceImpl implements GroupService {
 		boardService.getBoards(groupNum, model);
 	}
 	
+	@Override
+	public void getArticles(int boardNum, int pageNum, Model model) {
+		boardService.getArticles(boardNum, pageNum, model);
+	}
+	
 	/* setting */
 	@Override
 	public String renameBoard(BoardDto board) {
