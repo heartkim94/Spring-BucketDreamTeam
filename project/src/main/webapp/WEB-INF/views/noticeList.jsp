@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -43,23 +43,23 @@
 			</table>
 			</c:if>
 			
-			<!-- 검색시작 -->
-			<form action="#" method="get">
-				<table border="1" cellpadding="0" cellspacing="0" width="100%">
-					<tr>
-						<td align="right">
-							<select name="searchCondition">
-								<c:forEach items="${conditionMap }" var="option">
-									<option value="${option.value }">${option.key }</option>
-								</c:forEach>
-							</select>
-							<input name="searchKeyword" type="text">
-							<input type="submit" value="검색"> 
-						</td>
-					</tr>
-				</table>
-			</form>
-			<!-- 검색종료 -->
+			
+			
+			<form name="searchForm" method="post" action="list.do">
+		        <select name="searchOption">
+		            <option value="id">이름</option>
+		            <option value="content">내용</option>
+		            <option value="title">제목</option>
+		        </select>
+				<input type="hidden" name="boardNum" value="${boardNum}">
+				<input type="hidden" name="pageNum" value="${pageNum}">
+		        <input name="keyword" value="${searchMap.keyword}">
+		        <input type="submit" value="검색">
+		    </form>
+		    ${totalCount}개의 게시물이 있습니다.
+
+
+
 			<table border="1" width="100%" cellpadding="2" cellspacing="2">
 				<tr height="30">
 					<td align="center" width="50">번 호</td>

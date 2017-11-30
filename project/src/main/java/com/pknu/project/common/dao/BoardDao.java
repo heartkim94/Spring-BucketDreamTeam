@@ -19,4 +19,7 @@ public interface BoardDao {
 	public ArticleDto getArticle(HashMap<String, String> paramMap);
 	public void upHit(HashMap<String, String> paramMap);
 	public void writeArticle(ArticleDto article);
+	//검색 기능 구현
+	public int getSearchedCount(HashMap<String, String> paramMap);
+	public List<ArticleDto> getSearchedArticles(HashMap<String, String> paramMap);
 }

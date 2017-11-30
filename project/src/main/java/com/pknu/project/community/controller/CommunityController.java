@@ -1,6 +1,7 @@
 package com.pknu.project.community.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -95,4 +96,21 @@ public class CommunityController {
 //		return boardService.getArticle(boardNum, articleNum, fileStatus, model);
 		return null;
 	}
+	
+	// 검색 기능 구현
+	@RequestMapping(value="list.do", method=RequestMethod.POST)
+	public String list(@RequestParam(name="searchOption",defaultValue="title") String searchOption,
+					   @RequestParam("keyword") String keyword,
+					   @RequestParam("boardNum") int boardNum,
+					   @RequestParam("pageNum") int pageNum,
+					   Model model) {
+	    model.addAttribute("boardNum", boardNum);
+	    model.addAttribute("pageNum", pageNum);
+	    
+		boardService.getSearchedArticles(boardNum, pageNum, searchOption, keyword, model);
+		String view = communityService.getAdminBoardSetting(boardNum);
+		return view;
+	}
+	
+	
 }
