@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import com.pknu.project.common.dao.BoardDao;
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.dto.BoardDto;
+import com.pknu.project.common.dto.FileDto;
 import com.pknu.project.common.utils.Page;
 
 @Service
@@ -99,14 +100,26 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void writeArticle(ArticleDto article) {
-		boardDao.writeArticle(article);
-//		if(article.getFileNames()==null) {
-//			communityDao.writeNotice(article);
-//		}else {
-//			article.setFileStatus((byte)1);
-//			// 리턴을 하지 않아도 article에 값이 넘어옴
-//			communityDao.writeNotice(article);
-//			commonFileUpload(article.getArticleNum(), article.getFileNames());
-//		}
+//		boardDao.writeArticle(article);
+		if(article.getFileNames()==null) {
+			boardDao.writeArticle(article);
+		}else {
+			article.setFileStatus((byte)1);
+			// 리턴을 하지 않아도 article에 값이 넘어옴
+			boardDao.writeArticle(article);
+			commonFileUpload(article.getArticleNum(), article.getBoardNum(),article.getFileNames());
+		}
+	}
+	
+	public void commonFileUpload(int articleNum, int boardNum, List<String> fileNames) {
+		FileDto fileDto = null;
+		
+		for(String storedFname: fileNames){					
+			fileDto = new FileDto();			
+			fileDto.setStoredFname(storedFname);			
+			fileDto.setArticleNum(articleNum);
+			fileDto.setBoardNum(boardNum);
+			boardDao.insertFile(fileDto);				
+		}
 	}
 }

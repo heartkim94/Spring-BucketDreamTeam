@@ -20,7 +20,65 @@
 			document.location.href="./";
 		});
 	
-	</script>  
+	</script>
+	<style type="text/css">
+		.centerLineWrap {
+		    align-self: stretch;
+		    display: flex;
+		    justify-content: center;
+		}
+		.centerLine {
+			width: 1px;
+			margin: 50px 0;
+			background-color: #e0e0e0;
+		}
+		.loginInfoInput {
+			display: inline-block;
+			border: 1px solid #e0e0e0;
+			overflow: hidden;
+		}
+		.loginInfoInput input {
+			padding: 5px 0 2px 11px;
+		    width: 137px;
+		    height: 25px;
+		    border: 0;
+		    border-radius: 0;
+		    background: #f9fafc;
+		    color: #666;
+		    font-size: 12px;
+		    line-height: 16px;
+		    zoom: 1;
+		}
+		.loginInfoInput input[type="text"] {
+			border-bottom: 1px solid #e0e0e0;
+		}
+		.loginBtn {
+			display: inline-block;
+			overflow: hidden;
+			width: 67px;
+  			height: 67px;
+		}
+		.loginBtn input[type="submit"] {
+			width: 100%;
+		    height: 100%;
+		    border: 0;
+		    border-radius: 0;
+		    background: #666;
+		    color: #fff;
+		    font-weight: 700;
+		    font-size: 14px;
+		    line-height: 55px\9;
+		    cursor: pointer;
+		}
+		.searchJoin {
+			padding: 10px 0;
+			color: #e9e9e9;
+		}
+		.searchJoin a {
+			color: #999;
+			font-size: 14px;
+		}
+	</style>  
 </head>
 
 <body>
@@ -36,16 +94,24 @@
 					<p>blah blah</p>
 					<button type="button" onclick="alert('Coming Soon!!!')">Click!!</button>
 				</div>
-				
+				<div class="centerLineWrap">
+					<p class="centerLine"></p>
+				</div>
 				<div class="login">
 					<c:if test="${id == null}">
 						<form action="/project/login.do" method="post" id="loginForm">
 							<br>
-							<input type="text" id="id" name="id" placeholder="아이디" required=""/><br>
-							<input type="password" id="pass" name="pass" placeholder="비밀번호" required=""/><br>
-							<input type="submit" value="로그인"><br>
-							<!-- <a href="#">ID / PW 찾기</a> &nbsp; | &nbsp; <a href="userProvisionForm.do">회원가입</a> -->
-							<a href="javascript:void(window.open('/project/userIdPassFind.do', '_blank','width=450, height=270'))">ID / PW 찾기</a> | <a href="userProvisionForm.do">회원가입</a>
+							<div class="loginInfoInput">
+								<input type="text" id="id" name="id" placeholder="아이디" required=""/><br>
+								<input type="password" id="pass" name="pass" placeholder="비밀번호" required=""/><br>
+							</div>
+							<div class="loginBtn">
+								<input type="submit" value="로그인"><br>
+							</div>
+							<div class="searchJoin">
+								<!-- <a href="#">ID / PW 찾기</a> &nbsp; | &nbsp; <a href="userProvisionForm.do">회원가입</a> -->
+								<a href="javascript:void(window.open('/project/userIdPassFind.do', '_blank','width=450, height=270'))">ID / PW 찾기</a> | <a href="userProvisionForm.do">회원가입</a>
+							</div>
 						</form>
 					</c:if>
 					<c:if test="${id != null}">

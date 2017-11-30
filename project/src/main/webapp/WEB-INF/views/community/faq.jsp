@@ -6,7 +6,16 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<link href="/project/resources/css/style.css" rel="stylesheet" type="text/css">
+<!-- <link href="/project/resources/css/style.css" rel="stylesheet" type="text/css"> -->
+<style>
+	.faqTable tbody th {
+		cursor: pointer;
+	}
+	.faqTable tbody th:hover button {
+		color: orange;
+	}
+	
+</style>
 </head>
 
 <body>
@@ -14,31 +23,28 @@
 	<%@ include file="../header.jsp"%>
 	<section>
 		<div class="subContent">
-			<c:if test="${isAdmin}">
-				<table width="100%">
+			<table class="faqTable">
+				<thead>
 					<tr>
-						<td align="right"><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
+						<th align="center" width="250">제 목</th>
 					</tr>
-				</table>
-			</c:if>
-			<table border="1" width="100%" cellpadding="2" cellspacing="2">
-				<tr height="30">
-					<td align="center" width="250">제 목</td>
-				</tr>
-		
-				<c:forEach var="article" items="${articleList}">
-					<tr height="30">
-						<td class="titleBox" align="center" width="50"
-							articleNum="${article.articleNum}" fileStatus="${article.fileStatus}"
-							style="cursor:pointer">
-							${article.title}
-						</td>
-					</tr>
-				</c:forEach>
-				<tr>
-					<td colspan="5" align="center" height="40">${pageCode}</td>
-				</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="article" items="${articleList}">
+						<tr>
+							<th class="titleBox"  articleNum="${article.articleNum}">
+								<button><span>Q: </span>${article.title}</button>
+							</th>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
+			<div class="btnArea">
+				<c:if test="${isAdmin}">
+					<td align="right"><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
+				</c:if>
+			</div>
+			<div class="pageNav">${pageCode}</div>
 		</div>
 	</section>
 	

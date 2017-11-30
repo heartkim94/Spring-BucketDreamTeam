@@ -190,3 +190,7 @@ insert into Board3(id, title, content, depth, hit, groupId, pos, writeDate, file
     values('test', 'test faq article4', 'no content', 0, 0, 4, 0, '2017-11-22', 0);
 insert into Board3(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
     values('test', 'test faq article5', 'no content', 0, 0, 5, 0, '2017-11-22', 0);
+    
+-- QNA게시판에 충분한 양의 데이터 넣기(sql문 자가 복사) - 페이징 처리 테스트용
+ insert into Board2(id, title, content, depth, hit, groupId, pos, writeDate, fileStatus)
+    (select id, title, content, depth, hit, groupId, pos, writeDate, fileStatus from Board2);

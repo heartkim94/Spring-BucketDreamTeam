@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.dto.BoardDto;
+import com.pknu.project.common.dto.FileDto;
 
 public interface BoardDao {
 	/* board */
@@ -21,4 +22,6 @@ public interface BoardDao {
 	public ArticleDto getArticle(HashMap<String, String> paramMap);
 	public void upHit(HashMap<String, String> paramMap);
 	public void writeArticle(ArticleDto article);
+	// 파일업로드
+	public void insertFile(FileDto fileDto);
 }

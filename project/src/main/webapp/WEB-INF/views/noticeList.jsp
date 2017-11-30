@@ -6,28 +6,10 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<link rel="stylesheet" href="/project/resources/css/style.css">
+<!-- <link href="/project/resources/css/style.css" rel="stylesheet" type="text/css"> -->
 <!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <style>
 	
-	.hit {
-		position: relative;
-		bottom: 0;
-		color: orange;
-		animation-name: hitAniAction;
-		animation-duration: 0.5s;
-		animation-timing-function: linear;
-		animation-iteration-count: infinite;
-	}
-	@keyframes hitAniAction {
-		0%{
-			font-weight: normal;
-		}
-		100%{
- 			font-weight: bolder;
-		}
-	}
-
 </style>
 </head>
 <body>
@@ -35,70 +17,77 @@
 	<%@ include file="header.jsp" %>
 	<section>
 		<div class="subContent">
-			<c:if test="${isAdmin}">
-			<table width="100%">
-				<tr>
-					<td align="right"><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
-				</tr>
-			</table>
-			</c:if>
-			
 			<!-- 검색시작 -->
 			<form action="#" method="get">
-				<table border="1" cellpadding="0" cellspacing="0" width="100%">
-					<tr>
-						<td align="right">
-							<select name="searchCondition">
-								<c:forEach items="${conditionMap }" var="option">
-									<option value="${option.value }">${option.key }</option>
-								</c:forEach>
-							</select>
-							<input name="searchKeyword" type="text">
-							<input type="submit" value="검색"> 
-						</td>
-					</tr>
-				</table>
+				<div class="searchBox">
+					<select name="searchCondition">
+						<c:forEach items="${conditionMap }" var="option">
+							<option value="${option.value }">${option.key }</option>
+						</c:forEach>
+					</select>
+					<input name="searchKeyword" type="text">
+					<input type="submit" value="검색"> 
+				</div>
 			</form>
 			<!-- 검색종료 -->
-			<table border="1" width="100%" cellpadding="2" cellspacing="2">
-				<tr height="30">
-					<td align="center" width="50">번 호</td>
-					<td align="center" width="250">제 목</td>
-					<td align="center" width="100">작성자</td>
-					<td align="center" width="150">작성일</td>
-					<td align="center" width="50">조 회</td>
-				</tr>
-		
-				<c:forEach var="article" items="${articleList}">
-					<tr height="30">
-						<td align="center" width="50"><c:out value="${article.articleNum}" /></td>
-						<td width="250">
-							<c:if test="${article.depth > 0}">
-								<img src="/project/resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">
-								<img src="">RE: 
-							</c:if>
-							<c:if test="${article.depth == 0}">
-								<img src="" width="0" height="16">
-							</c:if>
-							<a href="content.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
-								${article.title}
-								<c:if test="${article.commentCount!=0}">
-									<span style="color: red">(${article.commentCount})</span>
-								</c:if>
-							</a>
-							<c:if test="${article.hit >= 20}">
-								<span class="hit">hit!</span>
-							</c:if>
-						</td>
-						<td align="center" width="100">${article.id}</td>
-						<td align="center" width="150">${article.writeDate}</td>
-						<td align="center" width="50">${article.hit}</td>
+			<table class="listTable" style=TABLE-layout:fixed>
+				<thead>
+					<tr>
+						<th class="numTh">번 호</th>
+						<th>제 목</th>
+						<th class="fileTh">첨부파일</th>
+						<th class="idTh">작성자</th>
+						<th class="dateTh">작성일</th>
+						<th class="hitTh">조 회</th>
 					</tr>
-				</c:forEach>
-				<tr>
-					<td colspan="5" align="center" height="40">${pageCode}</td>
-				</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="article" items="${articleList}">
+						<tr>
+							<td><c:out value="${article.articleNum}" /></td>
+							<td class="alignL">
+								<c:if test="${article.depth > 0}">
+									<img src="/project/resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">
+									<img src="">RE: 
+								</c:if>
+								<c:if test="${article.depth == 0}">
+									<img src="" width="0" height="16">
+								</c:if>
+								<a href="content.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
+									${article.title}
+									<c:if test="${article.commentCount!=0}">
+										<span style="color: red">(${article.commentCount})</span>
+									</c:if>
+								</a>
+								<c:if test="${article.hit >= 20}">
+									<span class="hit">hit!</span>
+								</c:if>
+							</td>
+							
+							<td>
+								<c:if test="${article.fileStatus == 1 }">
+								파일있음
+								</c:if>
+							</td>
+							
+							<td>${article.id}</td>
+							<td>${article.writeDate}</td>
+							<td>${article.hit}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
+			<div class="btnArea">
+				<c:if test="${boardNum == 1 || boardNum == 3 }">
+					<c:if test="${isAdmin}">
+						<td><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
+					</c:if>
+				</c:if>
+				<c:if test="${boardNum == 2 }">
+					<td><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
+				</c:if>
+			</div>
+			<div class="pageNav">${pageCode}</div>
 		</div>
 	</section>
 	

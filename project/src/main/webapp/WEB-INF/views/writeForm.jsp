@@ -69,7 +69,7 @@ input.submitBtn {
     vertical-align: middle;
 }
 .uploadListWrap {
-	display: none;
+	display: block;
 	margin-top: 10px;
 	width: 100%;
 	height: auto;
@@ -82,15 +82,26 @@ input.submitBtn {
 	height: 20px;
 	border-bottom: 1px solid #bfbfbf;
 }
+.fileDrop:before {
+	content: attr(placeholder);
+}
 .fileDrop {
-	
 	width: 100%;
 	min-height: 90px;
 	height: auto;
-	border-bottom: 1px solid #bfbfbf;
 }
 .allDelete {
 	cursor: pointer;
+	padding: 8px;
+    border: 0;
+    background: #E83F38;
+    font-size: 14px;
+    color: #fff;
+    letter-spacing: -0.1em;
+}
+.human {
+	cursor: pointer;
+	color: red;
 }
 </style>
 </head>
@@ -124,35 +135,33 @@ input.submitBtn {
 								<th><label for="content">내용</label></th>
 								<td align="left"><textarea id="content" style="resize: none;" name="content" cols="40" rows="10"></textarea></td>
 							</tr>
-							<tr>
-							 	<th style="vertical-align: top;">
-							 		파일 첨부
-							 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a>
-							 	</th>
-								<td>
-									<div class="fForm">
-										<a href="#" class="fileUpBtn" >파일열기</a>
-										<input type="file" style="display: none;" />
-									</div>
-									<div class="uploadListWrap">
-										<div class="upListHead">
-											업로드 파일명 / 파일용량 / 업로드 날짜
+							<!-- 파일첨부영역 -->
+							<!-- faq 글쓰기 할 때는 필요없음 -->
+							<c:if test="${boardNum == 1 || boardNum == 2 }">
+								<tr>
+								 	<th style="vertical-align: top;">
+								 		파일 첨부
+	<!-- 							 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a> -->
+								 	</th>
+									<td>
+										<div class="uploadListWrap">
+											<div class="upListHead">
+												업로드 파일명 
+											</div>
+											<div class="fileDrop" placeholder="여기에 파일을 드래그하세요.">
+												
+											</div>
 										</div>
-										<div class="fileDrop">
-											
-										</div>
-										<br>
 										<input type="button" class="allDelete" value="모두 삭제">
-									</div>
-									
-								</td>
-							</tr>
+									</td>
+								</tr>
+							</c:if>
 						</table>
 					</div>
 					<!-- 글 작성 버튼 영역 -->
 					<div class="btnConfirm">
 						<input type="submit" value="작성 완료" class="submitBtn" />
-						<a href="/list.do?boardNum=${boardNum}&pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
+						<a href="list.do?boardNum=${boardNum}&pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
 					</div>
 				</form>
 			</div>
@@ -166,29 +175,24 @@ input.submitBtn {
 <script>
 	$(function(){
 		/* 화살표 누름 동작 */
-		$(".openFList").on("click", function(e){
-			e.preventDefault();
-			$(".uploadListWrap").toggle();
-			if($(".uploadListWrap").css('display') == 'block'){
-				$(".openFList").text('▲');
-			}else {
-				$(".openFList").text('▼');
-			}
-		});
-		/* 파일 열기 버튼 클릭 동작 */
-		$(".fileUpBtn").on("click", function(e){
-			e.preventDefault();
-			$("input[type=file]").click();
-		});
-		//글쓰기 취소시에 업로드 되어있는 파일 삭제
-		$(".cancelBtn").on("click", function(){	 
-			   allDeleteFiles();	
-			});
+// 		$(".openFList").on("click", function(e){
+// 			e.preventDefault();
+// 			$(".uploadListWrap").toggle();
+// 			if($(".uploadListWrap").css('display') == 'block'){
+// 				$(".openFList").text('▲');
+// 			}else {
+// 				$(".openFList").text('▼');
+// 			}
+// 		});
+		
 		$(".fileDrop").on("dragenter dragover", function(e){
 			e.preventDefault();
 		});
 		$(".fileDrop").on("drop", function(e){
 			e.preventDefault();
+			
+			$(".fileDrop").removeAttr("placeholder");
+			
 			let files = e.originalEvent.dataTransfer.files;
 			let formData = new FormData();
 			$.each(files,function(index,item){
@@ -204,20 +208,19 @@ input.submitBtn {
 				  type: 'POST',
 				  success: function(data){
 					  var str ="";				 
-					  alert(data);				  
+// 					  alert(data);				  
 					  $.each(data,function(index, fileName){					  					 
 						  if(checkImageType(fileName)){						 
-							  str ="<div><img src='/project/displayFile.do?fileName="+fileName+"'/>"	
-								  +"<small class='human' data-src='"+fileName+"'>X</small>"
+							  str ="<div><img src='displayFile.do?fileName="+fileName+"'/>"	
+								  +"<small class='human' data-src='"+fileName+"'>&nbsp;삭제</small>"
 //			 				 이미지 파일일 경우에는 이름에 s_ 가 포함되어있으므로 테이블에 바로 입력하면
 //			 				 다운로드시 썸네일 파일을 다운로드 받게됨...이름에 s_ 제거하고 테이블에 입력
 								  +"<input type='hidden' name='fileNames' value='"+getImageLink(fileName)+"'></div>";
 						  }else{
 						 	  str ="<div>"+ getOriginFname(fileName)
-								  +"<small class='human' data-src='"+fileName+"'>X</small>"
-								  +"<input type='hidden' name='fileNames' value='"+fileName+"'></div>";
+							  +"<small class='human' data-src='"+fileName+"'>&nbsp;삭제</small>"
+							  +"<input type='hidden' name='fileNames' value='"+fileName+"'></div>";
 						  }
-						  
 						  $(".fileDrop").append(str);
 					  });				 
 				  },
@@ -238,13 +241,17 @@ input.submitBtn {
 					   success:function(result){
 						   if(result == 'deleted'){				   
 							   that.parent("div").remove();
-							   alert("삭제성공");
+// 							   alert("삭제성공");
 						   }
 					   }
 				});
 			});
-
-			$(".allDelete").on("click", function(event){			
+			//글쓰기 취소시에 업로드 되어있는 파일 삭제
+			$(".cancelBtn").on("click", function(){	 
+				allDeleteFiles();	
+			});
+			// 모두 삭제 버튼 클릭시 업로드 되어있는 파일 삭제
+			$(".allDelete").on("click", function(){			
 				allDeleteFiles();
 			});
 
@@ -264,7 +271,7 @@ input.submitBtn {
 					   success:function(result){
 						   if(result == 'deleted'){
 							   $(".fileDrop").children().remove();
-							   alert("삭제성공");
+// 							   alert("삭제성공");
 						   }
 					   }
 				});
