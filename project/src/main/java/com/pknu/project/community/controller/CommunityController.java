@@ -58,7 +58,6 @@ public class CommunityController {
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
 	public String writeForm(HttpSession session,
 			@ModelAttribute("boardNum") int boardNum){
-		session.getId();
 		System.out.println("***writeForm***");
 		return "writeForm";
 	}
