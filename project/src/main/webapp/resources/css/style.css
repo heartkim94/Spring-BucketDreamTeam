@@ -149,7 +149,6 @@ div.subContent table {
 	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0;
-	
 }
 /* 글쓰기 버튼 */
 .btnArea {
@@ -205,12 +204,21 @@ div.subContent table {
 .listTable td.alignL {
 	padding-left: 10px;
 	text-align: left;
+	text-overflow : ellipsis; 
+	overflow : hidden;
+	white-space: nowrap;
 }
 .searchBox {
   	clear: both;
     float: right;
     overflow: hidden;
     margin: 0 0 10px 0;	
+}
+.numTh, .idTh, .hitTh{
+	width: 10%;
+}
+.dateTh, .fileTh {
+	width: 20%;
 }
 
 /* faq */

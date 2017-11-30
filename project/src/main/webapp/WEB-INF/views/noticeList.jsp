@@ -10,7 +10,6 @@
 <!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <style>
 	
-	
 </style>
 </head>
 <body>
@@ -31,14 +30,15 @@
 				</div>
 			</form>
 			<!-- 검색종료 -->
-			<table class="listTable">
+			<table class="listTable" style=TABLE-layout:fixed>
 				<thead>
 					<tr>
-						<th>번 호</th>
+						<th class="numTh">번 호</th>
 						<th>제 목</th>
-						<th>작성자</th>
-						<th>작성일</th>
-						<th>조 회</th>
+						<th class="fileTh">첨부파일</th>
+						<th class="idTh">작성자</th>
+						<th class="dateTh">작성일</th>
+						<th class="hitTh">조 회</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -63,6 +63,13 @@
 									<span class="hit">hit!</span>
 								</c:if>
 							</td>
+							
+							<td>
+								<c:if test="${article.fileStatus == 1 }">
+								파일있음
+								</c:if>
+							</td>
+							
 							<td>${article.id}</td>
 							<td>${article.writeDate}</td>
 							<td>${article.hit}</td>
