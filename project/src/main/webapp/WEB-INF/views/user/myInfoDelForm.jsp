@@ -46,6 +46,9 @@
 								alert('회원탈퇴가 완료되었습니다');
 								returnVar = true;
 							}
+						}else {
+							alert('비밀번호를 입력해주십시오.');
+							returnVar = false;
 						}
 					}
 				});
@@ -53,24 +56,6 @@
 			});
 		});
 		
-// 		function() {
-// 			var f = document.passCheck;
-// 				$.ajax({
-// 					url:"/project/delPassCheck.do", 
-// 					data:{
-// 						inputPass:$("#pass").val()
-// 					},
-// 					success:function(data){
-// 						if($("#pass").val()!=""){
-// 							if(data==1){
-// 								alert("잘못된 패스워드 입니다.");
-// 					 			f.pass.focus();
-// 					 			return false;
-// 							}
-// 						}
-// 					}
-// 				});
-// 		}
 	  </script>
     </head>
     <body>
