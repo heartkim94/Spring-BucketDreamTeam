@@ -122,7 +122,7 @@ public class UserController {
 		System.out.println(pass);
 		userService.myInfoDel(session, pass);
 		session.invalidate();
-		return "home";
+		return "redirect:/project/home.do";
 	}
 	
 }
