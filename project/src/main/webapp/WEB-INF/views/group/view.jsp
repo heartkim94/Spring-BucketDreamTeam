@@ -28,7 +28,7 @@
 </head>
 <body>
 	<div id="wrapper">
-		<%@ include file="./../header.jsp" %>
+		<%@ include file="../common/header.jsp" %>
 		<section>
 			<%@ include file="aside.jsp" %>
 			<div class="groupMain">
@@ -83,7 +83,7 @@
 			<aside class="groupApp">기타 기능</aside>
 			<div class="clear"></div>
 		</section>
-		<%@ include file="./../footer.jsp" %>
+		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->
 </body>
 </html>

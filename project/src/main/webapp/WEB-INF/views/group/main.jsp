@@ -24,7 +24,7 @@
 
 	<div id="wrapper">
 	
-		<%@ include file="../header.jsp" %>
+		<%@ include file="../common/header.jsp" %>
 		<section>
 			<div>
 				<center>
@@ -70,7 +70,7 @@
 				</div> <!-- groupList End -->
 			</div> <!-- groupListContainer End -->
 		</section>
-		<%@ include file="../footer.jsp" %>
+		<%@ include file="../common/footer.jsp" %>
 	
 	</div> <!-- wrapper End -->
 </body>

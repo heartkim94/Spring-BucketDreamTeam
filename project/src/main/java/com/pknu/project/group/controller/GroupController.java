@@ -24,6 +24,9 @@ public class GroupController {
 	@RequestMapping(value="/main.do", method=RequestMethod.GET)
 	public String main(HttpSession session, Model model) {
 		String id = (String)session.getAttribute("id");
+		if(id==null) {
+			return "redirect:/home.do";
+		}
 		groupService.getMyGroup(id, model);
 		return "group/main";
 	}

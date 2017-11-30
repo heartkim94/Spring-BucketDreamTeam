@@ -160,7 +160,7 @@
         </script>
                 <!--// 본문 들어가는 부분 -->
             <hr/>
-            <%@ include file="../footer.jsp" %>
+            <%@ include file="../common/footer.jsp" %>
         </div>
     </body>
 </html>

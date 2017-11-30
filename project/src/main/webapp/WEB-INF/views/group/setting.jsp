@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div id="wrapper">
-		<%@ include file="./../header.jsp" %>
+		<%@ include file="../common/header.jsp" %>
 		<section>
 			<div class="settingContainer">
 				게시판 목록
@@ -37,7 +37,7 @@
 				</div>
 			</div>
 		</section>
-		<%@ include file="./../footer.jsp" %>
+		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->
 </body>
 <script>

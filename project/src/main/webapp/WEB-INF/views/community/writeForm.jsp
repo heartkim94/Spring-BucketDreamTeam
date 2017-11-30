@@ -108,7 +108,7 @@ input.submitBtn {
 <body>
 <div id="wrapper">
 
-	<%@ include file="header.jsp" %>
+	<%@ include file="../common/header.jsp" %>
 	<section>
 <%-- 		<%@ include file="aside.jsp" %> --%>
 		<div class="subContent">
@@ -167,7 +167,7 @@ input.submitBtn {
 			</div>
 		</div>
 	</section>
-	<%@ include file="footer.jsp" %>
+	<%@ include file="../common/footer.jsp" %>
 
 </div> <!-- wrapper End -->
 

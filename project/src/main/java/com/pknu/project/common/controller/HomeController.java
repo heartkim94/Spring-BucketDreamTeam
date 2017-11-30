@@ -18,7 +18,7 @@ public class HomeController {
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session) {
 		String id = (String) session.getAttribute("id");
-		String view = "home";
+		String view = "common/home";
 		if(id!=null) {
 			view = "redirect:group/main.do";
 		}

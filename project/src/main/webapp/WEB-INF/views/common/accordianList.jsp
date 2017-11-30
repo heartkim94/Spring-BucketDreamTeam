@@ -19,8 +19,6 @@
 </head>
 
 <body>
-<div id="wrapper">
-	<%@ include file="../header.jsp"%>
 	<section>
 		<div class="subContent">
 			<table class="faqTable">
@@ -47,9 +45,6 @@
 			<div class="pageNav">${pageCode}</div>
 		</div>
 	</section>
-	
-	<%@ include file="../footer.jsp"%>
-</div>
 </body>
 <script>
 $(function() {

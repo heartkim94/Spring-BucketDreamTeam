@@ -13,8 +13,6 @@
 </style>
 </head>
 <body>
-<div id="wrapper">
-	<%@ include file="header.jsp" %>
 	<section>
 		<div class="subContent">
 			<form name="searchForm" method="post" action="list.do">
@@ -90,9 +88,5 @@
 			<div class="pageNav">${pageCode}</div>
 		</div>
 	</section>
-	
-	<%@ include file="footer.jsp" %>
-</div>
-<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 </body>
 </html>

@@ -51,15 +51,17 @@ public class CommunityController {
 			@ModelAttribute("pageNum") int pageNum,
 			Model model) {
 		boardService.getArticles(boardNum, pageNum, model);
-		String view = communityService.getAdminBoardSetting(boardNum);
-		return view;
+//		String view = communityService.getAdminBoardSetting(boardNum);
+//		return view;
+		model.addAttribute("view", communityService.getAdminBoardSetting(boardNum));
+		return "community/list";
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
 	public String writeForm(HttpSession session,
 			@ModelAttribute("boardNum") int boardNum){
 		System.out.println("***writeForm***");
-		return "writeForm";
+		return "community/writeForm";
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
@@ -80,7 +82,7 @@ public class CommunityController {
 			Model model, HttpSession session){						
 		boardService.getArticle(boardNum, articleNum, fileStatus, model);
 		System.out.println("***getNoticeArticle***");
-		return "content";
+		return "community/content";
 	}
 	
 	@RequestMapping(value="/content.do", method=RequestMethod.POST)
@@ -107,7 +109,9 @@ public class CommunityController {
 	    
 		boardService.getSearchedArticles(boardNum, pageNum, searchOption, keyword, model);
 		String view = communityService.getAdminBoardSetting(boardNum);
-		return view;
+//		return view;
+		model.addAttribute("view", view);
+		return "community/list";
 	}
 	
 	
