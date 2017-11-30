@@ -97,6 +97,15 @@
 		WHERE ${searchOption} LIKE CONCAT('%', '${keyword}', '%')
 	</select>
 	
+	<!-- 답글 달기 -->
+	<insert id="reply" parameterType="article">
+		INSERT INTO board${boardNum} (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
+					VALUES (#{id}, #{title}, #{content}, #{depth}+1, 0, #{groupId}, #{pos}+1, now(), #{fileStatus});
+	</insert>
+	<update id="upPos" parameterType="article">
+		update board${boardNum} set pos = pos+1 where groupId = #{groupId} and pos > #{pos}
+	</update>
+	
 	<!-- 글 삭제 -->
 	<delete id="delete" parameterType="int">
 		
