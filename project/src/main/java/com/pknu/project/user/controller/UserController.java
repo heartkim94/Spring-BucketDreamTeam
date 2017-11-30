@@ -52,8 +52,8 @@ public class UserController {
 	
 	@RequestMapping(value="delPassCheck.do")
 	@ResponseBody
-	public int delPassCheck(@RequestParam("inputPass") String inputPass) {
-		return userService.delPassCheck(inputPass);
+	public int delPassCheck(@RequestParam("inputPass") String inputPass, HttpSession session) {
+		return userService.delPassCheck(session, inputPass);
 	}
 	
 //	@RequestMapping(value="main.do")

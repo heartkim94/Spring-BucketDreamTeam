@@ -63,10 +63,11 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public int delPassCheck(String inputPass) {
-		String dbPassCheck = userDao.passCheck(inputPass);
-		if(dbPassCheck != null) {
-			return 2;
+	public int delPassCheck(HttpSession session, String inputPass) {
+		String id = (String) session.getAttribute("id");
+		String dbPass = userDao.passCheck(id);
+		if(dbPass.equals(inputPass)) {
+			return 2; // db에 있는 pass와 같으면
 		}else {
 			return 1;
 		}
