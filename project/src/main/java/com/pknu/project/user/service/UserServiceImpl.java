@@ -1,5 +1,6 @@
 package com.pknu.project.user.service;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -19,11 +20,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserDao userDao;
+	
+	HashMap<String, String> paramMap;
 
 	@Override
 	public int joinIdCheck(String inputId) {
 		String dbIdCheck = userDao.loginCheck(inputId);
-		System.out.println(dbIdCheck+"아이디");
 		if(dbIdCheck != null) {  // db에 id가 존재하면
 			return 2;
 		}else {
@@ -33,10 +35,39 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int joinEmailCheck(String inputEmail) {
+		System.out.println("***id***");
 		String dbEmailCheck = userDao.emailCheck(inputEmail);
-		System.out.println(dbEmailCheck+"이메일");
+		System.out.println("이메일 : " + dbEmailCheck);
 		if(dbEmailCheck != null) { // db에 email이 존재하면
 			return 2;
+		}else {
+			return 1;
+		}
+	}
+	
+	@Override
+	public int findIdEmailCheck(String inputId, String inputEmail) {
+		System.out.println("***id+email***");
+		paramMap = new HashMap<>();
+		paramMap.put("id", inputId);
+		paramMap.put("email", inputEmail);
+		System.out.println("아이디 : " + inputId);
+		System.out.println("이메일 : " + inputEmail);
+		String dbIdPassCheck = userDao.findIdEmailCheck(paramMap);
+//		System.out.println(dbIdPassCheck+"아이디 이메일");
+		if(dbIdPassCheck != null) {  // db에 id가 존재하면
+			return 2;
+		}else {
+			return 1;
+		}
+	}
+	
+	@Override
+	public int delPassCheck(HttpSession session, String inputPass) {
+		String id = (String) session.getAttribute("id");
+		String dbPass = userDao.passCheck(id);
+		if(dbPass.equals(inputPass)) {
+			return 2; // db에 있는 pass와 같으면
 		}else {
 			return 1;
 		}
@@ -183,14 +214,17 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
-	
-	
-	
-	
+	@Override
+	public void myInfoDel(HttpSession session, String pass) {
+		String id = (String)session.getAttribute("id");
+		System.out.println(id); 
+		System.out.println(pass);
+		paramMap = new HashMap<>();
+		paramMap.put("id", id);
+		paramMap.put("pass", pass);
+		userDao.myInfoDel(paramMap);
+	}
 
 
-	
-	
-	
-	
+
 }

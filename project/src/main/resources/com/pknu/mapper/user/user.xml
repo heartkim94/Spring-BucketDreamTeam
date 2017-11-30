@@ -8,8 +8,14 @@
 	<select id="emailCheck" resultType="String" parameterType="String">
 		select email from user where email=#{email}
 	</select>
+	<select id="findIdEmailCheck" resultType="String" parameterType="HashMap">
+		select id email from user where id=#{id} and email=#{email}
+	</select>
+	<select id="passCheck" resultType="String" parameterType="String">
+		select pass from user where id=#{id}
+	</select>
 	<insert id="userInsert" parameterType="user">
-		insert into user values(#{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, false, #{certKey},#{certify})
+		insert into user values(null, #{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, false, #{certKey},#{certify})
 	</insert> 
 	<update id="userUpdate" parameterType="user">
 		update user set pass=#{pass},name=#{name},nickName=#{nickName},phoneNumber=#{phoneNumber},gender=#{gender} where id=#{id}
@@ -33,14 +39,20 @@
 		on u.userNum=m.userNum
 		where id = #{id}
 	 </select>
-	<select id="getUser" parameterType="String" resultType="user">
+	<select id="getUser" resultType="user" parameterType="String">
 	 	select * from user where id=#{id}
 	</select>
-	<select id="userIdFind" parameterType="String" resultType="String">
+	<select id="userIdFind" resultType="String" parameterType="String">
 		select id from user where email=#{email}
 	</select>
 	<update id="userPassFind" parameterType="String">
 		update user set pass=#{pass} where id=#{id} and email=#{email}
 	</update>
+	<select id="getIdPass" resultType="user" parameterType="String">
+		select id pass from user where id=#{id}
+	</select>
+	<delete id="myInfoDel" parameterType="HashMap">
+		delete from user where id=#{id} and pass=#{pass}
+	</delete>
 	 
 </mapper>

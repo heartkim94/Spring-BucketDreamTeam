@@ -35,65 +35,38 @@
 	function pw_search() {
 		var f = document.pw_f;
 		$.ajax({
-			url:"/project/joinIdCheck.do", // 이메일 체크 재사용했음
+			type:"POST",
+			async:true,
+			url:"/project/findIdEmailCheck.do", 
 			data:{
-				inputId:$("#id").val()
+				inputId:$("#id").val(),
+				inputEmail:$("#email2").val()
 			},
 			success:function(data){
-				if($("#id").val()!=""){
+				if($("#id").val()!="" && $("#email2").val()!=""){
 					if(data==1){
-						alert("잘못된 ID 입니다.");
+						alert("잘못된 ID 또는 EMAIL 입니다.");
 			 			f.id.focus();
 					}else {
 						f.submit();
+						alert("임시비밀번호를 전송하였습니다.");
 					}
-				}else {
+				}else if($("#id").val()=="" && $("#email2").val()!="") {
 		 			alert("ID를 입력해주세요.");
 		 			f.id.focus();
-				}
-			}
-		});
-		$.ajax({
-			url:"/project/joinEmailCheck.do", // 이메일 체크 재사용했음
-			data:{
-				inputEmail:$("#email").val()
-			},
-			success:function(data){
-				if($("#email").val()!=""){
-					if(data==1){
-						alert("잘못된 EMAIL 입니다.");
-			 			f.email.focus();
-					}else {
-						f.submit();
-					}
-				}else {
-		 			alert("EMAIL을 입력해주세요.");
+				}else if($("#id").val()!="" && $("#email2").val()=="") {
+					alert("EMAIL을 입력해주세요.");
 		 			f.email.focus();
+				}else {
+					alert("EMAIL과 ID를 입력해주세요.");
+		 			f.id.focus();
 				}
+			},
+			error : function(xhr) {
+				alert("error html=" + xhr.statusText);
 			}
 		});
 	}
-	
-	
-	
-	
-/*	
-	function pw_search() {
-		var f = document.pw_f;
-
-		if(f.id.value=="") {
-			alert("아이디를 입력해주세요.");
-			f.id.focus();
-			return;
-		}
-		if(f.email.value=="") {
-			alert("email을 입력해주세요.");
-			f.email.focus();
-			return;
-		}
-		f.submit();
-	}
-*/
 </script>
 </head>
 <body>
@@ -158,7 +131,7 @@
 			                <tr>
                					<td height="25" bgcolor="#f4f4f4">email</td>
 			                    <td>
-			                    	<input type="text" name="email" id="email" tabindex="6"> 
+			                    	<input type="text" name="email" id="email2" tabindex="6"> 
                    				</td>
                    			</tr>
                    			</tbody>
