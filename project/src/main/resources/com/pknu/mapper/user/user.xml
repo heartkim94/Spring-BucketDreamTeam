@@ -52,7 +52,12 @@
 		select id pass from user where id=#{id}
 	</select>
 	<delete id="myInfoDel" parameterType="HashMap">
-		delete from user where id=#{id} and pass=#{pass}
+		update `Group`
+		set groupOwner = null
+		where groupOwner = (select userNum
+							from user
+							where id=#{id});
+		delete from user where id=#{id} and pass=#{pass};
 	</delete>
 	 
 </mapper>
