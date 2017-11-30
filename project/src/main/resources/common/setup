@@ -94,9 +94,9 @@ insert into BoardList(boardName, groupNum) values('Notice', -1);
 insert into BoardList(boardName, groupNum) values('QnA', -1);
 insert into BoardList(boardName, groupNum) values('FAQ', -1);
 
-insert into AdminBoardSetting values(1, true, 'noticeList');
-insert into AdminBoardSetting values(2, true, 'noticeList');
-insert into AdminBoardSetting values(3, true, 'community/faq');
+insert into AdminBoardSetting values(1, true, '../common/list.jsp');
+insert into AdminBoardSetting values(2, true, '../common/list.jsp');
+insert into AdminBoardSetting values(3, true, '../common/accordianList.jsp');
 
 create table Board1(
     articleNum int primary key auto_increment,

@@ -97,4 +97,9 @@
 		WHERE ${searchOption} LIKE CONCAT('%', '${keyword}', '%')
 	</select>
 	
+	<!-- 글 삭제 -->
+	<delete id="delete" parameterType="int">
+		
+	</delete>
+	
 </mapper>

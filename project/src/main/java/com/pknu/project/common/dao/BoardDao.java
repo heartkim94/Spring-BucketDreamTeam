@@ -28,4 +28,6 @@ public interface BoardDao {
 	//검색 기능 구현
 	public int getSearchedCount(HashMap<String, String> paramMap);
 	public List<ArticleDto> getSearchedArticles(HashMap<String, String> paramMap);
+	// 글 삭제
+	public void delete(int articleNum, int boardNum);
 }

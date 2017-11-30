@@ -89,7 +89,7 @@ input.submitBtn {
 									<td colspan="4" align="right">
 										<c:if test="${id ==article.id}">
 											<input type="button" value="수정하기" onclick="document.location.href='updateForm.bbs?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
-											<input type="button" value="삭제하기" onclick="document.location.href='delete.bbs?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+											<input type="button" value="삭제하기" onclick="document.location.href='delete.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
 										</c:if> 
 										<c:if test="${id !=article.id}">
 											<input type="button" value="수정하기" disabled="disabled">
