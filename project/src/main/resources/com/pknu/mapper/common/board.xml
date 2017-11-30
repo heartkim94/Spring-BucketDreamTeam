@@ -77,4 +77,24 @@
 		VALUES (0, #{storedFname}, #{fileLength});
 		INSERT INTO ProfileOf (last_insert_id(), #{groupNum});
 	</insert>
+	
+	<!-- 검색 기능 구현 -->
+	<!-- 검색 -->
+	<select id="getSearchedArticles" parameterType="HashMap" resultType="article">
+		SELECT result.*
+		FROM (SELECT searched.*, @rownum := @rownum+1 as rownum
+			  FROM (SELECT * 
+				    FROM board${boardNum}
+				    WHERE ${searchOption} LIKE CONCAT('%', '${keyword}', '%')
+				   ) searched, (SELECT @rownum := 0) r
+			  ORDER BY groupId DESC, pos) result
+		WHERE rownum between 1 and 10
+	</select>
+	
+	<!-- 검색 결과의 수 -->
+	<select id="getSearchedCount" parameterType="HashMap" resultType="int">
+		select count(*) from board${boardNum}
+		WHERE ${searchOption} LIKE CONCAT('%', '${keyword}', '%')
+	</select>
+	
 </mapper>

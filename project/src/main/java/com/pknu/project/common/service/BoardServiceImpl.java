@@ -22,7 +22,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	private ArticleDto article;
 	
-	List<ArticleDto> noticeList;
+	List<ArticleDto> articleList;
 	List<BoardDto> boardList;
 	
 	HashMap<String, String> paramMap;
@@ -71,16 +71,16 @@ public class BoardServiceImpl implements BoardService {
 		paramMap.put("boardNum", String.valueOf(boardNum));
 		totalCount = boardDao.getCount(paramMap);
 		
-		page.paging(pageNum, totalCount, pageSize, pageBlock);
+		page.paging(pageNum, boardNum, totalCount, pageSize, pageBlock);
 		paramMap.put("startRow", String.valueOf(page.getStartRow()));
 		paramMap.put("endRow", String.valueOf(page.getEndRow()));
-		noticeList = boardDao.getArticles(paramMap);
+		articleList = boardDao.getArticles(paramMap);
 		
-		model.addAttribute("totalCount",totalCount);
-		model.addAttribute("articleList",noticeList);
-		model.addAttribute("pageCode",page.getSb().toString());
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("articleList", articleList);
+		model.addAttribute("pageCode", page.getSb().toString());
 	}
-
+	
 	@Override
 	public ArticleDto getArticle(String boardNum, String articleNum, int fileStatus, Model model) {
 		paramMap = new HashMap<>();
@@ -121,5 +121,26 @@ public class BoardServiceImpl implements BoardService {
 			fileDto.setBoardNum(boardNum);
 			boardDao.insertFile(fileDto);
 		}
+	}
+	
+	//검색 기능 구현
+	@Override
+	public void getSearchedArticles(int boardNum, int pageNum, String searchOption, String keyword, Model model) {
+		int totalCount = 0;
+		int pageSize = 10; //한 페이지에 보여줄 글의 갯수
+		int pageBlock = 10; //한 블럭당 보여줄 페이지 갯수
+		
+		paramMap = new HashMap<>();
+		paramMap.put("boardNum", String.valueOf(boardNum));
+		paramMap.put("searchOption", searchOption);
+	    paramMap.put("keyword", keyword);
+		totalCount = boardDao.getSearchedCount(paramMap);
+		
+		page.paging(1, boardNum, totalCount, pageSize, pageBlock);
+	    articleList = boardDao.getSearchedArticles(paramMap);
+		
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("articleList", articleList);
+		model.addAttribute("pageCode", page.getSb().toString());
 	}
 }

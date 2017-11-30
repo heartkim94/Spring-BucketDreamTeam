@@ -25,4 +25,7 @@ public interface BoardDao {
 	// 파일업로드
 	public void insertFile(FileDto fileDto);
 	public void profileOf(FileDto fileDto);
+	//검색 기능 구현
+	public int getSearchedCount(HashMap<String, String> paramMap);
+	public List<ArticleDto> getSearchedArticles(HashMap<String, String> paramMap);
 }

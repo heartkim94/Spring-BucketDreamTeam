@@ -17,19 +17,19 @@
 	<%@ include file="header.jsp" %>
 	<section>
 		<div class="subContent">
-			<!-- 검색시작 -->
-			<form action="#" method="get">
-				<div class="searchBox">
-					<select name="searchCondition">
-						<c:forEach items="${conditionMap }" var="option">
-							<option value="${option.value }">${option.key }</option>
-						</c:forEach>
-					</select>
-					<input name="searchKeyword" type="text">
-					<input type="submit" value="검색"> 
-				</div>
-			</form>
-			<!-- 검색종료 -->
+			<form name="searchForm" method="post" action="list.do">
+		        <select name="searchOption">
+		            <option value="id">이름</option>
+		            <option value="content">내용</option>
+		            <option value="title">제목</option>
+		        </select>
+				<input type="hidden" name="boardNum" value="${boardNum}">
+				<input type="hidden" name="pageNum" value="${pageNum}">
+		        <input name="keyword" value="${searchMap.keyword}">
+		        <input type="submit" value="검색">
+		    </form>
+		    ${totalCount}개의 게시물이 있습니다.
+		    
 			<table class="listTable" style=TABLE-layout:fixed>
 				<thead>
 					<tr>
