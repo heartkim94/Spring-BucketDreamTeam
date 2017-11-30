@@ -24,4 +24,5 @@ public interface BoardDao {
 	public void writeArticle(ArticleDto article);
 	// 파일업로드
 	public void insertFile(FileDto fileDto);
+	public void profileOf(FileDto fileDto);
 }

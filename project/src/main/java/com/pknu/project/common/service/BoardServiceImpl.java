@@ -119,7 +119,7 @@ public class BoardServiceImpl implements BoardService {
 			fileDto.setStoredFname(storedFname);			
 			fileDto.setArticleNum(articleNum);
 			fileDto.setBoardNum(boardNum);
-			boardDao.insertFile(fileDto);				
+			boardDao.insertFile(fileDto);
 		}
 	}
 }

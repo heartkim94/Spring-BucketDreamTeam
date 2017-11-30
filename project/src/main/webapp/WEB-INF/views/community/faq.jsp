@@ -32,7 +32,7 @@
 				<tbody>
 					<c:forEach var="article" items="${articleList}">
 						<tr>
-							<th class="titleBox"  articleNum="${article.articleNum}">
+							<th class="titleBox"  articleNum="${article.articleNum}" fileStatus="${article.fileStatus}">
 								<button><span>Q: </span>${article.title}</button>
 							</th>
 						</tr>
@@ -59,6 +59,7 @@ $(function() {
 		let titleRow = $(this).parent();
 		let articleNum = $(this).attr("articleNum");
 		let fileStatus = $(this).attr("fileStatus");
+		console.log(articleNum+", "+fileStatus);
 		$.ajax({
 			url: "content.do",
 			type: "post",

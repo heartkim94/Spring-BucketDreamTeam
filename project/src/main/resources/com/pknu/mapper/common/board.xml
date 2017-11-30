@@ -67,7 +67,14 @@
 	
 	<!-- filelist 테이블에 업데이트 된 파일 정보 담기 -->
 	<insert id="insertFile" parameterType="file">
-		INSERT INTO FILELIST (fileNum, storedFname, fileLength, articleNum, boardNum) 
-		VALUES (0, #{storedFname}, #{fileLength}, #{articleNum}, #{boardNum})
+		INSERT INTO FILELIST (fileNum, storedFname, fileLength)
+		VALUES (0, #{storedFname}, #{fileLength});
+		INSERT INTO Attached VALUES (last_insert_id(), #{boardNum}, #{articleNum});
+	</insert>
+	
+	<insert id="profileOf" parameterType="file">
+		INSERT INTO FILELIST (fileNum, storedFname, fileLength)
+		VALUES (0, #{storedFname}, #{fileLength});
+		INSERT INTO ProfileOf (last_insert_id(), #{groupNum});
 	</insert>
 </mapper>

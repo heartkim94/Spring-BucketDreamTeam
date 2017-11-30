@@ -1,11 +1,12 @@
 package com.pknu.project.common.dto;
 
 public class FileDto {
-	int fileNum;
-	String storedFname;
-	int fileLength;
-	int articleNum;
-	int boardNum;
+	private int fileNum;
+	private String storedFname;
+	private int fileLength;
+	private int articleNum;
+	private int boardNum;
+	private int groupNum;
 	
 	public int getFileNum() {
 		return fileNum;
@@ -36,6 +37,12 @@ public class FileDto {
 	}
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
+	}
+	public int getGroupNum() {
+		return groupNum;
+	}
+	public void setGroupNum(int groupNum) {
+		this.groupNum = groupNum;
 	}
 	@Override
 	public String toString() {

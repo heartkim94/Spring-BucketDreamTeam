@@ -211,7 +211,7 @@ input.submitBtn {
 // 					  alert(data);				  
 					  $.each(data,function(index, fileName){					  					 
 						  if(checkImageType(fileName)){						 
-							  str ="<div><img src='displayFile.do?fileName="+fileName+"'/>"	
+							  str ="<div><img src='/project/displayFile.do?fileName="+fileName+"'/>"	
 								  +"<small class='human' data-src='"+fileName+"'>&nbsp;삭제</small>"
 //			 				 이미지 파일일 경우에는 이름에 s_ 가 포함되어있으므로 테이블에 바로 입력하면
 //			 				 다운로드시 썸네일 파일을 다운로드 받게됨...이름에 s_ 제거하고 테이블에 입력
