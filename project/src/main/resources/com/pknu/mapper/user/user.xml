@@ -15,7 +15,7 @@
 		select pass from user where id=#{id}
 	</select>
 	<insert id="userInsert" parameterType="user">
-		insert into user values(null, #{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, false, #{certKey},#{certify})
+		insert into user values(null, #{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, #{certKey},#{certify})
 	</insert> 
 	<update id="userUpdate" parameterType="user">
 		update user set pass=#{pass},name=#{name},nickName=#{nickName},phoneNumber=#{phoneNumber},gender=#{gender} where id=#{id}
