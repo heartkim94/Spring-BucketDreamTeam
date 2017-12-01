@@ -1,14 +1,14 @@
 package com.pknu.project.community.dao;
 
 import java.util.HashMap;
-import java.util.List;
 
 import com.pknu.project.common.dto.ArticleDto;
 
 public interface CommunityDao {
 	/* 검색 */
 	public ArticleDto search(HashMap<String, String> searchMap);
-	public String getAdminBoardSetting(int boardNum);
+//	public String getAdminBoardSetting(int boardNum);
+	public HashMap<String, Object> getAdminBoardSetting(int boardNum);
 	
 	/* Notice */
 	/*

@@ -16,16 +16,16 @@ import com.pknu.project.common.utils.Page;
 @Service
 public class BoardServiceImpl implements BoardService {
 	@Autowired
-	BoardDao boardDao;
+	private BoardDao boardDao;
 	@Autowired
-	Page page;
+	private Page page;
 	
 	private ArticleDto article;
 	
-	List<ArticleDto> articleList;
-	List<BoardDto> boardList;
+	private List<ArticleDto> articleList;
+	private List<BoardDto> boardList;
 	
-	HashMap<String, String> paramMap;
+	private HashMap<String, String> paramMap;
 	
 	/* Board */
 	@Override

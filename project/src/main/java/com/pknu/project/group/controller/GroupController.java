@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pknu.project.common.dto.BoardDto;
+import com.pknu.project.common.service.BoardService;
 import com.pknu.project.group.dto.GroupDto;
 import com.pknu.project.group.service.GroupService;
 
@@ -20,6 +21,8 @@ import com.pknu.project.group.service.GroupService;
 public class GroupController {
 	@Autowired
 	private GroupService groupService;
+	@Autowired
+	private BoardService boardService;
 	
 	@RequestMapping(value="/main.do", method=RequestMethod.GET)
 	public String main(HttpSession session, Model model) {
@@ -44,20 +47,24 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="/{groupNum}/view.do", method=RequestMethod.GET)
-	public String view(@PathVariable("groupNum") int groupNum,
-			Integer boardNum, Integer pageNum, Model model) {
-		groupService.getBoards(groupNum, model);
-		if(boardNum!=null && pageNum!=null) {
-			groupService.getArticles(boardNum, pageNum, model);
-			model.addAttribute("boardNum", boardNum);
-			model.addAttribute("pageNum", pageNum);
-		}
+	public String view(@PathVariable("groupNum") int groupNum, Model model) {
+		boardService.getBoards(groupNum, model);
 		return "group/view";
+	}
+	
+	@RequestMapping(value="/{groupNum}/list.do", method=RequestMethod.GET)
+	public String list(
+			@PathVariable("groupNum") int groupNum,
+			@ModelAttribute("boardNum") int boardNum,
+			@ModelAttribute("pageNum") int pageNum, Model model) {
+		boardService.getBoards(groupNum, model);
+		boardService.getArticles(boardNum, pageNum, model);
+		return "group/list";
 	}
 	
 	@RequestMapping(value="/{groupNum}/setting.do", method=RequestMethod.GET)
 	public String setting(@PathVariable("groupNum") int groupNum, Model model) {
-		groupService.getBoards(groupNum, model);
+		boardService.getBoards(groupNum, model);
 		return "group/setting";
 	}
 	
@@ -66,18 +73,19 @@ public class GroupController {
 	public String renameBoard(
 			@PathVariable("groupNum") String groupNum,
 			BoardDto board) {
-		return groupService.renameBoard(board);
+		boardService.renameBoard(board);
+		return "success";
 	}
 	
 	@RequestMapping(value="/{groupNum}/newBoard.do", method=RequestMethod.POST)
 	@ResponseBody
 	public int newBoard(@PathVariable("groupNum") int groupNum, String boardName) {
-		return groupService.newBoard(boardName, groupNum);
+		return boardService.newBoard(boardName, groupNum);
 	}
 	
 	@RequestMapping(value="/{groupNum}/deleteBoard.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String deleteBoard(int boardNum) {
-		return groupService.deleteBoard(boardNum);
+		return boardService.deleteBoard(boardNum);
 	}
 }

@@ -33,32 +33,4 @@ public class GroupServiceImpl implements GroupService {
 		
 		boardService.newBoard("Board", group.getGroupNum());
 	}
-	
-	/* view */
-	@Override
-	public void getBoards(int groupNum, Model model) {
-		boardService.getBoards(groupNum, model);
-	}
-	
-	@Override
-	public void getArticles(int boardNum, int pageNum, Model model) {
-		boardService.getArticles(boardNum, pageNum, model);
-	}
-	
-	/* setting */
-	@Override
-	public String renameBoard(BoardDto board) {
-		boardService.renameBoard(board);
-		return "success";
-	}
-	
-	@Override
-	public int newBoard(String boardName, int groupNum) {
-		return boardService.newBoard(boardName, groupNum);
-	}
-	
-	@Override
-	public String deleteBoard(int boardNum) {
-		return boardService.deleteBoard(boardNum);
-	}
 }

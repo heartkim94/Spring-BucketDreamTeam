@@ -51,9 +51,7 @@ public class CommunityController {
 			@ModelAttribute("pageNum") int pageNum,
 			Model model) {
 		boardService.getArticles(boardNum, pageNum, model);
-//		String view = communityService.getAdminBoardSetting(boardNum);
-//		return view;
-		model.addAttribute("view", communityService.getAdminBoardSetting(boardNum));
+		communityService.getAdminBoardSetting(boardNum, model);
 		return "community/list";
 	}
 	
@@ -94,7 +92,6 @@ public class CommunityController {
 			Model model, HttpSession session){
 		System.out.println("***getNoticeArticle***");
 		return boardService.getArticle(boardNum, articleNum, fileStatus, model);
-//		return null;
 	}
 	
 	// 검색 기능 구현
@@ -108,9 +105,7 @@ public class CommunityController {
 	    model.addAttribute("pageNum", pageNum);
 	    
 		boardService.getSearchedArticles(boardNum, pageNum, searchOption, keyword, model);
-		String view = communityService.getAdminBoardSetting(boardNum);
-//		return view;
-		model.addAttribute("view", view);
+		communityService.getAdminBoardSetting(boardNum, model);
 		return "community/list";
 	}
 	
