@@ -52,28 +52,8 @@
     <body>
         <div class="container"><!-- 좌우측의 공간 확보 -->
 			<%@ include file="../common/header.jsp" %>
-            <!-- 모달창 -->
-            <div class="modal fade" id="defaultModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title">알림</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p class="modal-contents"></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-            <!--// 모달창 -->
-                <!-- 본문 들어가는 부분 -->
                  
- 
- 
+ 		<!-- 본문 들어가는 부분 -->
         <form class="form-horizontal" id="passCheck" role="form" method="post" action="/project/myInfoDel.do">
             <div align="center"><h1>회원 탈퇴</h1></div><br>
             
@@ -90,49 +70,8 @@
                 </div>
             </div>
         </form>
-         
-        <script>
-            $(function(){
-                //모달을 전역변수로 선언
-                var modalContents = $(".modal-contents");
-                var modal = $("#defaultModal");
-                 
-                //------- 검사하여 상태를 class에 적용
-                $('#pass').keyup(function(event){
-                    
-                    var divPassword = $('#divPassword');
-                     
-                    if($('#pass').val()==""){
-                        divPassword.removeClass("has-success");
-                        divPassword.addClass("has-error");
-                    }else{
-                        divPassword.removeClass("has-error");
-                        divPassword.addClass("has-success");
-                    }
-                });
-                 
-                //------- validation 검사
-                $("form").submit(function(event) {
-                    var divPassword = $('#divPassword');
-   
-                    //패스워드 검사
-                    if($('#pass').val()==""){
-                        modalContents.text("패스워드를 입력하여 주시기 바랍니다.");
-                        modal.modal('show');
-                         
-                        divPassword.removeClass("has-success");
-                        divPassword.addClass("has-error");
-                        $('#pass').focus();
-                        return false;
-                    }else{
-                        divPassword.removeClass("has-error");
-                        divPassword.addClass("has-success");
-                    }
-                });
-            });
-             
-        </script>
-                <!--// 본문 들어가는 부분 -->
+        <!--// 본문 들어가는 부분 -->
+        
             <hr/>
             <%@ include file="../common/footer.jsp" %>
         </div>

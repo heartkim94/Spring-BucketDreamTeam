@@ -59,7 +59,7 @@ public class UserController {
 	@RequestMapping(value="/userInsert.do")
 	public String memInsert(UserDto userDto) {
 		userService.userInsert(userDto);
-		return "user/main";
+		return "redirect:home.do";
 	}
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
@@ -82,7 +82,7 @@ public class UserController {
 	@RequestMapping(value="userUpdate.do")
 	public String userUpdate(HttpSession session, UserDto userDto) {
 		userService.userUpdate(session, userDto);
-		return "reirect:home.do";
+		return "common/home";
 	}
 	
 	@RequestMapping(value="/checkJoin.do")

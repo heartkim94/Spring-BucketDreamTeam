@@ -5,16 +5,17 @@
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
+<!--  <script src="//code.jquery.com/jquery-3.1.0.min.js"></script> -->
+	  <!-- 합쳐지고 최소화된 최신 CSS -->
+	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <title>마이페이지</title>
-		<!--부트스트랩-->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        <!-- 합쳐지고 최소화된 최신 CSS -->
-		<link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        
     </head>
     <body>
         <div class="container"><!-- 좌우측의 공간 확보 -->
-			<%@ include file="../common/header.jsp" %>
+		<%@ include file="../common/header.jsp" %>
+		<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
 			
             <!-- 모달창 -->
             <div class="modal fade" id="defaultModal">
@@ -34,10 +35,8 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
             <!--// 모달창 -->
-                <!-- 본문 들어가는 부분 -->
-                 
  
- 
+ 		<!-- 본문 들어가는 부분 -->
         <form class="form-horizontal" role="form" method="post" action="/project/userUpdate.do">
             <div align="center"><h1>회원 수정</h1></div><br>
             
@@ -100,9 +99,13 @@
                 </div>
             </div>
         </form>
-         
-         
-        <script>
+        <!--// 본문 들어가는 부분 -->
+            
+        <hr/>
+        <%@ include file="../common/footer.jsp" %>
+    </div>
+    </body>
+    <script>
             $(function(){
                 //모달을 전역변수로 선언
                 var modalContents = $(".modal-contents");
@@ -333,12 +336,5 @@
             });
              
         </script>
-                <!--// 본문 들어가는 부분 -->
-            <hr/>
-            <!-- 푸터 들어가는 부분 -->
-             
-            <!--// 푸터 들어가는 부분 -->
-            <%@ include file="../common/footer.jsp" %>
-        </div>
-    </body>
+    
 </html>

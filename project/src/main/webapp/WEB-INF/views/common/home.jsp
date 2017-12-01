@@ -119,6 +119,7 @@
 							<form action="/project/logout.do" method="post">
 							 	<p>${id}님 환영합니다</p>
 							 	<a href="/project/mypage.do">회원정보수정</a><br>
+							 	<a href="/project/myInfoDelForm.do">회원탈퇴</a><br>
 								<button id="logout">로그아웃</button>
 							</form>
 						</center>

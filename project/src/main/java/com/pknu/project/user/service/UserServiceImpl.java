@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService {
 			}
 		} else if(user!=null&&user.getCertify()==0) {//이메일인증 않함	
 			model.addAttribute("dbCertify", dbCertifyCheckNo);
-			view="home";
+			view="common/home";
 		}else if(user==null) {//회원가입
 			model.addAttribute("Notmember",Notmember);
 			view = "user/loginFail";
