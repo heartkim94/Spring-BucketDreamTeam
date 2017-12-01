@@ -51,9 +51,8 @@ public class CommunityController {
 			@ModelAttribute("pageNum") int pageNum,
 			Model model) {
 		boardService.getArticles(boardNum, pageNum, model);
-//		String view = communityService.getAdminBoardSetting(boardNum);
-//		return view;
-		model.addAttribute("view", communityService.getAdminBoardSetting(boardNum));
+		String view = communityService.getAdminBoardSetting(boardNum);
+		model.addAttribute("view", "../common/"+view);
 		return "community/list";
 	}
 	
