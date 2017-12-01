@@ -113,5 +113,30 @@ public class CommunityController {
 		return "community/list";
 	}
 	
+	// 답변 달기
+	@RequestMapping(value="/reply.do", method=RequestMethod.GET)
+	public String replyForm(HttpSession session,
+			@ModelAttribute("boardNum") int boardNum,
+			@ModelAttribute("groupId") int groupId, 
+			@ModelAttribute("pos") int pos,
+			@ModelAttribute("depth") int depth,
+			@ModelAttribute("pageNum") int pageNum) {
+		System.out.println("***replyForm***");
+		return "community/replyForm";
+	}
+	
+	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
+	public String reply(ArticleDto article, HttpSession session){		
+		article.setId((String)session.getAttribute("id"));
+		boardService.reply(article);		
+		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
+	}
+	
+	// 글 삭제 -----------
+	@RequestMapping(value="/delete.do")
+		public String delete(int articleNum, int boardNum, int pageNum, Model model) {
+		boardService.delete(articleNum, boardNum, pageNum, model);
+		return "redirect:list.do?";
+	}
 	
 }

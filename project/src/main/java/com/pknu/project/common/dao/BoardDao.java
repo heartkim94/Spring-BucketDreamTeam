@@ -3,7 +3,6 @@ package com.pknu.project.common.dao;
 import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.ui.Model;
 
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.dto.BoardDto;
@@ -28,4 +27,9 @@ public interface BoardDao {
 	//검색 기능 구현
 	public int getSearchedCount(HashMap<String, String> paramMap);
 	public List<ArticleDto> getSearchedArticles(HashMap<String, String> paramMap);
+	// 답변달기
+	public void reply(ArticleDto article);
+	public void upPos(ArticleDto article);
+	// 글 삭제
+	public void delete(int articleNum, int boardNum);
 }

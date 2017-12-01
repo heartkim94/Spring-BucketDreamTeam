@@ -21,4 +21,8 @@ public interface BoardService {
 	public void writeArticle(ArticleDto article);
 	//검색 기능 구현
 	public void getSearchedArticles(int boardNum, int pageNum, String searchOption, String keyword, Model model);
+	// 답변달기
+	public void reply(ArticleDto article);
+	// 글 삭제
+	public void delete(int articleNum, int boardNum, int pageNum, Model model);
 }

@@ -143,4 +143,24 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("pageCode", page.getSb().toString());
 	}
+	
+	// 답변 달기
+	@Override
+	public void reply(ArticleDto article) {
+		boardDao.upPos(article);
+		boardDao.reply(article);
+	}
+	
+	// 글 삭제
+	@Override
+	public void delete(int articleNum, int boardNum, int pageNum, Model model) {
+		boardDao.delete(articleNum, boardNum);
+		model.addAttribute("article", article);
+		model.addAttribute("boardNum", boardNum);
+		model.addAttribute("pageNum", pageNum);
+	}
+
+	
+	
+	
 }

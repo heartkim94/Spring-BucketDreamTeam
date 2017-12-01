@@ -45,12 +45,12 @@ input.submitBtn {
 				<h1>NOTICE</h1>
 				<span>home > community > notice</span> </nav>
 				<div>
-					<form action="update.do" method="post">
+					<form action="reply.do" method="get">
 						<input type="hidden" name="boardNum" value="${boardNum}">
 						<input type="hidden" name="pageNum" value="${pageNum}">
 						<input type="hidden" name="depth" value="${article.depth}">
-						<!--     계층형 쿼리 사용을 위해서 부모글의 글 번호가 답글의 groupId가 되어야 함 -->
-						<input type="hidden" name="groupId" value="${article.articleNum}">
+					    <input type="hidden" name="pos" value="${article.pos}">
+					    <input type="hidden" name="groupId" value="${article.groupId}">
 						<table border="1" width="100%" align="center" cellpadding="2" cellspacing="2">
 							<tr>
 								<td>글쓴이 :</td>
@@ -87,20 +87,32 @@ input.submitBtn {
 							<tr>
 								<c:if test="${id !=null}">
 									<td colspan="4" align="right">
-										<c:if test="${id ==article.id}">
-											<input type="button" value="수정하기" onclick="document.location.href='updateForm.bbs?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
-											<input type="button" value="삭제하기" onclick="document.location.href='delete.bbs?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
-										</c:if> 
-										<c:if test="${id !=article.id}">
-											<input type="button" value="수정하기" disabled="disabled">
-											<input type="button" value="삭제하기" disabled="disabled">
-										</c:if> 
+										<c:choose>
+											<c:when test="${id == article.id}">
+												<input type="submit" value="답글달기">
+												<input type="button" value="수정하기" onclick="document.location.href='updateForm.bbs?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+												<input type="button" value="삭제하기" onclick="document.location.href='delete.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+											</c:when>
+											<c:otherwise>
+												<c:if test="${isAdmin }">
+													<input type="submit" value="답글달기" >
+													<input type="button" value="수정하기" disabled="disabled">
+													<input type="button" value="삭제하기" onclick="document.location.href='delete.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+												</c:if>
+												<c:if test="${!isAdmin }">
+													<input type="submit" value="답글달기" >
+													<input type="button" value="수정하기" disabled="disabled">
+													<input type="button" value="삭제하기" disabled="disabled">
+												</c:if>
+											</c:otherwise>
+										</c:choose>
 										<input type="button" value="목록으로" onclick="document.location.href='list.do?boardNum=${boardNum}&pageNum=${pageNum}'">
 									</td>
-								</c:if>
+								</c:if> 
 	
 								<c:if test="${id ==null}">
 									<td colspan="4" align="right">
+										<input type="submit" value="답글달기"disabled="disabled">
 										<input type="button" value="수정하기" disabled="disabled"> 
 										<input type="button" value="삭제하기" disabled="disabled"> 
 										<input type="button" value="목록으로" onclick="document.location.href='list.do?boardNum=${boardNum}&pageNum=${pageNum}'">
