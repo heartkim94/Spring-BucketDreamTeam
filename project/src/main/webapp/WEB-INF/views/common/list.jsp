@@ -15,17 +15,7 @@
 <body>
 	<section>
 		<div class="subContent">
-			<form name="searchForm" method="post" action="list.do">
-		        <select name="searchOption">
-		            <option value="id">이름</option>
-		            <option value="content">내용</option>
-		            <option value="title">제목</option>
-		        </select>
-				<input type="hidden" name="boardNum" value="${boardNum}">
-				<input type="hidden" name="pageNum" value="${pageNum}">
-		        <input name="keyword" value="${searchMap.keyword}">
-		        <input type="submit" value="검색">
-		    </form>
+			<%@ include file="listSearch.jsp" %>
 		    ${totalCount}개의 게시물이 있습니다.
 		    
 			<table class="listTable" style=TABLE-layout:fixed>
@@ -75,16 +65,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<div class="btnArea">
-				<c:if test="${boardNum == 1 || boardNum == 3 }">
-					<c:if test="${isAdmin}">
-						<td><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
-					</c:if>
-				</c:if>
-				<c:if test="${boardNum == 2 }">
-					<td><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
-				</c:if>
-			</div>
+			<%@ include file="listBtn.jsp" %>
 			<div class="pageNav">${pageCode}</div>
 		</div>
 	</section>

@@ -37,18 +37,7 @@ h4 {
 /* 	text-size:12px; */
 	color:#FF3300;
 }
-.faqTable button {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font: inherit;
-    color: inherit;
-    background: transparent;
-    overflow: visible;
-    cursor: pointer;
-    line-height: 1;
-    outline: none;
-}
+
 input, textarea {
 	outline: none;
 }
@@ -221,32 +210,6 @@ div.subContent table {
 	width: 20%;
 }
 
-/* faq */
-.faqTable {
-	border-top: 2px solid #444547
-}
-.faqTable th, td {
-	padding: 10px 20px 10px 50px;
-	border-bottom: 1px solid #e1e1e1;
-}
-.faqTable tbody th, td {
-	position: relative;
-    overflow: hidden;
-    text-align: left;
-}
-.faqTable tbody th button{
-    color: #333;
-	font-weight: bold;
-	text-align: left;
-}
-.faqTable tbody span{
-    left: 20px;
-    top: 10px;
-}
-td.articleBox { 
-    background: #f7f7f7;
-   	color: #555;
-}
 .pageNav {
 	clear: both;
     height: 25px;

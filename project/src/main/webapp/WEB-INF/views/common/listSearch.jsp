@@ -6,8 +6,6 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<!-- <link href="/project/resources/css/style.css" rel="stylesheet" type="text/css"> -->
-<!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <style>
 	
 </style>
