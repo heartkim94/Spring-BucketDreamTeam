@@ -10,7 +10,7 @@
 	  <!-- 합쳐지고 최소화된 최신 CSS -->
 	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <title>회원가입</title>
-		
+	  <link rel="stylesheet" href="./resources/css/submit.css">
     </head>
     <body>
         <div class="container"><!-- 좌우측의 공간 확보 -->
@@ -96,11 +96,9 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="col-lg-offset-2 col-lg-10">
-                    <button type="submit" class="btn btn-default" >회원가입</button>
-                </div>
-            </div>
+            <div class="wrap">
+  				<button class="button"><b>확인</b></button>
+		    </div><br><br>
         </form>
         <!--// 본문 들어가는 부분 -->
         

@@ -39,6 +39,7 @@
 			});
 		});
 	</script>
+	<link rel="stylesheet" href="./resources/css/submit.css">
 </head>
 <body>
 	<div id="wrapper">
@@ -428,9 +429,14 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 				</td>
 			</tr>
 		</table>
+		<!--  
 		<div style="text-align: center">
         	<button type="submit">확인</button>
         </div><br><br>
+        -->
+        <div class="wrap">
+  			<button class="button"><b>확인</b></button>
+		</div><br><br>
 	</form>
 	<%@ include file="../common/footer.jsp" %>
 	</div>

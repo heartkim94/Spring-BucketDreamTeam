@@ -12,7 +12,7 @@
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
       <!-- 합쳐지고 최소화된 최신 CSS -->
 	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	  
+	  <link rel="stylesheet" href="./resources/css/submit.css">
 	  <script>
 		$(function(){
 			$('#passCheckBtn').on("click", function sendit(event){
@@ -62,13 +62,11 @@
                 <div class="col-lg-5">
                     <input type="password" class="form-control" id="pass" name="pass" data-rule-required="true" placeholder="패스워드" maxlength="30">
                 </div>
-            </div>
+            </div><br><br>
              
-            <div class="form-group">
-                <div class="col-lg-offset-2 col-lg-10">
-                	<button id="passCheckBtn" class="btn btn-default" >회원탈퇴</button>
-                </div>
-            </div>
+            <div class="wrap">
+  				<button class="button"><b>확인</b></button>
+			</div><br><br>
         </form>
         <!--// 본문 들어가는 부분 -->
         
