@@ -59,7 +59,7 @@ public class UserController {
 	@RequestMapping(value="/userInsert.do")
 	public String memInsert(UserDto userDto) {
 		userService.userInsert(userDto);
-		return "user/main";
+		return "redirect:/home.do";
 	}
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
