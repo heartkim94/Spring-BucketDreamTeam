@@ -111,7 +111,7 @@ input.submitBtn {
 	<%@ include file="../common/header.jsp" %>
 	<section>
 <%-- 		<%@ include file="aside.jsp" %> --%>
-		<div class="subContent">
+		<div class="container subContent">
 			<nav>
 				<h1>NOTICE</h1>
 				<span>home > community > notice</span>

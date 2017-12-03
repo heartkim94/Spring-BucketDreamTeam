@@ -31,5 +31,5 @@ public interface BoardDao {
 	public void reply(ArticleDto article);
 	public void upPos(ArticleDto article);
 	// 글 삭제
-	public void delete(int articleNum, int boardNum);
+	public void delete(ArticleDto article);
 }

@@ -153,11 +153,8 @@ public class BoardServiceImpl implements BoardService {
 	
 	// 글 삭제
 	@Override
-	public void delete(int articleNum, int boardNum, int pageNum, Model model) {
-		boardDao.delete(articleNum, boardNum);
-		model.addAttribute("article", article);
-		model.addAttribute("boardNum", boardNum);
-		model.addAttribute("pageNum", pageNum);
+	public void delete(ArticleDto article) {
+		boardDao.delete(article);
 	}
 
 	

@@ -135,9 +135,9 @@ public class CommunityController {
 	
 	// 글 삭제 -----------
 	@RequestMapping(value="/delete.do")
-		public String delete(int articleNum, int boardNum, int pageNum, Model model) {
-		boardService.delete(articleNum, boardNum, pageNum, model);
-		return "redirect:list.do?";
+		public String delete(ArticleDto article) {
+		boardService.delete(article);
+		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
 }

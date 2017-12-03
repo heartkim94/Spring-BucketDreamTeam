@@ -50,7 +50,7 @@
 	
 	<!-- Board 글 상세보기 -->
 	<select id="getArticle" parameterType="HashMap" resultType="article">
-		SELECT * FROM `board${boardNum}` WHERE articleNum = #{articleNum}
+		SELECT * FROM board${boardNum} WHERE articleNum = #{articleNum}
 	</select>
 	
 	<!-- hit 수 증가 -->
@@ -100,15 +100,16 @@
 	<!-- 답글 달기 -->
 	<insert id="reply" parameterType="article">
 		INSERT INTO board${boardNum} (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
-					VALUES (#{id}, #{title}, #{content}, #{depth}+1, 0, #{groupId}, #{pos}+1, now(), #{fileStatus});
+					VALUES (#{id}, #{title}, #{content}, #{depth}+1, 0, #{groupId}, #{pos}+1, now(), #{fileStatus})
 	</insert>
 	<update id="upPos" parameterType="article">
 		update board${boardNum} set pos = pos+1 where groupId = #{groupId} and pos > #{pos}
 	</update>
 	
 	<!-- 글 삭제 -->
-	<delete id="delete" parameterType="int">
-		
+	<delete id="delete" parameterType="article">
+		delete from board${boardNum} where articleNum=#{articleNum}
+<!-- 		delete from board${boardNum} where articleNum in (select articleNum from (select articleNum from board${boardNum} where groupId=${articleNum})result) -->
 	</delete>
 	
 </mapper>

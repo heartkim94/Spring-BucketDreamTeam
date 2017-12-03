@@ -20,7 +20,7 @@
 
 <body>
 	<section>
-		<div class="subContent">
+		<div class="container subContent">
 			<table class="faqTable">
 				<thead>
 					<tr>

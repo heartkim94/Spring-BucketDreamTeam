@@ -20,25 +20,27 @@
 %>
 --%>
 	<header>
-		<c:if test="${id != null}">
-			<div class="loginbtn">
-				<button onclick="document.location.href='/project/logout.do'">로그아웃</button>
-<!-- 				<input type="button" value="로그아웃input" onclick="document.location.href='logout.do'"> -->
-			</div>
-		</c:if>
-		<c:if test="${id == null}">
-			<div class="loginbtn">
-				<button onclick="document.location.href='/project/home.do'">로그인</button>
-<!-- 				<input type="button" value="로그인input" onclick="document.location.href='home.do'"> -->
-			</div>
-		</c:if>
-		<c:if test="${id != null}">
-			<!-- homeController에 mapping -->
-			<a href="/project/group/main.do"><strong>header</strong></a>
-		</c:if>
-		<c:if test="${id == null}">
-			<a href="/project/home.do"><strong>header</strong></a>			
-		</c:if>
+		<div class="head">
+			<c:if test="${id != null}">
+				<div class="loginbtn">
+					<button onclick="document.location.href='/project/logout.do'">로그아웃</button>
+	<!-- 				<input type="button" value="로그아웃input" onclick="document.location.href='logout.do'"> -->
+				</div>
+			</c:if>
+			<c:if test="${id == null}">
+				<div class="loginbtn">
+					<button onclick="document.location.href='/project/home.do'">로그인</button>
+	<!-- 				<input type="button" value="로그인input" onclick="document.location.href='home.do'"> -->
+				</div>
+			</c:if>
+			<c:if test="${id != null}">
+				<!-- homeController에 mapping -->
+				<a href="/project/group/main.do"><strong>header</strong></a>
+			</c:if>
+			<c:if test="${id == null}">
+				<a href="/project/home.do"><strong>header</strong></a>			
+			</c:if>
+		</div>
 	</header>
 	<hr>
 </body>
