@@ -110,7 +110,28 @@
 	<delete id="deleteArticle" parameterType="HashMap">
 		DELETE FROM board${boardNum}
 		WHERE articleNum=${articleNum}
-<!-- 	delete from board${boardNum} where articleNum in (select articleNum from (select articleNum from board${boardNum} where groupId=${articleNum})result) -->
+	</delete>
+	
+	<select id="getReply" parameterType="HashMap" resultType="article">
+		SELECT articleNum
+		FROM board${boardNum}
+		WHERE groupId=${articleNum} AND articleNum!=${articleNum}
+	</select>
+	
+	<select id="getEndPoses" parameterType="HashMap" resultType="int">
+		SELECT pos
+		FROM board${boardNum}
+		WHERE groupId=${groupId} AND depth=${depth} AND pos > ${pos}
+	</select>
+	
+	<delete id="deleteSomeReply" parameterType="HashMap">
+		DELETE FROM board${boardNum}
+		WHERE groupId=${groupId} AND depth > ${depth} AND ${endPos} > pos AND pos > ${pos}
+	</delete>
+	
+	<delete id="deleteSomeReplyAll" parameterType="HashMap">
+		DELETE FROM board${boardNum}
+		WHERE groupId=${groupId} AND depth > ${depth} AND pos > ${pos}
 	</delete>
 	
 	<!-- 글 수정 -->
@@ -119,4 +140,10 @@
 		FROM board${boardNum}
 		WHERE articleNum=${articleNum}
 	</select>
+	
+	<update id="updateArticle" parameterType="HashMap">
+		UPDATE board${boardNum}
+		SET title=${title}, content=${content}, fileStatus=${fileStatus}
+		WHERE articleNum=${articleNum}
+	</update>
 </mapper>

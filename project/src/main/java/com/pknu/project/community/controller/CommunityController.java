@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.service.BoardService;
@@ -133,12 +134,13 @@ public class CommunityController {
 		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
-	// 글 삭제 -----------
+	// 글 삭제
 	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
-	public String deleteArticle(@RequestParam("articleNum") int articleNum,
-						 @RequestParam("boardNum") int boardNum,
-						 @RequestParam("pageNum") int pageNum) {
-		boardService.deleteArticle(articleNum, boardNum);
+	public String deleteArticle(@RequestParam("articleNum") String articleNum,
+						 		@RequestParam("boardNum") String boardNum,
+						 		@RequestParam("pageNum") int pageNum,
+						 		@RequestParam("fileStatus") int fileStatus, Model model) {
+		boardService.deleteArticle(articleNum, boardNum, fileStatus, model);
 		return "redirect:list.do?pageNum="+pageNum+"&boardNum="+boardNum;
 	}
 	
@@ -153,11 +155,11 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/update.do", method=RequestMethod.POST)
-	public String updateArticle(@RequestParam("articleNum") String articleNum,
-								@RequestParam("boardNum") String boardNum,
-								@RequestParam("pageNum") int pageNum) {
-//		boardService.deleteArticle(articleNum, boardNum);
-		return "redirect:list.do?pageNum="+pageNum+"&boardNum="+boardNum;
+	public String updateArticle(@ModelAttribute("boardNum") String boardNum,
+								@ModelAttribute("pageNum") int pageNum,
+								ArticleDto article, Model model) {
+		boardService.updateArticle(article, boardNum, model);
+		return "redirect:list.do";
 	}
 	
 }

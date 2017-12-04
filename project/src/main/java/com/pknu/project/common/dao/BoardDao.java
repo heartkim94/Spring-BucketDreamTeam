@@ -32,7 +32,11 @@ public interface BoardDao {
 	public void upPos(ArticleDto article);
 	// 글 삭제
 	public void deleteArticle(HashMap<String, String> paramMap);
+	public List<ArticleDto> getReply(HashMap<String, String> paramMap);
+	public List<Integer> getEndPoses(HashMap<String, String> paramMap);
+	public void deleteSomeReply(HashMap<String, String> paramMap);
+	public void deleteSomeReplyAll(HashMap<String, String> paramMap);
 	// 글 수정
 	public ArticleDto updateGetArticle(HashMap<String, String> paramMap);
-	public void delete(ArticleDto article);
+	public void updateArticle(HashMap<String, String> paramMap);
 }

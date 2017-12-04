@@ -24,7 +24,9 @@ public interface BoardService {
 	// 답변달기
 	public void reply(ArticleDto article);
 	// 글 삭제
-	public void deleteArticle(int articleNum, int boardNum);
+	public void deleteArticle(String articleNum, String boardNum, int fileStatus, Model model);
+	public void deleteReply(HashMap<String, String> paramMap);
 	// 글 수정
 	public void updateGetArticle(String articleNum, String boardNum, int fileStatus, Model model);
+	public void updateArticle(ArticleDto article, String boardNum, Model model);
 }

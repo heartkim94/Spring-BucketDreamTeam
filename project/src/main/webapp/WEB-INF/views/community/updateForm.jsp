@@ -121,11 +121,13 @@ input.submitBtn {
 					<!-- 글쓰기 영역 전체 감쌈 -->
 					<div class="writeFormWrap">
 						<input type="hidden" name="boardNum" value="${boardNum}">
+						<input type="hidden" name="pageNum" value="${pageNum}">
+						<input type="hidden" name="articleNum" value="${articleNum}">
 						<input type="hidden" name="id" value="${id}" /> <!-- 작성자 id -->
 						<table>
 							<tr>
 								<th><label for="title">제목</label></th>
-								<td align="left"><input type="text" name="title" id="title"/>${title}</td>
+								<td align="left"><input type="text" name="title" id="title" value="${title}"/></td>
 							</tr>
 							<tr>
 								<th>작성자</th>
