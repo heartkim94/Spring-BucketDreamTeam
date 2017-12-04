@@ -43,7 +43,7 @@
 	</bean>
 	
 	<bean id="saveDir" class="java.lang.String">
-		<constructor-arg value="e:\Project_upload\" />
+		<constructor-arg value="D:\Project_upload\" />
 	</bean>
 	
 	<!-- 	<tx:annotation-driven/> -->

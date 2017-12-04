@@ -153,16 +153,11 @@ public class BoardServiceImpl implements BoardService {
 	
 	// 글 삭제
 	@Override
-<<<<<<< HEAD
 	public void deleteArticle(int articleNum, int boardNum) {
 		paramMap = new HashMap<>();
 		paramMap.put("boardNum", String.valueOf(boardNum));
 		paramMap.put("articleNum", String.valueOf(articleNum));
 		boardDao.deleteArticle(paramMap);
-=======
-	public void delete(ArticleDto article) {
-		boardDao.delete(article);
->>>>>>> refs/remotes/origin/jjong1
 	}
 	
 	//글 수정

@@ -24,11 +24,7 @@ public interface BoardService {
 	// 답변달기
 	public void reply(ArticleDto article);
 	// 글 삭제
-<<<<<<< HEAD
 	public void deleteArticle(int articleNum, int boardNum);
 	// 글 수정
 	public void updateGetArticle(String articleNum, String boardNum, int fileStatus, Model model);
-=======
-	public void delete(ArticleDto article);
->>>>>>> refs/remotes/origin/jjong1
 }
