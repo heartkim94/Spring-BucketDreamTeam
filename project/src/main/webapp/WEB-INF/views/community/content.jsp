@@ -161,6 +161,7 @@ input {
 						<c:if test="${id !=null}">
 							<input type="button" value="comment 쓰기" id="commentWrite">
 						</c:if> 
+						<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead">
 					</div>			
 	
 <!-- 					<form> -->
@@ -177,7 +178,66 @@ input {
 	</div>
 	<!-- wrapper End -->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	$.ajaxSetup({
+		type: "POST",
+		async : "true",
+		dataType : "json",
+		error : function(xhr){
+			alert("error html = "+ xhr.statusText);
+		}
+	});
+	$(function(){
+		$("#commentWrite").on("click", function(){
+			url: "commentWrite.comment",
+			data : {
+				commentContent : $("#commentConent").val(),
+				articleNum : ${article.articleNum}
+			},
+			success : function(data){
+				if(data.result == 1){
+					alert("comment가 정상적으로 입력되었습니다.")
+					$("#commentContent").val("");
+					showHtml(data.commentList,1);
+				}
+			}
+		});
+	});
+	function showHtml(data, commPageNum){
+		var html = "<table border='1' width='100%' align='center'>";
+		$.each(data, function(index,item){
+			html +="<tr>";
+			html +="<td>"+(index+1)+"</td>";
+			html +="<td>"+item.id+"</td>";
+			html +="<td>"+item.commentContent+"</td>";
+			html +="<td>"+item.commentDate+"</td>";					
+			html +="<td>"+item.articleNum+"</td>";					
+			html +="</tr>";					
+		});		
+		html +="</table>";
+		commPageNum = parseInt(commPageNum);
+		if("${article.commentCount}" > commPageNum * 10){
+			nextPageNum = commPageNum+1;
+			html +="<br /><input type='button' onclick='getComment(nextPageNum,event)' value='다음comment보기'><br>";
+			$("#showComment").html(html);	
+			$("#commentContent").val("");
+			$("#commentContent").focus();
+		}
+	}
+	function getComment(commPageNum, event){
+		event.preventDefault();
+		$ajax({
+			url : "commentRead.comment",
+			data: {
+				articleNum : "${article.articleNum}",
+				commentRow: commPageNum * 10
+			}, 
+			success: function(data){
+				showHtml(data, commPageNum, event);
+			}
+		});
+	}
+</script>	
 </body>
 </html>
