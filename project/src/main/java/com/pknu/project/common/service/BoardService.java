@@ -3,6 +3,9 @@ package com.pknu.project.common.service;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.ui.Model;
 
 import com.pknu.project.common.dto.ArticleDto;
