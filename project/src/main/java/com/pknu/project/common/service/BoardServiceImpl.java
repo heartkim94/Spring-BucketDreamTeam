@@ -153,14 +153,28 @@ public class BoardServiceImpl implements BoardService {
 	
 	// 글 삭제
 	@Override
-	public void delete(int articleNum, int boardNum, int pageNum, Model model) {
-		boardDao.delete(articleNum, boardNum);
-		model.addAttribute("article", article);
-		model.addAttribute("boardNum", boardNum);
-		model.addAttribute("pageNum", pageNum);
+	public void deleteArticle(int articleNum, int boardNum) {
+		paramMap = new HashMap<>();
+		paramMap.put("boardNum", String.valueOf(boardNum));
+		paramMap.put("articleNum", String.valueOf(articleNum));
+		boardDao.deleteArticle(paramMap);
 	}
-
 	
-	
+	//글 수정
+	public void updateGetArticle(String articleNum, String boardNum, int fileStatus, Model model) {
+		paramMap = new HashMap<>();
+		paramMap.put("articleNum", articleNum);
+		paramMap.put("boardNum", boardNum);
+		ArticleDto article = boardDao.updateGetArticle(paramMap);
+		
+		model.addAttribute("title", article.getTitle());
+		model.addAttribute("content", article.getContent());
+//		if(fileStatus == 1) {
+//			model.addAttribute("fileList", boardDao.getFiles(articleNum, boardNum));
+//			model.addAttribute("fileCount", boardDao.getFiles(articleNum, boardNum).size);
+//		} else {
+//			model.addAttribute("fileCount", 0);
+//		}
+	}
 	
 }

@@ -90,7 +90,7 @@ input.submitBtn {
 										<c:choose>
 											<c:when test="${id == article.id}">
 												<input type="submit" value="답글달기">
-												<input type="button" value="수정하기" onclick="document.location.href='updateForm.bbs?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+												<input type="button" value="수정하기" onclick="document.location.href='update.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
 												<input type="button" value="삭제하기" onclick="document.location.href='delete.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
 											</c:when>
 											<c:otherwise>

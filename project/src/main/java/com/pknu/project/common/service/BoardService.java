@@ -24,5 +24,7 @@ public interface BoardService {
 	// 답변달기
 	public void reply(ArticleDto article);
 	// 글 삭제
-	public void delete(int articleNum, int boardNum, int pageNum, Model model);
+	public void deleteArticle(int articleNum, int boardNum);
+	// 글 수정
+	public void updateGetArticle(String articleNum, String boardNum, int fileStatus, Model model);
 }

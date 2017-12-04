@@ -133,10 +133,30 @@ public class CommunityController {
 	}
 	
 	// 글 삭제 -----------
-	@RequestMapping(value="/delete.do")
-		public String delete(int articleNum, int boardNum, int pageNum, Model model) {
-		boardService.delete(articleNum, boardNum, pageNum, model);
-		return "redirect:list.do?";
+	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
+	public String deleteArticle(@RequestParam("articleNum") int articleNum,
+						 @RequestParam("boardNum") int boardNum,
+						 @RequestParam("pageNum") int pageNum) {
+		boardService.deleteArticle(articleNum, boardNum);
+		return "redirect:list.do?pageNum="+pageNum+"&boardNum="+boardNum;
+	}
+	
+	// 글 수정
+	@RequestMapping(value="/update.do", method=RequestMethod.GET)
+	public String updateForm(@ModelAttribute("articleNum") String articleNum,
+							 @ModelAttribute("boardNum") String boardNum,
+							 @ModelAttribute("pageNum") int pageNum,
+							 @ModelAttribute("fileStatus") int fileStatus, Model model) {
+		boardService.updateGetArticle(articleNum, boardNum, fileStatus, model);
+		return "community/updateForm";
+	}
+	
+	@RequestMapping(value="/update.do", method=RequestMethod.POST)
+	public String updateArticle(@RequestParam("articleNum") String articleNum,
+								@RequestParam("boardNum") String boardNum,
+								@RequestParam("pageNum") int pageNum) {
+//		boardService.deleteArticle(articleNum, boardNum);
+		return "redirect:list.do?pageNum="+pageNum+"&boardNum="+boardNum;
 	}
 	
 }

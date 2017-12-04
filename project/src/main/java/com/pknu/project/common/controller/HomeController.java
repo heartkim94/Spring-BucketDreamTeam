@@ -22,7 +22,6 @@ public class HomeController {
 		if(id!=null) {
 			view = "redirect:group/main.do";
 		}
-		System.out.println("hello");
 		return view;
 	}
 }

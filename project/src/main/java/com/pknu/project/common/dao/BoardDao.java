@@ -31,5 +31,7 @@ public interface BoardDao {
 	public void reply(ArticleDto article);
 	public void upPos(ArticleDto article);
 	// 글 삭제
-	public void delete(int articleNum, int boardNum);
+	public void deleteArticle(HashMap<String, String> paramMap);
+	// 글 수정
+	public ArticleDto updateGetArticle(HashMap<String, String> paramMap);
 }
