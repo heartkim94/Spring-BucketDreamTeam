@@ -54,26 +54,25 @@ input, textarea {
 }
 /* 전체 사이즈 스타일 */
 #wrapper {
-	width: 1024px;
-	height: auto;
-	margin: 0 auto;
-	overflow: hidden;
-	border: 1px solid black;
-	box-sizing: border-box;
+	width: 100%;
 }
-
 
 /* 헤더 스타일 */
 header {
-	height: 150px;
-	padding: 5px 30px;
+	width: 100%;
 	background-color:#aaa;
+}
+header .head {
+	width: 1024px;
+	height: 150px;
+	margin: 0 auto;
 	background-image: url(../img/흐엉_small.jpg);
 	background-repeat: no-repeat;
-	background-position: left center ;
+	background-position: left center;
 	text-align:center;
 	box-sizing: border-box;
 }
+
 div.loginbtn {
 	height:30px;
 	text-align:right;
@@ -82,9 +81,14 @@ div.loginbtn {
 
 /* 푸터 스타일 */
 footer {
-	padding: 15px 0;
-	text-align:center;
+	width: 100%;
 	background-color:#aaa;
+}
+footer .foot{
+	width: 1024px;
+	padding: 15px 0;
+	margin: 0 auto;
+	text-align:center;
 	color:#fff;
 	clear: both;
 }
@@ -98,10 +102,12 @@ section {
 	height: auto;
 	overflow: hidden;
 }
-
+section .container {
+	width: 1024px;
+	margin: 0 auto;
+}
 /* 메인 페이지 콘텐츠 영역 스타일 */
 div.mainContent {
-	width:100%;
 	vertical-align: middle;
 	padding: 150px 0;
 }
@@ -127,9 +133,9 @@ div.login {
 
 /* 서브 페이지 콘텐츠 영역 스타일 */
 div.subContent {
-	width: 100%;
 	padding: 20px 50px;
 	box-sizing: border-box;
+	min-height: 600px;
 }
 div.subContent nav {
 	position: relative;
@@ -161,7 +167,6 @@ div.subContent table {
     text-align: right;
 }
 
-
 /* list */
 .hit {
 	position: relative;
@@ -179,6 +184,9 @@ div.subContent table {
 	100%{
 			font-weight: bolder;
 	}
+}
+.listTable {
+	width: 100%;
 }
 .listTable tbody tr:hover td {
 	color: orange;
@@ -223,7 +231,8 @@ div.subContent table {
 
 /* faq */
 .faqTable {
-	border-top: 2px solid #444547
+	width: 100%;
+	border-top: 2px solid #444547;
 }
 .faqTable th, td {
 	padding: 10px 20px 10px 50px;

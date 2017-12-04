@@ -16,7 +16,7 @@
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
-			<div class="settingContainer">
+			<div class="container settingContainer">
 				게시판 목록
 				<div class="boardList">
 					<ul>

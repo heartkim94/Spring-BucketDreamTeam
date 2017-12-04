@@ -31,7 +31,11 @@ public interface BoardDao {
 	public void reply(ArticleDto article);
 	public void upPos(ArticleDto article);
 	// 글 삭제
+<<<<<<< HEAD
 	public void deleteArticle(HashMap<String, String> paramMap);
 	// 글 수정
 	public ArticleDto updateGetArticle(HashMap<String, String> paramMap);
+=======
+	public void delete(ArticleDto article);
+>>>>>>> refs/remotes/origin/jjong1
 }

@@ -14,7 +14,7 @@
 </head>
 <body>
 	<section>
-		<div class="subContent">
+		<div class="container subContent">
 			<form name="searchForm" method="post" action="list.do">
 		        <select name="searchOption">
 		            <option value="id">이름</option>
@@ -64,7 +64,7 @@
 							
 							<td>
 								<c:if test="${article.fileStatus == 1 }">
-								파일있음
+									<img src="/project/resources/img/icon_file.gif" alt="첨부파일"/>
 								</c:if>
 							</td>
 							

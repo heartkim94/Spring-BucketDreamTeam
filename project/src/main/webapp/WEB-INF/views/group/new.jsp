@@ -11,7 +11,7 @@
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
-			<div class="container"></div>
+			<div class="container">
 				<form method="post" action="new.do" id="groupForm">
 					
 					<h3>그룹</h3>

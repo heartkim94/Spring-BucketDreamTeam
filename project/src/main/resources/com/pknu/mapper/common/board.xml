@@ -110,6 +110,7 @@
 	<delete id="deleteArticle" parameterType="HashMap">
 		DELETE FROM board${boardNum}
 		WHERE articleNum=${articleNum}
+<!-- 	delete from board${boardNum} where articleNum in (select articleNum from (select articleNum from board${boardNum} where groupId=${articleNum})result) -->
 	</delete>
 	
 	<!-- 글 수정 -->
