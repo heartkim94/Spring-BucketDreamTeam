@@ -6,22 +6,58 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<!-- <link href="/project/resources/css/style.css" rel="stylesheet" type="text/css"> -->
+
 <style>
-	.faqTable tbody th {
+	.acrdTable tbody th {
 		cursor: pointer;
 	}
-	.faqTable tbody th:hover button {
+	.acrdTable tbody th:hover button {
 		color: orange;
 	}
-	
+	.acrdTable {
+	border-top: 2px solid #444547
+	}
+	.acrdTable th, td {
+		padding: 10px 20px 10px 50px;
+		border-bottom: 1px solid #e1e1e1;
+	}
+	.acrdTable tbody th, td {
+		position: relative;
+	    overflow: hidden;
+	    text-align: left;
+	}
+	.acrdTable tbody th button{
+	    color: #333;
+		font-weight: bold;
+		text-align: left;
+	}
+	.acrdTable tbody span{
+	    left: 20px;
+	    top: 10px;
+	}
+	td.articleBox { 
+	    background: #f7f7f7;
+	   	color: #555;
+	}
+	.acrdTable button {
+	    margin: 0;
+	    padding: 0;
+	    border: 0;
+	    font: inherit;
+	    color: inherit;
+	    background: transparent;
+	    overflow: visible;
+	    cursor: pointer;
+	    line-height: 1;
+	    outline: none;
+		}
 </style>
 </head>
 
 <body>
 	<section>
 		<div class="subContent">
-			<table class="faqTable">
+			<table class="acrdTable">
 				<thead>
 					<tr>
 						<th align="center" width="250">제 목</th>
@@ -37,11 +73,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<div class="btnArea">
-				<c:if test="${isAdmin}">
-					<td align="right"><a href="write.do?boardNum=${boardNum}">글쓰기</a></td>
-				</c:if>
-			</div>
+			<%@ include file="listBtn.jsp" %>
 			<div class="pageNav">${pageCode}</div>
 		</div>
 	</section>

@@ -8,6 +8,7 @@
 	<title>Insert title here</title>
 	<style>
 		.boardList {
+			width:300px;
 			border: 1px solid black;
 		}
 	</style>
@@ -17,7 +18,23 @@
 		<%@ include file="../common/header.jsp" %>
 		<section>
 			<div class="settingContainer">
-				게시판 목록
+				<h3>목표</h3>
+				<hr><br>
+				<div class="todoList">
+					<ul>
+						<li>[ ]2018년 3월까지|다이어트|5kg
+							<ul>
+								<li>--[ ]매일|팔굽혀펴기|20회</li>
+							</ul>
+						</li>
+						<c:forEach var="do" items="${todoList}">
+							<li doNum="${do.doNum}"></li>
+						</c:forEach>
+					</ul>
+				</div>
+				<br>
+				<h3>게시판 목록</h3>
+				<hr>
 				<div class="boardList">
 					<ul>
 						<c:forEach var="board" items="${boardList}">
@@ -31,10 +48,9 @@
 					</ul>
 					<br>
 					<button class="newBoard">새로만들기</button>
-					<hr>
-					<br>
-					<button onclick="location.href='view.do'">완료</button>
 				</div>
+				<br>
+				<button onclick="location.href='view.do'">완료</button>
 			</div>
 		</section>
 		<%@ include file="../common/footer.jsp" %>

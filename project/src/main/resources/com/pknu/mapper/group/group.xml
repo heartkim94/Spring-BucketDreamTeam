@@ -23,6 +23,9 @@
 		            					on g.groupNum = c.groupNum
 		where 	u.id = #{id};
 	</select>
+	<select id="getGroup" parameterType="int" resultType="group">
+		SELECT * FROM `Group` WHERE groupNum=#{groupNum}
+	</select>
 	<select id="getCategory" resultType="category">
 		SELECT c2.*
 		FROM Category c1, category c2

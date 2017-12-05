@@ -80,7 +80,8 @@ $(function() {
 		location.href = "new.do";
 	});
 	$(".group").on("click", function() {
-		location.href = $(this).attr("groupNum")+"/view.do";
+		let groupNum = $(this).attr("groupNum");
+		location.href = "/project/"+groupNum+"/view.do";
 	});
 });
 </script>

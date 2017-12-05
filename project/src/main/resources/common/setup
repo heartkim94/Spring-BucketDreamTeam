@@ -34,16 +34,25 @@ CREATE TABLE `Group`(
 ) ENGINE=InnoDb;
     
 CREATE TABLE `Member`(
-    `groupNum` INT NOT NULL,
-    `userNum` INT NOT NULL,
+    `groupNum` int NOT NULL,
+    `userNum` int NOT NULL,
     PRIMARY KEY(`groupNum`, `userNum`),
     FOREIGN KEY(`groupNum`) REFERENCES `Group`(`groupNum`)
         ON DELETE CASCADE,
     FOREIGN KEY(`userNum`) REFERENCES `User`(`userNum`)
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
-    
-    
+
+-- toDo
+CREATE TABLE `DoList`(
+    `doNum` int PRIMARY KEY,
+    `doName` varchar(200) NOT NULL,
+    `when` date NOT NULL,
+    `start` time,
+    `end` time,
+    `parentNum` int NOT NULL
+) ENGINE=InnoDB;
+
 -- Board
 CREATE TABLE `BoardList`(
     `boardNum` int auto_increment PRIMARY KEY,
@@ -85,6 +94,7 @@ INSERT INTO `Member` VALUES(-1, -1);
 CREATE TABLE `AdminBoardSetting`(
     `boardNum` int PRIMARY KEY,
     `show` boolean NOT NULL,
+    `adminOnly` boolean NOT NULL,
     `view` varchar(200) NOT NULL,
     FOREIGN KEY(`boardNum`) REFERENCES `BoardList`(`boardNum`)
 ) ENGINE=InnoDB;
@@ -94,9 +104,9 @@ insert into BoardList(boardName, groupNum) values('Notice', -1);
 insert into BoardList(boardName, groupNum) values('QnA', -1);
 insert into BoardList(boardName, groupNum) values('FAQ', -1);
 
-insert into AdminBoardSetting values(1, true, '../common/list.jsp');
-insert into AdminBoardSetting values(2, true, '../common/list.jsp');
-insert into AdminBoardSetting values(3, true, '../coomon/accordianList.jsp');
+insert into AdminBoardSetting values(1, true, true, '../common/list.jsp');
+insert into AdminBoardSetting values(2, true, false, '../common/list.jsp');
+insert into AdminBoardSetting values(3, true, true, '../common/listAcrd.jsp');
 
 create table Board1(
     articleNum int primary key auto_increment,

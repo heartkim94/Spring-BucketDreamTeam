@@ -14,8 +14,7 @@
 		<section>
 			<%@ include file="asideMenu.jsp" %>
 			<div class="groupMain">
-				내용<br>
-				asdsdaf<br>
+				<%@ include file="../common/content.jsp" %>
 			</div>
 			<%@ include file="asideApp.jsp" %>
 			<div class="clear"></div>
