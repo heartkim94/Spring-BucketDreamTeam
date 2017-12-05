@@ -17,7 +17,7 @@
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
-			<div class="settingContainer">
+			<div class="container settingContainer">
 				<h3>목표</h3>
 				<hr><br>
 				<div class="todoList">

@@ -14,7 +14,7 @@
 </head>
 <body>
 	<section>
-		<div class="subContent">
+		<div class="container subContent">
 			<%@ include file="listSearch.jsp" %>
 		    ${totalCount}개의 게시물이 있습니다.
 		    
@@ -54,7 +54,7 @@
 							
 							<td>
 								<c:if test="${article.fileStatus == 1 }">
-								파일있음
+									<img src="/project/resources/img/icon_file.gif" alt="첨부파일"/>
 								</c:if>
 							</td>
 							

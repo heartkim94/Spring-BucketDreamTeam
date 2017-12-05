@@ -86,7 +86,7 @@
 	<%@ include file="header.jsp" %>
 	
 	<section>
-		<div class="mainContent">
+		<div class="container mainContent">
 			<div class="contentRow">
 				<div class="intro">
 					<img src="resources/img/흐엉.jpg" width="300" height="300" alt="홈페이지 소개 사진이나 글, 슬라이드"><br>

@@ -55,7 +55,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
-	public String writeForm(HttpSession session, Model model,
+	public String writeForm(HttpSession session,
 			@ModelAttribute("boardNum") int boardNum){
 		System.out.println("***writeForm***");
 		return "community/writeForm";
@@ -108,5 +108,51 @@ public class CommunityController {
 		return "community/list";
 	}
 	
+	// 답변 달기
+	@RequestMapping(value="/reply.do", method=RequestMethod.GET)
+	public String replyForm(HttpSession session,
+			@ModelAttribute("boardNum") int boardNum,
+			@ModelAttribute("groupId") int groupId, 
+			@ModelAttribute("pos") int pos,
+			@ModelAttribute("depth") int depth,
+			@ModelAttribute("pageNum") int pageNum) {
+		System.out.println("***replyForm***");
+		return "community/replyForm";
+	}
+	
+	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
+	public String reply(ArticleDto article, HttpSession session){		
+		article.setId((String)session.getAttribute("id"));
+		boardService.reply(article);		
+		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
+	}
+	
+	// 글 삭제
+	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
+	public String deleteArticle(@RequestParam("articleNum") String articleNum,
+						 		@RequestParam("boardNum") String boardNum,
+						 		@RequestParam("pageNum") int pageNum,
+						 		@RequestParam("fileStatus") int fileStatus, Model model) {
+		boardService.deleteArticle(articleNum, boardNum, fileStatus, model);
+		return "redirect:list.do?pageNum="+pageNum+"&boardNum="+boardNum;
+	}
+	
+	// 글 수정
+	@RequestMapping(value="/update.do", method=RequestMethod.GET)
+	public String updateForm(@ModelAttribute("articleNum") String articleNum,
+							 @ModelAttribute("boardNum") String boardNum,
+							 @ModelAttribute("pageNum") int pageNum,
+							 @ModelAttribute("fileStatus") int fileStatus, Model model) {
+		boardService.updateGetArticle(articleNum, boardNum, fileStatus, model);
+		return "community/updateForm";
+	}
+	
+	@RequestMapping(value="/update.do", method=RequestMethod.POST)
+	public String updateArticle(@ModelAttribute("boardNum") String boardNum,
+								@ModelAttribute("pageNum") int pageNum,
+								ArticleDto article, Model model) {
+		boardService.updateArticle(article, boardNum, model);
+		return "redirect:list.do";
+	}
 	
 }

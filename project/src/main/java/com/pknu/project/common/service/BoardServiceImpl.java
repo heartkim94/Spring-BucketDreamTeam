@@ -1,9 +1,14 @@
 package com.pknu.project.common.service;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -26,6 +31,9 @@ public class BoardServiceImpl implements BoardService {
 	private List<BoardDto> boardList;
 	
 	private HashMap<String, String> paramMap;
+	
+	@Resource(name="saveDir")
+	String saveDir;
 	
 	/* Board */
 	@Override
@@ -143,4 +151,85 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("pageCode", page.getSb().toString());
 	}
+	
+	// 답변 달기
+	@Override
+	public void reply(ArticleDto article) {
+		boardDao.upPos(article);
+		boardDao.reply(article);
+	}
+	
+	// 글 삭제
+	@Override
+	public void deleteArticle(String articleNum, String boardNum, int fileStatus, Model model) {
+		paramMap = new HashMap<>();
+		paramMap.put("boardNum", boardNum);
+		paramMap.put("articleNum", articleNum);
+		
+		article = boardDao.getArticle(paramMap);
+		if(article.getDepth() == 0) {
+			deleteReply(paramMap);
+		} else {
+			deleteSomeReply(paramMap);
+		}
+		boardDao.deleteArticle(paramMap);
+	}
+	
+	public void deleteReply(HashMap<String, String> paramMap) {
+		List<ArticleDto> replyList = boardDao.getReply(paramMap);
+		if(replyList != null) {
+			for(ArticleDto reply : replyList) {
+				HashMap<String, String> replyParamMap = new HashMap<>();
+				replyParamMap.put("boardNum", paramMap.get("boardNum"));
+				replyParamMap.put("articleNum", String.valueOf(reply.getArticleNum()));
+				boardDao.deleteArticle(replyParamMap);
+			}
+		}
+	}
+	
+	public void deleteSomeReply(HashMap<String, String> paramMap) {
+		paramMap.put("groupId", String.valueOf(article.getGroupId()));
+		paramMap.put("depth", String.valueOf(article.getDepth()));
+		paramMap.put("pos", String.valueOf(article.getPos()));
+		List<Integer> endPoses = boardDao.getEndPoses(paramMap);
+		
+		if(endPoses.size()>0) {
+			int endPos=endPoses.get(endPoses.size()-1);
+			paramMap.put("endPos", String.valueOf(endPos));
+			boardDao.deleteSomeReply(paramMap);
+		} else {
+			boardDao.deleteSomeReplyAll(paramMap);
+		}
+	}
+	
+	//글 수정
+	@Override
+	public void updateGetArticle(String articleNum, String boardNum, int fileStatus, Model model) {
+		paramMap = new HashMap<>();
+		paramMap.put("articleNum", articleNum);
+		paramMap.put("boardNum", boardNum);
+		article = boardDao.updateGetArticle(paramMap);
+		
+		model.addAttribute("title", article.getTitle());
+		model.addAttribute("content", article.getContent());
+//		if(fileStatus == 1) {
+//			model.addAttribute("fileList", boardDao.getFiles(articleNum, boardNum));
+//			model.addAttribute("fileCount", boardDao.getFiles(articleNum, boardNum).size);
+//		} else {
+//			model.addAttribute("fileCount", 0);
+//		}
+	}
+	
+	@Override
+	public void updateArticle(ArticleDto article, String boardNum, Model model) {
+		paramMap = new HashMap<>();
+		paramMap.put("articleNum", String.valueOf(article.getArticleNum()));
+		paramMap.put("boardNum", String.valueOf(article.getBoardNum()));
+		paramMap.put("title", article.getTitle());
+		paramMap.put("content", article.getContent());
+		paramMap.put("fileStatus", String.valueOf(article.getFileStatus()));
+		System.out.println(paramMap);
+		boardDao.updateArticle(paramMap);
+	}
+	
 }
