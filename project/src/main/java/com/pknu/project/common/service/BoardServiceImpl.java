@@ -1,9 +1,14 @@
 package com.pknu.project.common.service;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -26,6 +31,9 @@ public class BoardServiceImpl implements BoardService {
 	List<BoardDto> boardList;
 	
 	HashMap<String, String> paramMap;
+	
+	@Resource(name="saveDir")
+	String saveDir;
 	
 	/* Board */
 	@Override

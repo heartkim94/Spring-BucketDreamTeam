@@ -75,22 +75,22 @@ input {
 							<td>${article.hit }</td>
 						</tr>
 						
-						<tr>
-							<th>다운로드</th>
-							<td>
-								<c:if test="${article.fileStatus !=0 }">
-									<c:if test="${fileList!=null}">
-										<ul>
-											<c:forEach var="storedFname" items="${fileList}">
-												<li>
-													<a href="/bbs/download.bbs?storedFname=${storedFname}">${storedFname.substring(storedFname.indexOf("_")+1)}</a>
-												</li>
-											</c:forEach>
-										</ul>
-									</c:if>
-								</c:if>
-							</td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<th>다운로드</th> -->
+<!-- 							<td> -->
+<%-- 								<c:if test="${article.fileStatus !=0 }"> --%>
+<%-- 									<c:if test="${fileList!=null}"> --%>
+<!-- 										<ul> -->
+<%-- 											<c:forEach var="storedFname" items="${fileList}"> --%>
+<!-- 												<li> -->
+<%-- 													<a href="/project/download.do?storedFname=${storedFname}">${storedFname.substring(storedFname.indexOf("_")+1)}</a> --%>
+<!-- 												</li> -->
+<%-- 											</c:forEach> --%>
+<!-- 										</ul> -->
+<%-- 									</c:if> --%>
+<%-- 								</c:if> --%>
+<!-- 							</td> -->
+<!-- 						</tr> -->
 						<tr>
 							<th>내용: </th>
 							<td colspan="4"><xmp>${article.content}</xmp></td>
@@ -164,12 +164,12 @@ input {
 						<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead">
 					</div>			
 	
-<!-- 					<form> -->
-<!-- 						<div> -->
-<!-- 							<div id="showComment" align="center"></div> -->
-<!-- 							<input type="hidden" id="commPageNum" value="1"> -->
-<!-- 						</div> -->
-<!-- 					</form> -->
+					<form>
+						<div>
+							<div id="showComment" align="center"></div>
+							<input type="hidden" id="commPageNum" value="1">
+						</div>
+					</form>
 				</div> <!-- contentTable end -->
 			</div> <!-- container end -->
 		</section>
@@ -188,20 +188,26 @@ input {
 			alert("error html = "+ xhr.statusText);
 		}
 	});
-	$(function(){
-		$("#commentWrite").on("click", function(){
-			url: "commentWrite.comment",
-			data : {
-				commentContent : $("#commentConent").val(),
-				articleNum : ${article.articleNum}
-			},
-			success : function(data){
-				if(data.result == 1){
-					alert("comment가 정상적으로 입력되었습니다.")
-					$("#commentContent").val("");
-					showHtml(data.commentList,1);
-				}
-			}
+	$(document).ready(function() {
+		$("#commentWrite").on('click', function() {
+			$.ajax({
+				url : "/project/commentWrite.do",
+				// data{}에서는 EL을 ""로 감싸야함....그외에는 그냥 사용
+				data : {
+					id : "${id}",
+					commentContent : $('#commentContent').val(),
+					articleNum : "${article.articleNum}",
+					boardNum : "${boardNum}" 
+				},
+				success : function(data) {
+					if (data.result == 1) {
+						alert("comment가 정상적으로 입력되었습니다.")
+						$("#commentContent").val("");
+						showHtml(data.commentList, 1);
+					}
+				},
+
+			}); // ajax end
 		});
 	});
 	function showHtml(data, commPageNum){
@@ -228,7 +234,7 @@ input {
 	function getComment(commPageNum, event){
 		event.preventDefault();
 		$ajax({
-			url : "commentRead.comment",
+			url : "/project/commentRead.do",
 			data: {
 				articleNum : "${article.articleNum}",
 				commentRow: commPageNum * 10

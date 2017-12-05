@@ -32,5 +32,6 @@
 			<typeAlias alias="group" type="com.pknu.project.group.dto.GroupDto"/>
 			<typeAlias alias="category" type="com.pknu.project.group.dto.CategoryDto"/>
 			<typeAlias alias="file" type="com.pknu.project.common.dto.FileDto"/>
+			<typeAlias alias="comment" type="com.pknu.project.comment.dto.CommentDto"/>
 		</typeAliases>
 </configuration>

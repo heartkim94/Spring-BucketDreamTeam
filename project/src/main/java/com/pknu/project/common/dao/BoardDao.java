@@ -3,7 +3,6 @@ package com.pknu.project.common.dao;
 import java.util.HashMap;
 import java.util.List;
 
-
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.dto.BoardDto;
 import com.pknu.project.common.dto.FileDto;
