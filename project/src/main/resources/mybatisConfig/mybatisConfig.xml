@@ -18,13 +18,6 @@
 		<setting name="jdbcTypeForNull" value="VARCHAR" />
 	</settings>
 	
-<!-- 	<typeAliases> -->
-<!-- 	    <typeAlias alias="article" type="com.pknu.bbs.dto.BBSDto" />   -->
-<!-- 	    <typeAlias alias="comment" type="com.pknu.comment.dto.CommentDto" />          -->
-<!-- 	    <typeAlias alias="fileDto" type="com.pknu.bbs.dto.FileDto" />          -->
-<!-- 	    <typeAlias alias="message" type="com.pknu.message.dto.MessageDto" />          -->
-<!-- 	</typeAliases> -->
-	
 		<typeAliases>
 			<typeAlias alias="user" type="com.pknu.project.user.dto.UserDto"/>
 			<typeAlias alias="article" type="com.pknu.project.common.dto.ArticleDto"/>
