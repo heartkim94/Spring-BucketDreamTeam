@@ -8,7 +8,7 @@
 	<title>MAIN</title>
 <!-- 	<link rel="stylesheet" href="./resources/css/login.css"> -->
 <!-- 	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script> -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 	<script>
 		
 		$(document).ready(function(){
@@ -78,13 +78,14 @@
 			color: #999;
 			font-size: 14px;
 		}
-	</style>  
+	</style>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">  
 </head>
 
 <body>
 <div id="wrapper">
 	<%@ include file="header.jsp" %>
-	
 	<section>
 		<div class="container mainContent">
 			<div class="contentRow">

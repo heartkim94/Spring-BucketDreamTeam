@@ -7,15 +7,15 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--  <script src="//code.jquery.com/jquery-3.1.0.min.js"></script> -->
 	  <!-- 합쳐지고 최소화된 최신 CSS -->
-	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <title>마이페이지</title>
       <link rel="stylesheet" href="./resources/css/submit.css">
     </head>
     <body>
+    <%@ include file="../common/header.jsp" %>
         <div class="container"><!-- 좌우측의 공간 확보 -->
-		<%@ include file="../common/header.jsp" %>
 		<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
+<!-- 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	 -->
 			
             <!-- 모달창 -->
             <div class="modal fade" id="defaultModal">

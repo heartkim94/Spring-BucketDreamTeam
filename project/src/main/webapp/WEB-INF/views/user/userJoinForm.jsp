@@ -16,7 +16,7 @@
         <div class="container"><!-- 좌우측의 공간 확보 -->
 		<%@ include file="../common/header.jsp" %>
 		<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
        
             <!-- 모달창 -->
             <div class="modal fade" id="defaultModal">

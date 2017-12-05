@@ -9,7 +9,7 @@
 	  <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 	  <title>회원탈퇴 페이지</title>
 	  <!--부트스트랩-->
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
       <!-- 합쳐지고 최소화된 최신 CSS -->
 	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="./resources/css/submit.css">
@@ -50,9 +50,8 @@
 	  </script>
     </head>
     <body>
+    	<%@ include file="../common/header.jsp" %>
         <div class="container"><!-- 좌우측의 공간 확보 -->
-			<%@ include file="../common/header.jsp" %>
-                 
  		<!-- 본문 들어가는 부분 -->
         <form class="form-horizontal" id="passCheck" role="form" method="post" action="/project/myInfoDel.do">
             <div align="center"><h1>회원 탈퇴</h1></div><br>
