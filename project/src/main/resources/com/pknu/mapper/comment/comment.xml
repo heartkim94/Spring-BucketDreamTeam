@@ -7,31 +7,22 @@
 	
 	<select id="getComments" parameterType="HashMap" resultType="comment">
 		select * 		
-		from (select id,commentContent,commentDate, articleNum 
-		      from comments 
-		     	where articleNum=#{articleNum} 
-		     	order by commentNum desc ) human 
+		from (select id,commentContent,commentDate, articleNum, @rownum:=@rownum+1 as rownum
+		     from	comment,
+		     		(select @rownum:=0) vars
+		     where boardNum=#{boardNum} 
+		     order by commentNum desc ) human 
 		where rownum between 1 and #{commentRow}
 	</select>
-
+	
 	<insert id="insertComment" parameterType="comment">
-		insert into comment values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum})
+		insert into comment values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum}, null, '');
+		update comment set path=commentNum;
 	</insert>
 	
+	<!-- 코멘트 갯수 -->
+	<select id="commentCount" parameterType="HashMap" resultType="int">
+		select count(*) from Comment where boardNum=#{boardNum} AND articleNum=#{articleNum};
+	</select>
+	
 </mapper>
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

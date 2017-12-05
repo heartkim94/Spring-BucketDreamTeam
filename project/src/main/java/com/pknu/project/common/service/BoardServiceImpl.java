@@ -12,6 +12,9 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.pknu.project.comment.dao.CommentDao;
+import com.pknu.project.comment.dto.CommentDto;
+import com.pknu.project.comment.service.CommentService;
 import com.pknu.project.common.dao.BoardDao;
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.dto.BoardDto;
@@ -24,6 +27,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao boardDao;
 	@Autowired
 	private Page page;
+	@Autowired
+	private CommentService commentService;
 	
 	private ArticleDto article;
 	
@@ -74,7 +79,7 @@ public class BoardServiceImpl implements BoardService {
 		int totalCount = 0;
 		int pageSize = 10; //한페이지에 보여줄 글의 갯수
 		int pageBlock = 10; //한 블럭당 보여줄 페이지 갯수
-
+		
 		paramMap = new HashMap<>();
 		paramMap.put("boardNum", String.valueOf(boardNum));
 		totalCount = boardDao.getCount(paramMap);
@@ -87,6 +92,10 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("pageCode", page.getSb().toString());
+		
+		for(ArticleDto article : articleList) {
+			article.setCommentCount(commentService.commentCount(boardNum, article.getArticleNum()));
+		}
 	}
 	
 	@Override
