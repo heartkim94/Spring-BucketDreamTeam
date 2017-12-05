@@ -49,7 +49,7 @@ public class CommunityController {
 			@ModelAttribute("boardNum") int boardNum,
 			@ModelAttribute("pageNum") int pageNum,
 			Model model) {
-		boardService.getArticles(boardNum, pageNum, model);
+		boardService.getArticles(-1, boardNum, pageNum, model);
 		communityService.getAdminBoardSetting(boardNum, model);
 		return "community/list";
 	}
@@ -64,6 +64,7 @@ public class CommunityController {
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
 	public String write(ArticleDto article, HttpSession session){
 //		article.setId((String)session.getAttribute("id"));
+		article.setGroupNum(-1);
 		boardService.writeArticle(article);
 		System.out.println("***write***");
 		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
@@ -77,7 +78,7 @@ public class CommunityController {
 			@ModelAttribute("pageNum") String pageNum,
 			@RequestParam("fileStatus") int fileStatus,
 			Model model, HttpSession session){						
-		boardService.getArticle(boardNum, articleNum, fileStatus, model);
+		boardService.getArticle(-1, boardNum, articleNum, fileStatus, model);
 		System.out.println("***getNoticeArticle***");
 		return "community/content";
 	}
@@ -90,7 +91,7 @@ public class CommunityController {
 			@RequestParam("fileStatus") int fileStatus,
 			Model model, HttpSession session){
 		System.out.println("***getNoticeArticle***");
-		return boardService.getArticle(boardNum, articleNum, fileStatus, model);
+		return boardService.getArticle(-1, boardNum, articleNum, fileStatus, model);
 	}
 	
 	// 검색 기능 구현
@@ -103,7 +104,7 @@ public class CommunityController {
 	    model.addAttribute("boardNum", boardNum);
 	    model.addAttribute("pageNum", pageNum);
 	    
-		boardService.getSearchedArticles(boardNum, pageNum, searchOption, keyword, model);
+		boardService.getSearchedArticles(-1, boardNum, pageNum, searchOption, keyword, model);
 		communityService.getAdminBoardSetting(boardNum, model);
 		return "community/list";
 	}
@@ -123,6 +124,7 @@ public class CommunityController {
 	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
 	public String reply(ArticleDto article, HttpSession session){		
 		article.setId((String)session.getAttribute("id"));
+		article.setGroupNum(-1);
 		boardService.reply(article);		
 		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
 	}
@@ -133,7 +135,7 @@ public class CommunityController {
 						 		@RequestParam("boardNum") String boardNum,
 						 		@RequestParam("pageNum") int pageNum,
 						 		@RequestParam("fileStatus") int fileStatus, Model model) {
-		boardService.deleteArticle(articleNum, boardNum, fileStatus, model);
+		boardService.deleteArticle(-1, articleNum, boardNum, fileStatus, model);
 		return "redirect:list.do?pageNum="+pageNum+"&boardNum="+boardNum;
 	}
 	
@@ -143,7 +145,7 @@ public class CommunityController {
 							 @ModelAttribute("boardNum") String boardNum,
 							 @ModelAttribute("pageNum") int pageNum,
 							 @ModelAttribute("fileStatus") int fileStatus, Model model) {
-		boardService.updateGetArticle(articleNum, boardNum, fileStatus, model);
+		boardService.updateGetArticle(-1, articleNum, boardNum, fileStatus, model);
 		return "community/updateForm";
 	}
 	
@@ -151,6 +153,7 @@ public class CommunityController {
 	public String updateArticle(@ModelAttribute("boardNum") String boardNum,
 								@ModelAttribute("pageNum") int pageNum,
 								ArticleDto article, Model model) {
+		article.setGroupNum(-1);
 		boardService.updateArticle(article, boardNum, model);
 		return "redirect:list.do";
 	}

@@ -51,7 +51,6 @@ public class BoardServiceImpl implements BoardService {
 		paramMap.put("boardName", boardName);
 		paramMap.put("groupNum", String.valueOf(groupNum));
 		boardDao.addBoardList(paramMap);
-		boardDao.createTableBoard(paramMap);
 		return Integer.parseInt(String.valueOf((paramMap.get("boardNum"))));
 	}
 	
@@ -70,12 +69,13 @@ public class BoardServiceImpl implements BoardService {
 	
 	/* Article */
 	@Override
-	public void getArticles(int boardNum, int pageNum, Model model){
+	public void getArticles(int groupNum, int boardNum, int pageNum, Model model){
 		int totalCount = 0;
 		int pageSize = 10; //한페이지에 보여줄 글의 갯수
 		int pageBlock = 10; //한 블럭당 보여줄 페이지 갯수
 
 		paramMap = new HashMap<>();
+		paramMap.put("groupNum", String.valueOf(groupNum));
 		paramMap.put("boardNum", String.valueOf(boardNum));
 		totalCount = boardDao.getCount(paramMap);
 		
@@ -90,8 +90,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public ArticleDto getArticle(String boardNum, String articleNum, int fileStatus, Model model) {
+	public ArticleDto getArticle(int groupNum, String boardNum, String articleNum, int fileStatus, Model model) {
 		paramMap = new HashMap<>();
+		paramMap.put("groupNum", String.valueOf(groupNum));
 		paramMap.put("boardNum", boardNum);
 		paramMap.put("articleNum", articleNum);
 		
@@ -133,12 +134,13 @@ public class BoardServiceImpl implements BoardService {
 	
 	//검색 기능 구현
 	@Override
-	public void getSearchedArticles(int boardNum, int pageNum, String searchOption, String keyword, Model model) {
+	public void getSearchedArticles(int groupNum, int boardNum, int pageNum, String searchOption, String keyword, Model model) {
 		int totalCount = 0;
 		int pageSize = 10; //한 페이지에 보여줄 글의 갯수
 		int pageBlock = 10; //한 블럭당 보여줄 페이지 갯수
 		
 		paramMap = new HashMap<>();
+		paramMap.put("groupNum", String.valueOf(groupNum));
 		paramMap.put("boardNum", String.valueOf(boardNum));
 		paramMap.put("searchOption", searchOption);
 	    paramMap.put("keyword", keyword);
@@ -161,8 +163,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	// 글 삭제
 	@Override
-	public void deleteArticle(String articleNum, String boardNum, int fileStatus, Model model) {
+	public void deleteArticle(int groupNum, String articleNum, String boardNum, int fileStatus, Model model) {
 		paramMap = new HashMap<>();
+		paramMap.put("groupNum", String.valueOf(groupNum));
 		paramMap.put("boardNum", boardNum);
 		paramMap.put("articleNum", articleNum);
 		
@@ -180,6 +183,7 @@ public class BoardServiceImpl implements BoardService {
 		if(replyList != null) {
 			for(ArticleDto reply : replyList) {
 				HashMap<String, String> replyParamMap = new HashMap<>();
+				replyParamMap.put("groupNum", paramMap.get("groupNum"));
 				replyParamMap.put("boardNum", paramMap.get("boardNum"));
 				replyParamMap.put("articleNum", String.valueOf(reply.getArticleNum()));
 				boardDao.deleteArticle(replyParamMap);
@@ -204,8 +208,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	//글 수정
 	@Override
-	public void updateGetArticle(String articleNum, String boardNum, int fileStatus, Model model) {
+	public void updateGetArticle(int groupNum, String articleNum, String boardNum, int fileStatus, Model model) {
 		paramMap = new HashMap<>();
+		paramMap.put("groupNum", String.valueOf(groupNum));
 		paramMap.put("articleNum", articleNum);
 		paramMap.put("boardNum", boardNum);
 		article = boardDao.updateGetArticle(paramMap);
@@ -223,6 +228,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void updateArticle(ArticleDto article, String boardNum, Model model) {
 		paramMap = new HashMap<>();
+		paramMap.put("groupNum", String.valueOf(article.getGroupNum()));
 		paramMap.put("articleNum", String.valueOf(article.getArticleNum()));
 		paramMap.put("boardNum", String.valueOf(article.getBoardNum()));
 		paramMap.put("title", article.getTitle());

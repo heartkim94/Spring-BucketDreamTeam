@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.pknu.project.common.dto.BoardDto;
+import com.pknu.project.common.dao.BoardDao;
 import com.pknu.project.common.service.BoardService;
 import com.pknu.project.group.dao.GroupDao;
 import com.pknu.project.group.dto.GroupDto;
@@ -13,6 +13,8 @@ import com.pknu.project.group.dto.GroupDto;
 public class GroupServiceImpl implements GroupService {
 	@Autowired
 	private GroupDao groupDao;
+	@Autowired
+	private BoardDao boardDao;
 	@Autowired
 	private BoardService boardService;
 	
@@ -41,7 +43,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public void newGroup(GroupDto group) {
 		groupDao.newGroup(group);
-		
+		boardDao.createTableBoard(group.getGroupNum());
 		boardService.newBoard("Board", group.getGroupNum());
 	}
 }

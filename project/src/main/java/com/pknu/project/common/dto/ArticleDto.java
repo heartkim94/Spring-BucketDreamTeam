@@ -15,6 +15,7 @@ public class ArticleDto {
 	private int fileStatus;
 	private int commentCount;
 	private int boardNum;
+	private int groupNum;
 	private String searchCondition;
 	private String searchKeyword;
 	
@@ -91,6 +92,12 @@ public class ArticleDto {
 	}
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
+	}
+	public int getGroupNum() {
+		return groupNum;
+	}
+	public void setGroupNum(int groupNum) {
+		this.groupNum = groupNum;
 	}
 	public String getSearchCondition() {
 		return searchCondition;

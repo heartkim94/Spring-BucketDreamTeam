@@ -11,8 +11,8 @@
 	<update id="addBoardList" parameterType="HashMap"  useGeneratedKeys="true" keyColumn="boardNum" keyProperty="boardNum">
 		insert into BoardList(boardName, groupNum) values(#{boardName}, #{groupNum});
 	</update>
-	<update id="createTableBoard" parameterType="HashMap">
-		create table `board${boardNum}` (
+	<update id="createTableBoard" parameterType="int">
+		create table `board${groupNum}` (
 		    articleNum int primary key auto_increment,
 		    id varchar(300) not null,
 		    title varchar(500) not null,
@@ -22,47 +22,49 @@
 		    groupId int not null,
 		    pos int not null,
 		    writeDate date not null,
-		    fileStatus int(1) not null
-		);
+		    fileStatus int(1) not null,
+		    boardNum int not null,
+		    FOREIGN KEY(boardNum) REFERENCES BoardList(boardNum) on DELETE CASCADE
+		) ENGINE=InnoDB;
 	</update>
 	<update id="renameBoard" parameterType="board">
 		UPDATE BoardList SET boardName=#{boardName} WHERE boardNum=#{boardNum}
 	</update>
 	<delete id="deleteBoard" parameterType="HashMap">
 		DELETE FROM BoardList WHERE boardNum = #{boardNum};
-		DROP TABLE `Board${boardNum}`;
 	</delete>
 	
 	<!-- #Article -->
 	<!-- Board 글개수 가져오기 -->
 	<select id="getCount" parameterType="HashMap" resultType="int">
-		select count(*) from board${boardNum}
+		select count(*) from `board${groupNum}` where boardNum = #{boardNum}
 	</select>
 	
 	<!-- Board 목록 보기 -->
 	<select id="getArticles" parameterType="HashMap" resultType="article">
 		SELECT articleNum, id, title, depth, hit, date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
         FROM (SELECT b.*, @rownum := @rownum+1 as rownum
-              FROM board${boardNum} b, (SELECT @rownum := 0) vars
+              FROM `board${groupNum}` b, (SELECT @rownum := 0) vars
+              where boardNum = #{boardNum}
 			  order by groupId desc, pos) n
 		WHERE rownum between #{startRow} and #{endRow}
 	</select>
 	
 	<!-- Board 글 상세보기 -->
 	<select id="getArticle" parameterType="HashMap" resultType="article">
-		SELECT * FROM `board${boardNum}` WHERE articleNum = #{articleNum}
+		SELECT * FROM `board${groupNum}` WHERE articleNum = #{articleNum}
 	</select>
 	
 	<!-- hit 수 증가 -->
 	<update id="upHit" parameterType="HashMap">
-		UPDATE Board${boardNum} SET hit = hit + 1 WHERE articleNum=#{articleNum}
+		UPDATE `Board${groupNum}` SET hit = hit + 1 WHERE articleNum=#{articleNum}
 	</update>
 	
 	<!-- Board 새 글 쓰기 -->
 	<insert id="writeArticle" parameterType="article" useGeneratedKeys="true" keyProperty="articleNum" keyColumn="articleNum">
-		INSERT INTO board${boardNum} (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
-					VALUES (#{id}, #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus});
-		update board${boardNum} set groupId = articleNum where articleNum = last_insert_id();
+		INSERT INTO `board${groupNum}` (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus, boardNum) 
+					VALUES (#{id}, #{title}, #{content}, 0, 0, 0, 0, now(), #{fileStatus}, #{boardNum});
+		update `board${groupNum}` set groupId = articleNum where articleNum = last_insert_id();
 	</insert>
 	
 	<!-- filelist 테이블에 업데이트 된 파일 정보 담기 -->
@@ -84,8 +86,9 @@
 		SELECT result.*
 		FROM (SELECT searched.*, @rownum := @rownum+1 as rownum
 			  FROM (SELECT * 
-				    FROM board${boardNum}
+				    FROM `board${groupNum}`
 				    WHERE ${searchOption} LIKE CONCAT('%', '${keyword}', '%')
+				    	  and boardNum = #{boardNum}
 				   ) searched, (SELECT @rownum := 0) r
 			  ORDER BY groupId DESC, pos) result
 		WHERE rownum between 1 and 10
@@ -93,56 +96,57 @@
 	
 	<!-- 검색 결과의 수 -->
 	<select id="getSearchedCount" parameterType="HashMap" resultType="int">
-		select count(*) from board${boardNum}
+		select count(*) from `board${groupNum}`
 		WHERE ${searchOption} LIKE CONCAT('%', '${keyword}', '%')
+			  and boardNum = #{boardNum}
 	</select>
 	
 	<!-- 답글 달기 -->
 	<insert id="reply" parameterType="article">
-		INSERT INTO board${boardNum} (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus) 
-					VALUES (#{id}, #{title}, #{content}, #{depth}+1, 0, #{groupId}, #{pos}+1, now(), #{fileStatus});
+		INSERT INTO `board${groupNum}` (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus, boardNum) 
+					VALUES (#{id}, #{title}, #{content}, #{depth}+1, 0, #{groupId}, #{pos}+1, now(), #{fileStatus}, #{boardNum});
 	</insert>
 	<update id="upPos" parameterType="article">
-		update board${boardNum} set pos = pos+1 where groupId = #{groupId} and pos > #{pos}
+		update `board${groupNum}` set pos = pos+1 where groupId = #{groupId} and pos > #{pos} and boardNum=#{boardNum}
 	</update>
 	
 	<!-- 글 삭제 -->
 	<delete id="deleteArticle" parameterType="HashMap">
-		DELETE FROM board${boardNum}
+		DELETE FROM `board${groupNum}`
 		WHERE articleNum=${articleNum}
 	</delete>
 	
 	<select id="getReply" parameterType="HashMap" resultType="article">
 		SELECT articleNum
-		FROM board${boardNum}
+		FROM `board${groupNum}`
 		WHERE groupId=${articleNum} AND articleNum!=${articleNum}
 	</select>
 	
 	<select id="getEndPoses" parameterType="HashMap" resultType="int">
 		SELECT pos
-		FROM board${boardNum}
+		FROM `board${groupNum}`
 		WHERE groupId=${groupId} AND depth=${depth} AND pos > ${pos}
 	</select>
 	
 	<delete id="deleteSomeReply" parameterType="HashMap">
-		DELETE FROM board${boardNum}
+		DELETE FROM `board${groupNum}`
 		WHERE groupId=${groupId} AND depth > ${depth} AND ${endPos} > pos AND pos > ${pos}
 	</delete>
 	
 	<delete id="deleteSomeReplyAll" parameterType="HashMap">
-		DELETE FROM board${boardNum}
+		DELETE FROM `board${groupNum}`
 		WHERE groupId=${groupId} AND depth > ${depth} AND pos > ${pos}
 	</delete>
 	
 	<!-- 글 수정 -->
 	<select id="updateGetArticle" parameterType="HashMap" resultType="article">
 		SELECT title, content
-		FROM board${boardNum}
+		FROM `board${groupNum}`
 		WHERE articleNum=${articleNum}
 	</select>
 	
 	<update id="updateArticle" parameterType="HashMap">
-		UPDATE board${boardNum}
+		UPDATE `board${groupNum}`
 		SET title=${title}, content=${content}, fileStatus=${fileStatus}
 		WHERE articleNum=${articleNum}
 	</update>

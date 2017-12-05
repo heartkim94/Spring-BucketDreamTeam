@@ -35,13 +35,13 @@ public class GroupController {
 		return "group/main";
 	}
 	
-	@RequestMapping(value="/group//new.do", method=RequestMethod.GET)
+	@RequestMapping(value="/group/new.do", method=RequestMethod.GET)
 	public String newGroupForm(Model model) {
 		groupService.getCategory(model);
 		return "group/new";
 	}
 	
-	@RequestMapping(value="/group//new.do", method=RequestMethod.POST)
+	@RequestMapping(value="/group/new.do", method=RequestMethod.POST)
 	public String newGroup(GroupDto group) {
 		groupService.newGroup(group);
 		return "redirect:main.do";
@@ -62,7 +62,7 @@ public class GroupController {
 			@ModelAttribute("pageNum") int pageNum, Model model) {
 		groupService.getGroup(groupNum, model);
 		boardService.getBoards(groupNum, model);
-		boardService.getArticles(boardNum, pageNum, model);
+		boardService.getArticles(groupNum, boardNum, pageNum, model);
 		return "group/list";
 	}
 	
@@ -76,7 +76,7 @@ public class GroupController {
 			Model model, HttpSession session){
 		groupService.getGroup(groupNum, model);
 		boardService.getBoards(groupNum, model);
-		boardService.getArticle(boardNum, articleNum, fileStatus, model);
+		boardService.getArticle(groupNum, boardNum, articleNum, fileStatus, model);
 		return "group/content";
 	}
 	
@@ -85,6 +85,7 @@ public class GroupController {
 			@PathVariable("groupNum") int groupNum,
 			@ModelAttribute("boardNum") int boardNum, Model model){
 		groupService.getGroup(groupNum, model);
+		boardService.getBoards(groupNum, model);
 		return "group/writeForm";
 	}
 	
