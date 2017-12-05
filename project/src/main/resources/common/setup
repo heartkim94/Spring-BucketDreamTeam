@@ -54,13 +54,22 @@ CREATE TABLE `DoList`(
 ) ENGINE=InnoDB;
 
 -- Board
-CREATE TABLE `BoardList`(
+CREATE TABLE BoardList(
     `boardNum` int auto_increment PRIMARY KEY,
     `boardName` varchar(200) NOT NULL,
     `groupNum` int NOT NULL,
     FOREIGN KEY(`groupNum`) REFERENCES `Group`(`groupNum`)
 ) ENGINE=InnoDB;
-    
+
+CREATE TABLE Comment(
+    commentNum int PRIMARY KEY auto_increment,
+    id varchar(300) not null,
+    commentContent text not null,
+    commentDate date not null,
+    articleNum int not null,
+    boardNum int not null,
+    FOREIGN KEY(boardNum) REFERENCES BoardList(boardNum) ON DELETE CASCADE
+) ENGINE=InnoDB;
 -- File
 CREATE TABLE `FileList`(
     `fileNum` int auto_increment PRIMARY KEY,

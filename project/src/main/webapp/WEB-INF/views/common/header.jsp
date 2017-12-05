@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="/project/resources/css/normalize.css" >
 	<link rel="stylesheet" href="/project/resources/css/style.css" >
 	<script src="/project/resources/js/prefixfree.min.js"></script>
-	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 </head>
 
 <body>

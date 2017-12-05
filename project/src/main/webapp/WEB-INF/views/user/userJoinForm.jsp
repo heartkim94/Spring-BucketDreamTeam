@@ -5,113 +5,19 @@
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
-	<script>
-	let idcheck = false;
-	let emailcheck = false;
-	$.ajaxSetup({
-		type:"POST",
-		async:true,
-		dataType:"json",
-		error:function(xhr){
-			alert("error html="+xhr.statusText);
-		}
-	});
-	
-	$(function(){
-		$("#id").on("blur",function(){
-			$.ajax({
-				url:"/project/joinIdCheck.do",
-				data:{
-					inputId:$("#id").val()
-				},
-				success:function(data){
-					let html;
-					if($("#id").val()!=""){
-						if(data==1){
-							html="<b>사용 가능한 아이디입니다.</b>"
-							$("#idcheck").html(html).css("color","green");
-							idcheck=true;
-						}else{
-							html="<b>중복된 아이디입니다.<b>";
-							$("#idcheck").html(html).css("color","red");
-							idcheck=false;
-						}
-					}else{
-						html="<b>아이디를 입력해주세요.<b>";
-						$("#idcheck").html(html).css("color","red");
-						idcheck=false;
-					}
-				}
-			});
-		});
-	});
-	
-	$(function(){
-		$("#email").on("blur",function(){
-			$.ajax({
-				url:"/project/joinEmailCheck.do",
-				data:{
-					inputEmail:$("#email").val()
-				},
-				success:function(data){
-					let html;
-					if($("#email").val()!=""){
-						if(data==1){
-							html="<b>사용 가능한 이메일입니다.</b>"
-							$("#emailcheck").html(html).css("color","green");
-							emailcheck=true;
-						}else{
-							html="<b>중복된 이메일입니다.<b>";
-							$("#emailcheck").html(html).css("color","red");
-							emailcheck=false;
-						}
-					}else {
-						html="<b>이메일을 입력해주세요.<b>";
-						$("#emailcheck").html(html).css("color","red");
-						emailcheck=false;
-					}
-				}
-			});
-		});
-	});
-	
-	function availability(){
-		if(idcheck==true && emailcheck==true && ($('#pass').val()==$('#passCheck'))){
-			alert("메일인증을 보냈습니다\n잠시만기다려주세요");
-			return true;
-		}else if(!idcheck || !emailcheck){
-			alert("확인해주세요");
-			return false;
-		}
-	}
-	</script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!--  <script src="//code.jquery.com/jquery-3.1.0.min.js"></script> -->
+	  <!-- 합쳐지고 최소화된 최신 CSS -->
+	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <title>회원가입</title>
-		<!--부트스트랩-->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        <!-- 합쳐지고 최소화된 최신 CSS -->
-		<link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="./resources/css/submit.css">
     </head>
     <body>
         <div class="container"><!-- 좌우측의 공간 확보 -->
-            <!-- 헤더 들어가는 부분 -->
-             
-            <div class="row">
-                <p></p>
-                <div class="col-md-6">
-                    <small>
-                    <a href="#">로그인</a> | <a href="/user/signUp">회원가입</a>
-                    </small></div>
-                <div class="col-md-6">
-                    <p class="text-right">
-                        <a href="http://www.naver.com" target="_blank"><img src="/resources/image/icon/naverIcon.png" alt="네이버 블로그" width="20" height="20" class="img-rounded"></a>
-                        <a href="http://www.facebook.com" target="_blank"><img src="/resources/image/icon/facebookIcon.png" alt="네이버 블로그" width="20" height="20" class="img-rounded"></a>
-                        <a href="http://www.twitter.com" target="_blank"><img src="/resources/image/icon/twitterIcon.png" alt="네이버 블로그" width="21" height="21" class="img-rounded"></a>
-                    </p>
-                </div>
-            </div>
-            <!--// 헤더 들어가는 부분 -->
+		<%@ include file="../common/header.jsp" %>
+		<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+       
             <!-- 모달창 -->
             <div class="modal fade" id="defaultModal">
                 <div class="modal-dialog">
@@ -130,11 +36,8 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
             <!--// 모달창 -->
-            <hr/>
-                <!-- 본문 들어가는 부분 -->
-                 
  
- 
+ 		<!-- 본문 들어가는 부분 -->
         <form class="form-horizontal" role="form" method="post" action="/project/userInsert.do" onsubmit="return availability()">
           	<div align="center"><h1>회원 가입</h1></div><br>
           
@@ -193,15 +96,17 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="col-lg-offset-2 col-lg-10">
-                    <button type="submit" class="btn btn-default" >회원가입</button>
-                </div>
-            </div>
+            <div class="wrap">
+  				<button class="button"><b>확인</b></button>
+		    </div><br><br>
         </form>
-         
-         
-        <script>
+        <!--// 본문 들어가는 부분 -->
+        
+        <hr/>
+        <%@ include file="../common/footer.jsp" %>
+    </div> 
+    </body>
+    <script>
             $(function(){
                 //모달을 전역변수로 선언
                 var modalContents = $(".modal-contents");
@@ -461,9 +366,85 @@
             });
              
         </script>
-                <!--// 본문 들어가는 부분 -->
-            <hr/>
-            <%@ include file="../common/footer.jsp" %>
-        </div>
-    </body>
+
+    <script>
+	let idcheck = false;
+	let emailcheck = false;
+	$.ajaxSetup({
+		type:"POST",
+		async:true,
+		dataType:"json",
+		error:function(xhr){
+			alert("error html="+xhr.statusText);
+		}
+	});
+	
+	$(function(){
+		$("#id").on("blur",function(){
+			$.ajax({
+				url:"/project/joinIdCheck.do",
+				data:{
+					inputId:$("#id").val()
+				},
+				success:function(data){
+					let html;
+					if($("#id").val()!=""){
+						if(data==1){
+							html="<b>사용 가능한 아이디입니다.</b>"
+							$("#idcheck").html(html).css("color","green");
+							idcheck=true;
+						}else{
+							html="<b>중복된 아이디입니다.<b>";
+							$("#idcheck").html(html).css("color","red");
+							idcheck=false;
+						}
+					}else{
+						html="<b>아이디를 입력해주세요.<b>";
+						$("#idcheck").html(html).css("color","red");
+						idcheck=false;
+					}
+				}
+			});
+		});
+	});
+	
+	$(function(){
+		$("#email").on("blur",function(){
+			$.ajax({
+				url:"/project/joinEmailCheck.do",
+				data:{
+					inputEmail:$("#email").val()
+				},
+				success:function(data){
+					let html;
+					if($("#email").val()!=""){
+						if(data==1){
+							html="<b>사용 가능한 이메일입니다.</b>"
+							$("#emailcheck").html(html).css("color","green");
+							emailcheck=true;
+						}else{
+							html="<b>중복된 이메일입니다.<b>";
+							$("#emailcheck").html(html).css("color","red");
+							emailcheck=false;
+						}
+					}else {
+						html="<b>이메일을 입력해주세요.<b>";
+						$("#emailcheck").html(html).css("color","red");
+						emailcheck=false;
+					}
+				}
+			});
+		});
+	});
+	
+	function availability(){
+		if(idcheck==true && emailcheck==true && ($('#pass').val()==$('#passCheck'))){
+			alert("메일인증을 보냈습니다\n잠시만기다려주세요");
+			return true;
+		}else if(!idcheck || !emailcheck){
+			alert("확인해주세요");
+			return false;
+		}
+	}
+	</script>
 </html>
