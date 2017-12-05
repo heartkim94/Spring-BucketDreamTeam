@@ -16,11 +16,22 @@ public class GroupServiceImpl implements GroupService {
 	@Autowired
 	private BoardService boardService;
 	
+	private GroupDto group;
+	
 	@Override
 	public void getMyGroup(String id, Model model) {
 		model.addAttribute("groupList", groupDao.getMyGroup(id));
 	}
 	
+	@Override
+	public GroupDto getGroup(int groupNum, Model model) {
+		group = groupDao.getGroup(groupNum);
+		if(model!=null) {
+			model.addAttribute("group", group);
+		}
+		return group;
+	}
+
 	/* new */
 	@Override
 	public void getCategory(Model model) {

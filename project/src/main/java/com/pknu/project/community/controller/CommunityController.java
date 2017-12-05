@@ -1,7 +1,6 @@
 package com.pknu.project.community.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -56,7 +55,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
-	public String writeForm(HttpSession session,
+	public String writeForm(HttpSession session, Model model,
 			@ModelAttribute("boardNum") int boardNum){
 		System.out.println("***writeForm***");
 		return "community/writeForm";

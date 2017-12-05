@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항</title>
-<!-- <link href="/project/resources/css/style.css" rel="stylesheet" type="text/css"> -->
+
 <style>
 	.acrdTable tbody th {
 		cursor: pointer;
