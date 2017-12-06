@@ -11,7 +11,7 @@ public interface BoardDao {
 	/* board */
 	public List<BoardDto> getBoards(int groupNum);
 	public void addBoardList(HashMap<String, String> paramMap);
-	public void createTableBoard(int groupNum);
+	public void createGroupBoard(HashMap<String, String> paramMap);
 	public void renameBoard(BoardDto board);
 	public void deleteBoard(HashMap<String, String> paramMap);
 	/* article */
