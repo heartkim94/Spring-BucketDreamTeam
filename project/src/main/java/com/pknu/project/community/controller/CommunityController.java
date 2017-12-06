@@ -35,15 +35,6 @@ public class CommunityController {
 		communityService.getAdminBoards(servletContext);
 	}
 	
-	// 검색 조건 목록 설정
-	@ModelAttribute("conditionMap")
-	public Map<String, String> searchConditionMap(){
-		Map<String, String> conditionMap = new HashMap<String, String>();
-		conditionMap.put("제목", "TITLE");
-		conditionMap.put("내용", "CONTENT");
-		return conditionMap;
-	}
-	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String community(
 			@ModelAttribute("boardNum") int boardNum,

@@ -118,6 +118,16 @@ public class GroupController {
 		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
+	@RequestMapping(value="/{groupNum}/delete", method=RequestMethod.GET)
+	public String deleteArticle(@PathVariable("groupNum") int groupNum,
+								@RequestParam("articleNum") String articleNum,
+						 		@RequestParam("boardNum") String boardNum,
+						 		@RequestParam("pageNum") int pageNum,
+						 		@RequestParam("fileStatus") int fileStatus, Model model) {
+		boardService.deleteArticle(groupNum, articleNum, boardNum, fileStatus, model);
+		return "redirect:list?pageNum="+pageNum+"&boardNum="+boardNum;
+	}
+	
 	@RequestMapping(value="/{groupNum}/update", method=RequestMethod.GET)
 	public String updateForm(@PathVariable("groupNum") int groupNum,
 							 @ModelAttribute("articleNum") String articleNum,
