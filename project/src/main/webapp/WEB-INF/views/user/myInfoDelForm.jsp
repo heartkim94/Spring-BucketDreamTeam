@@ -9,10 +9,12 @@
 	  <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 	  <title>회원탈퇴 페이지</title>
 	  <!--부트스트랩-->
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
       <!-- 합쳐지고 최소화된 최신 CSS -->
 	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="./resources/css/submit.css">
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet">
 	  <script>
 		$(function(){
 			$('#passCheckBtn').on("click", function sendit(event){
@@ -30,15 +32,17 @@
 					success:function(data) {
 						if($("#pass").val()!="") {
 							if(data==1) {
-								alert('비밀번호를 잘못입력하셨습니다.');
+// 								alert('비밀번호를 잘못입력하셨습니다.');
+								swal ( "확인" ,  "비밀번호를 잘못입력하셨습니다." ,  "error" )
 								returnVar = false;
 							}else if(data==2) {
 								$("#passCheck").submit();
-								alert('회원탈퇴가 완료되었습니다');
+ 								alert('회원탈퇴가 완료되었습니다');
 								returnVar = true;
 							}
 						}else {
-							alert('비밀번호를 입력해주십시오.');
+// 							alert('비밀번호를 입력해주십시오.');
+							swal ( "확인" ,  "비밀번호를 입력해주십시오." ,  "error" )
 							returnVar = false;
 						}
 					}
@@ -50,9 +54,8 @@
 	  </script>
     </head>
     <body>
+    	<%@ include file="../common/header.jsp" %>
         <div class="container"><!-- 좌우측의 공간 확보 -->
-			<%@ include file="../common/header.jsp" %>
-                 
  		<!-- 본문 들어가는 부분 -->
         <form class="form-horizontal" id="passCheck" role="form" method="post" action="/project/myInfoDel.do">
             <div align="center"><h1>회원 탈퇴</h1></div><br>

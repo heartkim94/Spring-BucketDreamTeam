@@ -7,10 +7,12 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="/project/resources/css/group.css" >
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">  
 </head>
 <body>
+<%@ include file="../common/header.jsp" %>
 	<div id="wrapper">
-		<%@ include file="../common/header.jsp" %>
 		<section>
 			<%@ include file="asideMenu.jsp" %>
 			<div class="groupMain">

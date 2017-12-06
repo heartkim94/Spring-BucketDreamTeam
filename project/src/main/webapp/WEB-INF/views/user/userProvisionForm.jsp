@@ -10,6 +10,9 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet">
+    
 	 <style type="text/css">
 	.memCheck td {
 		border-bottom: none;
@@ -18,12 +21,14 @@
 	<script>
 		function check() {
 			if(fr.memberagree.checked == false) {
-				alert('이용약관에 동의해주세요');
+// 				alert('이용약관에 동의해주세요');
+				swal ( "필수" ,  "이용약관에 동의해주세요!" ,  "error" )
 				fr.memberagree.focus();
 				return false;
 			}
 			if(fr.privacyagree.checked == false) {
-				alert('개인정보 수집/이용 및 국외이전에 동의해주세요');
+// 				alert('개인정보 수집/이용 및 국외이전에 동의해주세요');
+				swal ( "필수" ,  "개인정보 수집/이용 및 국외이전에 동의해주세요!" ,  "error" )
 				fr.privacyagree.focus();
 				return false;
 			}

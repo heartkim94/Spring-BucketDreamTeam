@@ -17,28 +17,18 @@
 		.clear {
 			clear: both;
 		}
+		
 	</style>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	
 </head>
 
 <body>
-
+	<%@ include file="../common/header.jsp" %>
 	<div id="wrapper">
-	
-		<%@ include file="../common/header.jsp" %>
 		<section>
 			<div class="container groupContent">
-				<div>
-					<center>
-						<p>로그인 하면 나오는 그룹메인페이지 입니다</p>
-						<form action="/project/logout.do" method="post">
-						 	<!-- <input type="button" value="로그아웃">  -->  
-						 	<p>${id}님 환영합니다</p>
-						 	<a href="/project/mypage.do">회원정보수정</a><br>
-						 	<a href="/project/myInfoDelForm.do">회원탈퇴</a><br>
-							<button id="logout">로그아웃</button> <!-- 버튼태그가 폼태그 안에 선언되었을때는 무조건 submit한다  -->
-						</form>
-					</center>
-				</div>
 				<div class="myGroupContainer">
 					내 그룹
 					<div class="myGroup">

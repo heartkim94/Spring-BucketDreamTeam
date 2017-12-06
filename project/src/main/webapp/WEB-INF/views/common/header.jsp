@@ -9,39 +9,58 @@
 	<title>header</title>
 	<link rel="stylesheet" href="/project/resources/css/normalize.css" >
 	<link rel="stylesheet" href="/project/resources/css/style.css" >
+	<link rel="stylesheet" href="/project/resources/css/header.css" >
 	<script src="/project/resources/js/prefixfree.min.js"></script>
 	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
+	<style>
+	.navbar-fixed-bottom, .navbar-fixed-top {
+		    position: inherit;
+	}
+	</style>
 </head>
 
 <body>
-<%--
-<%
-//  		String id = (String)session.getAttribute("id");
-%>
---%>
-	<header>
-		<div class="head">
-			<c:if test="${id != null}">
-				<div class="loginbtn">
-					<button onclick="document.location.href='/project/logout.do'">로그아웃</button>
-	<!-- 				<input type="button" value="로그아웃input" onclick="document.location.href='logout.do'"> -->
-				</div>
-			</c:if>
-			<c:if test="${id == null}">
-				<div class="loginbtn">
-					<button onclick="document.location.href='/project/home.do'">로그인</button>
-	<!-- 				<input type="button" value="로그인input" onclick="document.location.href='home.do'"> -->
-				</div>
-			</c:if>
-			<c:if test="${id != null}">
-				<!-- homeController에 mapping -->
-				<a href="/project/group/main.do"><strong>header</strong></a>
-			</c:if>
-			<c:if test="${id == null}">
-				<a href="/project/home.do"><strong>header</strong></a>			
-			</c:if>
-		</div>
-	</header>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <c:if test="${id != null}">
+          	<a class="navbar-brand" href="/project/group/main.do">Dogether</a>
+        </c:if>
+        <c:if test="${id == null}">
+			<a class="navbar-brand" href="/project/home.do"><strong>Dogether</strong></a>		
+		</c:if>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li class="dropdown">
+          <c:if test="${id != null}">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">마이페이지 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+       		<li><a href="/project/mypage.do">회원정보 수정</a></li>
+			<li><a href="/project/myInfoDelForm.do">회원탈퇴</a></li>
+            <li class="divider"></li>
+            <li><a href="/project/logout.do">로그아웃</a></li>
+          </ul>
+          </c:if>
+        </li>
+        
+        
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-collapse -->
+  </nav>
 	<hr>
 </body>
+	<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>		
 </html>
