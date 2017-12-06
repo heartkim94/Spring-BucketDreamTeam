@@ -177,8 +177,9 @@ input {
 			alert("error html = "+ xhr.statusText);
 		}
 	});
-	$(document).ready(function() {
-		
+	$(document).ready(function(data, commPageNum) {
+		$("#commentContent").val("");
+		showHtml(data.commentList, 1);
 		// 댓글 쓰기
 		$("#commentWrite").on('click', function() {
 			if($('#commentContent').val() == ""){
@@ -214,6 +215,11 @@ input {
 			html +="<li>"+item.articleNum+"</li>";
 			html +="</ul>";	
 			html +="<p>"+item.commentContent+"</p>";
+			html +="<p><ul>";
+			html +="<li><a href='#' onclick=''>답변</a></li>";
+			html +="<li><a href='#' onclick=''>수정</a></li>";
+			html +="<li><a href='#' onclick=''>삭제</a></li>";
+			html +="</ul></p>";
 			html +="</div>";	
 		});		
 		html +="</article>";
@@ -222,9 +228,9 @@ input {
 		if("${article.commentCount}" < commPageNum * 10){
 			nextPageNum = commPageNum+1;
 			html +="<br /><input type='button' onclick='getComment(nextPageNum,event)' value='다음comment보기'><br>";
-		$("#showComment").html(html);	
-		$("#commentContent").val("");
-		$("#commentContent").focus();
+			$("#showComment").html(html);	
+			$("#commentContent").val("");
+			$("#commentContent").focus();
 		}
 	}
 // 	function getComment(commPageNum, event){
@@ -232,9 +238,7 @@ input {
 // 		$ajax({
 // 			url : "/project/commentRead.do",
 // 			data: {
-// 				id : "${id}",
-// 				commentContent : $('#commentContent').val(),
-// 				articleNum : "${article.articleNum}",
+// // 				articleNum : "${article.articleNum}",
 // 				boardNum : "${boardNum}",
 // 				commentRow: commPageNum * 10
 // 			}, 

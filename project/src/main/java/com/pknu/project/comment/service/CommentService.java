@@ -8,4 +8,5 @@ public interface CommentService {
 	public List<CommentDto> getComments(int boardNum, int commentRow);
 	public void insertComment(CommentDto comment);
 	public int commentCount(int boardNum, int articleNum);
+	
 }

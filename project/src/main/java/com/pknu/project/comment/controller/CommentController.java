@@ -2,7 +2,7 @@ package com.pknu.project.comment.controller;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,5 +40,11 @@ public class CommentController {
 		hm.put("result", 1);
 		hm.put("commentList", commentList);
 		return hm;		
+	}
+	
+	@RequestMapping(value="commentUpdate.do")
+	@ResponseBody
+	public String commentUpdate(@RequestParam String commentContent) {
+		return null;
 	}
 }

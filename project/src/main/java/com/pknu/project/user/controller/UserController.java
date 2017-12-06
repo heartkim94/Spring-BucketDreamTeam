@@ -35,7 +35,6 @@ public class UserController {
 	public int joinIdCheck(@RequestParam("inputId") String inputId) { //회원가입 아이디 중복체크
 //		System.out.println(userService.joinIdCheck(inputId));
 		return userService.joinIdCheck(inputId);
-		
 	}
 	
 	@RequestMapping(value="joinEmailCheck.do")
@@ -82,7 +81,7 @@ public class UserController {
 	@RequestMapping(value="userUpdate.do")
 	public String userUpdate(HttpSession session, UserDto userDto) {
 		userService.userUpdate(session, userDto);
-		return "reirect:home.do";
+		return "redirect:/home.do";
 	}
 	
 	@RequestMapping(value="/checkJoin.do")

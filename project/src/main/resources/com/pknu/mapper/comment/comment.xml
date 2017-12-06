@@ -15,6 +15,7 @@
 		where rownum between 1 and #{commentRow}
 	</select>
 	
+	<!-- 코멘트 쓰기 -->
 	<insert id="insertComment" parameterType="comment">
 		insert into comment values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum}, null, '');
 		update comment set path=commentNum;
@@ -22,7 +23,19 @@
 	
 	<!-- 코멘트 갯수 -->
 	<select id="commentCount" parameterType="HashMap" resultType="int">
-		select count(*) from Comment where boardNum=#{boardNum} AND articleNum=#{articleNum};
+		select count(*) from Comment where boardNum=#{boardNum} AND articleNum=#{articleNum}
 	</select>
 	
+	<!-- 코멘트 수정 -->
+	<select id="updateGetComment" parameterType="HashMap" resultType="String">
+		SELECT commentContent
+		FROM Comment
+		WHERE articleNum=${articleNum} AND boardNum=${boardNum}
+	</select>
+	
+	<update id="updateComment" parameterType="HashMap">
+		UPDATE Comment
+		SET commentContent=${commentContent}
+		WHERE commentNum=${commentNum} AND articleNum=${articleNum} AND boardNum=board${boardNum}
+	</update>
 </mapper>
