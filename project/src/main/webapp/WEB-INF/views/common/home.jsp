@@ -8,16 +8,19 @@
 	<title>MAIN</title>
 <!-- 	<link rel="stylesheet" href="./resources/css/login.css"> -->
 <!-- 	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script> -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 	<script>
 		
 		$(document).ready(function(){
+			$("input[type='submit']").on('click', function(){
+				let Certify='${dbCertify}';
+				if(Certify == 0) {
+					alert("회원가입 이메일 인증을 안하셨습니다.");
+				}
+			});
 			
-			let Certify=${dbCertify};
-			if(Certify == 0) {
-				alert("회원가입 이메일 인증을 안하셨습니다.");
-			}
-			document.location.href="./";
+// 			document.location.href="./";
 		});
 	
 	</script>

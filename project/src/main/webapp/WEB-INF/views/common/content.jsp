@@ -44,6 +44,18 @@ input {
 	width: 100%;
 	height: 100px;
 }
+.commentList > div {
+	padding: 5px;
+	border: 1px solid blue;
+}
+.commentList ul {
+	overflow: hidden;
+	display:inline-block;
+}
+.commentList ul li {
+	float: left;
+	border: 1px solid black;
+}
 </style>
 </head>
 <body>
@@ -125,42 +137,35 @@ input {
 				<li><input type="submit" value="답글달기"disabled="disabled"></li>
 			</ul>
 		</c:if>
-<!-- 								<tr> -->
-<!-- 									<td colspan="4"> -->
-<!-- 										<textarea rows="5" cols="70" id="commentContent"></textarea><br><br>  -->
-<%-- 										<c:if test="${id ==null}"> --%>
-<!-- 											<input type="button" value="comment 쓰기" disabled="disabled"> -->
-<%-- 										</c:if>  --%>
-<%-- 										<c:if test="${id !=null}"> --%>
-<!-- 											<input type="button" value="comment 쓰기" id="commentWrite"> -->
-<%-- 										</c:if>  --%>
-<%-- 										<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead"> --%>
-<!-- 									</td> -->
-<!-- 								</tr> -->
 		</table>
 	</form>
-	<div class="commentArea">	
-		<table class="commentTable">
-			<tr>
-				<th>내용: </th>
-				<td><textarea id="commentContent"></textarea></td>
-			</tr>
-		</table>
-		<c:if test="${id ==null}">
-			<input type="button" value="comment 쓰기" disabled="disabled">
-		</c:if> 
-		<c:if test="${id !=null}">
-			<input type="button" value="comment 쓰기" id="commentWrite">
-		</c:if> 
-		<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead">
-	</div>			
-
-	<form>
-		<div>
+	<!-- 코멘트 -->
+	<div class="commentArea">
+		<!-- 코멘트 쓰기 영역 -->
+		<div style="margin-bottom: 10px;">	
+			<table class="commentTable">
+				<tr>
+					<% pageContext.setAttribute("newLineChar", "\n"); %>
+					<th>내용: </th>
+					<td><textarea id="commentContent" name="contents"></textarea></td>
+				</tr>
+			</table>
+			<c:if test="${id ==null}">
+				<input type="button" value="comment 쓰기" disabled="disabled">
+			</c:if> 
+			<c:if test="${id !=null}">
+				<input type="button" value="comment 쓰기" id="commentWrite">
+			</c:if> 
+<%-- 			<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead"> --%>
+		</div>
+		<!-- 코멘트 리스트 -->
+		<div style="width: 100%; min-height: 100px; padding: 20px;">
 			<div id="showComment" align="center"></div>
 			<input type="hidden" id="commPageNum" value="1">
 		</div>
-	</form>
+		
+	</div>			
+	
 </div> <!-- contentTable end -->
 </body>
 <script>
@@ -172,11 +177,17 @@ input {
 			alert("error html = "+ xhr.statusText);
 		}
 	});
-	$(document).ready(function() {
+	$(document).ready(function(data, commPageNum) {
+		$("#commentContent").val("");
+		showHtml(data.commentList, 1);
+		// 댓글 쓰기
 		$("#commentWrite").on('click', function() {
+			if($('#commentContent').val() == ""){
+				alert("내용을 입력하세요");
+				return;
+			}
 			$.ajax({
 				url : "/project/commentWrite.do",
-				// data{}에서는 EL을 ""로 감싸야함....그외에는 그냥 사용
 				data : {
 					id : "${id}",
 					commentContent : $('#commentContent').val(),
@@ -185,29 +196,36 @@ input {
 				},
 				success : function(data) {
 					if (data.result == 1) {
-						alert("comment가 정상적으로 입력되었습니다.")
 						$("#commentContent").val("");
 						showHtml(data.commentList, 1);
 					}
 				},
-
 			}); // ajax end
 		});
 	});
 	function showHtml(data, commPageNum){
-		var html = "<table border='1' width='100%' align='center'>";
+		console.log(data);
+		var html = "<article class='commentList'>";
 		$.each(data, function(index,item){
-			html +="<tr>";
-			html +="<td>"+(index+1)+"</td>";
-			html +="<td>"+item.id+"</td>";
-			html +="<td>"+item.commentContent+"</td>";
-			html +="<td>"+item.commentDate+"</td>";					
-			html +="<td>"+item.articleNum+"</td>";					
-			html +="</tr>";					
+			html +="<div>";
+			html +="<ul>";
+			html +="<li>"+(index+1)+"</li>";
+			html +="<li>"+item.id+"</li>";
+			html +="<li>"+item.commentDate+"</li>";
+			html +="<li>"+item.articleNum+"</li>";
+			html +="</ul>";	
+			html +="<p>"+item.commentContent+"</p>";
+			html +="<p><ul>";
+			html +="<li><a href='#' onclick=''>답변</a></li>";
+			html +="<li><a href='#' onclick=''>수정</a></li>";
+			html +="<li><a href='#' onclick=''>삭제</a></li>";
+			html +="</ul></p>";
+			html +="</div>";	
 		});		
-		html +="</table>";
+		html +="</article>";
 		commPageNum = parseInt(commPageNum);
-		if("${article.commentCount}" > commPageNum * 10){
+		console.log(html, commPageNum);
+		if("${article.commentCount}" < commPageNum * 10){
 			nextPageNum = commPageNum+1;
 			html +="<br /><input type='button' onclick='getComment(nextPageNum,event)' value='다음comment보기'><br>";
 			$("#showComment").html(html);	
@@ -215,18 +233,19 @@ input {
 			$("#commentContent").focus();
 		}
 	}
-	function getComment(commPageNum, event){
-		event.preventDefault();
-		$ajax({
-			url : "/project/commentRead.do",
-			data: {
-				articleNum : "${article.articleNum}",
-				commentRow: commPageNum * 10
-			}, 
-			success: function(data){
-				showHtml(data, commPageNum, event);
-			}
-		});
-	}
+// 	function getComment(commPageNum, event){
+// 		event.preventDefault();
+// 		$ajax({
+// 			url : "/project/commentRead.do",
+// 			data: {
+// // 				articleNum : "${article.articleNum}",
+// 				boardNum : "${boardNum}",
+// 				commentRow: commPageNum * 10
+// 			}, 
+// 			success: function(data){
+// 				showHtml(data, commPageNum, event);
+// 			}
+// 		});
+// 	}
 </script>
 </html>

@@ -7,6 +7,8 @@ public class CommentDto {
 	private String commentDate;
 	private int articleNum;
 	private int boardNum;
+	private int parentNum;
+	private String path;
 	
 	public int getCommentNum() {
 		return commentNum;
@@ -44,10 +46,16 @@ public class CommentDto {
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
 	}
-	@Override
-	public String toString() {
-		return "CommentDto [commentNum=" + commentNum + ", id=" + id + ", commentContent=" + commentContent
-				+ ", commentDate=" + commentDate + ", articleNum=" + articleNum + ", boardNum=" + boardNum + "]";
+	public int getParentNum() {
+		return parentNum;
 	}
-	
+	public void setParentNum(int parentNum) {
+		this.parentNum = parentNum;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
 }

@@ -133,7 +133,7 @@ div.subContent nav {
 	border-bottom: 1px solid #e9e9e9;
 }
 div.subContent nav h1, span {
-	position: absolute;
+/* 	position: absolute; */
 	bottom: 10px;
 }
 div.subContent nav span {

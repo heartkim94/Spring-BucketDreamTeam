@@ -70,6 +70,8 @@ CREATE TABLE Comment(
     commentDate date not null,
     articleNum int not null,
     boardNum int not null,
+    parentNum int null,
+    path text not null,
     FOREIGN KEY(boardNum) REFERENCES BoardList(boardNum) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 

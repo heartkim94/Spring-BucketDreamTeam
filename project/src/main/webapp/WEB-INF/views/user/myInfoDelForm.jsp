@@ -65,7 +65,7 @@
             </div><br><br>
              
             <div class="wrap">
-  				<button class="button"><b>확인</b></button>
+  				<button class="button" id="passCheckBtn"><b>확인</b></button>
 			</div><br><br>
         </form>
         <!--// 본문 들어가는 부분 -->
