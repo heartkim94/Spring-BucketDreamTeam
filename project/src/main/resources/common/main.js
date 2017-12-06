@@ -20,7 +20,6 @@ function Client(socket, data) {
 			this.room = roomList[i];
 		}
 	}
-	clientList.push(this);
 }
 
 function Room(data) {
@@ -28,29 +27,42 @@ function Room(data) {
 	this.groupNum = data.groupNum;
 	this.userCnt = 0;
 	this.roomNum = this.counter();
-	roomList.push(this);
 }
 Room.prototype.counter = counter();
 
 
 io.sockets.on('connection', function(socket) {
 	socket.on('join', function(data) {
-		console.log(data);
 		let client = new Client(socket, data);
-		if(client.room == undefined) {
-			let room = new Room(data);
-			socket.emit('join', {
-				result: 'fail',
-				roomNum: room.roomNum
-			});
-			return;
+		for(let i in clientList) {
+			if(client.sessionId == clientList[i].sessionId) {
+				clientList[i].disconnected = false;
+				clientList[i].socketId = socket.id;
+				return;
+			}
 		}
 
 		for(let i in clientList) {
 			if(clientList[i].userId==client.userId) {
 			}
 		}
+		clientList.push(client);
 		client.room.userCnt += 1;
+	});
+
+	socket.on('leave', function(data) {
+		console.log('leave', data.userId);
+		for(let i in clientList) {
+			console.log(clientList[i].sessionId, data.sessionId);
+			if(clientList[i].sessionId == data.sessionId) {
+				console.log('in', i);
+				let room = clientList[i].room;
+				room.userCnt += -1;
+				checkDelRoom(room);
+				clientList.splice(i, 1);
+				break;
+			}
+		}
 	});
 
 	socket.on('disconnect', function(data) {
@@ -58,18 +70,15 @@ io.sockets.on('connection', function(socket) {
 			if(clientList[i].socketId == socket.id) {
 				let client = clientList[i];
 				let room = client.room;
-				if(room) {
-				room.userCnt -= 1;
-					if(room.userCnt <= 0) {
-						for(let j in roomList) {
-							if(roomList[j].roomNum==room.roomNum) {
-								roomList.splice(j, 1);
-							}
-						}
+				client.disconnected = true;
+				setTimeout(function() {
+					if(client.disconnected) {
+						room.userCnt += -1;
+						checkDelRoom(room);
+						clientList.splice(i, 1);
 					}
-				}
-				clientList.splice(i, 1);
-				console.log(clientList.length);
+				}, 1000);
+				break;
 			}
 		}
 	});
@@ -96,6 +105,21 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('newRoom', function(data) {
 		let room = new Room(data);
+		roomList.push(room);
 		socket.emit('newRoom', {roomNum: room.roomNum});
 	});
 });
+
+function checkDelRoom(room) {
+	let res = false;
+	if(room.userCnt <= 0) {
+		for(let j in roomList) {
+			if(roomList[j].roomNum==room.roomNum) {
+				roomList.splice(j, 1);
+				res = true;
+				break;
+			}
+		}
+	}
+	return res;
+}

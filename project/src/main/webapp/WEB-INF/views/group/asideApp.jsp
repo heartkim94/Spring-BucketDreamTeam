@@ -25,7 +25,7 @@
 <script>
 $(function() {
 	$(".chatRoomList").on("click", function() {
-		window.open("chatrooms", "main.do", "width=320, height=500");
+		window.open("chatrooms", "main", "width=320, height=500");
 	});
 });
 // 	$.ajaxSetup({
@@ -39,7 +39,7 @@ $(function() {
 function deleteGroup() {
 	event.preventDefault();
 	$ajax({
-		url : "/project/deleteGroup.do",
+		url : "/project/deleteGroup",
 		data: {
 			groupNum : "${groupNum}"
 		}, 

@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-	<form name="searchForm" method="post" action="list.do">
+	<form name="searchForm" method="post" action="list">
         <select name="searchOption">
             <option value="id">이름</option>
             <option value="content">내용</option>

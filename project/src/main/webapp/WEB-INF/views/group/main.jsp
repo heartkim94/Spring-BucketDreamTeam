@@ -69,11 +69,11 @@
 <script>
 $(function() {
 	$(".newGroup").on("click", function() {
-		location.href = "new.do";
+		location.href = "new";
 	});
 	$(".group").on("click", function() {
 		let groupNum = $(this).attr("groupNum");
-		location.href = "/project/"+groupNum+"/view.do";
+		location.href = "/project/"+groupNum+"/view";
 	});
 });
 </script>

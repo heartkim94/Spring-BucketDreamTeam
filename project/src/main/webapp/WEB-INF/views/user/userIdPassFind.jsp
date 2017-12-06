@@ -11,7 +11,7 @@
 	function id_search() {
 		var f = document.id_f;
 		$.ajax({
-			url:"/project/joinEmailCheck.do", // 이메일 체크 재사용했음
+			url:"/project/joinEmailCheck", // 이메일 체크 재사용했음
 			data:{
 				inputEmail:$("#email").val()
 			},
@@ -37,7 +37,7 @@
 		$.ajax({
 			type:"POST",
 			async:true,
-			url:"/project/findIdEmailCheck.do", 
+			url:"/project/findIdEmailCheck", 
 			data:{
 				inputId:$("#id").val(),
 				inputEmail:$("#email2").val()
@@ -78,7 +78,7 @@
 				<tbody>
 				<tr>
 					<td style="padding:15px; border:2px solid rgb(204,204,204);">
-						<form action="/project/userIdFind.do" name="id_f" id="id_f" method="post">
+						<form action="/project/userIdFind" name="id_f" id="id_f" method="post">
 							<table width="380" border="0" cellspacing="0" cellpadding="0">
 							<tbody>
 							<tr>
@@ -105,7 +105,7 @@
 							</table>
 						</form>
 						
-						<form action="/project/userPassFind.do" name="pw_f" id="pw_f" method="post">
+						<form action="/project/userPassFind" name="pw_f" id="pw_f" method="post">
             				<table width="380" border="0" cellspacing="0" cellpadding="0">
 			                <tbody>
              				<tr>

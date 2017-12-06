@@ -14,7 +14,7 @@
 		<%@ include file="../common/header.jsp" %>
 		<section>
 			<div class="container">
-				<form method="post" action="new.do" id="groupForm">
+				<form method="post" action="new" id="groupForm">
 					
 					<h3>그룹</h3>
 					<hr>

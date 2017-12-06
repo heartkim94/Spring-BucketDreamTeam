@@ -25,10 +25,10 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
         <c:if test="${id != null}">
-          	<a class="navbar-brand" href="/project/group/main.do">Dogether</a>
+          	<a class="navbar-brand" href="/project/group/main">Dogether</a>
         </c:if>
         <c:if test="${id == null}">
-			<a class="navbar-brand" href="/project/home.do"><strong>Dogether</strong></a>		
+			<a class="navbar-brand" href="/project/home"><strong>Dogether</strong></a>		
 		</c:if>
     </div>
 
@@ -45,10 +45,10 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">마이페이지 <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="#">Action</a></li>
-       		<li><a href="/project/mypage.do">회원정보 수정</a></li>
-			<li><a href="/project/myInfoDelForm.do">회원탈퇴</a></li>
+       		<li><a href="/project/mypage">회원정보 수정</a></li>
+			<li><a href="/project/myInfoDelForm">회원탈퇴</a></li>
             <li class="divider"></li>
-            <li><a href="/project/logout.do">로그아웃</a></li>
+            <li><a href="/project/logout">로그아웃</a></li>
           </ul>
           </c:if>
         </li>
@@ -62,5 +62,5 @@
 	<hr>
 </body>
 	<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>		
+	<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->		
 </html>

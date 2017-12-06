@@ -27,91 +27,84 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.pknu.project.common.utils.MediaUtils;
 import com.pknu.project.common.utils.UploadFileUtils;
 
-
 @Controller
 public class UploadController {
-private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
-	
-	@Resource(name="saveDir")
-	String saveDir;		 
+	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+
+	@Resource(name = "saveDir")
+	String saveDir;
 
 	@ResponseBody
-	@RequestMapping(value ="/uploadAjax.do", 
-					method=RequestMethod.POST)
-	public List<String> uploadAjax(@RequestPart("multiFile") List<MultipartFile> multiFile) throws Exception{
-		List<String> fileList= new ArrayList<>();
-		for(MultipartFile file : multiFile){			
-			fileList.add(UploadFileUtils.uploadFile(saveDir,file.getOriginalFilename(),
-					file.getBytes()));
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST)
+	public List<String> uploadAjax(@RequestPart("multiFile") List<MultipartFile> multiFile) throws Exception {
+		List<String> fileList = new ArrayList<>();
+		for (MultipartFile file : multiFile) {
+			fileList.add(UploadFileUtils.uploadFile(saveDir, file.getOriginalFilename(), file.getBytes()));
 		}
 		System.out.println("upload run");
 		return fileList;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping("/displayFile.do")
-	public ResponseEntity<byte[]>  displayFile(String fileName)
-			throws Exception{
-		InputStream in = null; 
+	@RequestMapping("/displayFile")
+	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
+		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 
-		try{      
-			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-			MediaType mType = MediaUtils.getMediaType(formatName);			
-			if(mType != null){				      
-				in = new FileInputStream(saveDir+fileName);				
-			}			
-			entity = new ResponseEntity<byte[]>(					
-					IOUtils.toByteArray(in),				
-					HttpStatus.CREATED);
-		}catch(Exception e){
+		try {
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+			MediaType mType = MediaUtils.getMediaType(formatName);
+			if (mType != null) {
+				in = new FileInputStream(saveDir + fileName);
+			}
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), HttpStatus.CREATED);
+		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(
-					HttpStatus.BAD_REQUEST);
-		}finally{
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
 			in.close();
 		}
-		return entity;    
+		return entity;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="/deleteFile.do", method=RequestMethod.POST)
-	public ResponseEntity<String> deleteFile(String fileName){    
-		logger.info("delete file: "+ fileName);    
-		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);    
+	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName) {
+		logger.info("delete file: " + fileName);
+		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 		MediaType mType = MediaUtils.getMediaType(formatName);
 
-		if(mType != null){      
-			String front = fileName.substring(0,12);
+		if (mType != null) {
+			String front = fileName.substring(0, 12);
 			String end = fileName.substring(14);
-			new File(saveDir+(front+end).replace('/', File.separatorChar)).delete();
+			new File(saveDir + (front + end).replace('/', File.separatorChar)).delete();
 		}
 
-		new File(saveDir + fileName.replace('/', File.separatorChar)).delete();    
+		new File(saveDir + fileName.replace('/', File.separatorChar)).delete();
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
-	}  
-	
+	}
+
 	@ResponseBody
-	@RequestMapping(value="/deleteAllFiles.do", method=RequestMethod.POST)
-//	직렬화 안했을때
-//	public ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files){	
-//	직렬화 했을때
-	public ResponseEntity<String> deleteFile(@RequestParam("files") String[] files){		
-		logger.info("delete all files: "+ files);    
-		if(files == null || files.length == 0) {
-			return new ResponseEntity<String>
-			("deleted", HttpStatus.OK);
+	@RequestMapping(value = "/deleteAllFiles", method = RequestMethod.POST)
+	// 직렬화 안했을때
+	// public ResponseEntity<String> deleteFile(@RequestParam("files[]") String[]
+	// files){
+	// 직렬화 했을때
+	public ResponseEntity<String> deleteFile(@RequestParam("files") String[] files) {
+		logger.info("delete all files: " + files);
+		if (files == null || files.length == 0) {
+			return new ResponseEntity<String>("deleted", HttpStatus.OK);
 		}
 		for (String fileName : files) {
-			String formatName=fileName.substring(fileName.lastIndexOf(".")+1);      
-			MediaType mType = MediaUtils.getMediaType(formatName);      
-			if(mType != null){        
-				String front = fileName.substring(0,12);
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+			MediaType mType = MediaUtils.getMediaType(formatName);
+			if (mType != null) {
+				String front = fileName.substring(0, 12);
 				String end = fileName.substring(14);
-				new File(saveDir + (front+end).replace('/', File.separatorChar)).delete();
+				new File(saveDir + (front + end).replace('/', File.separatorChar)).delete();
 			}
-			new File(saveDir + fileName.replace('/', File.separatorChar)).delete();      
+			new File(saveDir + fileName.replace('/', File.separatorChar)).delete();
 		}
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
-	}  
+	}
 }

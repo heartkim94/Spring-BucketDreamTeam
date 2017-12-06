@@ -23,7 +23,7 @@
 <body>
 <div class="container">					
 	<section id="content">
-		<form action="/project/login.do" method="post">
+		<form action="/project/login" method="post">
 			<h1>로그인</h1>
 			<div>
 				<input type="text" id="id" name="id" placeholder="아이디" required=""/>
@@ -33,8 +33,8 @@
 			</div>
 			<div>
 				<input type="submit" value="로그인"/>
-				<input type="button" value="회원가입" onclick="document.location.href='userProvisionForm.do'">
-				<a href="javascript:void(window.open('/project/userIdPassFind.do', '_blank','width=450, height=270'))">아이디/비밀번호 찾기</a>
+				<input type="button" value="회원가입" onclick="document.location.href='userProvisionForm'">
+				<a href="javascript:void(window.open('/project/userIdPassFind', '_blank','width=450, height=270'))">아이디/비밀번호 찾기</a>
 			</div>
 		</form><!-- form -->
 	</section><!-- content -->

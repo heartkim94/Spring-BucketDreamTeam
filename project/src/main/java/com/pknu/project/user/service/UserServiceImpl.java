@@ -129,14 +129,14 @@ public class UserServiceImpl implements UserService {
 			if (user.getPass().equals(pass)) {//로그인성공
 				session.setAttribute("id", id);
 				session.setAttribute("isAdmin", user.getIsAdmin());
-				view = "redirect:/group/main.do";
+				view = "redirect:/group/main";
 			} else {//비밀번호 실패
 				model.addAttribute("passFail",passFail);
 				view = "user/loginFail";
 			}
 		} else if(user!=null&&user.getCertify()==0) {//이메일인증 않함	
 			model.addAttribute("dbCertify", dbCertifyCheckNo);
-			view="redirect:/home.do";
+			view="redirect:/home";
 		}else if(user==null) {//회원가입
 			model.addAttribute("Notmember",Notmember);
 			view = "user/loginFail";

@@ -23,7 +23,7 @@
 				var returnVar = false;
 				$.ajax({
 					type:"POST",
-					url:"/project/delPassCheck.do",
+					url:"/project/delPassCheck",
 					data:{
 						inputPass:$("#pass").val()
 					},
@@ -57,7 +57,7 @@
     	<%@ include file="../common/header.jsp" %>
         <div class="container"><!-- 좌우측의 공간 확보 -->
  		<!-- 본문 들어가는 부분 -->
-        <form class="form-horizontal" id="passCheck" role="form" method="post" action="/project/myInfoDel.do">
+        <form class="form-horizontal" id="passCheck" role="form" method="post" action="/project/myInfoDel">
             <div align="center"><h1>회원 탈퇴</h1></div><br>
             
             <div class="form-group" id="divPassword">

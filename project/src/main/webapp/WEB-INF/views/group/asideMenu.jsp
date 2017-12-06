@@ -9,15 +9,15 @@
 </head>
 <body>
 	<aside class="groupMenu">
-		<a href="view.do">프로필이미지</a><br>
+		<a href="view">프로필이미지</a><br>
 		${group.groupName}<br>
-		<a href="setting.do">설정</a>
+		<a href="setting">설정</a>
 		<hr>
 		메뉴<br>
 		<hr>
 		<ul>
 			<c:forEach var="board" items="${boardList}">
-				<li><a href="list.do?boardNum=${board.boardNum}&pageNum=1">${board.boardName}</a></li>
+				<li><a href="list?boardNum=${board.boardNum}&pageNum=1">${board.boardName}</a></li>
 			</c:forEach>
 		</ul>
 	</aside>

@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 
-	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session) {
 		String id = (String) session.getAttribute("id");
 		String view = "common/home";
 		if(id!=null) {
-			view = "redirect:group/main.do";
+			view = "redirect:group/main";
 		}
 		return view;
 	}

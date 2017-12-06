@@ -44,7 +44,7 @@ public class CommunityController {
 		return conditionMap;
 	}
 	
-	@RequestMapping(value="/list.do", method=RequestMethod.GET)
+	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String community(
 			@ModelAttribute("boardNum") int boardNum,
 			@ModelAttribute("pageNum") int pageNum,
@@ -54,24 +54,24 @@ public class CommunityController {
 		return "community/list";
 	}
 	
-	@RequestMapping(value="/write.do", method=RequestMethod.GET)
+	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String writeForm(HttpSession session,
 			@ModelAttribute("boardNum") int boardNum){
 		System.out.println("***writeForm***");
 		return "community/writeForm";
 	}
 	
-	@RequestMapping(value="/write.do", method=RequestMethod.POST)
+	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String write(ArticleDto article, HttpSession session){
 //		article.setId((String)session.getAttribute("id"));
 		article.setGroupNum(-1);
 		boardService.writeArticle(article);
 		System.out.println("***write***");
-		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
+		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
 	
-	@RequestMapping(value="/content.do", method=RequestMethod.GET)
+	@RequestMapping(value="/content", method=RequestMethod.GET)
 	public String getArticle(
 			@ModelAttribute("boardNum") String boardNum,
 			@RequestParam("articleNum") String articleNum,
@@ -83,7 +83,7 @@ public class CommunityController {
 		return "community/content";
 	}
 	
-	@RequestMapping(value="/content.do", method=RequestMethod.POST)
+	@RequestMapping(value="/content", method=RequestMethod.POST)
 	@ResponseBody
 	public ArticleDto getArticleAsync(
 			@RequestParam("boardNum") String boardNum,
@@ -95,7 +95,7 @@ public class CommunityController {
 	}
 	
 	// 검색 기능 구현
-	@RequestMapping(value="list.do", method=RequestMethod.POST)
+	@RequestMapping(value="list", method=RequestMethod.POST)
 	public String list(@RequestParam(name="searchOption",defaultValue="title") String searchOption,
 					   @RequestParam("keyword") String keyword,
 					   @RequestParam("boardNum") int boardNum,
@@ -110,7 +110,7 @@ public class CommunityController {
 	}
 	
 	// 답변 달기
-	@RequestMapping(value="/reply.do", method=RequestMethod.GET)
+	@RequestMapping(value="/reply", method=RequestMethod.GET)
 	public String replyForm(HttpSession session,
 			@ModelAttribute("boardNum") int boardNum,
 			@ModelAttribute("groupId") int groupId, 
@@ -121,26 +121,26 @@ public class CommunityController {
 		return "community/replyForm";
 	}
 	
-	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
+	@RequestMapping(value="/reply", method=RequestMethod.POST)
 	public String reply(ArticleDto article, HttpSession session){		
 		article.setId((String)session.getAttribute("id"));
 		article.setGroupNum(-1);
 		boardService.reply(article);		
-		return "redirect:list.do?pageNum=1&boardNum="+article.getBoardNum();
+		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
 	// 글 삭제
-	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
+	@RequestMapping(value="/delete", method=RequestMethod.GET)
 	public String deleteArticle(@RequestParam("articleNum") String articleNum,
 						 		@RequestParam("boardNum") String boardNum,
 						 		@RequestParam("pageNum") int pageNum,
 						 		@RequestParam("fileStatus") int fileStatus, Model model) {
 		boardService.deleteArticle(-1, articleNum, boardNum, fileStatus, model);
-		return "redirect:list.do?pageNum="+pageNum+"&boardNum="+boardNum;
+		return "redirect:list?pageNum="+pageNum+"&boardNum="+boardNum;
 	}
 	
 	// 글 수정
-	@RequestMapping(value="/update.do", method=RequestMethod.GET)
+	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String updateForm(@ModelAttribute("articleNum") String articleNum,
 							 @ModelAttribute("boardNum") String boardNum,
 							 @ModelAttribute("pageNum") int pageNum,
@@ -149,13 +149,13 @@ public class CommunityController {
 		return "community/updateForm";
 	}
 	
-	@RequestMapping(value="/update.do", method=RequestMethod.POST)
+	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String updateArticle(@ModelAttribute("boardNum") String boardNum,
 								@ModelAttribute("pageNum") int pageNum,
 								ArticleDto article, Model model) {
 		article.setGroupNum(-1);
 		boardService.updateArticle(article, boardNum, model);
-		return "redirect:list.do";
+		return "redirect:list";
 	}
 	
 }

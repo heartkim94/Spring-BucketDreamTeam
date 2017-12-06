@@ -38,7 +38,7 @@
             <!--// 모달창 -->
  
  		<!-- 본문 들어가는 부분 -->
-        <form class="form-horizontal" role="form" method="post" action="/project/userInsert.do" onsubmit="return availability()">
+        <form class="form-horizontal" role="form" method="post" action="/project/userInsert" onsubmit="return availability()">
           	<div align="center"><h1>회원 가입</h1></div><br>
           
             <div class="form-group" id="divId">
@@ -382,7 +382,7 @@
 	$(function(){
 		$("#id").on("blur",function(){
 			$.ajax({
-				url:"/project/joinIdCheck.do",
+				url:"/project/joinIdCheck",
 				data:{
 					inputId:$("#id").val()
 				},
@@ -411,7 +411,7 @@
 	$(function(){
 		$("#email").on("blur",function(){
 			$.ajax({
-				url:"/project/joinEmailCheck.do",
+				url:"/project/joinEmailCheck",
 				data:{
 					inputEmail:$("#email").val()
 				},

@@ -50,7 +50,7 @@
 					<button class="newBoard">새로만들기</button>
 				</div>
 				<br>
-				<button onclick="location.href='view.do'">완료</button>
+				<button onclick="location.href='view'">완료</button>
 			</div>
 		</section>
 		<%@ include file="../common/footer.jsp" %>
@@ -100,7 +100,7 @@ function saveName(self) {
 	$(self).css("display", "none");
 	
 	$.ajax({
-		url: "renameBoard.do",
+		url: "renameBoard",
 		type: "POST",
 		data: {
 			boardNum: boardNum,
@@ -119,7 +119,7 @@ function remove(self) {
 	let board = $(self).parent();
 	let boardNum = $(board).attr("boardNum");
 	$.ajax({
-		url: "deleteBoard.do",
+		url: "deleteBoard",
 		type: "POST",
 		data: {
 			boardNum: boardNum
@@ -135,7 +135,7 @@ function remove(self) {
 
 function newBoard() {
 	$.ajax({
-		url: "newBoard.do",
+		url: "newBoard",
 		type: "POST",
 		data: {
 			boardName: "Board"

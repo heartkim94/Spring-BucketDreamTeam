@@ -86,7 +86,7 @@ input {
 <!-- 										<ul> -->
 <%-- 											<c:forEach var="storedFname" items="${fileList}"> --%>
 <!-- 												<li> -->
-<%-- 													<a href="/project/download.do?storedFname=${storedFname}">${storedFname.substring(storedFname.indexOf("_")+1)}</a> --%>
+<%-- 													<a href="/project/download?storedFname=${storedFname}">${storedFname.substring(storedFname.indexOf("_")+1)}</a> --%>
 <!-- 												</li> -->
 <%-- 											</c:forEach> --%>
 <!-- 										</ul> -->
@@ -99,7 +99,7 @@ input {
 			<td colspan="4"><xmp>${article.content}</xmp></td>
 		</tr>
 	</table>
-	<form action="reply.do" method="get">
+	<form action="reply" method="get">
 		<input type="hidden" name="boardNum" value="${boardNum}">
 		<input type="hidden" name="pageNum" value="${pageNum}">
 		<input type="hidden" name="depth" value="${article.depth}">
@@ -107,16 +107,16 @@ input {
    	 	<input type="hidden" name="groupId" value="${article.groupId}">
    		<c:if test="${id !=null}">
 	    	<ul class="btnConfirm">
-				<li><input type="button" value="목록으로" onclick="document.location.href='list.do?boardNum=${boardNum}&pageNum=${pageNum}'"></li>
+				<li><input type="button" value="목록으로" onclick="document.location.href='list?boardNum=${boardNum}&pageNum=${pageNum}'"></li>
 				<c:choose>
 					<c:when test="${id == article.id}">
-						<li><input type="button" value="삭제하기" onclick="document.location.href='delete.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'"></li>
-						<li><input type="button" value="수정하기" onclick="document.location.href='update.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'"></li>
+						<li><input type="button" value="삭제하기" onclick="document.location.href='delete?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'"></li>
+						<li><input type="button" value="수정하기" onclick="document.location.href='update?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'"></li>
 						<li><input type="submit" value="답글달기"></li>
 					</c:when>
 					<c:otherwise>
 						<c:if test="${isAdmin }">
-							<li><input type="button" value="삭제하기" onclick="document.location.href='delete.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'"></li>
+							<li><input type="button" value="삭제하기" onclick="document.location.href='delete?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'"></li>
 							<li><input type="button" value="수정하기" disabled="disabled"></li>
 							<li><input type="submit" value="답글달기" ></li>
 						</c:if>
@@ -131,7 +131,7 @@ input {
   		</c:if>
 		<c:if test="${id ==null}">
 			<ul class="btnConfirm">
-				<li><input type="button" value="목록으로" onclick="document.location.href='list.do?boardNum=${boardNum}&pageNum=${pageNum}'"></li>
+				<li><input type="button" value="목록으로" onclick="document.location.href='list?boardNum=${boardNum}&pageNum=${pageNum}'"></li>
 				<li><input type="button" value="삭제하기" disabled="disabled"></li>
 				<li><input type="button" value="수정하기" disabled="disabled"></li>
 				<li><input type="submit" value="답글달기"disabled="disabled"></li>
@@ -187,7 +187,7 @@ input {
 				return;
 			}
 			$.ajax({
-				url : "/project/commentWrite.do",
+				url : "/project/commentWrite",
 				data : {
 					id : "${id}",
 					commentContent : $('#commentContent').val(),
@@ -236,7 +236,7 @@ input {
 // 	function getComment(commPageNum, event){
 // 		event.preventDefault();
 // 		$ajax({
-// 			url : "/project/commentRead.do",
+// 			url : "/project/commentRead",
 // 			data: {
 // // 				articleNum : "${article.articleNum}",
 // 				boardNum : "${boardNum}",

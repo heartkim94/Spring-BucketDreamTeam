@@ -41,7 +41,7 @@
 								<c:if test="${article.depth == 0}">
 									<img src="" width="0" height="16">
 								</c:if>
-								<a href="content.do?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
+								<a href="content?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
 									${article.title}
 									<c:if test="${article.commentCount!=0}">
 										<span style="color: red">(${article.commentCount})</span>

@@ -37,7 +37,7 @@
             <!--// 모달창 -->
  
  		<!-- 본문 들어가는 부분 -->
-        <form class="form-horizontal" role="form" method="post" action="/project/userUpdate.do">
+        <form class="form-horizontal" role="form" method="post" action="/project/userUpdate">
             <div align="center"><h1>회원 수정</h1></div><br>
             
             <div class="form-group" id="divId">

@@ -49,7 +49,7 @@
 <body>
 	<div id="wrapper">
 	<%@ include file="../common/header.jsp" %>
-	<form name="fr" method="post" action="/project/userJoinForm.do" onsubmit="return check()">
+	<form name="fr" method="post" action="/project/userJoinForm" onsubmit="return check()">
 		<table class="memCheck" width="960px" align="center">
 			<tr>
 				<td>

@@ -3,61 +3,61 @@
  		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pknu.project.user.dao.UserDao">
 	<select id="loginCheck" resultType="String" parameterType="String">
-		select pass from user where id=#{id}
+		select pass from users where id=#{id}
 	</select>
 	<select id="emailCheck" resultType="String" parameterType="String">
-		select email from user where email=#{email}
+		select email from users where email=#{email}
 	</select>
 	<select id="findIdEmailCheck" resultType="String" parameterType="HashMap">
-		select id email from user where id=#{id} and email=#{email}
+		select id email from users where id=#{id} and email=#{email}
 	</select>
 	<select id="passCheck" resultType="String" parameterType="String">
-		select pass from user where id=#{id}
+		select pass from users where id=#{id}
 	</select>
 	<insert id="userInsert" parameterType="user">
-		insert into user values(null, #{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, #{certKey},#{certify})
+		insert into users values(null, #{id},#{pass},#{name},#{nickName},#{email},#{phoneNumber},#{gender}, #{certKey},#{certify})
 	</insert> 
 	<update id="userUpdate" parameterType="user">
-		update user set pass=#{pass},name=#{name},nickName=#{nickName},phoneNumber=#{phoneNumber},gender=#{gender} where id=#{id}
+		update users set pass=#{pass},name=#{name},nickName=#{nickName},phoneNumber=#{phoneNumber},gender=#{gender} where id=#{id}
 	</update>
 	
 	<select id="checkJoin" resultType="user" parameterType="String">
- 		select * from user where CERTKEY=#{certKey}
+ 		select * from users where CERTKEY=#{certKey}
  	</select>
  	<update id="checkJoinUpdate" parameterType="String">
-		update user set certify=1 where CERTKEY=#{certKey}
+		update users set certify=1 where CERTKEY=#{certKey}
 	</update>
 	<select id="certifyCheck" resultType="int" parameterType="String">
-	 	SELECT IFNULL(MAX(CERTIFY),'2') FROM user WHERE ID=#{id}
+	 	SELECT IFNULL(MAX(CERTIFY),'2') FROM users WHERE ID=#{id}
 	</select>
 	 <select id="checkLogin" parameterType="String" resultType="user">
 	 	select pass, certify, if(groupNum is not null, true, false) as isAdmin
-		from user u
+		from users u
 		left join   (select *
-		            from member
+		            from members
 		            where groupNum = -1) m
 		on u.userNum=m.userNum
 		where id = #{id}
 	 </select>
 	<select id="getUser" resultType="user" parameterType="String">
-	 	select * from user where id=#{id}
+	 	select * from users where id=#{id}
 	</select>
 	<select id="userIdFind" resultType="String" parameterType="String">
-		select id from user where email=#{email}
+		select id from users where email=#{email}
 	</select>
 	<update id="userPassFind" parameterType="String">
-		update user set pass=#{pass} where id=#{id} and email=#{email}
+		update users set pass=#{pass} where id=#{id} and email=#{email}
 	</update>
 	<select id="getIdPass" resultType="user" parameterType="String">
-		select id pass from user where id=#{id}
+		select id pass from users where id=#{id}
 	</select>
 	<delete id="myInfoDel" parameterType="HashMap">
-		update `Group`
+		update Groups
 		set groupOwner = null
 		where groupOwner = (select userNum
-							from user
+							from users
 							where id=#{id});
-		delete from user where id=#{id} and pass=#{pass};
+		delete from users where id=#{id} and pass=#{pass};
 	</delete>
 	 
 </mapper>

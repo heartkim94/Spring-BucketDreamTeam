@@ -20,13 +20,13 @@ public class CommentController {
 	
 	List<CommentDto> commentList = null;
 	
-	@RequestMapping(value="commentRead.do")
+	@RequestMapping(value="commentRead")
 	public List<CommentDto> commentRead(@RequestParam int boardNum,
 										@RequestParam int commentRow){
 		return commentService.getComments(boardNum, commentRow);
 	}
 	
-	@RequestMapping(value="commentWrite.do")
+	@RequestMapping(value="commentWrite")
 	@ResponseBody
 	public HashMap<String, Object> commentWrite(CommentDto comment, 
 															   HttpSession session){
@@ -42,7 +42,7 @@ public class CommentController {
 		return hm;		
 	}
 	
-	@RequestMapping(value="commentUpdate.do")
+	@RequestMapping(value="commentUpdate")
 	@ResponseBody
 	public String commentUpdate(@RequestParam String commentContent) {
 		return null;

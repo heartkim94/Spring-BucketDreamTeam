@@ -11,6 +11,6 @@
 <body>
 </body>
 <script>
-location.href="home.do";
+location.href="home";
 </script>
 </html>

@@ -1,10 +1,10 @@
-DROP DATABASE `project`;
-CREATE DATABASE `project`;
-USE `project`;
+DROP DATABASE project;
+CREATE DATABASE project;
+USE project;
 
 
 -- User
-CREATE TABLE User(
+CREATE TABLE Users(
     userNum int auto_increment PRIMARY KEY,
 	id varchar(50) UNIQUE,
 	pass varchar(50) NOT NULL,
@@ -18,41 +18,40 @@ CREATE TABLE User(
 ) ENGINE=InnoDB;
 	
 -- #Group
-CREATE TABLE Category(
+CREATE TABLE Categorys(
     catNum int auto_increment PRIMARY KEY,
     catName varchar(200) NOT NULL,
-    parentNum int NULL,
-    path text not null,
-    FOREIGN KEY parentNum REFERENCES Category(parentNum);
+    parentNum int not null,
+    path text not null
 ) ENGINE=InnoDB;
-    
-CREATE TABLE `Group`(
-    `groupNum` int auto_increment PRIMARY KEY,
-    `groupName` varchar(200) NOT NULL,
-    `groupOwner` int /*NOT*/ NULL,
-    `catNum` int NOT NULL,
-    FOREIGN KEY(`groupOwner`) REFERENCES `User`(`userNum`),
-    FOREIGN KEY(`catNum`) REFERENCES `Category`(`catNum`)
+
+CREATE TABLE Groups(
+    groupNum int auto_increment PRIMARY KEY,
+    groupName varchar(200) NOT NULL,
+    groupOwner int /*NOT*/ NULL,
+    catNum int NOT NULL,
+    FOREIGN KEY(groupOwner) REFERENCES Users(userNum),
+    FOREIGN KEY(catNum) REFERENCES Categorys(catNum)
 ) ENGINE=InnoDb;
     
-CREATE TABLE `Member`(
-    `groupNum` int NOT NULL,
-    `userNum` int NOT NULL,
-    PRIMARY KEY(`groupNum`, `userNum`),
-    FOREIGN KEY(`groupNum`) REFERENCES `Group`(`groupNum`)
+CREATE TABLE Members(
+    groupNum int NOT NULL,
+    userNum int NOT NULL,
+    PRIMARY KEY(groupNum, userNum),
+    FOREIGN KEY(groupNum) REFERENCES Groups(groupNum)
         ON DELETE CASCADE,
-    FOREIGN KEY(`userNum`) REFERENCES `User`(`userNum`)
+    FOREIGN KEY(userNum) REFERENCES Users(userNum)
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- toDo
-CREATE TABLE `DoList`(
-    `doNum` int PRIMARY KEY,
-    `doName` varchar(200) NOT NULL,
-    `when` date NOT NULL,
-    `start` time,
-    `end` time,
-    `parentNum` int NOT NULL
+CREATE TABLE DoList(
+    doNum int PRIMARY KEY,
+    doName varchar(200) NOT NULL,
+    doWhen date NOT NULL,
+    doStart time,
+    doEnd time,
+    parentNum int NOT NULL
 ) ENGINE=InnoDB;
 
 -- Board
@@ -60,18 +59,16 @@ CREATE TABLE BoardList(
     boardNum int auto_increment PRIMARY KEY,
     boardName varchar(200) NOT NULL,
     groupNum int NOT NULL,
-    FOREIGN KEY(groupNum) REFERENCES `Group`(groupNum)
+    FOREIGN KEY(groupNum) REFERENCES Groups(groupNum)
 ) ENGINE=InnoDB;
 
-CREATE TABLE Comment(
+CREATE TABLE Comments(
     commentNum int PRIMARY KEY auto_increment,
     id varchar(300) not null,
     commentContent text not null,
     commentDate date not null,
     articleNum int not null,
     boardNum int not null,
-    parentNum int null,
-    path text not null,
     FOREIGN KEY(boardNum) REFERENCES BoardList(boardNum) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
@@ -82,35 +79,35 @@ CREATE TABLE FileList(
     filelength int NOT NULL
 ) ENGINE=InnoDB;
     
-CREATE TABLE `Attached`(
-	`fileNum` int PRIMARY KEY,
-	`boardNum` int NOT NULL,
-	`articleNum` int NOT NULL,
-    FOREIGN KEY(`fileNum`) REFERENCES `FileList`(`fileNum`),
-    FOREIGN KEY(`boardNum`) REFERENCES `BoardList`(`boardNum`)
+CREATE TABLE Attached(
+	fileNum int PRIMARY KEY,
+	boardNum int NOT NULL,
+	articleNum int NOT NULL,
+    FOREIGN KEY(fileNum) REFERENCES FileList(fileNum),
+    FOREIGN KEY(boardNum) REFERENCES BoardList(boardNum)
 ) ENGINE=InnoDB;
 	
-CREATE TABLE `ProfileOf`(
-	`fileNum` int PRIMARY KEY,
-	`groupNum` int NOT NULL,
-    FOREIGN KEY(`fileNum`) REFERENCES `FileList`(`fileNum`),
-    FOREIGN KEY(`groupNum`) REFERENCES `Group`(`groupNum`)
+CREATE TABLE ProfileOf(
+	fileNum int PRIMARY KEY,
+	groupNum int NOT NULL,
+    FOREIGN KEY(fileNum) REFERENCES FileList(fileNum),
+    FOREIGN KEY(groupNum) REFERENCES Groups(groupNum)
 ) ENGINE=InnoDB;
-    
+
 -- #Data for admin
-INSERT INTO `User`(`userNum`, `id`, `pass`, `name`, `nickname`, `email`, `phoneNumber`, `gender`, `certkey`, `certify`)
+INSERT INTO Users(userNum, id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
     VALUES(-1, 'admin', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
-INSERT INTO `Category`(`catNum`, `catName`, `parentNum`) VALUES(-1, 'hidden', 0);
-INSERT INTO `Group`(`groupNum`, `groupName`, `groupOwner`, `catNum`) VALUES(-1, 'AdminGroup', -1, -1);
-INSERT INTO `Member` VALUES(-1, -1);
+INSERT INTO Categorys(catNum, catName, parentNum, path) VALUES(-1, 'hidden', 0, '-1');
+INSERT INTO Groups(groupNum, groupName, groupOwner, catNum) VALUES(-1, 'AdminGroup', -1, -1);
+INSERT INTO Members VALUES(-1, -1);
 
 -- #Table for admin setting
-CREATE TABLE `AdminBoardSetting`(
-    `boardNum` int PRIMARY KEY,
-    `show` boolean NOT NULL,
-    `adminOnly` boolean NOT NULL,
-    `view` varchar(200) NOT NULL,
-    FOREIGN KEY(`boardNum`) REFERENCES `BoardList`(`boardNum`)
+CREATE TABLE AdminBoardSetting(
+    boardNum int PRIMARY KEY,
+    isShow boolean NOT NULL,
+    adminOnly boolean NOT NULL,
+    view varchar(200) NOT NULL,
+    FOREIGN KEY(boardNum) REFERENCES BoardList(boardNum)
 ) ENGINE=InnoDB;
 
 -- #Community
@@ -122,7 +119,7 @@ insert into AdminBoardSetting values(1, true, true, '../common/list.jsp');
 insert into AdminBoardSetting values(2, true, false, '../common/list.jsp');
 insert into AdminBoardSetting values(3, true, true, '../common/listAcrd.jsp');
 
-create table `Board-1`(
+create table `GroupBoard-1`(
     articleNum int primary key auto_increment,
     id varchar(300) not null,
     title varchar(500) not null,
@@ -139,20 +136,20 @@ create table `Board-1`(
 
 -- #Data for test
 -- User
-insert into user(id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
+insert into users(id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
     values('test', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
 
 -- Group
-insert into Category(catName, parentNum) values('generic', 0);
-insert into Category(catName, parentNum) values('philosophy', 0);
-insert into Category(catName, parentNum) values('religion', 0);
-insert into Category(catName, parentNum) values('bibliography', 1);
-insert into Category(catName, parentNum) values('information science', 1);
-insert into Category(catName, parentNum) values('encyclopedia', 1);
+insert into Categorys(catName, parentNum, path) values('generic', 0, '1');
+insert into Categorys(catName, parentNum, path) values('philosophy', 0, '2');
+insert into Categorys(catName, parentNum, path) values('religion', 0, '3');
+insert into Categorys(catName, parentNum, path) values('bibliography', 1, '1.4');
+insert into Categorys(catName, parentNum, path) values('information science', 1, '1.5');
+insert into Categorys(catName, parentNum, path) values('encyclopedia', 1, '1.6');
 
-insert into `Group`(groupName, groupOwner, catNum) values('TestGroup', 1, 1);
+insert into Groups(groupName, groupOwner, catNum) values('TestGroup', 1, 1);
 insert into BoardList values(0, 'Board', 1);
-create table `Board1`(
+create table `GroupBoard1`(
     articleNum int primary key auto_increment,
     id varchar(300) not null,
     title varchar(500) not null,
@@ -165,43 +162,43 @@ create table `Board1`(
     fileStatus int(1) not null,
     boardNum int not null
 ) ENGINE=InnoDB;
-INSERT INTO Member VALUES(1, 1);
+INSERT INTO Members VALUES(1, 1);
 
 -- Community
 -- Notice
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test notice article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0, 1);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test notice article2', 'no content', 0, 0, 2, 0, '2017-11-22', 0, 1);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null ,'admin', 'test notice article3', 'no content', 0, 0, 3, 0, '2017-11-22', 0, 1);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test reply article4', 'no content', 1, 0, 1, 1, '2017-11-22', 0, 1);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test reply article5', 'no content', 1, 0, 1, 3, '2017-11-22', 0, 1);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test reply article6', 'no content', 2, 0, 1, 2, '2017-11-22', 0, 1);
     
 -- QnA
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test qna article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0, 2);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test qna article2', 'no content', 0, 0, 2, 0, '2017-11-22', 0, 2);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test qna article3', 'no content', 0, 0, 3, 0, '2017-11-22', 0, 2);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test qna article4', 'no content', 0, 0, 4, 0, '2017-11-22', 0, 2);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test qna article5', 'no content', 0, 0, 5, 0, '2017-11-22', 0, 2);
     
 -- FAQ
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test faq article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0, 3);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test faq article2', 'no content', 0, 0, 2, 0, '2017-11-22', 0, 3);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test faq article3', 'no content', 0, 0, 3, 0, '2017-11-22', 0, 3);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test faq article4', 'no content', 0, 0, 4, 0, '2017-11-22', 0, 3);
-insert into `Board-1` values(
+insert into `GroupBoard-1` values(
     null, 'admin', 'test faq article5', 'no content', 0, 0, 5, 0, '2017-11-22', 0, 3);

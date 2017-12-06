@@ -113,7 +113,7 @@
 				</div>
 				<div class="login">
 					<c:if test="${id == null}">
-						<form action="/project/login.do" method="post" id="loginForm">
+						<form action="/project/login" method="post" id="loginForm">
 							<br>
 							<div class="loginInfoInput">
 								<input type="text" id="id" name="id" placeholder="아이디" required=""/><br>
@@ -123,17 +123,17 @@
 								<input type="submit" value="로그인"><br>
 							</div>
 							<div class="searchJoin">
-								<!-- <a href="#">ID / PW 찾기</a> &nbsp; | &nbsp; <a href="userProvisionForm.do">회원가입</a> -->
-								<a href="javascript:void(window.open('/project/userIdPassFind.do', '_blank','width=450, height=270'))">ID / PW 찾기</a> | <a href="userProvisionForm.do">회원가입</a>
+								<!-- <a href="#">ID / PW 찾기</a> &nbsp; | &nbsp; <a href="userProvisionForm">회원가입</a> -->
+								<a href="javascript:void(window.open('/project/userIdPassFind', '_blank','width=450, height=270'))">ID / PW 찾기</a> | <a href="userProvisionForm">회원가입</a>
 							</div>
 						</form>
 					</c:if>
 					<c:if test="${id != null}">
 						<center>
-							<form action="/project/logout.do" method="post">
+							<form action="/project/logout" method="post">
 							 	<p>${id}님 환영합니다</p>
-							 	<a href="/project/mypage.do">회원정보수정</a><br>
-							 	<a href="/project/myInfoDelForm.do">회원탈퇴</a><br>
+							 	<a href="/project/mypage">회원정보수정</a><br>
+							 	<a href="/project/myInfoDelForm">회원탈퇴</a><br>
 								<button id="logout">로그아웃</button>
 							</form>
 						</center>

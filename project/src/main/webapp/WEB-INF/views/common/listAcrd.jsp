@@ -88,7 +88,7 @@ $(function() {
 		let fileStatus = $(this).attr("fileStatus");
 		console.log(articleNum+", "+fileStatus);
 		$.ajax({
-			url: "content.do",
+			url: "content",
 			type: "post",
 			data: {
 				boardNum: "${boardNum}",

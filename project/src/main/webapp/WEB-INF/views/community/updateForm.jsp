@@ -117,7 +117,7 @@ input.submitBtn {
 				<span>home > community > notice</span>
 			</nav>
 			<div>
-				<form action="update.do" method="post">
+				<form action="update" method="post">
 					<!-- 글쓰기 영역 전체 감쌈 -->
 					<div class="writeFormWrap">
 						<input type="hidden" name="boardNum" value="${boardNum}">
@@ -163,7 +163,7 @@ input.submitBtn {
 					<!-- 글 작성 버튼 영역 -->
 					<div class="btnConfirm">
 						<input type="submit" value="작성 완료" class="submitBtn" />
-						<a href="list.do?boardNum=${boardNum}&pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
+						<a href="list?boardNum=${boardNum}&pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
 					</div>
 				</form>
 			</div>
@@ -201,7 +201,7 @@ input.submitBtn {
 				formData.append("multiFile", item);
 			});	
 			$.ajax({
-				  url: '/project/uploadAjax.do',
+				  url: '/project/uploadAjax',
 				  data: formData,
 //					  복수개를 업로드시 
 				  dataType:'json',		  
@@ -213,7 +213,7 @@ input.submitBtn {
 // 					  alert(data);				  
 					  $.each(data,function(index, fileName){					  					 
 						  if(checkImageType(fileName)){						 
-							  str ="<div><img src='/project/displayFile.do?fileName="+fileName+"'/>"	
+							  str ="<div><img src='/project/displayFile?fileName="+fileName+"'/>"	
 								  +"<small class='human' data-src='"+fileName+"'>&nbsp;삭제</small>"
 //			 				 이미지 파일일 경우에는 이름에 s_ 가 포함되어있으므로 테이블에 바로 입력하면
 //			 				 다운로드시 썸네일 파일을 다운로드 받게됨...이름에 s_ 제거하고 테이블에 입력
@@ -234,7 +234,7 @@ input.submitBtn {
 			$(".fileDrop").on("click", "small", function(event){			
 				let that = $(this);
 				$.ajax({
-					   url:"/project/deleteFile.do",
+					   url:"/project/deleteFile",
 					   type:"post",
 					   data: {
 						   fileName:$(this).attr("data-src")
@@ -266,7 +266,7 @@ input.submitBtn {
 //				배열을 직렬화해서 전송함 
 				jQuery.ajaxSettings.traditional = true;
 				$.ajax({
-					   url:"/project/deleteAllFiles.do",
+					   url:"/project/deleteAllFiles",
 					   type:"post",
 					   data: {files: files},
 					   dataType:"text",		  

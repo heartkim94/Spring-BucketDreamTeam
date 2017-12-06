@@ -6,29 +6,29 @@
 <mapper namespace="com.pknu.project.group.dao.GroupDao">
 	<select id="isAdminMember" parameterType="int" resultType="boolean">
 		select	count(*)
-		from	`group` g
-		join	member m
+		from	groups g
+		join	members m
 		on		g.groupNum = m.groupNum
 		where	g.groupNum = -1
 				and userNum = #{userNum};
 	</select>
 	<select id="getMyGroup" parameterType="String" resultType="group">
 		select	g.*, ifnull(cnt, 0) as memberCount
-		from	`group` g
-				 left join	member m	on g.groupNum = m.groupNum
-				 left join	user u		on m.userNum = u.userNum
-				 left join 	(select	groupNum, count(groupNum) as cnt
-		           			from	member
+		from	groups g
+				left join	members m	on g.groupNum = m.groupNum
+				left join	users u		on m.userNum = u.userNum
+				left join 	(select	groupNum, count(groupNum) as cnt
+		           			from	members
 		            		group by groupNum) c
 		            					on g.groupNum = c.groupNum
 		where 	u.id = #{id};
 	</select>
 	<select id="getGroup" parameterType="int" resultType="group">
-		SELECT * FROM `Group` WHERE groupNum=#{groupNum}
+		SELECT * FROM Groups WHERE groupNum=#{groupNum}
 	</select>
 	<select id="getCategory" resultType="category">
 		SELECT c2.*
-		FROM Category c1, category c2
+		FROM Categorys c1, categorys c2
 		WHERE c1.parentNum=0
 			  and (c1.catNum=c2.parentNum or c1.catNum=c2.catNum)
 			  and c1.catNum!=-1
@@ -36,23 +36,23 @@
 	</select>
 	<update id="newGroup" parameterType="group"
 			useGeneratedKeys="true" keyColumn="groupNum" keyProperty="groupNum">
-		INSERT INTO `Group`(groupName, groupOwner, catNum)
+		INSERT INTO Groups(groupName, groupOwner, catNum)
 		VALUES(#{groupName},
 			   (SELECT	userNum
-			   FROM		User
+			   FROM		Users
 			   WHERE	id=#{groupOwnerId}),
 			   #{catNum}
 		);
-		INSERT INTO Member VALUES(
+		INSERT INTO Members VALUES(
 			last_insert_id(),
 			(SELECT	userNum
-			   FROM		User
+			   FROM		Users
 			   WHERE	id=#{groupOwnerId})
 		);
 	</update>
 	
 	<delete id="deleteGroup" parameterType="int">
-		DELETE FROM group
+		DELETE FROM groups
 		WHERE groupNum=${groupNum}
 	</delete>
 </mapper>
