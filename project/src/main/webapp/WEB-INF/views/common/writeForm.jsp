@@ -108,15 +108,24 @@ input.submitBtn {
 </head>
 <body>
 <div>
-	<form action="write" method="post">
+	<form action="${action}" method="post">
 		<!-- 글쓰기 영역 전체 감쌈 -->
 		<div class="writeFormWrap"> 
 			<input type="hidden" name="boardNum" value="${boardNum}">
+			<c:if test="${action eq 'update'}">
+				<input type="hidden" name="articleNum" value="${articleNum}">
+			</c:if>
+			<c:if test="${action eq 'reply'}">
+				<input type="hidden" name="groupId" value="${groupId}">
+				<input type="hidden" name="pos" value="${pos}">
+				<input type="hidden" name="depth" value="${depth}">
+			</c:if>
+			<input type="hidden" name="pageNum" value="${pageNum}">
 			<input type="hidden" name="id" value="${id}" /> <!-- 작성자 id -->
 			<table>
 				<tr>
 					<th><label for="title">제목</label></th>
-					<td align="left"><input type="text" name="title" id="title"/></td>
+					<td align="left"><input type="text" name="title" id="title" value="${title}"/></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
@@ -124,7 +133,7 @@ input.submitBtn {
 				</tr>
 				<tr>
 					<th><label for="content">내용</label></th>
-					<td align="left"><textarea id="content" style="resize: none;" name="content" cols="40" rows="10"></textarea></td>
+					<td align="left"><textarea id="content" style="resize: none;" name="content" cols="40" rows="10">${content}</textarea></td>
 				</tr>
 				<!-- 파일첨부영역 -->
 				<!-- faq 글쓰기 할 때는 필요없음 -->
