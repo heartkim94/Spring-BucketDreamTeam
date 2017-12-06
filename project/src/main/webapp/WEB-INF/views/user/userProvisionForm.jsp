@@ -59,7 +59,7 @@
 	
 			<tr>
 				<td align="center">
-					<table  width="800px">
+					<table  width="800px" >
 						<!-- 전체 동의 체크박스 시작 -->							                  
 						<div align="center">                       
 							<input type="checkbox" id="allchecked">                        
@@ -315,7 +315,7 @@
 				            <td>
 				             	<div>
 				             		<font color="#f67001" size="4">02</font> <font size="3">개인정보 수집 및 이용에 대한 안내</font>
-				            	</div>
+				            	</div><br>
 				         	</td>
 				        </tr>
 				        <tr>
