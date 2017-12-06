@@ -9,4 +9,5 @@ public interface GroupService {
 	public GroupDto getGroup(int groupNum, Model model);
 	public void getCategory(Model model);
 	public void newGroup(GroupDto group);
+	public void deleteGroup(int groupNum);
 }

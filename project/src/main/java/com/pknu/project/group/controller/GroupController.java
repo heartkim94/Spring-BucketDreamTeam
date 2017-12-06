@@ -126,6 +126,11 @@ public class GroupController {
 		return boardService.deleteBoard(boardNum);
 	}
 	
+	@RequestMapping(value="/{groupNum}/deleteGroup.do", method=RequestMethod.POST)
+	public void deleteGroup(int groupNum) {
+		groupService.deleteGroup(groupNum);
+	}
+	
 	/* chatroom */
 	@RequestMapping(value="/{groupNum}/chatrooms", method=RequestMethod.GET)
 	public String chatroomList(@PathVariable("groupNum") int groupNum, Model model) {

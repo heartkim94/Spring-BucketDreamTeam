@@ -16,6 +16,9 @@
 					채팅방
 				</div>
 			</li>
+			<li>
+				<input type="button" value="그룹 없애기" onclick="deleteGroup()" id="deleteGroup">
+			</li>
 		</ul>
 	</aside>
 </body>
@@ -25,5 +28,25 @@ $(function() {
 		window.open("chatrooms", "main.do", "width=300, height=400");
 	});
 });
+// 	$.ajaxSetup({
+// 		type: "POST",
+// 		async : "true",
+// 		dataType : "json",
+// 		error : function(xhr){
+// 			alert("error html = "+ xhr.statusText);
+// 		}
+// 	});
+function deleteGroup() {
+	event.preventDefault();
+	$ajax({
+		url : "/project/deleteGroup.do",
+		data: {
+			groupNum : "${groupNum}"
+		}, 
+		success: function(data){
+			showHtml(data, commPageNum, event);
+		}
+	});
+}
 </script>
 </html>

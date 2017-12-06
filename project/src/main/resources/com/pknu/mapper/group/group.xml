@@ -50,4 +50,9 @@
 			   WHERE	id=#{groupOwnerId})
 		);
 	</update>
+	
+	<delete id="deleteGroup" parameterType="int">
+		DELETE FROM group
+		WHERE groupNum=${groupNum}
+	</delete>
 </mapper>
