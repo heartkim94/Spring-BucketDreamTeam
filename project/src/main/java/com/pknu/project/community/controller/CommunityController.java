@@ -55,9 +55,10 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/write", method=RequestMethod.GET)
-	public String writeForm(HttpSession session,
+	public String writeForm(HttpSession session, Model model,
 			@ModelAttribute("boardNum") int boardNum){
 		System.out.println("***writeForm***");
+		model.addAttribute("action", "write");
 		return "community/writeForm";
 	}
 	
@@ -119,7 +120,7 @@ public class CommunityController {
 			@ModelAttribute("pageNum") int pageNum, Model model) {
 		System.out.println("***replyForm***");
 		model.addAttribute("action", "reply");
-		return "community/replyForm";
+		return "community/writeForm";
 	}
 	
 	@RequestMapping(value="/reply", method=RequestMethod.POST)
@@ -148,7 +149,7 @@ public class CommunityController {
 							 @ModelAttribute("fileStatus") int fileStatus, Model model) {
 		boardService.updateGetArticle(-1, articleNum, boardNum, fileStatus, model);
 		model.addAttribute("action", "update");
-		return "community/updateForm";
+		return "community/writeForm";
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
