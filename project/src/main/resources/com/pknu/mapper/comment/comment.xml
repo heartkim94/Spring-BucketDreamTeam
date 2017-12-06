@@ -17,7 +17,7 @@
 	
 	<!-- 코멘트 쓰기 -->
 	<insert id="insertComment" parameterType="comment">
-		insert into comments values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum}, null, '');
+		insert into comments values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum}, 0, '');
 		update comments set path=commentNum;
 	</insert>
 	
