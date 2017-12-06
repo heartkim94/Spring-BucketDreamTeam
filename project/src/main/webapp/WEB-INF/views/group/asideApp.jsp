@@ -22,7 +22,7 @@
 <script>
 $(function() {
 	$(".chatRoomList").on("click", function() {
-		window.open("chatrooms", "main.do", "width=300, height=400");
+		window.open("chatrooms", "main.do", "width=320, height=500");
 	});
 });
 </script>
