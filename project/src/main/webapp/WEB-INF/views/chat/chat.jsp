@@ -49,6 +49,8 @@
 					<div class="paintTools">
 						<button>Pen</button>
 						<button>Eraser</button>
+						<button class="undo">Undo</button>
+						<button class="redo">Redo</button>
 					</div>
 				</div>
 				<div class="claer"></div>
@@ -70,52 +72,39 @@
 	</div> <!-- wrapper End -->
 </body>
 <script>
+let ctx;
+let paint;
+let socket;
+
 $(function() {
-	$(".paintBtn").on("click", function() {
-		if($(".canvasContainer").css("display")=="none") {
-			// 그림판 열기
-			let d = (320*2 + 100) - document.body.clientWidth;
-			window.resizeBy(d, 0);
-			window.moveBy(-d, 0);
-			$(".canvasContainer").css("display", "");
-		} else {
-			// 그림판 닫기
-			let d = 320 - document.body.clientWidth;
-			$(".canvasContainer").css("display", "none");
-			window.resizeBy(d, 0);
-			window.moveBy(-d, 0);
-		}
-	});
-});
-$(function() {
-	// vars for canvas
-	let pathList = [];
-	let path = null;
-	let started = false;
-	let canvas = $(".paint")[0];
-	let ctx = canvas.getContext('2d');
-	
 	
 	// socket
-	let socket = io.connect("http://210.119.12.240:50000");
+	socket = io.connect("http://210.119.12.240:50000");
 	socket.emit("join", {		// 채팅방 참가 요청
 		roomNum: "${roomNum}",
 		userId: "${id}",
 		sessionId: "${pageContext.session.id}"
 	})
+	socket.on("join", function(data) {
+		for(let i in data.log) {
+			insertMessage(data.log[i]);
+		}
+	});
 	
-	$(".leave").on("click", function() {
-		$(".paintBtn").click();
-		socket.emit("leave", {
+	$(".leave").on("click", function() {	// 나가기 버튼 클릭시
+		if($(".canvasContainer").css("display")!="none") {  // 창 크기 원래대로 변경
+			$(".paintBtn").click();
+		}
+		socket.emit("leave", {		// 채팅 서버에 나가기 알림
 			userId: "${id}",
 			sessionId: "${pageContext.session.id}"
 		});
 	});
-	socket.on("sendAll", function(data) {	// 메세지를 chatLog에 입력
+	socket.on("sendAll", function(data) {
 		switch(data.type) {
-		case "msg":
-			let str = "<div class='log'>"+data.id+": "+data.msg+"</div>";
-			$(str).insertBefore($(".insertPoint"));
+		case "msg":							// 메세지를 chatLog에 입력
+			insertMessage(data);
+			scrollToBottom();
 			break;
 		case "path":
 			let points = data.path.points;
@@ -144,7 +133,13 @@ $(function() {
 	
 	
 	// canvas
-	$(".mainCanvas").on("mousedown", function(event) {
+	paint = new Paint();
+	let pathList = [];
+	let path = null;
+	let started = false;
+	let canvas = $(".paint")[0];
+	ctx = canvas.getContext('2d');
+	$(".paint").on("mousedown", function(event) {
 		let x, y;
 		
 		let offset = $(canvas).offset();
@@ -159,7 +154,7 @@ $(function() {
 	    path.add(x, y);
 	    pathList.push(path);
 	});
-	$(".mainCanvas").on("mousemove", function(event) {
+	$(".paint").on("mousemove", function(event) {
 		if(!started) { return; }
 		let x, y;
 		
@@ -175,13 +170,37 @@ $(function() {
 		if(!started) { return; }
 		started = false;
 		console.log("up");
+		let dataUrl = $(".paint")[0].toDataURL();
 		socket.emit("send", {
 			roomNum: "${roomNum}",
 			id: "${id}",
-			type: "path",
-			path: path
+			type: "paint",
+			image: dataUrl
 		});
+		paint.push(dataUrl);
 	})
+	
+	
+	// paint buttons
+	$(".paintBtn").on("click", function() {
+		if($(".canvasContainer").css("display")=="none") {
+			// 그림판 열기
+			let d = (320*2 + 100) - document.body.clientWidth;
+			window.resizeBy(d, 0);
+			window.moveBy(-d, 0);
+			$(".canvasContainer").css("display", "");
+		} else {
+			// 그림판 닫기
+			let d = 320 - document.body.clientWidth;
+			$(".canvasContainer").css("display", "none");
+			window.resizeBy(d, 0);
+			window.moveBy(-d, 0);
+		}
+	});
+	
+	$(".undo").on("click", function() {
+		paint.undo();
+	});
 });
 
 
@@ -196,6 +215,54 @@ Path.prototype.get = function(i) {
 }
 Path.prototype.size = function() {
 	return this.points.length;
+}
+
+function insertMessage(data) {
+	let str = "<div class='log'>"+data.id+": "+data.msg+"</div>";
+	$(str).insertBefore($(".insertPoint"));
+}
+
+function scrollToBottom() {
+	let logBox = $(".chatLog")[0]
+	let scrollTop = $(logBox).scrollTop();
+	let scrollHeight = logBox.scrollHeight;
+	let outerHeight = $(logBox).outerHeight();
+	if(scrollHeight - scrollTop > outerHeight) {
+		$(logBox).scrollTop(scrollHeight - outerHeight);
+	}
+}
+
+function Paint() {
+	this.step = -1;
+	this.steps = [];
+}
+Paint.prototype.push = function(dataUrl) {
+	this.step += 1;
+	if(this.step < this.steps.length) {
+		this.steps[this.step] = dataUrl;
+	} else {
+		this.steps.push(dataUrl);
+	}
+}
+Paint.prototype.undo = function() {
+	if(this.step > 0) {
+		this.step += -1;
+		let pic = new Image();
+		pic.src = this.steps[this.step];
+		
+		ctx.clearRect(0, 0, $(".paint").width(), $(".paint").height());
+		pic.onload = function() { ctx.drawImage(pic, 0, 0); }
+	}
+}
+Paint.prototype.redo = function() {
+	if(this.step < this.steps.length-1) {
+		this.step += 1;
+		let pic = new Image();
+		pic.src = this.steps[this.step];
+		
+		ctx.clearRect(0, 0, $(".paint").width(), $(".paint").height());
+		pic.onload = function() { ctx.drawImage(pic, 0, 0); } 
+	}
 }
 </script>
 </html>
