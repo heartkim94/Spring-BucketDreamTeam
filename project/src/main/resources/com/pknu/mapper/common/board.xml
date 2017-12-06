@@ -11,7 +11,7 @@
 	<update id="addBoardList" parameterType="HashMap"  useGeneratedKeys="true" keyColumn="boardNum" keyProperty="boardNum">
 		insert into BoardList(boardName, groupNum) values(#{boardName}, #{groupNum});
 	</update>
-	<update id="createTableBoard" parameterType="int">
+	<update id="createGroupBoard" parameterType="HashMap">
 		create table `GroupBoard${groupNum}` (
 		    articleNum int primary key auto_increment,
 		    id varchar(300) not null,

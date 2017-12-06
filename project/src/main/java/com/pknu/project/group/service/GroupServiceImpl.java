@@ -21,7 +21,7 @@ public class GroupServiceImpl implements GroupService {
 	private BoardService boardService;
 	
 	private GroupDto group;
-	
+	private HashMap<String, String> paramMap;
 	@Override
 	public void getMyGroup(String id, Model model) {
 		model.addAttribute("groupList", groupDao.getMyGroup(id));
@@ -50,7 +50,9 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public void newGroup(GroupDto group) {
 		groupDao.newGroup(group);
-		boardDao.createTableBoard(group.getGroupNum());
+		paramMap = new HashMap<>();
+		paramMap.put("groupNum", String.valueOf(group.getGroupNum()));
+		boardDao.createGroupBoard(paramMap);
 		boardService.newBoard("Board", group.getGroupNum());
 	}
 }
