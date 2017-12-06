@@ -45,7 +45,7 @@
 					<li class="myCanvas">my canvas</li>
 				</ul>
 				<div class="mainCanvas">
-					<canvas class="paint" width="300" height="400"></canvas>
+					<canvas class="paint" paintNum="-1" width="300" height="400"></canvas>
 					<div class="paintTools">
 						<button>Pen</button>
 						<button>Eraser</button>
@@ -77,6 +77,7 @@ let paint;
 let socket;
 
 $(function() {
+	let paint = new Paint();
 	
 	// socket
 	socket = io.connect("http://210.119.12.240:50000");
@@ -125,7 +126,8 @@ $(function() {
 		let msg = $("input:text").val();
 		socket.emit("send", {
 			roomNum: "${roomNum}",
-			id: "${id}",
+			userId: "${id}",
+			sessionId: "${pageContext.session.id}",
 			type: "msg",
 			msg: msg
 		});
@@ -133,7 +135,6 @@ $(function() {
 	
 	
 	// canvas
-	paint = new Paint();
 	let pathList = [];
 	let path = null;
 	let started = false;
@@ -177,7 +178,7 @@ $(function() {
 			type: "paint",
 			image: dataUrl
 		});
-		paint.push(dataUrl);
+		paint.push();
 	})
 	
 	
@@ -199,7 +200,15 @@ $(function() {
 	});
 	
 	$(".undo").on("click", function() {
-		paint.undo();
+		if($(".paint").attr("paintNum") == -1) {
+			paint.undo();
+		}
+	});
+	
+	$(".redo").on("click", function() {
+		if($(".paint").attr("paintNum") == -1) {
+			paint.redo();
+		}
 	});
 });
 
@@ -218,7 +227,7 @@ Path.prototype.size = function() {
 }
 
 function insertMessage(data) {
-	let str = "<div class='log'>"+data.id+": "+data.msg+"</div>";
+	let str = "<div class='log'>"+data.userId+": "+data.msg+"</div>";
 	$(str).insertBefore($(".insertPoint"));
 }
 
@@ -235,8 +244,10 @@ function scrollToBottom() {
 function Paint() {
 	this.step = -1;
 	this.steps = [];
+	this.push();
 }
-Paint.prototype.push = function(dataUrl) {
+Paint.prototype.push = function() {
+	let dataUrl = $(".paint")[0].toDataURL();
 	this.step += 1;
 	if(this.step < this.steps.length) {
 		this.steps[this.step] = dataUrl;
@@ -247,22 +258,22 @@ Paint.prototype.push = function(dataUrl) {
 Paint.prototype.undo = function() {
 	if(this.step > 0) {
 		this.step += -1;
-		let pic = new Image();
-		pic.src = this.steps[this.step];
 		
-		ctx.clearRect(0, 0, $(".paint").width(), $(".paint").height());
-		pic.onload = function() { ctx.drawImage(pic, 0, 0); }
+		this.setImage(this.steps[this.step]);
 	}
 }
 Paint.prototype.redo = function() {
 	if(this.step < this.steps.length-1) {
 		this.step += 1;
-		let pic = new Image();
-		pic.src = this.steps[this.step];
 		
-		ctx.clearRect(0, 0, $(".paint").width(), $(".paint").height());
-		pic.onload = function() { ctx.drawImage(pic, 0, 0); } 
+		this.setImage(this.steps[this.step]); 
 	}
+}
+Paint.prototype.setImage = function(dataUrl) {
+	let pic = new Image();
+	pic.src = dataUrl;
+	ctx.clearRect(0, 0, $(".paint").width(), $(".paint").height());
+	pic.onload = function() { ctx.drawImage(pic, 0, 0); }
 }
 </script>
 </html>
