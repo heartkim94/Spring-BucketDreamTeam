@@ -59,11 +59,31 @@ public class GroupController {
 	public String list(
 			@PathVariable("groupNum") int groupNum,
 			@ModelAttribute("boardNum") int boardNum,
-			@ModelAttribute("pageNum") int pageNum, Model model) {
+			@ModelAttribute("pageNum") int pageNum,
+			String searchOption, String keyword, Model model) {
 		groupService.getGroup(groupNum, model);
 		boardService.getBoards(groupNum, model);
-		boardService.getArticles(groupNum, boardNum, pageNum, model);
+		if(keyword==null) {
+			boardService.getArticles(groupNum, boardNum, pageNum, model);
+		} else {
+			boardService.getSearchedArticles(groupNum, boardNum, pageNum, searchOption, keyword, model);
+		}
 		return "group/list";
+	}
+	
+	// 검색 기능 구현
+	@RequestMapping(value="/{groupNum}/list", method=RequestMethod.POST)
+	public String list(@PathVariable("groupNum") int groupNum,
+					   @RequestParam(name="searchOption",defaultValue="title") String searchOption,
+					   @RequestParam("keyword") String keyword,
+					   @RequestParam("boardNum") int boardNum,
+					   @RequestParam("pageNum") int pageNum,
+					   Model model) {
+		String view = "redirect:list?pageNum=1&boardNum="+boardNum;
+		if(keyword!=null && !keyword.equals("")) {
+			view += "&keyword="+keyword+"&searchOption="+searchOption;
+		}
+		return view;
 	}
 	
 	@RequestMapping(value="/{groupNum}/content", method=RequestMethod.GET)
@@ -98,6 +118,48 @@ public class GroupController {
 		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
+	@RequestMapping(value="/{groupNum}/update", method=RequestMethod.GET)
+	public String updateForm(@PathVariable("groupNum") int groupNum,
+							 @ModelAttribute("articleNum") String articleNum,
+							 @ModelAttribute("boardNum") String boardNum,
+							 @ModelAttribute("pageNum") int pageNum,
+							 @ModelAttribute("fileStatus") int fileStatus, Model model) {
+		boardService.updateGetArticle(groupNum, articleNum, boardNum, fileStatus, model);
+		model.addAttribute("action", "update");
+		return "community/writeForm";
+	}
+	
+	@RequestMapping(value="/{groupNum}/update", method=RequestMethod.POST)
+	public String updateArticle(@PathVariable("groupNum") int groupNum,
+								@ModelAttribute("boardNum") String boardNum,
+								@ModelAttribute("pageNum") int pageNum,
+								ArticleDto article, Model model) {
+		article.setGroupNum(groupNum);
+		boardService.updateArticle(article, boardNum, model);
+		return "redirect:list";
+	}
+	
+	@RequestMapping(value="/{groupNum}/reply", method=RequestMethod.GET)
+	public String replyForm(HttpSession session, Model model,
+			@PathVariable("groupNum") int groupNum,
+			@ModelAttribute("boardNum") int boardNum,
+			@ModelAttribute("groupId") int groupId, 
+			@ModelAttribute("pos") int pos,
+			@ModelAttribute("depth") int depth,
+			@ModelAttribute("pageNum") int pageNum) {
+		System.out.println("***replyForm***");
+		model.addAttribute("action", "reply");
+		return "community/writeForm";
+	}
+	
+	@RequestMapping(value="/{groupNum}/reply", method=RequestMethod.POST)
+	public String reply(ArticleDto article, HttpSession session){		
+		article.setId((String)session.getAttribute("id"));
+		boardService.reply(article);
+		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
+	}
+	
+	/* setting */
 	@RequestMapping(value="/{groupNum}/setting", method=RequestMethod.GET)
 	public String setting(@PathVariable("groupNum") int groupNum, Model model) {
 		groupService.getGroup(groupNum, model);
