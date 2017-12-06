@@ -7,10 +7,10 @@
 	
 	<select id="getComments" parameterType="HashMap" resultType="comment">
 		select * 		
-		from (select id,commentContent,commentDate, articleNum, @rownum:=@rownum+1 as rownum
+		from (select commentNum, id,commentContent,commentDate, articleNum, @rownum:=@rownum+1 as rownum
 		     from	comments,
 		     		(select @rownum:=0) vars
-		     where boardNum=#{boardNum} 
+		     where boardNum=#{boardNum} AND articleNum=#{articleNum}
 		     order by commentNum desc ) human 
 		where rownum between 1 and #{commentRow}
 	</select>
@@ -18,7 +18,7 @@
 	<!-- 코멘트 쓰기 -->
 	<insert id="insertComment" parameterType="comment">
 		insert into comments values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum}, 0, '');
-		update comments set path=commentNum;
+		update comments set path=commentNum where commentNum = last_insert_id();
 	</insert>
 	
 	<!-- 코멘트 갯수 -->
@@ -30,12 +30,17 @@
 	<select id="updateGetComment" parameterType="HashMap" resultType="String">
 		SELECT commentContent
 		FROM Comments
-		WHERE articleNum=${articleNum} AND boardNum=${boardNum}
+		WHERE articleNum=#{articleNum} AND boardNum=#{boardNum}
 	</select>
-	
 	<update id="updateComment" parameterType="HashMap">
 		UPDATE Comments
 		SET commentContent=${commentContent}
-		WHERE commentNum=${commentNum} AND articleNum=${articleNum} AND boardNum=board${boardNum}
+		WHERE commentNum=#{commentNum} AND articleNum=#{articleNum} AND boardNum=board${boardNum}
 	</update>
+	
+	<!-- 코멘트 답글 -->
+	<insert id="replyComment">
+		insert into comments values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum}, #{parentNum}, '');
+		update comments set path=concat((select path from comments where commentNum=#{parentNum}), '.', last_insert_id());
+	</insert>
 </mapper>

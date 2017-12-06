@@ -20,31 +20,41 @@ public class CommentController {
 	
 	List<CommentDto> commentList = null;
 	
-	@RequestMapping(value="commentRead")
-	public List<CommentDto> commentRead(@RequestParam int boardNum,
-										@RequestParam int commentRow){
-		return commentService.getComments(boardNum, commentRow);
+	@RequestMapping(value="commentList")
+	@ResponseBody
+	public List<CommentDto> commentRead(CommentDto comment){
+		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
 	}
+	
 	
 	@RequestMapping(value="commentWrite")
 	@ResponseBody
 	public HashMap<String, Object> commentWrite(CommentDto comment, 
 															   HttpSession session){
 		comment.setId((String)session.getAttribute("id"));
-//		String content = comment.getCommentContent().replaceAll("\r\n","<br>");
-//		comment.setCommentContent(content);
-//		System.out.println("내용: "+content);
 		commentService.insertComment(comment);
-		commentList=commentService.getComments(comment.getBoardNum(), 10);
+		commentList=commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("result", 1);
 		hm.put("commentList", commentList);
 		return hm;		
 	}
 	
-	@RequestMapping(value="commentUpdate")
+	@RequestMapping(value="replyComment")
+	@ResponseBody
+	public String replyComment() {
+		return null;
+	}
+	
+	@RequestMapping(value="updateComment")
 	@ResponseBody
 	public String commentUpdate(@RequestParam String commentContent) {
+		return null;
+	}
+	
+	@RequestMapping(value="deleteComment")
+	@ResponseBody
+	public String deleteComment() {
 		return null;
 	}
 }

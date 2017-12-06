@@ -142,10 +142,12 @@ input {
 	<!-- 코멘트 -->
 	<div class="commentArea">
 		<!-- 코멘트 쓰기 영역 -->
-		<div style="margin-bottom: 10px;">	
+		<div style="margin-bottom: 10px;">
+			<c:if test="${article.commentCount!=0}">
+				<span style="color: red">(${article.commentCount})</span>
+			</c:if>
 			<table class="commentTable">
 				<tr>
-					<% pageContext.setAttribute("newLineChar", "\n"); %>
 					<th>내용: </th>
 					<td><textarea id="commentContent" name="contents"></textarea></td>
 				</tr>
@@ -169,6 +171,8 @@ input {
 </div> <!-- contentTable end -->
 </body>
 <script>
+	let replyArea = null;
+	
 	$.ajaxSetup({
 		type: "POST",
 		async : "true",
@@ -177,9 +181,19 @@ input {
 			alert("error html = "+ xhr.statusText);
 		}
 	});
-	$(document).ready(function(data, commPageNum) {
-		$("#commentContent").val("");
-		showHtml(data.commentList, 1);
+	$(document).ready(function(data) {
+		// 댓글 목록 
+		$.ajax({
+			url : "/project/commentList",
+			data : {
+				articleNum : "${article.articleNum}",
+				boardNum : "${boardNum}" 
+			},
+			success : function(data) {
+				showHtml(data);
+			},
+		}); // ajax end		
+		
 		// 댓글 쓰기
 		$("#commentWrite").on('click', function() {
 			if($('#commentContent').val() == ""){
@@ -201,44 +215,46 @@ input {
 					}
 				},
 			}); // ajax end
-		});
+		}); // 댓글 쓰기 끝
+		
 	});
+	
 	function showHtml(data, commPageNum){
 		console.log(data);
 		var html = "<article class='commentList'>";
 		$.each(data, function(index,item){
-			html +="<div>";
-			html +="<ul>";
+			html +="<div class='comment' commentNum='"+item.commentNum+"'>";
+			html +="<div class='commentInfo'><ul>";
 			html +="<li>"+(index+1)+"</li>";
 			html +="<li>"+item.id+"</li>";
 			html +="<li>"+item.commentDate+"</li>";
-			html +="<li>"+item.articleNum+"</li>";
-			html +="</ul>";	
+// 			html +="<li>"+item.articleNum+"</li>";
+			html +="</ul></div>";	
 			html +="<p>"+item.commentContent+"</p>";
-			html +="<p><ul>";
-			html +="<li><a href='#' onclick=''>답변</a></li>";
+			html +="<ul>";
+			html +="<li class='btnReComment'><a href='#' onclick='openReplyArea(event,"+item.commentNum+", this)'>답변</a></li>";
 			html +="<li><a href='#' onclick=''>수정</a></li>";
-			html +="<li><a href='#' onclick=''>삭제</a></li>";
-			html +="</ul></p>";
+			html +="<li><a href='#' onclick='deleteComment(event)'>삭제</a></li>";
+			html +="</ul>";
 			html +="</div>";	
 		});		
 		html +="</article>";
 		commPageNum = parseInt(commPageNum);
-		console.log(html, commPageNum);
 		if("${article.commentCount}" < commPageNum * 10){
 			nextPageNum = commPageNum+1;
 			html +="<br /><input type='button' onclick='getComment(nextPageNum,event)' value='다음comment보기'><br>";
-			$("#showComment").html(html);	
-			$("#commentContent").val("");
-			$("#commentContent").focus();
 		}
+		$("#showComment").html(html);	
+		$("#commentContent").val("");
+		$("#commentContent").focus();
 	}
+	
 // 	function getComment(commPageNum, event){
 // 		event.preventDefault();
 // 		$ajax({
 // 			url : "/project/commentRead",
 // 			data: {
-// // 				articleNum : "${article.articleNum}",
+// 				articleNum : "${article.articleNum}",
 // 				boardNum : "${boardNum}",
 // 				commentRow: commPageNum * 10
 // 			}, 
@@ -247,5 +263,59 @@ input {
 // 			}
 // 		});
 // 	}
+	
+	function openReplyArea(event, parentNum, self){
+		console.log(self);
+		event.preventDefault();
+// 		console.log(parentNum);
+		if(replyArea!=null) {
+			$(replyArea).remove();
+		}
+		replyArea = $(".commentTable").parent().clone();
+// 		let ul = $(".btnReComment").parent();
+// 		ul.append(replyArea);
+		$(".comment[commentNum="+parentNum+"]").append($(replyArea));
+	}
+	
+	function replyComment(event){
+		event.preventDefault();
+		$ajax({
+			url : "/project/replyComment",
+			data : {
+				
+			},
+			success : {
+				
+			}
+		});
+	}
+
+	function updateComment(event){
+		event.preventDefault();
+		$ajax({
+			url : "/project/updateComment",
+			data : {
+				
+			},
+			success : {
+				
+			}
+		});
+	}
+	
+	function deleteComment(event){
+		event.preventDefault();
+		console.log('삭제버튼 클릭')
+// 		$ajax({
+// 			url : "/project/deleteComment",
+// 			data : {
+				
+// 			},
+// 			success : {
+				
+// 			}
+// 		});
+	}
+	
 </script>
 </html>
