@@ -116,8 +116,9 @@ public class CommunityController {
 			@ModelAttribute("groupId") int groupId, 
 			@ModelAttribute("pos") int pos,
 			@ModelAttribute("depth") int depth,
-			@ModelAttribute("pageNum") int pageNum) {
+			@ModelAttribute("pageNum") int pageNum, Model model) {
 		System.out.println("***replyForm***");
+		model.addAttribute("action", "reply");
 		return "community/replyForm";
 	}
 	
@@ -125,7 +126,7 @@ public class CommunityController {
 	public String reply(ArticleDto article, HttpSession session){		
 		article.setId((String)session.getAttribute("id"));
 		article.setGroupNum(-1);
-		boardService.reply(article);		
+		boardService.reply(article);
 		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
@@ -146,6 +147,7 @@ public class CommunityController {
 							 @ModelAttribute("pageNum") int pageNum,
 							 @ModelAttribute("fileStatus") int fileStatus, Model model) {
 		boardService.updateGetArticle(-1, articleNum, boardNum, fileStatus, model);
+		model.addAttribute("action", "update");
 		return "community/updateForm";
 	}
 	
