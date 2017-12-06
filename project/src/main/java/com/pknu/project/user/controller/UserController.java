@@ -82,7 +82,7 @@ public class UserController {
 	@RequestMapping(value="userUpdate.do")
 	public String userUpdate(HttpSession session, UserDto userDto) {
 		userService.userUpdate(session, userDto);
-		return "reirect:home.do";
+		return "redirect:home.do";  
 	}
 	
 	@RequestMapping(value="/checkJoin.do")

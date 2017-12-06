@@ -13,6 +13,8 @@
       <!-- 합쳐지고 최소화된 최신 CSS -->
 	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="./resources/css/submit.css">
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet">
 	  <script>
 		$(function(){
 			$('#passCheckBtn').on("click", function sendit(event){
@@ -30,15 +32,17 @@
 					success:function(data) {
 						if($("#pass").val()!="") {
 							if(data==1) {
-								alert('비밀번호를 잘못입력하셨습니다.');
+// 								alert('비밀번호를 잘못입력하셨습니다.');
+								swal ( "확인" ,  "비밀번호를 잘못입력하셨습니다." ,  "error" )
 								returnVar = false;
 							}else if(data==2) {
 								$("#passCheck").submit();
-								alert('회원탈퇴가 완료되었습니다');
+ 								alert('회원탈퇴가 완료되었습니다');
 								returnVar = true;
 							}
 						}else {
-							alert('비밀번호를 입력해주십시오.');
+// 							alert('비밀번호를 입력해주십시오.');
+							swal ( "확인" ,  "비밀번호를 입력해주십시오." ,  "error" )
 							returnVar = false;
 						}
 					}
@@ -64,7 +68,7 @@
             </div><br><br>
              
             <div class="wrap">
-  				<button class="button"><b>확인</b></button>
+  				<button class="button" id="passCheckBtn"><b>확인</b></button>
 			</div><br><br>
         </form>
         <!--// 본문 들어가는 부분 -->

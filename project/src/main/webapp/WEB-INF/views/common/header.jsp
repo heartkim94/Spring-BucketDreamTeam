@@ -12,6 +12,11 @@
 	<link rel="stylesheet" href="/project/resources/css/header.css" >
 	<script src="/project/resources/js/prefixfree.min.js"></script>
 	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
+	<style>
+	.navbar-fixed-bottom, .navbar-fixed-top {
+		    position: inherit;
+	}
+	</style>
 </head>
 
 <body>
