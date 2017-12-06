@@ -198,9 +198,10 @@ public class GroupController {
 		return boardService.deleteBoard(boardNum);
 	}
 	
-	@RequestMapping(value="/{groupNum}/deleteGroup", method=RequestMethod.POST)
-	public void deleteGroup(int groupNum) {
+	@RequestMapping(value="/{groupNum}/deleteGroup")
+	public String deleteGroup(int groupNum) {
 		groupService.deleteGroup(groupNum);
+		return "redirect:../group/main";
 	}
 	
 	/* chatroom */
