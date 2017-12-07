@@ -13,9 +13,9 @@
 <body>
 	<form name="searchForm" method="post" action="list">
         <select name="searchOption">
-            <option value="id">이름</option>
-            <option value="content">내용</option>
             <option value="title">제목</option>
+            <option value="content">내용</option>
+            <option value="id">이름</option>
         </select>
 		<input type="hidden" name="boardNum" value="${boardNum}">
 		<input type="hidden" name="pageNum" value="${pageNum}">

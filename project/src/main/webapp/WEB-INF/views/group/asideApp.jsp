@@ -17,7 +17,7 @@
 				</div>
 			</li>
 			<li>
-				<input type="button" value="그룹 없애기" onclick="deleteGroup()" id="deleteGroup">
+				<input type="button" value="그룹 없애기" onclick="document.location.href='deleteGroup?groupNum=${groupNum}'" id="deleteGroup">
 			</li>
 		</ul>
 	</aside>
@@ -28,25 +28,5 @@ $(function() {
 		window.open("chatrooms", "main", "width=320, height=500");
 	});
 });
-// 	$.ajaxSetup({
-// 		type: "POST",
-// 		async : "true",
-// 		dataType : "json",
-// 		error : function(xhr){
-// 			alert("error html = "+ xhr.statusText);
-// 		}
-// 	});
-function deleteGroup() {
-	event.preventDefault();
-	$ajax({
-		url : "/project/deleteGroup",
-		data: {
-			groupNum : "${groupNum}"
-		}, 
-		success: function(data){
-			showHtml(data, commPageNum, event);
-		}
-	});
-}
 </script>
 </html>

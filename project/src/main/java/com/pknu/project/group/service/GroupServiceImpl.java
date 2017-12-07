@@ -40,7 +40,7 @@ public class GroupServiceImpl implements GroupService {
 	public void deleteGroup(int groupNum) {
 		groupDao.deleteGroup(groupNum);
 	}
-
+	
 	/* new */
 	@Override
 	public void getCategory(Model model) {

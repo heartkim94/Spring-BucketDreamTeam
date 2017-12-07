@@ -54,6 +54,20 @@ public class GroupController {
 		return "group/view";
 	}
 	
+	@RequestMapping(value="/{groupNum}/deleteGroup")
+	public String deleteGroup(int groupNum) {
+		groupService.deleteGroup(groupNum);
+		return "redirect:../group/main";
+	}
+	
+	@RequestMapping(value="/group/goalSettingForm", method=RequestMethod.GET)
+	public String goalSetting() {
+		return "group/goalSetting";
+	}
+	
+	
+	
+	
 	/* group board */
 	@RequestMapping(value="/{groupNum}/list", method=RequestMethod.GET)
 	public String list(
@@ -200,10 +214,6 @@ public class GroupController {
 		return boardService.deleteBoard(boardNum);
 	}
 	
-	@RequestMapping(value="/{groupNum}/deleteGroup", method=RequestMethod.POST)
-	public void deleteGroup(int groupNum) {
-		groupService.deleteGroup(groupNum);
-	}
 	
 	/* chatroom */
 	@RequestMapping(value="/{groupNum}/chatrooms", method=RequestMethod.GET)

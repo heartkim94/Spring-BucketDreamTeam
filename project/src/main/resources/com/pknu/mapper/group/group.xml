@@ -53,6 +53,6 @@
 	
 	<delete id="deleteGroup" parameterType="int">
 		DELETE FROM groups
-		WHERE groupNum=${groupNum}
+		WHERE groupNum=#{groupNum}
 	</delete>
 </mapper>
