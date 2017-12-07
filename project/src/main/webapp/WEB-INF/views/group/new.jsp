@@ -6,8 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<!-- 합쳐지고 최소화된 최신 CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">  
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
 	<div id="wrapper">
@@ -32,8 +31,8 @@
 					</label>
 					<h3>목표</h3>
 					<hr>
-					bla bla
-					<button>목표설정</button>
+					<a href="javascript:void(window.open('/project/group/goalSettingForm', '_blank','width=450, height=300'))">목표 설정</a>
+					<!--menubar, status, resizable, titlebar, location, top, left -->
 					<br><br>
 					<input type="submit" value="만들기">
 				</form>
