@@ -1,6 +1,5 @@
 @charset "UTF-8";
 .groupMenu, .groupMain, .groupApp {
-	height: 70%;
 	float: left;
 	border: 1px solid black;
 }

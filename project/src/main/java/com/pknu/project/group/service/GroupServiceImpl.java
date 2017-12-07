@@ -55,4 +55,11 @@ public class GroupServiceImpl implements GroupService {
 		boardDao.createGroupBoard(paramMap);
 		boardService.newBoard("Board", group.getGroupNum());
 	}
+	
+	
+	/* do */
+	@Override
+	public void getDoList(int groupNum, Model model) {
+		model.addAttribute("doList", groupDao.getDoList(groupNum));
+	}
 }

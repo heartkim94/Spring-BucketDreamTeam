@@ -10,4 +10,7 @@ public interface GroupService {
 	public void getCategory(Model model);
 	public void newGroup(GroupDto group);
 	public void deleteGroup(int groupNum);
+	
+	/* do */
+	public void getDoList(int groupNum, Model model);
 }

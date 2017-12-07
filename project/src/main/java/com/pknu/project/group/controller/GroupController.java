@@ -169,10 +169,12 @@ public class GroupController {
 		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
+	
 	/* setting */
 	@RequestMapping(value="/{groupNum}/setting", method=RequestMethod.GET)
 	public String setting(@PathVariable("groupNum") int groupNum, Model model) {
 		groupService.getGroup(groupNum, model);
+		groupService.getDoList(groupNum, model);
 		boardService.getBoards(groupNum, model);
 		return "group/setting";
 	}

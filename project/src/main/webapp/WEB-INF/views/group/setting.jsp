@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -20,15 +21,16 @@
 			<div class="container settingContainer">
 				<h3>목표</h3>
 				<hr><br>
-				<div class="todoList">
+				<div class="doListContainer">
 					<ul>
-						<li>[ ]2018년 3월까지|다이어트|5kg
-							<ul>
-								<li>--[ ]매일|팔굽혀펴기|20회</li>
-							</ul>
-						</li>
-						<c:forEach var="do" items="${todoList}">
-							<li doNum="${do.doNum}"></li>
+						<c:forEach var="todo" items="${doList}">
+							<li doNum="${todo.doNum}" style="margin-left: ${25*todo.depth}">
+								<input type="checkbox" name="done"> ${todo.doName}
+								<c:if test="${todo.doWhen!=null}">
+									!! ${todo.doWhen} !!
+								</c:if>
+							</li>
+							<c:set var="lastPath" value="${todo.path}"/>
 						</c:forEach>
 					</ul>
 				</div>
