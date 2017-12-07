@@ -59,7 +59,7 @@ CREATE TABLE BoardList(
     boardNum int auto_increment PRIMARY KEY,
     boardName varchar(200) NOT NULL,
     groupNum int NOT NULL,
-    FOREIGN KEY(groupNum) REFERENCES Groups(groupNum)
+    FOREIGN KEY(groupNum) REFERENCES Groups(groupNum) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE Comments(
