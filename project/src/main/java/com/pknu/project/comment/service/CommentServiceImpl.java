@@ -36,6 +36,11 @@ public class CommentServiceImpl implements CommentService {
 		commentMap.put("articleNum", articleNum);
 		return commentDao.commentCount(commentMap);
 	}
+
+	@Override
+	public void deleteComment(int commentNum) {
+		commentDao.deleteComment(commentNum);
+	}
 	
 	
 	

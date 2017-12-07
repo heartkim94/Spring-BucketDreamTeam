@@ -237,7 +237,7 @@ article.commentList input {
 			html +="<ul>";
 			html +="<li class='btnReComment'><a href='#' onclick='openReplyArea(event,"+item.commentNum+", this)'>답변</a></li>";
 			html +="<li><a href='#' onclick=''>수정</a></li>";
-			html +="<li><a href='#' onclick='deleteComment(event)'>삭제</a></li>";
+			html +="<li><a href='#' onclick='deleteComment(event,"+item.commentNum+", this)'>삭제</a></li>";
 			html +="</ul>";
 			html +="</div>";	
 		});		
@@ -280,27 +280,30 @@ article.commentList input {
 		$(".comment[commentNum="+parentNum+"]").append($(replyArea));
 		$("article.commentList input").attr({
 			value: "답변 달기",
-			onclick: "replyComment(event, this)"
+			onclick: "replyComment(event,"+item.commentNum+", this)"
 		});
 	}
 	
-	function replyComment(event, self){
+	function replyComment(event, parentNum, self){
 		event.preventDefault();
-		console.log(this);
 		$.ajax({
 			url : "/project/replyComment",
 			data : {
-				
+				id : "${id}",
+				commentContent : $("textarea[commentNum]'"+parentNum+"']").val(),
+				boardNum : "${boardNum}",
+				articleNum : "${article.articleNum}"
 			},
-			success : {
-				
+			success : function(data){
+				alert(commentContent);
 			}
-		});
+		}); 
+		console.log(this);
 	}
 
 	function updateComment(event){
 		event.preventDefault();
-		$ajax({
+		$.ajax({
 			url : "/project/updateComment",
 			data : {
 				
@@ -311,18 +314,21 @@ article.commentList input {
 		});
 	}
 	
-	function deleteComment(event){
+	function deleteComment(event, self){
 		event.preventDefault();
-		console.log('삭제버튼 클릭')
-// 		$ajax({
-// 			url : "/project/deleteComment",
-// 			data : {
-				
-// 			},
-// 			success : {
-				
-// 			}
-// 		});
+		console.log('삭제버튼 클릭');
+		console.log(self);
+		$.ajax({
+			url : "/project/deleteComment",
+			data : {
+				articleNum : "${article.articleNum}",
+				boardNum : "${boardNum}",
+				commentNum : self
+			},
+			success : function(data){
+				showHtml(data, 1);
+			}
+		});
 	}
 	
 </script>

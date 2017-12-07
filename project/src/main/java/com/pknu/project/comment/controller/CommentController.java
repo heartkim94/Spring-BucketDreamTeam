@@ -48,7 +48,8 @@ public class CommentController {
 	
 	@RequestMapping(value="replyComment")
 	@ResponseBody
-	public String replyComment() {
+	public String replyComment(CommentDto comment, HttpSession session) {
+		comment.setId((String)session.getAttribute("id"));
 		return null;
 	}
 	
@@ -60,7 +61,9 @@ public class CommentController {
 	
 	@RequestMapping(value="deleteComment")
 	@ResponseBody
-	public String deleteComment() {
-		return null;
+	public List<CommentDto> deleteComment(int articleNum, int boardNum, int commentNum) {
+		System.out.println(articleNum+boardNum+commentNum);
+		commentService.deleteComment(commentNum);
+		return commentService.getComments(boardNum, articleNum, 10);
 	}
 }

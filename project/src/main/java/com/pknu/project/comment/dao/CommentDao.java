@@ -10,4 +10,5 @@ public interface CommentDao {
 	public void insertComment(CommentDto comment);
 	public int commentCount (HashMap<String, Integer> commentMap);
 	public String updateGetComment(HashMap<String, String> commentMap); 
+	public void deleteComment(int commentNum);
 }
