@@ -15,7 +15,7 @@
     <%@ include file="../common/header.jsp" %>
         <div class="container"><!-- 좌우측의 공간 확보 -->
 		<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
-<!-- 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	 -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
 			
             <!-- 모달창 -->
             <div class="modal fade" id="defaultModal">
@@ -236,7 +236,21 @@
 //                     var divPhoneNumber = $('#divPhoneNumber');
                      
                     //패스워드 검사
-                    if($('#pass').val()==""){
+//                     if($('#pass').val()==""){
+//                         modalContents.text("패스워드를 입력하여 주시기 바랍니다.");
+//                         modal.modal('show');
+                         
+//                         divPassword.removeClass("has-success");
+//                         divPassword.addClass("has-error");
+//                         $('#pass').focus();
+//                         return false;
+//                     }else{
+//                         divPassword.removeClass("has-error");
+//                         divPassword.addClass("has-success");
+//                     }
+                    
+                    //패스워드 검사
+                    if($('#pass').val()=="" || $('#passCheck').val()==""){
                         modalContents.text("패스워드를 입력하여 주시기 바랍니다.");
                         modal.modal('show');
                          

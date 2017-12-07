@@ -11,16 +11,17 @@
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 	<script>
 		
-		$(document).ready(function(){
-			$("input[type='submit']").on('click', function(){
-				let Certify='${dbCertify}';
-				if(Certify == 0) {
-					alert("회원가입 이메일 인증을 안하셨습니다.");
-				}
-			});
+// 		$(document).ready(function(){
+// 			$("input[type='submit']").on('click', function(){
+// 				let Certify='${dbCertify}';
+// 				console.log(Certify);
+// 				if(Certify == 0) {
+// 					alert("회원가입 이메일 인증을 안하셨습니다.");
+// 				}
+// 			});
 			
 // 			document.location.href="./";
-		/*
+		
 		$(document).ready(function(){
 			
 			let Certify=${dbCertify};
@@ -29,9 +30,7 @@
 			}
 			document.location.href="./";
 		});
-		*/
-		});
-	
+		
 	</script>
 	<style type="text/css">
 		.centerLineWrap {
