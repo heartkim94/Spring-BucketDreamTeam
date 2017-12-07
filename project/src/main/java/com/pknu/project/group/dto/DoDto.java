@@ -5,8 +5,11 @@ import java.sql.Timestamp;
 public class DoDto {
 	private int doNum;
 	private String doName;
-	private Timestamp doWhen;
-	private Timestamp doEnd;
+	private String doWhen;
+	private String doWhenTime;
+	private String doEnd;
+	private String doEndTime;
+	private boolean doAllDay;
 	private boolean done;
 	private int parentNum;
 	private String path;
@@ -27,17 +30,35 @@ public class DoDto {
 	public void setDoName(String doName) {
 		this.doName = doName;
 	}
-	public Timestamp getDoWhen() {
+	public String getDoWhen() {
 		return doWhen;
 	}
-	public void setDoWhen(Timestamp doWhen) {
+	public void setDoWhen(String doWhen) {
 		this.doWhen = doWhen;
 	}
-	public Timestamp getDoEnd() {
+	public String getDoWhenTime() {
+		return doWhenTime;
+	}
+	public void setDoWhenTime(String doWhenTime) {
+		this.doWhenTime = doWhenTime;
+	}
+	public String getDoEnd() {
 		return doEnd;
 	}
-	public void setDoEnd(Timestamp doEnd) {
+	public void setDoEnd(String doEnd) {
 		this.doEnd = doEnd;
+	}
+	public String getDoEndTime() {
+		return doEndTime;
+	}
+	public void setDoEndTime(String doEndTime) {
+		this.doEndTime = doEndTime;
+	}
+	public boolean isDoAllDay() {
+		return doAllDay;
+	}
+	public void setDoAllDay(boolean doAllDay) {
+		this.doAllDay = doAllDay;
 	}
 	public boolean isDone() {
 		return done;
