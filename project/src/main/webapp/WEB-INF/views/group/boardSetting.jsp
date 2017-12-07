@@ -7,6 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<link rel="stylesheet" href="/project/resources/css/group.css" >
 	<style>
 		.boardList {
 			width:300px;
@@ -18,42 +19,30 @@
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
-			<div class="container settingContainer">
-				<h3>목표</h3>
-				<hr><br>
-				<div class="doListContainer">
-					<ul>
-						<c:forEach var="todo" items="${doList}">
-							<li doNum="${todo.doNum}" style="margin-left: ${25*todo.depth}">
-								<input type="checkbox" name="done"> ${todo.doName}
-								<c:if test="${todo.doWhen!=null}">
-									!! ${todo.doWhen} <c:if test="${!todo.doAllDay}">${todo.doWhenTime}</c:if> !!
-								</c:if>
-							</li>
-							<c:set var="lastPath" value="${todo.path}"/>
-						</c:forEach>
-					</ul>
-				</div>
-				<br>
-				<h3>게시판 목록</h3>
-				<hr>
-				<div class="boardList">
-					<ul>
-						<c:forEach var="board" items="${boardList}">
-							<li boardNum="${board.boardNum}">
-								<name>${board.boardName}</name>
-								<button class="rename">이름변경</button>
-								<button class="saveName">저장</button>
-								<button class="remove">삭제</button>
-							<li>
-						</c:forEach>
-					</ul>
+			<%@ include file="asideMenu.jsp" %>
+			<div class="groupMain">
+				<div class="container settingContainer">
+					<h3>게시판 목록</h3>
+					<hr>
+					<div class="boardList">
+						<ul>
+							<c:forEach var="board" items="${boardList}">
+								<li boardNum="${board.boardNum}">
+									<name>${board.boardName}</name>
+									<button class="rename">이름변경</button>
+									<button class="saveName">저장</button>
+									<button class="remove">삭제</button>
+								<li>
+							</c:forEach>
+						</ul>
+						<br>
+						<button class="newBoard">새로만들기</button>
+					</div>
 					<br>
-					<button class="newBoard">새로만들기</button>
+					<button onclick="location.href='view'">완료</button>
 				</div>
-				<br>
-				<button onclick="location.href='view'">완료</button>
 			</div>
+			<%@ include file="asideApp.jsp" %>
 		</section>
 		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->

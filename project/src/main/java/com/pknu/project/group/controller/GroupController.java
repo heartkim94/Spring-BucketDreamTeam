@@ -183,14 +183,21 @@ public class GroupController {
 		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
-	
-	/* setting */
-	@RequestMapping(value="/{groupNum}/setting", method=RequestMethod.GET)
-	public String setting(@PathVariable("groupNum") int groupNum, Model model) {
+	/* do setting */
+	@RequestMapping(value="/{groupNum}/doSetting", method=RequestMethod.GET)
+	public String doSetting(@PathVariable("groupNum") int groupNum, Model model) {
 		groupService.getGroup(groupNum, model);
 		groupService.getDoList(groupNum, model);
+		return "group/doSetting";
+	}
+	
+	
+	/* board setting */
+	@RequestMapping(value="/{groupNum}/boardSetting", method=RequestMethod.GET)
+	public String BoardSetting(@PathVariable("groupNum") int groupNum, Model model) {
+		groupService.getGroup(groupNum, model);
 		boardService.getBoards(groupNum, model);
-		return "group/setting";
+		return "group/boardSetting";
 	}
 	
 	@RequestMapping(value="/{groupNum}/renameBoard", method=RequestMethod.POST)
