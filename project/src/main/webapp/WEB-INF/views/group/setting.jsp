@@ -27,7 +27,7 @@
 							<li doNum="${todo.doNum}" style="margin-left: ${25*todo.depth}">
 								<input type="checkbox" name="done"> ${todo.doName}
 								<c:if test="${todo.doWhen!=null}">
-									!! ${todo.doWhen} <c:if test="${}"></c:if> !!
+									!! ${todo.doWhen} <c:if test="${!todo.doAllDay}">${todo.doWhenTime}</c:if> !!
 								</c:if>
 							</li>
 							<c:set var="lastPath" value="${todo.path}"/>

@@ -7,7 +7,7 @@
 	<select id="getDoList" parameterType="int" resultType="do">
 		SELECT	doNum, doName, date_format(doWhen, "%Y-%m-%d") as doWhen, date_format(doWhen, "%H:%i") as doWhenTime,
 				date_format(doEnd, "%Y-%m-%d") as doEnd, date_format(doEnd, "%H:%i") as doEndTime, doAllDay,
-				done, parent, path, pos, depth, groupNum, userNum   
+				done, parentNum, path, pos, depth, groupNum, userNum   
 		FROM	DoList
 		WHERE	groupNum = #{groupNum}
 		ORDER BY path;
