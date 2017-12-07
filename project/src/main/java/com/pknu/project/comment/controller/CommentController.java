@@ -22,10 +22,16 @@ public class CommentController {
 	
 	@RequestMapping(value="commentList")
 	@ResponseBody
-	public List<CommentDto> commentRead(CommentDto comment){
+	public List<CommentDto> commentList(CommentDto comment){
 		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
 	}
 	
+	@RequestMapping(value="commentRead")
+	@ResponseBody
+	public List<CommentDto> commentRead(CommentDto comment,
+			@RequestParam("commentRow") int commentRow){
+			return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
+	}
 	
 	@RequestMapping(value="commentWrite")
 	@ResponseBody

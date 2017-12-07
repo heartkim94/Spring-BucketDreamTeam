@@ -108,6 +108,7 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.upHit(paramMap);
 		article=boardDao.getArticle(paramMap);
 //		article.setCommentCount(bbsDao.getCommentCount(articleNum));
+		article.setCommentCount(commentService.commentCount(Integer.parseInt(boardNum), article.getArticleNum()));
 		
 		model.addAttribute("article", article);
 //		if(fileStatus == 1) {

@@ -43,4 +43,9 @@
 		insert into comments values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum}, #{parentNum}, '');
 		update comments set path=concat((select path from comments where commentNum=#{parentNum}), '.', last_insert_id());
 	</insert>
+	
+	<!-- 코멘트 삭제 -->
+	<delete id="">
+		
+	</delete>
 </mapper>

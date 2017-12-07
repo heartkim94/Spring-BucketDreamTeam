@@ -90,7 +90,7 @@ public class CommunityController {
 			@RequestParam("articleNum") String articleNum,
 			@RequestParam("fileStatus") int fileStatus,
 			Model model, HttpSession session){
-		System.out.println("***getNoticeArticle***");
+		System.out.println("***getFaqArticle***");
 		return boardService.getArticle(-1, boardNum, articleNum, fileStatus, model);
 	}
 	

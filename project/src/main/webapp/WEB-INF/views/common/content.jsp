@@ -56,6 +56,9 @@ input {
 	float: left;
 	border: 1px solid black;
 }
+article.commentList input {
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -141,11 +144,10 @@ input {
 	</form>
 	<!-- 코멘트 -->
 	<div class="commentArea">
+		<p>전체 코멘트: <span style="color: blue">(${article.commentCount})</span></p>
 		<!-- 코멘트 쓰기 영역 -->
 		<div style="margin-bottom: 10px;">
-			<c:if test="${article.commentCount!=0}">
-				<span style="color: red">(${article.commentCount})</span>
-			</c:if>
+			
 			<table class="commentTable">
 				<tr>
 					<th>내용: </th>
@@ -187,10 +189,11 @@ input {
 			url : "/project/commentList",
 			data : {
 				articleNum : "${article.articleNum}",
-				boardNum : "${boardNum}" 
+				boardNum : "${boardNum}", 
+// 				commentRow : commPageNum * 10
 			},
 			success : function(data) {
-				showHtml(data);
+				showHtml(data, 1);
 			},
 		}); // ajax end		
 		
@@ -240,7 +243,7 @@ input {
 		});		
 		html +="</article>";
 		commPageNum = parseInt(commPageNum);
-		if("${article.commentCount}" < commPageNum * 10){
+		if("${article.commentCount}" > commPageNum * 10){
 			nextPageNum = commPageNum+1;
 			html +="<br /><input type='button' onclick='getComment(nextPageNum,event)' value='다음comment보기'><br>";
 		}
@@ -249,20 +252,20 @@ input {
 		$("#commentContent").focus();
 	}
 	
-// 	function getComment(commPageNum, event){
-// 		event.preventDefault();
-// 		$ajax({
-// 			url : "/project/commentRead",
-// 			data: {
-// 				articleNum : "${article.articleNum}",
-// 				boardNum : "${boardNum}",
-// 				commentRow: commPageNum * 10
-// 			}, 
-// 			success: function(data){
-// 				showHtml(data, commPageNum, event);
-// 			}
-// 		});
-// 	}
+	function getComment(commPageNum, event){
+		event.preventDefault();
+		$.ajax({
+			url : "/project/commentRead",
+			data: {
+				articleNum : "${article.articleNum}",
+				boardNum : "${boardNum}",
+				commentRow: commPageNum * 10
+			}, 
+			success: function(data){
+				showHtml(data, commPageNum);
+			}
+		});
+	}
 	
 	function openReplyArea(event, parentNum, self){
 		console.log(self);
@@ -275,11 +278,16 @@ input {
 // 		let ul = $(".btnReComment").parent();
 // 		ul.append(replyArea);
 		$(".comment[commentNum="+parentNum+"]").append($(replyArea));
+		$("article.commentList input").attr({
+			value: "답변 달기",
+			onclick: "replyComment(event, this)"
+		});
 	}
 	
-	function replyComment(event){
+	function replyComment(event, self){
 		event.preventDefault();
-		$ajax({
+		console.log(this);
+		$.ajax({
 			url : "/project/replyComment",
 			data : {
 				

@@ -27,7 +27,6 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public void insertComment(CommentDto comment) {
 		commentDao.insertComment(comment);
-		//boardDao.insertComment(comment);
 	}
 
 	@Override
