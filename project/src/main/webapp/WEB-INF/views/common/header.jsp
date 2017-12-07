@@ -123,11 +123,78 @@
         border:0px;
         color:#ffffff;
     }
-    </style>
+    
+/* 여기서부터 미디어쿼리 */    
+    
+#menu, #toggle { /* 체크박스 이름표와 체크박스 숨김*/
+ 	display:none; 
+}
+.wrap { 
+	padding:0; margin:0;display:inline;
+}
+.wrap li {
+	display:inline;
+}
+#contents {
+	min-height: 200px; background: #D9E5FF;
+}
+/*
+footer {
+ 	background-color:#EAEAEA; 
+	font-size:13px;
+}    
+*/    
+/* Android 버그 교정 */ 
+body { 
+  -webkit-animation: bugfix infinite 1s; 
+}
+@-webkit-keyframes bugfix { 
+  from { padding: 0; } 
+  to { padding: 0; } 
+} 
+
+@media screen and (max-width: 480px) { /* 화면 너비 480px 이하에서 적용 */
+	.wrap { /* 메뉴 숨김 */
+		display:none;
+	}
+	#toggle:checked + .wrap { /* 체크박스 선택하면 메뉴가 나타남*/
+		display:block;
+	} 
+	.wrap .menubar .menuItem {
+		display:block;
+		width:100%;
+		text-align:center;
+		border-top:1px solid #ccc;
+		padding: 4px;
+	}
+	#menu {
+ 		display:block;  
+		text-align:center;
+		background: url('/project/resources/img/menu.png'); 
+		background-repeat: no-repeat;
+		background-position:97% 10px;
+		background-size: 24px 19px;
+		font-size:20px; 
+		font-weight:bold;
+		padding:4px 3%;
+	}
+	footer .foot {
+			width: 480px;
+			padding: 15px 0;
+			margin: 0 auto;
+			text-align:center;
+			color:#fff;
+			clear: both;
+	}
+}
+    
+</style>
 
 </head>
 <body>
 <header>
+	<label for="toggle" id="menu" onclick>MENU</label>
+	<input type="checkbox" id="toggle"/>
 	<div class="wrap">
 		<div class="menubar">
 		<div class="menuLogo">

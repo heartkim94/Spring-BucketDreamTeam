@@ -11,6 +11,8 @@
 	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <title>회원가입</title>
 	  <link rel="stylesheet" href="./resources/css/submit.css">
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet">
     </head>
     <body>
         <div class="container"><!-- 좌우측의 공간 확보 -->
@@ -438,8 +440,9 @@
 	});
 	
 	function availability(){
-		if(idcheck==true && emailcheck==true && ($('#pass').val()==$('#passCheck'))){
-			alert("메일인증을 보냈습니다\n잠시만기다려주세요");
+		if(idcheck==true && emailcheck==true && $('#pass').val()==$('#passCheck').val()){
+//			alert("메일인증을 보냈습니다\n잠시만기다려주세요");
+			swal("인증요청!", "메일을 확인해주세요!", "success");
 			return true;
 		}else if(!idcheck || !emailcheck){
 			alert("확인해주세요");
