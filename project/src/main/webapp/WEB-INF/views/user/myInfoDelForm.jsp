@@ -72,9 +72,8 @@
 			</div><br><br>
         </form>
         <!--// 본문 들어가는 부분 -->
-        
-            <hr/>
-            <%@ include file="../common/footer.jsp" %>
         </div>
+        <hr/>
+        <%@ include file="../common/footer.jsp" %>
     </body>
 </html>

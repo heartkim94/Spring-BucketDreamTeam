@@ -13,11 +13,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet">
     
-	 <style type="text/css">
+	<style type="text/css">
 	.memCheck td {
 		border-bottom: none;
 	}
-	 </style>
+	table {
+		margin:0 auto;
+	}
+	</style>
 	<script>
 		function check() {
 			if(fr.memberagree.checked == false) {
@@ -47,9 +50,9 @@
 	<link rel="stylesheet" href="./resources/css/submit.css">
 </head>
 <body>
-	<div id="wrapper">
 	<%@ include file="../common/header.jsp" %>
-	<form name="fr" method="post" action="/project/userJoinForm" onsubmit="return check()">
+	<div id="wrapper">
+	<form name="fr" method="post" action="/project/userJoinForm" id="form" onsubmit="return check()">
 		<table class="memCheck" width="960px" align="center">
 			<tr>
 				<td>

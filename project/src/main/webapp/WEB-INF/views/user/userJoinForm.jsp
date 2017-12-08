@@ -15,8 +15,8 @@
       <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet">
     </head>
     <body>
+    	<%@ include file="../common/header.jsp" %>
         <div class="container"><!-- 좌우측의 공간 확보 -->
-		<%@ include file="../common/header.jsp" %>
 		<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
        
@@ -103,10 +103,9 @@
 		    </div><br><br>
         </form>
         <!--// 본문 들어가는 부분 -->
-        
-        <hr/>
-        <%@ include file="../common/footer.jsp" %>
     </div> 
+    	<hr/>
+        <%@ include file="../common/footer.jsp" %>
     </body>
     <script>
             $(function(){
@@ -138,8 +137,7 @@
                 $(".onlyNumber").keyup(function(event){ // 숫자 + - 
                     if (!(event.keyCode >=37 && event.keyCode<=40)) {
                         var inputVal = $(this).val();
-//                         $(this).val(inputVal.replace(/^01[016789]-\d{3,4}-\d{4}$/gi,''));
-                        $(this).val(inputVal.replace(/^01[016789]-\d{3,4}-\d{4}$/i,''));
+                        $(this).val(inputVal.replace(/^01[016789]-\d{3,4}-\d{4}$/gi,''));
                     }
                 });
                  

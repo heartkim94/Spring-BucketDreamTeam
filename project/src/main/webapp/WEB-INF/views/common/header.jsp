@@ -129,10 +129,12 @@
 #menu, #toggle { /* 체크박스 이름표와 체크박스 숨김*/
  	display:none; 
 }
-.wrap { 
-	padding:0; margin:0;display:inline;
+.wrapp { 
+	padding:0; 
+	margin:0;
+	display:inline;
 }
-.wrap li {
+.wrapp li {
 	display:inline;
 }
 #contents {
@@ -152,15 +154,28 @@ body {
   from { padding: 0; } 
   to { padding: 0; } 
 } 
-
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+      	.wrapp .menubar .menuItem {
+		width:100%;
+		text-align:center;
+		border-top:1px solid #ccc;
+		padding: 4px;
+	}
+	footer .foot {
+		width:100%;
+		text-align:center;
+		border-top:1px solid #ccc;
+		padding: 4px;
+	}
+}
 @media screen and (max-width: 480px) { /* 화면 너비 480px 이하에서 적용 */
-	.wrap { /* 메뉴 숨김 */
+	.wrapp { /* 메뉴 숨김 */
 		display:none;
 	}
-	#toggle:checked + .wrap { /* 체크박스 선택하면 메뉴가 나타남*/
+	#toggle:checked + .wrapp { /* 체크박스 선택하면 메뉴가 나타남*/
 		display:block;
 	} 
-	.wrap .menubar .menuItem {
+	.wrapp .menubar .menuItem {
 		display:block;
 		width:100%;
 		text-align:center;
@@ -179,12 +194,19 @@ body {
 		padding:4px 3%;
 	}
 	footer .foot {
-			width: 480px;
-			padding: 15px 0;
-			margin: 0 auto;
-			text-align:center;
-			color:#fff;
-			clear: both;
+	/*
+		width: 480px;
+		padding: 15px 0;
+		margin: 0 auto;
+		text-align:center;
+		color:#fff;
+		clear: both;
+		display:block;
+	*/
+		width:100%;
+		text-align:center;
+		border-top:1px solid #ccc;
+		padding: 4px;
 	}
 }
     
@@ -195,7 +217,7 @@ body {
 <header>
 	<label for="toggle" id="menu" onclick>MENU</label>
 	<input type="checkbox" id="toggle"/>
-	<div class="wrap">
+	<div class="wrapp">
 		<div class="menubar">
 		<div class="menuLogo">
 			<c:if test="${id != null}">
