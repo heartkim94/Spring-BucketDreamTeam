@@ -1,10 +1,11 @@
 package com.pknu.project.group.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.pknu.project.group.dto.CategoryDto;
-import com.pknu.project.group.dto.DoDto;
 import com.pknu.project.group.dto.GroupDto;
+import com.pknu.project.group.dto.TodoDto;
 
 public interface GroupDao {
 	public boolean isAdminMember(int userNum);
@@ -14,6 +15,7 @@ public interface GroupDao {
 	public void newGroup(GroupDto group);
 	public void deleteGroup(int groupNum);
 	
-	/* do */
-	public List<DoDto> getDoList(int groupNum);
+	/* todo */
+	public List<TodoDto> getTodoList(int groupNum);
+	public void updateTodoList(HashMap<String, Object> paramMap);
 }

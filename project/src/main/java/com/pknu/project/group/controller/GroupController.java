@@ -1,5 +1,7 @@
 package com.pknu.project.group.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +19,7 @@ import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.dto.BoardDto;
 import com.pknu.project.common.service.BoardService;
 import com.pknu.project.group.dto.GroupDto;
+import com.pknu.project.group.dto.TodoDto;
 import com.pknu.project.group.service.GroupService;
 
 @Controller
@@ -24,6 +28,7 @@ public class GroupController {
 	private GroupService groupService;
 	@Autowired
 	private BoardService boardService;
+	
 	
 	@RequestMapping(value="/group/main", method=RequestMethod.GET)
 	public String main(HttpSession session, Model model) {
@@ -184,11 +189,22 @@ public class GroupController {
 	}
 	
 	/* do setting */
-	@RequestMapping(value="/{groupNum}/doSetting", method=RequestMethod.GET)
+	@RequestMapping(value="/{groupNum}/todoSetting", method=RequestMethod.GET)
 	public String doSetting(@PathVariable("groupNum") int groupNum, Model model) {
 		groupService.getGroup(groupNum, model);
-		groupService.getDoList(groupNum, model);
-		return "group/doSetting";
+		groupService.getTodoList(groupNum, model);
+		return "group/todoSetting";
+	}
+	
+	@RequestMapping(value="/{groupNum}/updateTodoList", method=RequestMethod.POST)
+	@ResponseBody
+	public String updateTodoList(
+			@PathVariable("groupNum") int groupNum,
+			@RequestBody ArrayList<TodoDto> todoList) {
+		System.out.println("*** update TodoList ***");
+		System.out.println(todoList.size());
+		// return groupService.updateTodoList(groupNum, todoList);
+		return "success";
 	}
 	
 	

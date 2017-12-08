@@ -11,7 +11,7 @@ CREATE TABLE Users(
 	name varchar(100),
 	nickName varchar(100),
 	email varchar(100) NOT NULL,
-	phoneNumber char(13),
+	phoneNumber varchar(13),
 	gender enum('m', 'f') NOT NULL,
     certkey varchar(100) NOT NULL,
 	certify int default 0 NOT NULL

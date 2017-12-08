@@ -1,6 +1,7 @@
 package com.pknu.project.group.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.pknu.project.common.dao.BoardDao;
 import com.pknu.project.common.service.BoardService;
 import com.pknu.project.group.dao.GroupDao;
 import com.pknu.project.group.dto.GroupDto;
+import com.pknu.project.group.dto.TodoDto;
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -57,9 +59,18 @@ public class GroupServiceImpl implements GroupService {
 	}
 	
 	
-	/* do */
+	/* todo */
 	@Override
-	public void getDoList(int groupNum, Model model) {
-		model.addAttribute("doList", groupDao.getDoList(groupNum));
+	public void getTodoList(int groupNum, Model model) {
+		model.addAttribute("doList", groupDao.getTodoList(groupNum));
+	}
+	
+	@Override
+	public String updateTodoList(int groupNum, List<TodoDto> todoList) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("groupNum", groupNum);
+		paramMap.put("todoList", todoList);
+		groupDao.updateTodoList(paramMap);
+		return "success";
 	}
 }

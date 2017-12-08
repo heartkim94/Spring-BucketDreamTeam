@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis map 선언 표시 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+              "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.pknu.project.group.dao.GroupDao">
+	<select id="getTodoList" parameterType="int" resultType="todo">
+		SELECT	doNum, doName, date_format(doWhen, "%Y-%m-%d") as doWhen, date_format(doWhen, "%H:%i") as doWhenTime,
+				date_format(doEnd, "%Y-%m-%d") as doEnd, date_format(doEnd, "%H:%i") as doEndTime, doAllDay,
+				done, parentNum, path, pos, depth, groupNum, userNum   
+		FROM	DoList
+		WHERE	groupNum = #{groupNum}
+		ORDER BY path;
+	</select>
+	
+	<insert id="insertTodo" parameterType="HashMap">
+		INSERT INTO DoList(doNum, doName, done, parentNum, path, pos, depth, groupNum)
+		<foreach collection="todoList" item="todo" separator=", ">
+			VALUES(#{todo.doNum}, #{todo.doName}, #{todo.done}, #{todo.parentNum}
+					, #{todo.path}, #{todo.pos}, #{todo.depth}, #{groupNum})
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+			doName 		= VALUES(doName),
+			done 		= VALUES(done),
+			parentNum 	= VALUES(parentNum),
+			path 		= VALUES(path),
+			pos 		= VALUES(pos),
+			depth		= VALUES(depth)
+	</insert>
+</mapper>

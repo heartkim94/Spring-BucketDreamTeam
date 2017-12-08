@@ -1,8 +1,6 @@
 package com.pknu.project.group.dto;
 
-import java.sql.Timestamp;
-
-public class DoDto {
+public class TodoDto {
 	private int doNum;
 	private String doName;
 	private String doWhen;
@@ -18,6 +16,7 @@ public class DoDto {
 	private int groupNum;
 	private int userNum;
 	
+	public TodoDto() {};
 	public int getDoNum() {
 		return doNum;
 	}

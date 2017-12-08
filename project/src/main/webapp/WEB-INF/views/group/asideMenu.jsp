@@ -6,12 +6,22 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<style>
+		.groupInfo .groupNum {
+			display: none;
+		}
+	</style>
 </head>
 <body>
 	<aside class="groupMenu">
-		<a href="view">프로필이미지</a><br>
-		${group.groupName}<br>
-		<a href="doSetting">설정</a>
+		<div class="groupInfo">
+			<ul>
+				<li><a href="view">프로필이미지</a></li>
+				<li>${group.groupName}</li>
+				<li class="groupNum">${groupNum}</li>
+				<li><a href="todoSetting">설정</a></li>
+			</ul>
+		</div>
 		<hr>
 		메뉴<br>
 		<hr>
