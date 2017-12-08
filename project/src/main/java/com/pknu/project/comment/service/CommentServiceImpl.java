@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pknu.project.comment.dao.CommentDao;
 import com.pknu.project.comment.dto.CommentDto;
 import com.pknu.project.common.dao.BoardDao;
+import com.pknu.project.common.dto.ArticleDto;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -36,7 +37,15 @@ public class CommentServiceImpl implements CommentService {
 		commentMap.put("articleNum", articleNum);
 		return commentDao.commentCount(commentMap);
 	}
-
+	
+	@Override
+	public void updateComment(String commentNum, String commentContent) {
+		HashMap<String, String> commentMap = new HashMap<>();
+		commentMap.put("commentNum", commentNum);
+		commentMap.put("commentContent", commentContent);
+		commentDao.updateComment(commentMap);
+	}
+	
 	@Override
 	public void deleteComment(int commentNum) {
 		commentDao.deleteComment(commentNum);

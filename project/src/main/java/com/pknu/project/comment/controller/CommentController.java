@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pknu.project.comment.dto.CommentDto;
 import com.pknu.project.comment.service.CommentService;
+import com.pknu.project.common.dto.ArticleDto;
 
 @Controller
 public class CommentController {
@@ -46,6 +47,14 @@ public class CommentController {
 		return hm;		
 	}
 	
+	@RequestMapping(value="updateComment")
+	@ResponseBody
+	public List<CommentDto> updateComment(ArticleDto article, String commentNum,
+			@RequestParam String commentContent) {
+		commentService.updateComment(commentNum, commentContent);
+		return commentService.getComments(article.getBoardNum(), article.getArticleNum(), 10);
+	}
+	
 	@RequestMapping(value="replyComment")
 	@ResponseBody
 	public String replyComment(CommentDto comment, HttpSession session) {
@@ -53,16 +62,13 @@ public class CommentController {
 		return null;
 	}
 	
-	@RequestMapping(value="updateComment")
-	@ResponseBody
-	public String commentUpdate(@RequestParam String commentContent) {
-		return null;
-	}
 	
 	@RequestMapping(value="deleteComment")
 	@ResponseBody
 	public List<CommentDto> deleteComment(int articleNum, int boardNum, int commentNum) {
-		System.out.println(articleNum+boardNum+commentNum);
+		System.out.println("articleNum:" +articleNum);
+		System.out.println("boardNum:" +boardNum);
+		System.out.println("commentNum:" +commentNum);
 		commentService.deleteComment(commentNum);
 		return commentService.getComments(boardNum, articleNum, 10);
 	}

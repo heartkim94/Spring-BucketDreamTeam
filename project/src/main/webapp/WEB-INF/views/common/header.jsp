@@ -14,10 +14,28 @@
 <script src="/project/resources/js/prefixfree.min.js"></script>
 <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 <style>
+	/* 상단으로 이동 */
+	#btnTop {
+		position: fixed;
+		right: 10px;
+		bottom: 10px;
+		width: 40px;
+		height: 40px;
+		font-size: 0;
+		text-indent: -1000px;
+		text-align: center;
+		color: #fff;
+		background: url('/project/resources/img/toTop.png') center center no-repeat #777;
+		opacity: 0;
+		border-radius: 20px;
+		transition: 0.2s;
+		cursor: pointer;
+		z-index: 100;
+	}
+
     * {
         margin:0;
         padding:0;
-        border:0;
         font: 맑은고딕;
         text-decoration:none;
         letter-spacing:0px;
@@ -193,6 +211,8 @@ body {
 </head>
 <body>
 <header>
+	<!-- 위로올라가기 버튼 -->
+	<a id="btnTop"> 상단으로 이동 </a>
 	<label for="toggle" id="menu" onclick>MENU</label>
 	<input type="checkbox" id="toggle"/>
 	<div class="wrap">
@@ -227,6 +247,43 @@ body {
 	</div>
 </header>
 </body>
+<script>
+// 상단으로 바로가기 버튼
+$(document).ready(function() {
+
+	let btnTop = $('#btnTop');
+
+	btnTop.click(function() {
+		$('html, body').animate({
+			'scrollTop' : '0'
+		}, 100);
+		// ie에서 작동하기 위해서는 html로 선택해야 함.
+	});
+
+	btnTop.hover(function() {
+		$(this).css('background-color', '#cd8f47');
+	}, function() {
+		$(this).css('background-color', '#777');
+	});
+
+	$(window).scroll(function() {
+
+		let pos = $(this).scrollTop();
+
+		if (pos >= 95) {
+			btnTop.stop(true).animate({
+				'opacity' : '0.8'
+			}, 200);
+
+		} else {
+			btnTop.stop(true).animate({
+				'opacity' : '0'
+			}, 200);
+		}
+	});
+
+}); 
+</script>
 <!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
 <!-- 	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>		 -->
 </html>
