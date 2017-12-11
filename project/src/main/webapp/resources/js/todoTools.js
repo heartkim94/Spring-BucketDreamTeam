@@ -42,11 +42,18 @@ $(function() {
 				}
 			}
 			// find next element that is not children
+			for(let i=0; i<nextAll.length; i++) {
+				if($(nextAll[i]).attr("depth") <= depth) {
+					next = nextAll[i];
+					break;
+				}
+			}
 			
 			if(prev!=null) {
 				let nextUntil = $(".selected").nextUntil(next);
+				console.log(next, nextUntil);
 				$(".selected").insertBefore(prev);
-				if(nextAll.length > 0) {
+				if(next!=null) {
 					$(nextUntil).insertAfter($(".selected"));
 				}
 			}
@@ -118,8 +125,7 @@ $(function() {
 				pos = 1;
 			} else if($(todoList[i]).attr("depth") < prevDepth) {
 				parentNum.pop();
-				path.pop();
-				pos = 1;
+				pos = path.pop()+1;
 			}
 			
 			data.push({
@@ -140,11 +146,9 @@ $(function() {
 		$.ajax({
 			url: "updateTodoList",
 			type: "POST",
-			contentType: false,
-			processData: false,
-			data: {
-				todoList: data
-			},
+//			dataType: "json",
+			contentType: "application/json",
+			data: JSON.stringify(data),
 			success: function(data) {
 				console.log(data);
 			},

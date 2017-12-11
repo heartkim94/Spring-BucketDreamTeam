@@ -16,7 +16,6 @@ public class TodoDto {
 	private int groupNum;
 	private int userNum;
 	
-	public TodoDto() {};
 	public int getDoNum() {
 		return doNum;
 	}

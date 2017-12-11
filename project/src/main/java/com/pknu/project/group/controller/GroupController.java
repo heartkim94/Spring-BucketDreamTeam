@@ -1,6 +1,6 @@
 package com.pknu.project.group.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -200,11 +200,10 @@ public class GroupController {
 	@ResponseBody
 	public String updateTodoList(
 			@PathVariable("groupNum") int groupNum,
-			@RequestBody ArrayList<TodoDto> todoList) {
+			@RequestBody List<TodoDto> todoList) {
 		System.out.println("*** update TodoList ***");
-		System.out.println(todoList.size());
-		// return groupService.updateTodoList(groupNum, todoList);
-		return "success";
+		return groupService.updateTodoList(groupNum, todoList);
+//		return "success";
 	}
 	
 	
