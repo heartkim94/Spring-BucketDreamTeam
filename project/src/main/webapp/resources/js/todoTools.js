@@ -1,8 +1,4 @@
 $(function() {
-	// 엔터 이벤트 등록
-	
-	
-	
 	// todo 선택
 	$(".todoList").on("click", "li", function() {
 		selectTodo(this);
@@ -23,39 +19,52 @@ $(function() {
 	});
 	
 	
+	// 그룹 접기
+	$(".todoList").on("click", ".fold", function() {
+		selectTodo($(this).parent());
+		let depth = $(".selected").attr("depth");
+		let next = $(".selected").nextAll().filter(function() {
+			return $(this).attr("depth") <= depth;
+		}).first();
+		
+		let nextUntil = $(".selected").nextUntil(next);
+		let folded = $("<div/>", { class: "folded" });
+		$(folded).insertAfter(".selected");
+		$(folded).append(nextUntil);
+		
+		$("<button/>", {class: "unfold", text: "펼치기"}).insertAfter(this);
+		$(this).remove();
+	});
+	
+	// 그룹 펼치기
+	$(".todoList").on("click", ".unfold", function() {
+		selectTodo($(this).parent());
+		let folded = $(".selected").next(".folded");
+		let children = $(folded).children();
+		
+		$(children).insertAfter($(".selected"));
+		$(folded).remove();
+		
+		$("<button/>", {class: "fold", text: "접기"}).insertAfter(this);
+		$(this).remove();
+	});
+	
+	
 	// move up todo
 	$(".moveUpTodo").on("click", function() {
 		if($(".selected").exist()) {
 			let depth = $(".selected").attr("depth");
-			let prev = null;
-			let next = null;
-			let prevAll = $(".selected").prevAll();
-			let nextAll = $(".selected").nextAll();
+			let prev = $(".selected").prevAll().filter(function() {
+				return $(this).attr("depth") <= depth;
+			}).first();
+			let next = $(".selected").nextAll().filter(function() {
+				return $(this).attr("depth") <= depth;
+			}).first();
 			
-			// find prev element to swap position
-			for(let i=0; i<prevAll.length; i++) {
-				if($(prevAll[i]).attr("depth") < depth) {
-					break;
-				} else if($(prevAll[i]).attr("depth") == depth) {
-					prev = prevAll[i];
-					break;
-				}
-			}
-			// find next element that is not children
-			for(let i=0; i<nextAll.length; i++) {
-				if($(nextAll[i]).attr("depth") <= depth) {
-					next = nextAll[i];
-					break;
-				}
-			}
-			
-			if(prev!=null) {
+			if($(prev).attr("depth")==depth) {
 				let nextUntil = $(".selected").nextUntil(next);
-				console.log(next, nextUntil);
 				$(".selected").insertBefore(prev);
-				if(next!=null) {
-					$(nextUntil).insertAfter($(".selected"));
-				}
+				$(nextUntil).insertAfter($(".selected"));
 			}
 		}
 	});
@@ -63,20 +72,84 @@ $(function() {
 	// move down todo
 	$(".moveDownTodo").on("click", function() {
 		let depth = $(".selected").attr("depth");
-		let nextAll = $(".selected").nextAll();
+		let next = $(".selected").nextAll().filter(function() {
+			return $(this).attr("depth") <= depth;
+		}).first();
 		
-		for(let i=0; i<nextAll.length; i++) {
-			if($(nextAll[i]).attr("depth") < depth) {
-				break;
-			} else if($(nextAll[i]).attr("depth") == depth) {
-				let selected = $(".selected");
-				selectTodo(nextAll[i]);
-				 $(".moveUpTodo").click();
-				 selectTodo(selected);
-				break;
+		if($(next).attr("depth") == depth) {
+			let selected = $(".selected");
+			selectTodo(next);
+			$(".moveUpTodo").click();
+			selectTodo(selected);
+		}
+	});
+	
+	$(".moveRightTodo").on("click", function() {
+		let depth = $(".selected").attr("depth")*1;		// *1 -- convert string to number
+		let prev = $(".selected").prevAll().filter(function() {
+			return $(this).attr("depth") <= depth;
+		}).first();
+		let next = $(".selected").nextAll().filter(function() {
+			return $(this).attr("depth") <= depth; 
+		}).first();
+		
+		if($(prev).attr("depth")==depth) {
+			let selected = $(".selected");
+			$(prev).children(".unfold").click();	// 그룹 접혀있으면 펼치기
+			selectTodo(selected);
+			
+			// 하위 todo 포함해서 depth 1 증가
+			$(selected).nextUntil(next).each(function(index, item) {
+				addDepthBy(item, 1);
+			});
+			addDepthBy(selected, 1);
+			
+			// parent에 접기 버튼 없을 시 추가
+			if(!$(prev).children(".fold").exist()) {
+				$("<button/>", {class: "fold", text: "접기"})
+						.insertAfter($(prev).children(".doName"));
 			}
 		}
 	});
+	
+	$(".moveLeftTodo").on("click", function() {
+		let depth = $(".selected").attr("depth")*1;
+		let prev = $(".selected").prevAll().filter(function() {
+			return $(this).attr("depth") < depth;
+		}).first();
+		let next = $(".selected").nextAll().filter(function() {
+			return $(this).attr("depth") <= depth;
+		}).first();
+		
+		if($(prev).exist()) {
+			let selected = $(".selected");
+			let nextUntil = $(selected).nextUntil(next);
+			
+			// selected 및 하위 todo를 parent 위로 이동
+			$(selected).insertBefore(prev);
+			$(nextUntil).insertAfter(selected);
+			
+			// selected 및 하위 todo depth 1 감소
+			$(nextUntil).each(function(index, item) {
+				addDepthBy(item, -1);
+			});
+			addDepthBy(selected, -1);
+			
+			// moveDown 버튼 클릭
+			$(".moveDownTodo").click();
+			
+			// prev의 하위 그룹 없을 시 fold 버튼 삭제
+			next = $(prev).nextAll().filter(function() {
+				return $(this).attr("depth") <= $(prev).attr("depth");
+			}).first();
+			nextUntil = $(prev).nextUntil(next);
+			if(nextUntil.length == 0) {
+				$(prev).children(".fold").remove();
+			}
+		}
+	});
+	
+	
 	// todo doName 변경
 	$(".renameTodo").on("click", function() {
 		if($(".selected").exist()) {
@@ -98,7 +171,7 @@ $(function() {
 		
 		$(item).append(checkBox)
 		$(item).append(input);
-		$(".todoList").append(item);
+		$(".todoList ul").append(item);
 		selectTodo(item);
 		$(input).focus();
 		$(input).val("새 목표");
@@ -160,10 +233,15 @@ $(function() {
 	
 });
 
+jQuery.fn.exist = function() {
+	return this.length > 0;
+}
 function selectTodo(selected) {
 	$(".selected").removeClass("selected");
 	$(selected).addClass("selected");
 }
-jQuery.fn.exist = function() {
-	return this.length > 0;
+function addDepthBy(item, amount) {
+	let depth = $(item).attr("depth") *1;
+	$(item).attr("depth", depth+amount);
+	$(item).css("margin-left", 25*(depth+amount));
 }

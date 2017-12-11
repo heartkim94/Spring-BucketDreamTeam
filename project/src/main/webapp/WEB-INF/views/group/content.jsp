@@ -12,12 +12,14 @@
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
-			<%@ include file="asideMenu.jsp" %>
-			<div class="groupMain">
-				<%@ include file="../common/content.jsp" %>
+			<div class="container groupContainer">
+				<%@ include file="asideMenu.jsp" %>
+				<div class="groupMain">
+					<%@ include file="../common/content.jsp" %>
+				</div>
+				<%@ include file="asideApp.jsp" %>
+				<div class="clear"></div>
 			</div>
-			<%@ include file="asideApp.jsp" %>
-			<div class="clear"></div>
 		</section>
 		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->

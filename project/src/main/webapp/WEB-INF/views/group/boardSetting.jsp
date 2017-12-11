@@ -19,9 +19,9 @@
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
-			<%@ include file="asideMenu.jsp" %>
-			<div class="groupMain">
-				<div class="container settingContainer">
+			<div class="container groupContainer">
+				<%@ include file="asideMenu.jsp" %>
+				<div class="groupMain">
 					<h3>게시판 목록</h3>
 					<hr>
 					<div class="boardList">
@@ -41,8 +41,8 @@
 					<br>
 					<button onclick="location.href='view'">완료</button>
 				</div>
+				<%@ include file="asideApp.jsp" %>
 			</div>
-			<%@ include file="asideApp.jsp" %>
 		</section>
 		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->

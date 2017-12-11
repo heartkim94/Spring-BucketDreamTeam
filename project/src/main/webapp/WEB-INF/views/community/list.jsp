@@ -13,7 +13,11 @@
 <body>
 <div id="wrapper">
 	<%@ include file="../common/header.jsp" %>
-	<jsp:include page="${view}"/>
+	<section>
+		<div class="container subContent">
+			<jsp:include page="${view}"/>
+		</div>
+	</section>
 	<%@ include file="../common/footer.jsp" %>
 </div>
 </body>

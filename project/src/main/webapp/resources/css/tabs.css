@@ -1,0 +1,19 @@
+@charset "UTF-8";
+.tabs li {
+	float: left;
+	padding-right: 10px;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+}
+.tabs .tabCurrent {
+	background: #ccc;
+}
+.tabContent {
+	display: none;
+}
+.tabContent.tabCurrent {
+	display: inherit;
+}
+.clear {
+	clear: both;
+}

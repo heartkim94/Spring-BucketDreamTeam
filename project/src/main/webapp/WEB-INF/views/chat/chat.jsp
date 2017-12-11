@@ -54,7 +54,7 @@
 						<button class="redo">Redo</button>
 					</div>
 				</div>
-				<div class="claer"></div>
+				<div class="clear"></div>
 			</div>
 			<div class="chatroom">
 				<div class="chatLog">

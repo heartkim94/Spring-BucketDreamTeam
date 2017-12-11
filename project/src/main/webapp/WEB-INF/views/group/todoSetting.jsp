@@ -14,17 +14,30 @@
 		}
 		.todoList {
 			border: 1px solid black;
-			flex: 1;
 		}
 		.todoList .selected {
 			background: #ccc;
 		}
-		.todoTools {
+		.todoList input[type=text] {
+			border: 1px solid black;
+		}
+		.folded {
+			display: none;
+		}
+		.line {
+			border:0.5px solid black
+		}
+		/* #todoList */
+		#todoList .todoList {
+			flex: 1;
+		}
+		#todoList .todoTools {
 			border: 1px solid black;
 			flex: 1;
 		}
-		.todoList input[type=text] {
-			border: 1px solid black;
+		/* #todoCaldendar */
+		#todoCalendar .todoList {
+			flex: 3;
 		}
 	</style>
 </head>
@@ -32,44 +45,23 @@
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
-			<div class="container settingContainer">
+			<div class="container groupContainer">
 				<%@ include file="asideMenu.jsp" %>
 				<div class="groupMain">
 					<h3>목표</h3>
 					<hr><br>
-					<div class="todoContainer">
-						<div class="todoList">
-							<ul>
-								<c:forEach var="todo" items="${doList}">
-									<li style="margin-left: ${25 * todo.depth}"
-										doNum="${todo.doNum}" depth="${todo.depth}">
-										<input type="checkbox" name="done" <c:if test="${todo.done}">checked</c:if>>
-										<span class="doName">${todo.doName}</span>
-										<c:if test="${todo.doWhen!=null}">
-											<br>
-											|    &nbsp;[
-											${todo.doWhen} <c:if test="${!todo.doAllDay}">${todo.doWhenTime}</c:if>
-											~ ${todo.doEnd} <c:if test="${!todo.doAllDay}">${todo.doEndTime}</c:if>
-											]
-										</c:if>
-									</li>
-									<c:set var="lastPath" value="${todo.path}"/>
-								</c:forEach>
-							</ul>
-							<hr style="border:0.5px solid black">
-							<span>
-								<button class="moveUpTodo">▲</button>
-								<button class="moveDownTodo">▼</button>
-								<button class="moveLeftTodo">◀</button>
-								<button class="moveRightTodo">▶</button>
-							</span>
+					<div class="tabContainer">
+						<ul class="tabs">
+							<li class="tabCurrent"><a href="#todoList">목록</a></li>
+							<li><a href="#todoCalendar">달력</a></li>
+							<li><a href="#todoFlow?">플로우?</a></li>
+						</ul>
+						<div class="clear"></div>
+						<div class="tabContent tabCurrent" id="todoList">
+							<%@ include file="todoList.jsp" %>
 						</div>
-						<div class="todoTools">
-							<ul>
-								<li><button class="renameTodo">이름 변경</button><li>
-								<li><button class="addTodo">목표 추가</button></li>
-								<li><button>test</button></li>
-							</ul>
+						<div class="tabContent" id="todoCalendar">
+							<%@ include file="todoCalendar.jsp" %>
 						</div>
 					</div>
 					<br>
@@ -82,5 +74,18 @@
 		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->
 </body>
+<script>
+// let changed = false;
+// $(function() {
+// 	changed = true;
+// 	$(".tabs li").on("click", function(event) {
+// 		if(changed) {
+// 			event.stopImmediatePropagation();
+// 			alert("you didn't save");
+// 		}
+// 	});
+// });
+</script>
+<script src="/project/resources/js/tabs.js"></script>
 <script src="/project/resources/js/todoTools.js"></script>
 </html>
