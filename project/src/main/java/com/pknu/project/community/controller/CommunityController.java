@@ -1,13 +1,12 @@
 package com.pknu.project.community.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -69,7 +68,7 @@ public class CommunityController {
 			@RequestParam("articleNum") String articleNum,
 			@ModelAttribute("pageNum") String pageNum,
 			@RequestParam("fileStatus") int fileStatus,
-			Model model, HttpSession session){						
+			Model model, HttpSession session) {						
 		boardService.getArticle(-1, boardNum, articleNum, fileStatus, model);
 		System.out.println("***getNoticeArticle***");
 		return "community/content";
@@ -150,6 +149,15 @@ public class CommunityController {
 		article.setGroupNum(-1);
 		boardService.updateArticle(article, boardNum, model);
 		return "redirect:list";
+	}
+	
+	// 첨부파일 다운로드
+	@RequestMapping(value="/download")
+	@ResponseBody
+	public FileSystemResource download(HttpServletResponse resp,
+										@RequestParam("storedFname") String storedFname) {
+		
+		return boardService.download(resp, storedFname);
 	}
 	
 }

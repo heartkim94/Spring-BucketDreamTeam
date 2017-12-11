@@ -33,6 +33,7 @@ public class BoardServiceImpl implements BoardService {
 	private ArticleDto article;
 	
 	private List<ArticleDto> articleList;
+	private List<FileDto> fileList;
 	private List<BoardDto> boardList;
 	
 	private HashMap<String, String> paramMap;
@@ -107,14 +108,27 @@ public class BoardServiceImpl implements BoardService {
 		
 		boardDao.upHit(paramMap);
 		article=boardDao.getArticle(paramMap);
-//		article.setCommentCount(bbsDao.getCommentCount(articleNum));
 		article.setCommentCount(commentService.commentCount(Integer.parseInt(boardNum), article.getArticleNum()));
 		
 		model.addAttribute("article", article);
-//		if(fileStatus == 1) {
-//			model.addAttribute("fileList", communityDao.getFiles(articleNum));
-//		}
+		if(fileStatus == 1) {
+			fileList = boardDao.getFiles(paramMap);
+			model.addAttribute("fileList", fileList);
+		}
 		return article;
+	}
+
+	@Override
+	public FileSystemResource download(HttpServletResponse resp, String storedFname) {
+		String originFname=storedFname.substring(storedFname.indexOf("_")+1);;
+		try {
+			originFname = URLEncoder.encode(originFname,"utf-8").replace("+","%20").replace("%28", "(").replace("%29", ")");
+		} catch (Exception e){}
+		
+		resp.setContentType("application/download");
+		resp.setHeader("Content-Disposition", "attachment;" +" filename=\""+originFname+ "\";");
+		FileSystemResource fsr= new FileSystemResource(saveDir+storedFname);
+		return fsr;
 	}
 
 	@Override

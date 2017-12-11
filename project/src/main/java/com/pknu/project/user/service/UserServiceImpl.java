@@ -26,10 +26,24 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int joinIdCheck(String inputId) {
 		String dbIdCheck = userDao.loginCheck(inputId);
-		if(dbIdCheck != null) {  // db에 id가 존재하면
+        boolean langCheck = false;
+        for(int i=0; i<inputId.length(); i++) {
+        	if(
+            (inputId.charAt(i)<48) ||
+            (inputId.charAt(i)>57 && inputId.charAt(i)<65) ||
+            (inputId.charAt(i)>90 && inputId.charAt(i)<97) ||
+            (inputId.charAt(i)>122)) {
+        		langCheck=true;
+                break;
+            }
+        }
+        
+		if(dbIdCheck != null) {	// db에 id가 존재하면
+			return 1;
+		}else if(langCheck) {	// 영어나 숫자가 아니면
 			return 2;
 		}else {
-			return 1;
+			return 3;
 		}
 	}
 

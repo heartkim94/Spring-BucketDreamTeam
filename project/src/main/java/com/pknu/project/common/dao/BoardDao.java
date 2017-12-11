@@ -18,6 +18,7 @@ public interface BoardDao {
 	public int getCount(HashMap<String, String> paramMap);
 	public List<ArticleDto> getArticles(HashMap<String, String> paramMap);
 	public ArticleDto getArticle(HashMap<String, String> paramMap);
+	public List<FileDto> getFiles(HashMap<String, String> paramMap);
 	public void upHit(HashMap<String, String> paramMap);
 	public void writeArticle(ArticleDto article);
 	// 파일업로드
