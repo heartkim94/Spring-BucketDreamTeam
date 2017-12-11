@@ -3,6 +3,9 @@ package com.pknu.project.common.service;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.ui.Model;
 
 import com.pknu.project.common.dto.ArticleDto;
@@ -30,4 +33,6 @@ public interface BoardService {
 	// 글 수정
 	public void updateGetArticle(int groupNum, String articleNum, String boardNum, int fileStatus, Model model);
 	public void updateArticle(ArticleDto article, String boardNum, Model model);
+	// 첨부파일 다운로드
+	public FileSystemResource download(HttpServletResponse resp, String storedFname);
 }

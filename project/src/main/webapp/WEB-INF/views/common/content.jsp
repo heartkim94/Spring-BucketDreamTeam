@@ -65,40 +65,41 @@ article.commentList input {
 <div>
 	<table class="contentTable">
 		<tr>
-			<th>제목 :</th>
+			<th>제목</th>
 			<td>${article.title}</td>
 		</tr>
 		<tr>
-			<th>작성자: </th>
-			<td>${article.id }</td>
+			<th>작성자</th>
+			<td>${article.id}</td>
 		</tr>
 		<tr>
-			<th>작성일: </th>
-			<td>${article.writeDate }</td>
+			<th>작성일</th>
+			<td>${article.writeDate}</td>
 		</tr>
 		<tr>
-			<th>조회: </th>
-			<td>${article.hit }</td>
+			<th>조회</th>
+			<td>${article.hit}</td>
 		</tr>
 		
-<!-- 						<tr> -->
-<!-- 							<th>다운로드</th> -->
-<!-- 							<td> -->
-<%-- 								<c:if test="${article.fileStatus !=0 }"> --%>
-<%-- 									<c:if test="${fileList!=null}"> --%>
-<!-- 										<ul> -->
-<%-- 											<c:forEach var="storedFname" items="${fileList}"> --%>
-<!-- 												<li> -->
-<%-- 													<a href="/project/download?storedFname=${storedFname}">${storedFname.substring(storedFname.indexOf("_")+1)}</a> --%>
-<!-- 												</li> -->
-<%-- 											</c:forEach> --%>
-<!-- 										</ul> -->
-<%-- 									</c:if> --%>
-<%-- 								</c:if> --%>
-<!-- 							</td> -->
-<!-- 						</tr> -->
 		<tr>
-			<th>내용: </th>
+			<th>다운로드</th>
+			<td>
+				<c:if test="${article.fileStatus !=0}">
+					<c:if test="${fileList!=null}">
+						<ul>
+							<c:forEach var="file" items="${fileList}">
+								<li>
+									<a href="/project/community/download?storedFname=${file.storedFname}">${file.storedFname.substring(file.storedFname.indexOf("_")+1)}</a>
+								</li>
+							</c:forEach>
+						</ul>
+					</c:if>
+				</c:if>
+			</td>
+		</tr>
+		
+		<tr>
+			<th>내용</th>
 			<td colspan="4"><xmp>${article.content}</xmp></td>
 		</tr>
 	</table>

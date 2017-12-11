@@ -15,8 +15,7 @@ public class UploadFileUtils {
 	private static final Logger logger = 
 		      LoggerFactory.getLogger(UploadFileUtils.class);
 	
-	public static String uploadFile(String saveDir,
-			String originFname, byte[] fileData) throws Exception{
+	public static String uploadFile(String saveDir,	String originFname, byte[] fileData) throws Exception{
 		UUID uid = UUID.randomUUID();    
 	    String storedFname = uid.toString() +"_"+originFname;    
 	    String storedPath = calcPath(saveDir);    
@@ -29,8 +28,8 @@ public class UploadFileUtils {
 	      uploadedFileName = makeThumbnail(saveDir, storedPath, storedFname);
 	    }else{
 	      uploadedFileName = makeIcon(saveDir, storedPath, storedFname);
-	    }	 	  
-	    return uploadedFileName;	
+	    }
+	    return uploadedFileName;
 	}
 	
 	private static String calcPath(String uploadPath){    
@@ -57,7 +56,7 @@ public class UploadFileUtils {
 		String thumbnailName =	saveDir + storedPath + File.separator +"s_"+ storedFname;   
 		File newFile = new File(thumbnailName);
 		String formatName = storedFname.substring(storedFname.lastIndexOf(".")+1);  
-   
+
 	   ImageIO.write(destImg, formatName.toUpperCase(), newFile);	   
 	   return thumbnailName.substring(saveDir.length()).replace(File.separatorChar, '/');
 	} 
