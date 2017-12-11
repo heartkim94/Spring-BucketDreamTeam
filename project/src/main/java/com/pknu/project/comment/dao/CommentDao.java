@@ -9,6 +9,7 @@ public interface CommentDao {
 	public List<CommentDto> getComments(HashMap<String, Integer> commentMap);
 	public void insertComment(CommentDto comment);
 	public int commentCount (HashMap<String, Integer> commentMap);
+	public void replyComment(CommentDto comment);
 	public void updateComment(HashMap<String, String> commentMap);
 	public void deleteComment(int commentNum);
 }

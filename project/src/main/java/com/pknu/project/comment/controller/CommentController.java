@@ -57,11 +57,16 @@ public class CommentController {
 	
 	@RequestMapping(value="replyComment")
 	@ResponseBody
-	public String replyComment(CommentDto comment, HttpSession session) {
+	public HashMap<String, Object> replyComment(CommentDto comment, 
+															   HttpSession session){
 		comment.setId((String)session.getAttribute("id"));
-		return null;
+		commentService.replyComment(comment);
+		commentList=commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("result", 1);
+		hm.put("commentList", commentList);
+		return hm;		
 	}
-	
 	
 	@RequestMapping(value="deleteComment")
 	@ResponseBody

@@ -36,7 +36,7 @@
 							<td class="alignL">
 								<c:if test="${article.depth > 0}">
 									<img src="/project/resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">
-									<img src="">RE: 
+									<span>RE:</span> 
 								</c:if>
 								<c:if test="${article.depth == 0}">
 									<img src="" width="0" height="16">

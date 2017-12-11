@@ -10,6 +10,7 @@ public interface CommentService {
 	public List<CommentDto> getComments(int boardNum, int articleNum, int commentRow);
 	public void insertComment(CommentDto comment);
 	public int commentCount(int boardNum, int articleNum);
+	public void replyComment(CommentDto comment);
 	public void updateComment(String commentNum, String commentContent);
 	public void deleteComment(int commentNum);
 }

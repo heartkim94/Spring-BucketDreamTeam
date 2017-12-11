@@ -44,9 +44,9 @@ input {
 	width: 100%;
 	height: 100px;
 }
-.commentList > div {
-	padding: 5px;
-	border: 1px solid blue;
+.commentList > div.comment {
+	padding: 15px 0;
+	border-bottom: 1px solid #e2e2e2;
 }
 .commentList ul {
 	overflow: hidden;
@@ -60,7 +60,16 @@ article.commentList input {
 	color: red;
 }
 .commentContent {
-	min-height: 50px;
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.commentArea > div.commTableWrap {
+	border: 1px solid #b3b3b3;
+	margin: 10px 0;
+}
+textarea {
+	box-sizing: border-box;
 }
 </style>
 </head>
@@ -150,11 +159,10 @@ article.commentList input {
 	<div class="commentArea">
 		<p>전체 코멘트: <span style='color: blue'>(${article.commentCount})</span></p>
 		<!-- 코멘트 쓰기 영역 -->
-		<div style="margin-bottom: 10px;">
+		<div class="commTableWrap">
 			
 			<table class="commentTable">
 				<tr>
-					<th>내용: </th>
 					<td><textarea id="commentContent" name="contents"></textarea></td>
 				</tr>
 			</table>
@@ -167,7 +175,7 @@ article.commentList input {
 <%-- 			<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead"> --%>
 		</div>
 		<!-- 코멘트 리스트 -->
-		<div style="width: 100%; min-height: 100px; padding: 20px;">
+		<div style="width: 100%; min-height: 100px; padding: 20px 0;">
 			<div id="showComment" align="center"></div>
 			<input type="hidden" id="commPageNum" value="1">
 		</div>
@@ -232,21 +240,22 @@ article.commentList input {
 			},
 		}); // ajax end	
 	}
-	
 	function showHtml(data, commPageNum){
-		console.log(data);
-		var html = "<article class='commentList'>";
+// 		console.log(data);
+		let html = "<article class='commentList'>";
 		$.each(data, function(index,item){
-			html +="<div class='comment' commentNum='"+item.commentNum+"'>";
+			html +="<div class='comment' commentNum='"+item.commentNum
+					+"' depth='"+item.depth
+					+"' style='margin-left:"+ (20*item.depth) +"px'>";
 			html +="<div class='commentInfo'><ul>";
 			html +="<li>번호: "+item.commentNum+"</li>";
 			html +="<li>작성자: "+item.id+"</li>";
 			html +="<li>작성일: "+item.commentDate+"</li>";
-			html +="<li>수정일: "+item.commentDate+"</li>";
-// 			html +="<li>"+item.articleNum+"</li>";
+			html +="<li>글번호: "+item.articleNum+"</li>";
+			html +="<li>depth: "+item.depth+"</li>";
 			html +="</ul></div>";	
-			html +="내용: <p class='commentContent' >"+item.commentContent+"</p>";
-			html +="<ul>";
+			html +="<p class='commentContent' >"+item.commentContent+"</p>";
+			html +="<ul class='btn'>";
 // 			html +="<li><a href='#' onclick='openReplyArea(event,"+item.commentNum+", this)'>답변</a></li>";
 // 			html +="<li><a href='#' onclick='openUpdateArea(event, this)'>수정</a></li>";
 // 			html +="<li><a href='#' onclick='deleteComment(event,"+item.commentNum+", this)'>삭제</a></li>";
@@ -298,26 +307,41 @@ article.commentList input {
 			value: "답변 달기",
 			"class": "replyBtn",
 		});
+		$("article.commentList textarea").attr({
+			"class": "replyTextarea",
+		});
 	});
-// 	function openReplyArea(event, parentNum, self){
-// 		console.log(self);
-// 		event.preventDefault();
-// // 		console.log(parentNum);
-// 		if(replyArea!=null) {
-// 			$(replyArea).remove();
-// 		}
-// 		replyArea = $(".commentTable").parent().clone();
-// // 		let ul = $(".btnReComment").parent();
-// // 		ul.append(replyArea);
-// 		$(".comment[commentNum="+parentNum+"]").append($(replyArea));
-// 		$("article.commentList input").attr({
-// 			value: "답변 달기",
-// 			onclick: "replyComment(event,"+parentNum+", this)"
-// 		});
-// 		$("article.commentList textarea").attr({
-// 			"class": "inTextarea"
-// 		});
-// 	}
+	// 답변 ajax
+	$("#showComment").on("click", ".replyBtn", function(event){
+		event.preventDefault();
+		let comment = $(this).parents(".comment");
+		let commentNum = $(comment).attr("commentNum");
+		let commentContent = $(comment).find(".replyTextarea").val();
+		let depth = $(comment).attr("depth");
+// 		newRow.append($(comment));
+		$.ajax({
+			url : "/project/replyComment",
+			data: {
+				id : "${id}",
+				commentContent : $('.replyTextarea').val(),
+				articleNum : "${article.articleNum}",
+				boardNum : "${boardNum}", 
+				commentNum: commentNum,
+				parentNum: commentNum,
+				depth: depth
+			},
+			success: function(data){
+				$(comment).children(".commTableWrap").remove();
+				let newRow = comment.clone();
+				if (data.result == 1) {
+					$("#commentContent").val("");
+					$(comment).append($(newRow));
+					showHtml(data.commentList, 1);
+				}
+			}
+		});
+	})
+	
 	// 수정 버튼 클릭
 	$("#showComment").on("click", ".updateComment", function(event) {
 		event.preventDefault();
@@ -368,12 +392,12 @@ article.commentList input {
 		console.log(commentNum, commentContent);
 		$.ajax({
 			url : "/project/deleteComment",
-			data : {
+			data: {
 				articleNum : "${article.articleNum}",
 				boardNum : "${boardNum}",
 				commentNum : commentNum
 			},
-			success : function(data){
+			success: function(data){
 				showHtml(data, 1);
 			}
 		});
@@ -384,13 +408,13 @@ article.commentList input {
 		event.preventDefault();
 		$.ajax({
 			url : "/project/replyComment",
-			data : {
+			data: {
 				id : "${id}",
 				commentContent : $("textarea[commentNum]'"+parentNum+"']").val(),
 				boardNum : "${boardNum}",
 				articleNum : "${article.articleNum}"
 			},
-			success : function(data){
+			success: function(data){
 				alert(commentContent);
 			}
 		}); 

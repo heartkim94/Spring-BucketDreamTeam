@@ -38,6 +38,13 @@ public class CommentServiceImpl implements CommentService {
 		return commentDao.commentCount(commentMap);
 	}
 	
+	
+	
+	@Override
+	public void replyComment(CommentDto comment) {
+		commentDao.replyComment(comment);
+	}
+
 	@Override
 	public void updateComment(String commentNum, String commentContent) {
 		HashMap<String, String> commentMap = new HashMap<>();

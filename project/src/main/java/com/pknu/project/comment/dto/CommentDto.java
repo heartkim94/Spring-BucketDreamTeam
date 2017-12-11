@@ -9,6 +9,7 @@ public class CommentDto {
 	private int boardNum;
 	private int parentNum;
 	private String path;
+	private int depth;
 	
 	public int getCommentNum() {
 		return commentNum;
@@ -57,5 +58,11 @@ public class CommentDto {
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	public int getDepth() {
+		return depth;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
 	}
 }
