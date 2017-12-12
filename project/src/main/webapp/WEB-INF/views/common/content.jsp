@@ -164,7 +164,7 @@ textarea {
 			
 			<table class="commentTable">
 				<tr>
-					<td><textarea id="commentContent" name="contents"></textarea></td>
+					<td><textarea id="commentContent" name="commentContent"></textarea></td>
 				</tr>
 			</table>
 			<c:if test="${id ==null}">

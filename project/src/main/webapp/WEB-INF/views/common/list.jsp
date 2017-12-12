@@ -35,13 +35,13 @@
 							<td><c:out value="${article.articleNum}" /></td>
 							<td class="alignL">
 								<c:if test="${article.depth > 0}">
-									<img src="/project/resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">
+									<img src="/project/resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">RE: 
 								</c:if>
 								<c:if test="${article.depth == 0}">
 									<img src="" width="0" height="16">
 								</c:if>
 								<a href="content?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}">
-									RE: ${article.title}
+									${article.title}
 									<c:if test="${article.commentCount!=0}">
 										<span style="color: red">(${article.commentCount})</span>
 									</c:if>
