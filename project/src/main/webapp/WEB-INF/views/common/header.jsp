@@ -199,7 +199,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#slider").nivoSlider();
+	// $("#slider").nivoSlider();
 	
 }); 
 </script>
