@@ -127,7 +127,7 @@
 					<c:if test="${id != null}">
 						<a href="#" class="mypageBtn">마이페이지</a>
 						<a href="#" class="mypageBtnIcon">
-							<img src="resources/img/menuIcon.png" alt="menuIcon"/>  
+							<img src="/project/resources/img/menuIcon.png" alt="menuIcon"/>  
 						</a>
 						<script>
 							$(function(){

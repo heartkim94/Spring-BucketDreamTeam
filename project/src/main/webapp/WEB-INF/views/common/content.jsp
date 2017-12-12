@@ -382,7 +382,7 @@ textarea {
 		event.preventDefault();
 		let comment = $(this).parents(".comment");
 		let commentNum = $(comment).attr("commentNum");
-		let commentContent = $(comment).children(".commentContent").text();
+// 		let commentContent = $(comment).children(".commentContent").text();
 		$.ajax({
 			url : "/project/deleteComment",
 			data: {

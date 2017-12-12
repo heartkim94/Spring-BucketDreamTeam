@@ -25,12 +25,6 @@
 		select count(*) from Comments where boardNum=#{boardNum} AND articleNum=#{articleNum}
 	</select>
 	
-	<!-- 코멘트 수정 -->
-	<update id="updateComment" parameterType="HashMap">
-		UPDATE Comments
-		SET commentContent=#{commentContent} WHERE commentNum=#{commentNum} 
-	</update>
-	
 	<!-- 코멘트 답글 -->
 	<insert id="replyComment" parameterType="comment">
 		INSERT INTO comments 
@@ -41,6 +35,12 @@
 		ON child.parentNum = parent.commentNum AND child.commentNum = last_insert_id() 
 		SET child.path = CONCAT(parent.path, '.', child.commentNum);
 	</insert>
+	
+	<!-- 코멘트 수정 -->
+	<update id="updateComment" parameterType="HashMap">
+		UPDATE comments
+		SET commentContent=#{commentContent} WHERE commentNum=#{commentNum} 
+	</update>
 	
 	<!-- 코멘트 삭제 -->
 	<select id="getPath" parameterType="int" resultType="String">
