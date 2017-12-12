@@ -29,6 +29,12 @@
 	footer a:hover {
 		color: orange;
 	}
+	/* footer response style */
+    @media (max-width: 1024px) {
+  		footer .foot{
+  			width: 100%;
+  		}
+    }
 </style>
 </head>
 <body>

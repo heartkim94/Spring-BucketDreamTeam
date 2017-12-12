@@ -56,7 +56,7 @@ input {
 	float: left;
 }
 article.commentList input {
-	color: red;
+/* 	color: red; */
 }
 .commentContent {
 	font-size: 14px;
@@ -330,6 +330,10 @@ textarea {
 			success: function(data){
 // 				$(comment).children(".commTableWrap").remove();
 // 				let newRow = comment.clone();
+				if(commentContent == ""){
+					alert("내용을 입력하세요");
+					return;
+				}
 				if (data.result == 1) {
 // 					$("#commentContent").val("");
 // 					$(comment).append($(newRow));
@@ -374,6 +378,10 @@ textarea {
 				commentContent : commentContent,
 			},
 			success: function(data){
+				if(commentContent == ""){
+					alert("내용을 입력하세요");
+					return;
+				}
 				$(comment).children(".commentContent").text(commentContent);
 				$(replyArea).remove();
 			}

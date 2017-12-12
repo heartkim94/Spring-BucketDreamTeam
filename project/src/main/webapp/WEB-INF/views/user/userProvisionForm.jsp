@@ -1,83 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원약관</title>
 
-    <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet">
-    
-	 <style type="text/css">
-	.memCheck td {
-		border-bottom: none;
-	}
-	 </style>
-	<script>
-		function check() {
-			if(fr.memberagree.checked == false) {
-// 				alert('이용약관에 동의해주세요');
-				swal ( "필수" ,  "이용약관에 동의해주세요!" ,  "error" )
-				fr.memberagree.focus();
-				return false;
-			}
-			if(fr.privacyagree.checked == false) {
-// 				alert('개인정보 수집/이용 및 국외이전에 동의해주세요');
-				swal ( "필수" ,  "개인정보 수집/이용 및 국외이전에 동의해주세요!" ,  "error" )
-				fr.privacyagree.focus();
-				return false;
-			}
+<link
+	href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css'
+	rel='stylesheet' type='text/css'>
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css"
+	rel="stylesheet">
+
+<style type="text/css">
+.memCheck td {
+	border-bottom: none;
+}
+textarea {
+	resize: none;
+}
+.memCheck h1 {
+	text-align: center;
+}
+</style>
+<script>
+	function check() {
+		if (fr.memberagree.checked == false) {
+			// 				alert('이용약관에 동의해주세요');
+			swal("필수", "이용약관에 동의해주세요!", "error")
+			fr.memberagree.focus();
+			return false;
 		}
-		
-		$(function(){
-			$("#allchecked").click(function(){
-				if($("#allchecked").prop("checked")) {
-					$("input[type=checkbox]").prop("checked",true);
-				} else {
-					$("input[type=checkbox]").prop("checked",false);
-				}
-			});
+		if (fr.privacyagree.checked == false) {
+			// 				alert('개인정보 수집/이용 및 국외이전에 동의해주세요');
+			swal("필수", "개인정보 수집/이용 및 국외이전에 동의해주세요!", "error")
+			fr.privacyagree.focus();
+			return false;
+		}
+	}
+
+	$(function() {
+		$("#allchecked").click(function() {
+			if ($("#allchecked").prop("checked")) {
+				$("input[type=checkbox]").prop("checked", true);
+			} else {
+				$("input[type=checkbox]").prop("checked", false);
+			}
 		});
-	</script>
-	<link rel="stylesheet" href="./resources/css/submit.css">
+	});
+</script>
+<link rel="stylesheet" href="./resources/css/submit.css">
 </head>
 <body>
 	<div id="wrapper">
-	<%@ include file="../common/header.jsp" %>
-	<form name="fr" method="post" action="/project/userJoinForm" onsubmit="return check()">
-		<table class="memCheck" width="960px" align="center">
-			<tr>
-				<td>
-					<h1>회원약관</h1>
-				</td>
-			</tr>
-	
-			<tr>
-				<td align="center">
-					<table  width="800px" >
-						<!-- 전체 동의 체크박스 시작 -->							                  
-						<div align="center">                       
-							<input type="checkbox" id="allchecked">                        
-							<span class="checkbox"></span>                        
-							<label for="allchecked">전체 동의</label>                    
-						</div>                    
-						<!-- 전체 동의 체크박스 끝 -->
-						<!-- 01. 이용약관 -->
-						<tr>
-							<td>
-								<div>
-									<font color="#f67001" size="4">01</font> <font size="3">이용약관</font>
-								</div><br>
-							</td>
-						</tr>
-						<tr>
-							<td align="center">
-								<textarea name="tos" rows="15" cols="100">
+		<%@ include file="../common/header.jsp"%>
+		<section>
+		<div class="container mainContent">
+			<form name="fr" method="post" action="/project/userJoinForm"
+				onsubmit="return check()">
+				<table class="memCheck" width="960px" align="center">
+					<tr>
+						<td>
+							<h1>회원약관</h1>
+						</td>
+					</tr>
+
+					<tr>
+						<td align="center">
+							<table width="800px">
+								<!-- 전체 동의 체크박스 시작 -->
+								<div align="center">
+									<input type="checkbox" id="allchecked"> <span
+										class="checkbox"></span> <label for="allchecked">전체 동의</label>
+								</div>
+								<!-- 전체 동의 체크박스 끝 -->
+								<!-- 01. 이용약관 -->
+								<tr>
+									<td>
+										<div>
+											<font color="#f67001" size="4">01</font> <font size="3">이용약관</font>
+										</div>
+										<br>
+									</td>
+								</tr>
+								<tr>
+									<td align="center"><textarea name="tos" rows="15"
+											cols="100" readonly="readonly">
 제1조(목적)
  이 약관은 oooo 회사(전자상거래 사업자)가 운영하는 oooo 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련
  서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리ㆍ의무 및 책임사항을 규정함을 목적으로 합니다.
@@ -300,27 +316,29 @@
  ①“몰”과 이용자간에 발생한 전자상거래 분쟁에 관한 소송은 제소 당시의 이용자의 주소에 의하고, 주소가 없는 경우에는 거소를 관할하는 지방법원의 전속관할로 합니다. 다만, 제소 당시 이용자의 주소 또는 거소가 분명하지 않거나 외국 거주자의 경우에는 민사소송법상의 관할법원에 제기합니다.
 
  ②“몰”과 이용자간에 제기된 전자상거래 소송에는 한국법을 적용합니다.
-								</textarea>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="checkbox" id="memberagree" name="memberagree">
-								<label for="memberagree">이용약관에 동의합니다. <b>(필수 사항)</b></label><br><br>
-							</td>
-						</tr>
-						
-						<!-- 02. 이용약관  -->
-						<tr>
-				            <td>
-				             	<div>
-				             		<font color="#f67001" size="4">02</font> <font size="3">개인정보 수집 및 이용에 대한 안내</font>
-				            	</div><br>
-				         	</td>
-				        </tr>
-				        <tr>
-				        	<td align="center">
-				        		<textarea name="tos" rows="15" cols="100">
+								</textarea></td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" id="memberagree"
+										name="memberagree"> <label for="memberagree">이용약관에
+											동의합니다. <b>(필수 사항)</b>
+									</label><br>
+									<br></td>
+								</tr>
+
+								<!-- 02. 이용약관  -->
+								<tr>
+									<td>
+										<div>
+											<font color="#f67001" size="4">02</font> <font size="3">개인정보
+												수집 및 이용에 대한 안내</font>
+										</div>
+										<br>
+									</td>
+								</tr>
+								<tr>
+									<td align="center"><textarea name="tos" rows="15"
+											cols="100" readonly="readonly">
 수집하는 개인정보의 항목
 회사는 회원가입, 상담, 서비스 신청 및 제공 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 - 이름, 이메일, 주소, 연락처, 핸드폰 번호, 아이디, 비밀번호, 닉네임, 팩스번호, 홈페이지 주소 또한 서비스 이용과정이나 사업
@@ -421,29 +439,35 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 단, 관련 법령 및 회사방침에 의해 보존하는 정보의 경우 아래 목적으로만 이용하며 보존기간은
 다음과 같습니다.
 '정보통신망 이용촉진 및 정보보호 등에 관한 법률'의 거래기록 보존 의무에 따른 보존: 1년									
-								</textarea>
-				        	</td>
-				        </tr>
-				        <tr>
-				        	<td>
-				        		<input type="checkbox" id="privacyagree" name="privacyagree">
-				        		<label for="privacyagree">개인정보 수집 및 이용에 대한 안내에 동의합니다.	 <b>(필수 사항)</b></label><br><br>
-				        	</td>
-				        </tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		<!--  
+								</textarea></td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" id="privacyagree"
+										name="privacyagree"> <label for="privacyagree">개인정보
+											수집 및 이용에 대한 안내에 동의합니다. <b>(필수 사항)</b>
+									</label><br>
+									<br></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<!--  
 		<div style="text-align: center">
         	<button type="submit">확인</button>
         </div><br><br>
         -->
-        <div class="wrap">
-  			<button class="button"><b>확인</b></button>
-		</div><br><br>
-	</form>
-	<%@ include file="../common/footer.jsp" %>
+				<div class="wrap">
+					<button class="button">
+						<b>확인</b>
+					</button>
+				</div>
+				<br>
+				<br>
+			</form>
+		</div>
+		</section>
+		<%@ include file="../common/footer.jsp"%>
 	</div>
 </body>
 </html>
