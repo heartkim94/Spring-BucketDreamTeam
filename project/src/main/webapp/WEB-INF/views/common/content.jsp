@@ -15,7 +15,7 @@
 	background-color: #e9e9e9;
 }
 .contentTable tr:last-child {
-	height: 400px;
+	height: 40px;
 }
 .btnConfirm {
 /* 	margin: 20px 0; */
@@ -54,7 +54,6 @@ input {
 }
 .commentList ul li {
 	float: left;
-	border: 1px solid black;
 }
 article.commentList input {
 	color: red;
@@ -74,8 +73,8 @@ textarea {
 </style>
 </head>
 <body>
-<div>
-	<table class="contentTable">
+<div class="contentTable">
+	<table>
 		<tr>
 			<th>제목</th>
 			<td>${article.title}</td>
@@ -161,28 +160,25 @@ textarea {
 		<p>전체 코멘트: <span style='color: blue'>(${article.commentCount})</span></p>
 		<!-- 코멘트 쓰기 영역 -->
 		<div class="commTableWrap">
-			
 			<table class="commentTable">
 				<tr>
-					<td><textarea id="commentContent" name="contents"></textarea></td>
+					<td><textarea id="commentContent" name="commentContent"></textarea></td>
 				</tr>
 			</table>
 			<c:if test="${id ==null}">
 				<input type="button" value="comment 쓰기" disabled="disabled">
-			</c:if> 
+			</c:if>
 			<c:if test="${id !=null}">
 				<input type="button" value="comment 쓰기" id="commentWrite">
-			</c:if> 
-<%-- 			<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead"> --%>
+			</c:if>
 		</div>
 		<!-- 코멘트 리스트 -->
+<%-- 		<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead"> --%>
 		<div style="width: 100%; min-height: 100px; padding: 20px 0;">
 			<div id="showComment" align="center"></div>
 			<input type="hidden" id="commPageNum" value="1">
 		</div>
-		
-	</div>			
-	
+	</div> <!-- commentArea end -->
 </div> <!-- contentTable end -->
 </body>
 <script>
@@ -228,7 +224,7 @@ textarea {
 		
 	});
 	function getComments(data){
-		// 댓글 목록 
+		// 댓글 목록
 		$.ajax({
 			url : "/project/commentList",
 			data : {
@@ -244,40 +240,41 @@ textarea {
 	function showHtml(data, commPageNum){
 // 		console.log(data);
 		let html = "<article class='commentList'>";
-		$.each(data, function(index,item){
+		$.each(data, function(index,item) {
 			html +="<div class='comment' commentNum='"+item.commentNum
 					+"' depth='"+item.depth
-					+"' style='margin-left:"+ (20*item.depth) +"px'>";
-			html +="<div class='commentInfo'><ul>";
-			html +="<li>번호: "+item.commentNum+"</li>";
-			html +="<li>작성자: "+item.id+"</li>";
+					+"' style='margin-left:"+ (100*item.depth) +"px'>";
+			html +="<div class='commentInfo'>";
+			if(item.depth > 0) { html += "<img src='/project/resources/img/icon_reply.gif'>"; }
+			html +="<ul>";
+// 			html +="<li>번호: "+item.commentNum+"</li>";
+			html +="<li>작성자: "+item.id+"&nbsp;|&nbsp;</li>";
 			html +="<li>작성일: "+item.commentDate+"</li>";
-			html +="<li>글번호: "+item.articleNum+"</li>";
-			html +="<li>depth: "+item.depth+"</li>";
-			html +="</ul></div>";	
-			html +="<p class='commentContent' >"+item.commentContent+"</p>";
+// 			html +="<li>글번호: "+item.articleNum+"</li>";
+// 			html +="<li>depth: "+item.depth+"</li>";
+			html +="</ul></div>";
+			html +="<p class='commentContent'>"+item.commentContent+"</p>";
 			html +="<ul class='btn'>";
 // 			html +="<li><a href='#' onclick='openReplyArea(event,"+item.commentNum+", this)'>답변</a></li>";
 // 			html +="<li><a href='#' onclick='openUpdateArea(event, this)'>수정</a></li>";
 // 			html +="<li><a href='#' onclick='deleteComment(event,"+item.commentNum+", this)'>삭제</a></li>";
-			html +="<li><a href='#' class='replyComment')'>답변</a></li>";
-			html +="<li><a href='#' class='updateComment'>수정</a></li>";
+			html +="<li><a href='#' class='replyComment')'>답변</a>&nbsp;|&nbsp;</li>";
+			html +="<li><a href='#' class='updateComment'>수정</a>&nbsp;|&nbsp;</li>";
 			html +="<li><a href='#' class='deleteComment')'>삭제</a></li>";
-			html +="</ul>";
-			html +="</div>";	
-		});		
+			html +="</ul></div>";
+		});
 		html +="</article>";
 		commPageNum = parseInt(commPageNum);
-		if("${article.commentCount}" > commPageNum * 10){
+		if("${article.commentCount}" > commPageNum * 10) {
 			nextPageNum = commPageNum+1;
-			html +="<br /><input type='button' onclick='getComment(nextPageNum,event)' value='다음comment보기'><br>";
+			html +="<br><input type='button' onclick='getComment(nextPageNum,event)' value='다음comment보기'><br>";
 		}
-		$("#showComment").html(html);	
+		$("#showComment").html(html);
 		$("#commentContent").val("");
 		$("#commentContent").focus();
 	}
 	
-	function getComment(commPageNum, event){
+	function getComment(commPageNum, event) {
 		event.preventDefault();
 		$.ajax({
 			url : "/project/commentRead",
@@ -298,7 +295,6 @@ textarea {
 		let comment = $(this).parents(".comment");
 		let commentNum = $(comment).attr("commentNum");
 		let commentContent = $(comment).children(".commentContent").text();
-		console.log(commentNum, commentContent);
 		if(replyArea!=null) {
 			$(replyArea).remove();
 		}
@@ -332,11 +328,11 @@ textarea {
 				depth: depth
 			},
 			success: function(data){
-				$(comment).children(".commTableWrap").remove();
-				let newRow = comment.clone();
+// 				$(comment).children(".commTableWrap").remove();
+// 				let newRow = comment.clone();
 				if (data.result == 1) {
-					$("#commentContent").val("");
-					$(comment).append($(newRow));
+// 					$("#commentContent").val("");
+// 					$(comment).append($(newRow));
 					showHtml(data.commentList, 1);
 				}
 			}
@@ -386,11 +382,9 @@ textarea {
 	// 삭제버튼 클릭
 	$("#showComment").on("click", ".deleteComment", function(event) {
 		event.preventDefault();
-		alert('글이 삭제됩니다.');
 		let comment = $(this).parents(".comment");
 		let commentNum = $(comment).attr("commentNum");
 		let commentContent = $(comment).children(".commentContent").text();
-		console.log(commentNum, commentContent);
 		$.ajax({
 			url : "/project/deleteComment",
 			data: {

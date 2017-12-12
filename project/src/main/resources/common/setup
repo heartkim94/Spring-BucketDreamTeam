@@ -79,6 +79,7 @@ CREATE TABLE Comments(
     boardNum int not null,
     parentNum int not null,
     path text not null,
+    depth int not null,
     FOREIGN KEY(boardNum) REFERENCES BoardList(boardNum) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
