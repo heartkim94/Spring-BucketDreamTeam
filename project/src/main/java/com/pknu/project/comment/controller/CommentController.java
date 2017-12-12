@@ -63,8 +63,9 @@ public class CommentController {
 	
 	@RequestMapping(value="updateComment")
 	@ResponseBody
-	public List<CommentDto> updateComment(CommentDto comment, String commentNum,
-											@RequestParam String commentContent) {
+	public List<CommentDto> updateComment(CommentDto comment,
+											@RequestParam("commentNum") String commentNum,
+											@RequestParam("commentContent") String commentContent) {
 		commentService.updateComment(commentNum, commentContent);
 		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
 	}

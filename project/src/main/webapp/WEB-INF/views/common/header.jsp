@@ -156,7 +156,7 @@
 				</li>
 				<li>
 					<c:if test="${id == null}">
-						<a href="userProvisionForm" class="headerJoinBtn">회원가입</a>
+						<a href="/project/userProvisionForm" class="headerJoinBtn">회원가입</a>
 					</c:if>
 				</li>
 			</ul>

@@ -132,12 +132,12 @@ textarea {
 					<c:otherwise>
 						<c:if test="${isAdmin }">
 							<li><input type="button" value="삭제하기" onclick="document.location.href='delete?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'"></li>
-							<li><input type="button" value="수정하기" disabled="disabled"></li>
+							<li><input type="button" value="수정하기" disabled="disabled" style="cursor:default"></li>
 							<li><input type="submit" value="답글달기" ></li>
 						</c:if>
 						<c:if test="${!isAdmin }">
-							<li><input type="button" value="삭제하기" disabled="disabled"></li>
-							<li><input type="button" value="수정하기" disabled="disabled"></li>
+							<li><input type="button" value="삭제하기" disabled="disabled" style="cursor:default"></li>
+							<li><input type="button" value="수정하기" disabled="disabled" style="cursor:default"></li>
 							<li><input type="submit" value="답글달기" ></li>
 						</c:if>
 					</c:otherwise>
@@ -147,9 +147,9 @@ textarea {
 		<c:if test="${id ==null}">
 			<ul class="btnConfirm">
 				<li><input type="button" value="목록으로" onclick="document.location.href='list?boardNum=${boardNum}&pageNum=${pageNum}'"></li>
-				<li><input type="button" value="삭제하기" disabled="disabled"></li>
-				<li><input type="button" value="수정하기" disabled="disabled"></li>
-				<li><input type="submit" value="답글달기"disabled="disabled"></li>
+				<li><input type="button" value="삭제하기" disabled="disabled" style="cursor:default"></li>
+				<li><input type="button" value="수정하기" disabled="disabled" style="cursor:default"></li>
+				<li><input type="submit" value="답글달기"disabled="disabled" style="cursor:default"></li>
 			</ul>
 		</c:if>
 		</table>
@@ -238,8 +238,8 @@ textarea {
 		}); // ajax end	
 	}
 	function showHtml(data, commPageNum){
-// 		console.log(data);
 		let html = "<article class='commentList'>";
+		let id = "${id}";
 		$.each(data, function(index,item) {
 			html +="<div class='comment' commentNum='"+item.commentNum
 					+"' depth='"+item.depth
@@ -247,20 +247,19 @@ textarea {
 			html +="<div class='commentInfo'>";
 			if(item.depth > 0) { html += "<img src='/project/resources/img/icon_reply.gif'>"; }
 			html +="<ul>";
-// 			html +="<li>번호: "+item.commentNum+"</li>";
 			html +="<li>작성자: "+item.id+"&nbsp;|&nbsp;</li>";
 			html +="<li>작성일: "+item.commentDate+"</li>";
-// 			html +="<li>글번호: "+item.articleNum+"</li>";
-// 			html +="<li>depth: "+item.depth+"</li>";
 			html +="</ul></div>";
 			html +="<p class='commentContent'>"+item.commentContent+"</p>";
 			html +="<ul class='btn'>";
-// 			html +="<li><a href='#' onclick='openReplyArea(event,"+item.commentNum+", this)'>답변</a></li>";
-// 			html +="<li><a href='#' onclick='openUpdateArea(event, this)'>수정</a></li>";
-// 			html +="<li><a href='#' onclick='deleteComment(event,"+item.commentNum+", this)'>삭제</a></li>";
 			html +="<li><a href='#' class='replyComment')'>답변</a>&nbsp;|&nbsp;</li>";
-			html +="<li><a href='#' class='updateComment'>수정</a>&nbsp;|&nbsp;</li>";
-			html +="<li><a href='#' class='deleteComment')'>삭제</a></li>";
+			if(id == item.id) {
+				html +="<li><a href='#' class='updateComment'>수정</a>&nbsp;|&nbsp;</li>";
+				html +="<li><a href='#' class='deleteComment')'>삭제</a></li>";
+			} else {
+				html +="<li><span style='color:#BDBDBD'>수정</span>&nbsp;|&nbsp;</li>";
+				html +="<li><span style='color:#BDBDBD')'>삭제</span></li>";
+			}
 			html +="</ul></div>";
 		});
 		html +="</article>";
@@ -366,7 +365,6 @@ textarea {
 		$.ajax({
 			url : "/project/updateComment",
 			data: {
-				id : "${id}",
 				commentNum: commentNum,
 				commentContent : commentContent,
 			},
