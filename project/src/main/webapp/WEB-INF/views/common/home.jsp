@@ -230,12 +230,13 @@
 		
 	$(document).ready(function(){
 		
-		let Certify=${dbCertify};
-		if(Certify == 0) {
-			alert("회원가입 이메일 인증을 안하셨습니다.");
-		}
-		document.location.href="./";
+// 		let Certify="${dbCertify}";
+// 		if(Certify == 0) {
+// 			alert("회원가입 이메일 인증을 안하셨습니다.");
+// 		}
+// 		document.location.href="./";
 		
+		$("#slider").nivoSlider();
 	});
 		
 </script>
