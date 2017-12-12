@@ -150,6 +150,7 @@
                     if($('#pass').val()==""){
                         divPassword.removeClass("has-success");
                         divPassword.addClass("has-error");
+                        
                     }else{
                         divPassword.removeClass("has-error");
                         divPassword.addClass("has-success");

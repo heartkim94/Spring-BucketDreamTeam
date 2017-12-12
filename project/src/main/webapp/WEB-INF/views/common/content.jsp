@@ -1,176 +1,127 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>글 상세 보기</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<%-- <link href="<c:url value='/resources/bootstrap-3.3.7/css/bootstrap.min.css'/>" rel="stylesheet"> --%>
 <style>
-.contentTable {
-/* 	border: 1px solid black; */
-}
-.contentTable th {
-	border-bottom: 1px solid #e1e1e1;
-	border-right: 1px solid #e1e1e1;
-	background-color: #e9e9e9;
-}
-.contentTable tr:last-child {
-	height: 400px;
-}
-.btnConfirm {
-/* 	margin: 20px 0; */
-	padding-top: 20px;
-	text-align: center;
-	overflow: hidden;
-}
-.btnConfirm li {
-	float: right;
-	margin-right: 5px;
-	box-sizing: border-box; 
-}
-input {
-	padding: 8px;
-	border: 0;
-	background-color: #f2f5f9;
-	letter-spacing: -0.1em;
-	cursor: pointer;
-}
-
-/* comment */
-.commentArea {
-	text-align: center;
-}
-#commentContent{
-	width: 100%;
-	height: 100px;
-}
-.commentList > div {
-	padding: 5px;
-	border: 1px solid blue;
-}
-.commentList ul {
-	overflow: hidden;
-	display:inline-block;
-}
-.commentList ul li {
-	float: left;
-	border: 1px solid black;
-}
-article.commentList input {
-	color: red;
-}
+    #contentForm {
+      width: 100%;
+      margin: 0 auto;
+      padding-top: 5%;
+    }
+ 
+    .table > thead > tr > th, .table > tbody > tr > th {
+      background-color: #e6ecff;
+      text-align: center;
+    }
+    .commentInfo ul li {
+    	display:inline;    
+    	padding:0 30px; 
+    }
+    
+    .btnComment li { 
+    	display:inline; /* 세로나열을 가로나열로 변경 */ 
+    	border-left:1px solid #999; /* 각 메뉴의 왼쪽에 "|" 표시(분류 표시) */ 
+    	font:bold 12px Dotum; /* 폰트 설정 - 12px의 돋움체 굵은 글씨로 표시 */ 
+    	padding:0 5px; /* 각 메뉴 간격 */ 
+    }
+    .btnComment li:first-child {
+    	border-left:none; /* 메뉴 분류중 제일 왼쪽의 "|"는 삭제 */
+    }       
 </style>
 </head>
 <body>
-<div>
-	<table class="contentTable">
-		<tr>
-			<th>제목 :</th>
-			<td>${article.title}</td>
-		</tr>
-		<tr>
-			<th>작성자: </th>
-			<td>${article.id }</td>
-		</tr>
-		<tr>
-			<th>작성일: </th>
-			<td>${article.writeDate }</td>
-		</tr>
-		<tr>
-			<th>조회: </th>
-			<td>${article.hit }</td>
-		</tr>
-		
-<!-- 						<tr> -->
-<!-- 							<th>다운로드</th> -->
-<!-- 							<td> -->
-<%-- 								<c:if test="${article.fileStatus !=0 }"> --%>
-<%-- 									<c:if test="${fileList!=null}"> --%>
-<!-- 										<ul> -->
-<%-- 											<c:forEach var="storedFname" items="${fileList}"> --%>
-<!-- 												<li> -->
-<%-- 													<a href="/project/download?storedFname=${storedFname}">${storedFname.substring(storedFname.indexOf("_")+1)}</a> --%>
-<!-- 												</li> -->
-<%-- 											</c:forEach> --%>
-<!-- 										</ul> -->
-<%-- 									</c:if> --%>
-<%-- 								</c:if> --%>
-<!-- 							</td> -->
-<!-- 						</tr> -->
-		<tr>
-			<th>내용: </th>
-			<td colspan="4"><xmp>${article.content}</xmp></td>
-		</tr>
-	</table>
 	<form action="reply" method="get">
-		<input type="hidden" name="boardNum" value="${boardNum}">
-		<input type="hidden" name="pageNum" value="${pageNum}">
-		<input type="hidden" name="depth" value="${article.depth}">
-    	<input type="hidden" name="pos" value="${article.pos}">
-   	 	<input type="hidden" name="groupId" value="${article.groupId}">
-   		<c:if test="${id !=null}">
-	    	<ul class="btnConfirm">
-				<li><input type="button" value="목록으로" onclick="document.location.href='list?boardNum=${boardNum}&pageNum=${pageNum}'"></li>
-				<c:choose>
-					<c:when test="${id == article.id}">
-						<li><input type="button" value="삭제하기" onclick="document.location.href='delete?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'"></li>
-						<li><input type="button" value="수정하기" onclick="document.location.href='update?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'"></li>
-						<li><input type="submit" value="답글달기"></li>
-					</c:when>
-					<c:otherwise>
-						<c:if test="${isAdmin }">
-							<li><input type="button" value="삭제하기" onclick="document.location.href='delete?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'"></li>
-							<li><input type="button" value="수정하기" disabled="disabled"></li>
-							<li><input type="submit" value="답글달기" ></li>
+		<div id="contentForm">	
+			<input type="hidden" name="boardNum" value="${boardNum}">
+			<input type="hidden" name="pageNum" value="${pageNum}">
+			<input type="hidden" name="depth" value="${article.depth}">
+    		<input type="hidden" name="pos" value="${article.pos}">
+   	 		<input type="hidden" name="groupId" value="${article.groupId}">
+				
+			<div>
+          <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>작성자</th>
+              <td>${article.id}</td>
+              <th>조회수</th>
+              <td>${article.hit}</td>
+            </tr>
+            <tr>
+              <th>제목</th>
+              <td>${article.title}</td>
+              <th>날짜</th>
+              <td>${article.writeDate}</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr height="200" valign="top">
+              <td colspan="4">${article.content}</td>
+            </tr>
+          </tbody>
+        </table>
+         
+          <div id="btns" class="btn-group btn-group-sm" role="group" aria-label="...">
+          <c:if test="${id != null}">
+          		<input type="button" value="목록으로" class="btn btn-default" onclick="document.location.href='list?boardNum=${boardNum}&pageNum=${pageNum}'">
+		        <c:choose>   
+		            <c:when test="${id == article.id}">
+		            	<input type="button" value="삭제하기" class="btn btn-default" onclick="document.location.href='delete?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+						<input type="button" value="수정하기" class="btn btn-default" onclick="document.location.href='update?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+						<input type="submit" value="답글달기" class="btn btn-default">
+		            </c:when>
+		            <c:otherwise>
+			            <c:if test="${isAdmin }">
+							<input type="button" class="btn btn-default" value="삭제하기" onclick="document.location.href='delete?boardNum=${boardNum}&articleNum=${article.articleNum}&pageNum=${pageNum}&fileStatus=${article.fileStatus}'">
+							<input type="button" class="btn btn-default" value="수정하기" disabled="disabled">
+							<input type="submit" class="btn btn-default" value="답글달기" >
 						</c:if>
 						<c:if test="${!isAdmin }">
-							<li><input type="button" value="삭제하기" disabled="disabled"></li>
-							<li><input type="button" value="수정하기" disabled="disabled"></li>
-							<li><input type="submit" value="답글달기" ></li>
+							<input type="button" class="btn btn-default" value="삭제하기" disabled="disabled">
+							<input type="button" class="btn btn-default" value="수정하기" disabled="disabled">
+							<input type="submit" class="btn btn-default" value="답글달기" >
 						</c:if>
 					</c:otherwise>
 				</c:choose>
-			</ul>
-  		</c:if>
-		<c:if test="${id ==null}">
-			<ul class="btnConfirm">
-				<li><input type="button" value="목록으로" onclick="document.location.href='list?boardNum=${boardNum}&pageNum=${pageNum}'"></li>
-				<li><input type="button" value="삭제하기" disabled="disabled"></li>
-				<li><input type="button" value="수정하기" disabled="disabled"></li>
-				<li><input type="submit" value="답글달기"disabled="disabled"></li>
-			</ul>
-		</c:if>
-		</table>
+          </c:if>
+          <c:if test="${id == null}">
+	            <input type="submit" class="btn btn-default" value="답글달기" disabled="disabled">
+	            <input type="button" class="btn btn-default" value="수정하기" disabled="disabled">
+	            <input type="button" class="btn btn-default" value="삭제하기" disabled="disabled">
+	          	<input type="button" class="btn btn-default" value="목록으로" onclick="document.location.href='list?boardNum=${boardNum}&pageNum=${pageNum}'">
+          </c:if>
+        </div>
+        <table id="commentTable" class="table table-condensed"></table>
+        <!-- Comment 태그 추가 -->
+		<div class="input-group" role="group" aria-label="..." style="margin-top: 10px; width: 100%;">
+<!-- 		    <div id="showComment" style="text-align: center;"></div> -->
+			<div id="showComment"></div>
+		</div>
+		<table id="commentWrite" class="table table-condensed"></table>
+        <div class="input-group" role="group" aria-label="..." style="margin-top: 10px; width: 100%;">
+		    <p>전체 코멘트: <span style="color: blue">(${article.commentCount})</span></p>
+		    <textarea class="form-control" rows="3" id="commentContent" placeholder="댓글을 입력하세요." style="width: 100%;" ></textarea>
+		    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+		        <c:if test="${id == null}">
+		            <input type="button" class="btn btn-default" value="댓글 쓰기" disabled="disabled">
+		        </c:if>
+		        <c:if test="${id != null}">
+		            <input type="button" class="btn btn-default" value="댓글 쓰기" id="commentWrite">
+		        </c:if>
+		    </div>
+		</div>
+		 
+
+
+
+        </div>
+		</div>
 	</form>
-	<!-- 코멘트 -->
-	<div class="commentArea">
-		<p>전체 코멘트: <span style="color: blue">(${article.commentCount})</span></p>
-		<!-- 코멘트 쓰기 영역 -->
-		<div style="margin-bottom: 10px;">
-			
-			<table class="commentTable">
-				<tr>
-					<th>내용: </th>
-					<td><textarea id="commentContent" name="contents"></textarea></td>
-				</tr>
-			</table>
-			<c:if test="${id ==null}">
-				<input type="button" value="comment 쓰기" disabled="disabled">
-			</c:if> 
-			<c:if test="${id !=null}">
-				<input type="button" value="comment 쓰기" id="commentWrite">
-			</c:if> 
-<%-- 			<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead"> --%>
-		</div>
-		<!-- 코멘트 리스트 -->
-		<div style="width: 100%; min-height: 100px; padding: 20px;">
-			<div id="showComment" align="center"></div>
-			<input type="hidden" id="commPageNum" value="1">
-		</div>
-		
-	</div>			
-	
-</div> <!-- contentTable end -->
 </body>
 <script>
 	let replyArea = null;
@@ -224,25 +175,27 @@ article.commentList input {
 	
 	function showHtml(data, commPageNum){
 		console.log(data);
-		var html = "<article class='commentList'>";
+		var commentParentText = '<tr id="r1" name="commentParentCode">';
 		$.each(data, function(index,item){
-			html +="<div class='comment' commentNum='"+item.commentNum+"'>";
-			html +="<div class='commentInfo'><ul>";
-			html +="<li>"+(index+1)+"</li>";
-			html +="<li>"+item.id+"</li>";
-			html +="<li>"+item.commentDate+"</li>";
-// 			html +="<li>"+item.articleNum+"</li>";
-			html +="</ul></div>";	
-			html +="<p>"+item.commentContent+"</p>";
-			html +="<ul>";
-			html +="<li class='btnReComment'><a href='#' onclick='openReplyArea(event,"+item.commentNum+", this)'>답변</a></li>";
-			html +="<li><a href='#' onclick=''>수정</a></li>";
-			html +="<li><a href='#' onclick='deleteComment(event,"+item.commentNum+", this)'>삭제</a></li>";
-			html +="</ul>";
-			html +="</div>";	
+			commentParentText += '<td colspan=2>';
+			commentParentText +="<strong>"+(index+1)+"</strong>";
+			commentParentText +="<strong>"+item.id+"</strong>";
+			commentParentText +="<strong>"+item.commentContent+"</strong>";
+			commentParentText +="<strong>"+item.commentDate+"</strong>";
+			commentParentText +="<a href='#' onclick='openReplyArea(event,"+item.commentNum+", this)'>답변</a>";
+			commentParentText +="<a href='#' onclick=''>수정</a>";
+			commentParentText +="<a href='#' onclick='deleteComment(event,"+item.commentNum+", this)'>삭제</a>";
+			commentParentText +="</ul>";
+			commentParentText +="</td>";	
 		});		
-		html +="</article>";
+		commentParentText +="</tr>";
 		commPageNum = parseInt(commPageNum);
+		if($('#commentWrite').contents().size==0) {
+			$('#commentWrite').append(commentParentText);
+		}else {
+			$('#commentWrite tr:last').after(commentParentText);
+		}
+		
 		if("${article.commentCount}" > commPageNum * 10){
 			nextPageNum = commPageNum+1;
 			html +="<br /><input type='button' onclick='getComment(nextPageNum,event)' value='다음comment보기'><br>";

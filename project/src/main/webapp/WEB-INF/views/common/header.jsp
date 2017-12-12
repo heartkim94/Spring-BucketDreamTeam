@@ -154,7 +154,7 @@ body {
   from { padding: 0; } 
   to { padding: 0; } 
 } 
-@media screen and (min-width: 481px) and (max-width: 1024px) {
+@media screen and (min-width: 491px) and (max-width: 1024px) {
       	.wrapp .menubar .menuItem {
 		width:100%;
 		text-align:center;
@@ -168,7 +168,7 @@ body {
 		padding: 4px;
 	}
 }
-@media screen and (max-width: 480px) { /* 화면 너비 480px 이하에서 적용 */
+@media screen and (max-width: 490px) { /* 화면 너비 490px 이하에서 적용 */
 	.wrapp { /* 메뉴 숨김 */
 		display:none;
 	}

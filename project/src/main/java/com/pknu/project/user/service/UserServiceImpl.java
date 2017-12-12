@@ -162,8 +162,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String userUpdate(HttpSession session, UserDto userDto) {
+		String pass=userDto.getPass();
+		
 		userDto.setId((String)session.getAttribute("id"));
 		userDto.setEmail((String)session.getAttribute("Email"));
+		userDto.setPass(sha.encryptSHA256(pass));
 		userDao.userUpdate(userDto);
 		return null;
 	}
