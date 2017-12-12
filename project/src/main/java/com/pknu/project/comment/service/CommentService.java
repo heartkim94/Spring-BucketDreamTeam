@@ -12,5 +12,5 @@ public interface CommentService {
 	public int commentCount(int boardNum, int articleNum);
 	public void replyComment(CommentDto comment);
 	public void updateComment(String commentNum, String commentContent);
-	public void deleteComment(int commentNum);
+	public void deleteComment(int boardNum, int articleNum, int commentNum);
 }

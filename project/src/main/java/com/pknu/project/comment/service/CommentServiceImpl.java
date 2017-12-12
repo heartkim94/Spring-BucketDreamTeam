@@ -15,10 +15,12 @@ import com.pknu.project.common.dto.ArticleDto;
 public class CommentServiceImpl implements CommentService {
 	@Autowired
 	CommentDao commentDao;
+	
+	HashMap<String, Integer> commentMap;
 
 	@Override
 	public List<CommentDto> getComments(int boardNum, int articleNum, int commentRow) {
-		HashMap<String, Integer> commentMap = new HashMap<>();
+		commentMap = new HashMap<>();
 		commentMap.put("boardNum", boardNum);
 		commentMap.put("articleNum", articleNum);
 		commentMap.put("commentRow", commentRow);
@@ -32,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public int commentCount(int boardNum, int articleNum) {
-		HashMap<String, Integer> commentMap = new HashMap<>();
+		commentMap = new HashMap<>();
 		commentMap.put("boardNum", boardNum);
 		commentMap.put("articleNum", articleNum);
 		return commentDao.commentCount(commentMap);
@@ -54,10 +56,15 @@ public class CommentServiceImpl implements CommentService {
 	}
 	
 	@Override
-	public void deleteComment(int commentNum) {
-		commentDao.deleteComment(commentNum);
+	public void deleteComment(int boardNum, int articleNum, int commentNum) {
+		commentMap.put("boardNum", boardNum);
+		commentMap.put("articleNum", articleNum);
+		List<CommentDto> commentList = commentDao.getAllComments(commentMap);
+		String rootPath = commentDao.getPath(commentNum);
+		for(CommentDto comment : commentList) {
+			if(comment.getPath().contains(rootPath)) {
+				commentDao.deleteComment(comment.getCommentNum());
+			}
+		}
 	}
-	
-	
-	
 }

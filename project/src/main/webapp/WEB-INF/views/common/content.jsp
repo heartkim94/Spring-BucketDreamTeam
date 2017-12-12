@@ -345,7 +345,6 @@ textarea {
 		let comment = $(this).parents(".comment");
 		let commentNum = $(comment).attr("commentNum");
 		let commentContent = $(comment).children(".commentContent").text();
-		console.log(commentNum, commentContent);
 		if(replyArea!=null) {
 			$(replyArea).remove();
 		}
@@ -359,13 +358,11 @@ textarea {
 			
 		});
 	});
-	// 글 수정 ajax
+	// 수정 ajax
 	$("#showComment").on("click", ".updateBtn", function(event){
-		console.log("updateBtn Click!"); 
 		let comment = $(this).parents(".comment");
 		let commentNum = $(comment).attr("commentNum");
-		let commentContent = $(comment).find(".inTextarea").val();
-		console.log("번호"+commentNum+", 내용: "+commentContent);
+		let commentContent = $(comment).find(".inTextarea").val()
 		$.ajax({
 			url : "/project/updateComment",
 			data: {
@@ -379,7 +376,8 @@ textarea {
 			}
 		});
 	});
-	// 삭제버튼 클릭
+	
+	// 삭제 버튼 클릭 + ajax
 	$("#showComment").on("click", ".deleteComment", function(event) {
 		event.preventDefault();
 		let comment = $(this).parents(".comment");
@@ -399,22 +397,22 @@ textarea {
 	});
 	
 	
-	function replyComment(event, parentNum, self){
-		event.preventDefault();
-		$.ajax({
-			url : "/project/replyComment",
-			data: {
-				id : "${id}",
-				commentContent : $("textarea[commentNum]'"+parentNum+"']").val(),
-				boardNum : "${boardNum}",
-				articleNum : "${article.articleNum}"
-			},
-			success: function(data){
-				alert(commentContent);
-			}
-		}); 
-		console.log(this);
-	}
+// 	function replyComment(event, parentNum, self){
+// 		event.preventDefault();
+// 		$.ajax({
+// 			url : "/project/replyComment",
+// 			data: {
+// 				id : "${id}",
+// 				commentContent : $("textarea[commentNum]'"+parentNum+"']").val(),
+// 				boardNum : "${boardNum}",
+// 				articleNum : "${article.articleNum}"
+// 			},
+// 			success: function(data){
+// 				alert(commentContent);
+// 			}
+// 		}); 
+// 		console.log(this);
+// 	}
 	
 </script>
 </html>

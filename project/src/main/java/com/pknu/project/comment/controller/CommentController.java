@@ -19,12 +19,14 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 	
+	int commentRow = 10;
+	
 	List<CommentDto> commentList = null;
 	
 	@RequestMapping(value="commentList")
 	@ResponseBody
 	public List<CommentDto> commentList(CommentDto comment){
-		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
+		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
 	}
 	
 	@RequestMapping(value="commentRead")
@@ -40,7 +42,7 @@ public class CommentController {
 												HttpSession session) {
 		comment.setId((String)session.getAttribute("id"));
 		commentService.insertComment(comment);
-		commentList=commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
+		commentList=commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("result", 1);
 		hm.put("commentList", commentList);
@@ -52,7 +54,7 @@ public class CommentController {
 	public List<CommentDto> updateComment(ArticleDto article, String commentNum,
 											@RequestParam String commentContent) {
 		commentService.updateComment(commentNum, commentContent);
-		return commentService.getComments(article.getBoardNum(), article.getArticleNum(), 10);
+		return commentService.getComments(article.getBoardNum(), article.getArticleNum(), commentRow);
 	}
 	
 	@RequestMapping(value="replyComment")
@@ -60,7 +62,7 @@ public class CommentController {
 	public HashMap<String, Object> replyComment(CommentDto comment, HttpSession session) {
 		comment.setId((String)session.getAttribute("id"));
 		commentService.replyComment(comment);
-		commentList=commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
+		commentList=commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("result", 1);
 		hm.put("commentList", commentList);
@@ -69,11 +71,8 @@ public class CommentController {
 	
 	@RequestMapping(value="deleteComment")
 	@ResponseBody
-	public List<CommentDto> deleteComment(int articleNum, int boardNum, int commentNum) {
-		System.out.println("articleNum:" +articleNum);
-		System.out.println("boardNum:" +boardNum);
-		System.out.println("commentNum:" +commentNum);
-		commentService.deleteComment(commentNum);
-		return commentService.getComments(boardNum, articleNum, 10);
+	public List<CommentDto> deleteComment(CommentDto comment) {
+		commentService.deleteComment(comment.getBoardNum(), comment.getArticleNum(), comment.getCommentNum());
+		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
 	}
 }

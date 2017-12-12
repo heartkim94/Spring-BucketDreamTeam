@@ -43,7 +43,18 @@
 	</insert>
 	
 	<!-- 코멘트 삭제 -->
+	<select id="getPath" parameterType="int" resultType="String">
+		SELECT path FROM comments where commentNum=#{commentNum}
+	</select>
+	
+	<select id="getAllComments" parameterType="HashMap" resultType="comment">
+		SELECT commentNum, path
+		FROM comments
+		WHERE articleNum=#{articleNum} AND boardNum=#{boardNum}
+	</select>
+	
 	<delete id="deleteComment" parameterType="int">
-		DELETE FROM Comments WHERE commentNum=#{commentNum}
+		DELETE FROM comments 
+		WHERE commentNum=#{commentNum}
 	</delete>
 </mapper>
