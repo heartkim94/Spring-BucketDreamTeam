@@ -7,7 +7,7 @@ USE project;
 CREATE TABLE Users(
     userNum int auto_increment PRIMARY KEY,
 	id varchar(50) UNIQUE,
-	pass varchar(50) NOT NULL,
+	pass varchar(120) NOT NULL,
 	name varchar(100),
 	nickName varchar(100),
 	email varchar(100) NOT NULL,

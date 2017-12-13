@@ -15,8 +15,8 @@
       <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet">
     </head>
     <body>
+    	<%@ include file="../common/header.jsp" %>
         <div class="container"><!-- 좌우측의 공간 확보 -->
-		<%@ include file="../common/header.jsp" %>
 		<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
        
@@ -46,7 +46,7 @@
             <div class="form-group" id="divId">
                 <label for="id" class="col-lg-2 control-label">아이디</label>
                 <div class="col-lg-5">
-                    <input type="text" class="form-control onlyAlphabetAndNumber" id="id" name="id" data-rule-required="true" placeholder="알파벳, 숫자만 입력 가능합니다." maxlength="30">
+                    <input type="text" class="form-control onlyAlphabetAndNumber" id="id" name="id" data-rule-required="true" placeholder="알파벳, 언더스코어(_), 숫자만 입력 가능합니다." maxlength="30">
                 </div>
                 <div id="idcheck"></div>
             </div>
@@ -86,8 +86,8 @@
             <div class="form-group" id="divPhoneNumber">
                 <label for="inputPhoneNumber" class="col-lg-2 control-label">휴대폰 번호</label>
                 <div class="col-lg-5">
-<!--				<input type="tel" class="form-control onlyNumber" id="phoneNumber" name="phoneNumber" data-rule-required="true" placeholder="-를 제외하고 숫자만 입력하세요." maxlength="11"> -->
-					<input type="tel" class="form-control onlyNumber" id="phoneNumber" name="phoneNumber" data-rule-required="true" placeholder="ex) 010-1111-1111" maxlength="13">
+<!--                     <input type="tel" class="form-control onlyNumber" id="phoneNumber" name="phoneNumber" data-rule-required="true" placeholder="-를 제외하고 숫자만 입력하세요." maxlength="11"> -->
+              		<input type="tel" class="form-control onlyNumber" id="phoneNumber" name="phoneNumber" data-rule-required="true" placeholder="ex) 010-1111-1111" maxlength="13">
                 </div>
             </div>
             <div class="form-group">
@@ -103,10 +103,9 @@
 		    </div><br><br>
         </form>
         <!--// 본문 들어가는 부분 -->
-        
-        <hr/>
-        <%@ include file="../common/footer.jsp" %>
     </div> 
+    	<hr/>
+        <%@ include file="../common/footer.jsp" %>
     </body>
     <script>
             $(function(){
@@ -114,11 +113,12 @@
                 var modalContents = $(".modal-contents");
                 var modal = $("#defaultModal");
                  
-//                $('.onlyAlphabetAndNumber').keyup(function(event){
-//                    if (!(event.keyCode >=37 && event.keyCode<=40)) {
-//                    	$(this).val($(this).val().replace(/[^_a-z0-9]/gi,'')); //_(underscore), 영어, 숫자만 가능
-//                    }
-//                });
+                $('.onlyAlphabetAndNumber').keyup(function(event){
+                    if (!(event.keyCode >=37 && event.keyCode<=40)) {
+                        var inputVal = $(this).val();
+                        $(this).val($(this).val().replace(/[^_a-z0-9]/gi,'')); //_(underscore), 영어, 숫자만 가능
+                    }
+                });
                  
                 $(".onlyHangul").keyup(function(event){
                     if (!(event.keyCode >=37 && event.keyCode<=40)) {
@@ -137,7 +137,7 @@
                 $(".onlyNumber").keyup(function(event){ // 숫자 + - 
                     if (!(event.keyCode >=37 && event.keyCode<=40)) {
                         var inputVal = $(this).val();
-//						$(this).val(inputVal.replace(/^01[016789]-\d{3,4}-\d{4}$/gi,''));
+                        $(this).val(inputVal.replace(/^01[016789]-\d{3,4}-\d{5}$/gi,'')); //안되서 임의로 5라 해둠..
                     }
                 });
                  
@@ -223,7 +223,7 @@
                 });
                  
                 $('#phoneNumber').keyup(function(event){
-                    
+                     
                     var divPhoneNumber = $('#divPhoneNumber');
                      
                     if($.trim($('#phoneNumber').val())==""){
@@ -391,17 +391,13 @@
 					let html;
 					if($("#id").val()!=""){
 						if(data==1){
+							html="<b>사용 가능한 아이디입니다.</b>"
+							$("#idcheck").html(html).css("color","green");
+							idcheck=true;
+						}else{
 							html="<b>중복된 아이디입니다.<b>";
 							$("#idcheck").html(html).css("color","red");
 							idcheck=false;
-						}else if(data==2){
-							html="<b>알파벳 또는 숫자만 사용 가능합니다.<b>";
-							$("#idcheck").html(html).css("color","red");
-							idcheck=false;
-						}else if(data==3){
-							html="<b>사용 가능한 아이디입니다.</b>";
-							$("#idcheck").html(html).css("color","green");
-							idcheck=true;
 						}
 					}else{
 						html="<b>아이디를 입력해주세요.<b>";

@@ -61,7 +61,7 @@
             <div align="center"><h1>회원 탈퇴</h1></div><br>
             
             <div class="form-group" id="divPassword">
-                <label for="pass" class="col-lg-2 control-label">패스워드</label>
+                <label for="password" class="col-lg-2 control-label">패스워드</label>
                 <div class="col-lg-5">
                     <input type="password" class="form-control" id="pass" name="pass" data-rule-required="true" placeholder="패스워드" maxlength="30">
                 </div>
@@ -72,9 +72,8 @@
 			</div><br><br>
         </form>
         <!--// 본문 들어가는 부분 -->
-        
-            <hr/>
-            <%@ include file="../common/footer.jsp" %>
         </div>
+        <hr/>
+        <%@ include file="../common/footer.jsp" %>
     </body>
 </html>

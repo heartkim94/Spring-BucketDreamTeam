@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.pknu.project.user.common.MailUtil;
+import com.pknu.project.user.common.encryptSHA;
 import com.pknu.project.user.dao.UserDao;
 import com.pknu.project.user.dto.UserDto;
 
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+	encryptSHA sha;
 	
 	HashMap<String, String> paramMap;
 
@@ -80,7 +84,7 @@ public class UserServiceImpl implements UserService {
 	public int delPassCheck(HttpSession session, String inputPass) {
 		String id = (String) session.getAttribute("id");
 		String dbPass = userDao.passCheck(id);
-		if(dbPass.equals(inputPass)) {
+		if(dbPass.equals(sha.encryptSHA256(inputPass))) {
 			return 2; // db에 있는 pass와 같으면
 		}else {
 			return 1;
@@ -91,6 +95,7 @@ public class UserServiceImpl implements UserService {
 	public String userInsert(UserDto userDto) {
 		String certKey = UUID.randomUUID().toString().replaceAll("-", "");
 		userDto.setCertKey(certKey);
+		userDto.setPass(sha.encryptSHA256(userDto.getPass()));
 		userDao.userInsert(userDto);
 		mailUtil.sendMail(certKey, userDto.getEmail());
 		return null;
@@ -140,7 +145,7 @@ public class UserServiceImpl implements UserService {
 //			view = "user/loginFail";
 //		}
 		if (user!=null && user.getCertify()==1) {
-			if (user.getPass().equals(pass)) {//로그인성공
+			if (user.getPass().equals(sha.encryptSHA256(pass))) {//로그인성공
 				session.setAttribute("id", id);
 				session.setAttribute("isAdmin", user.getIsAdmin());
 				view = "redirect:/group/main";
@@ -150,7 +155,7 @@ public class UserServiceImpl implements UserService {
 			}
 		} else if(user!=null&&user.getCertify()==0) {//이메일인증 않함	
 			model.addAttribute("dbCertify", dbCertifyCheckNo);
-			view="redirect:/home";
+			view="common/home";
 		}else if(user==null) {//회원가입
 			model.addAttribute("Notmember",Notmember);
 			view = "user/loginFail";
@@ -171,8 +176,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String userUpdate(HttpSession session, UserDto userDto) {
+		String pass=userDto.getPass();
+		
 		userDto.setId((String)session.getAttribute("id"));
 		userDto.setEmail((String)session.getAttribute("Email"));
+		userDto.setPass(sha.encryptSHA256(pass));
 		userDao.userUpdate(userDto);
 		return null;
 	}
@@ -222,7 +230,8 @@ public class UserServiceImpl implements UserService {
 			 int selectRandomPw = (int)(Math.random()*(pwCollection.length));//Math.rondom()은 0.0이상 1.0미만의 난수를 생성해 준다. 
 			 pass += pwCollection[selectRandomPw]; 
 		}
-		userDto.setPass(pass);
+//		userDto.setPass(pass);
+		userDto.setPass(sha.encryptSHA256(pass));
 		userDao.userPassFind(userDto);
 		mailUtil.sendPass(pass,userDto.getEmail());
 		return null;
@@ -230,12 +239,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void myInfoDel(HttpSession session, String pass) {
+		String passWord=sha.encryptSHA256(pass);
+		
 		String id = (String)session.getAttribute("id");
 		System.out.println(id); 
-		System.out.println(pass);
+		System.out.println(passWord);
 		paramMap = new HashMap<>();
 		paramMap.put("id", id);
-		paramMap.put("pass", pass);
+		paramMap.put("pass", passWord);
 		userDao.myInfoDel(paramMap);
 	}
 

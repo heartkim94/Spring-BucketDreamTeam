@@ -33,6 +33,7 @@ textarea {
 </style>
 <script>
 	function check() {
+		console.log("begin");
 		if (fr.memberagree.checked == false) {
 			// 				alert('이용약관에 동의해주세요');
 			swal("필수", "이용약관에 동의해주세요!", "error")
@@ -45,6 +46,7 @@ textarea {
 			fr.privacyagree.focus();
 			return false;
 		}
+		console.log("end");
 	}
 
 	$(function() {

@@ -108,7 +108,7 @@ textarea {
 		
 		<tr>
 			<th>내용</th>
-			<td colspan="4"><xmp>${article.content}</xmp></td>
+			<td colspan="4">${article.content}</td>
 		</tr>
 	</table>
 	<form action="reply" method="get">
