@@ -12,7 +12,7 @@
 		#todoCalendar .todoContainer {
 			display: flex;
 		}
-		#todoCalendar .calendarBox {
+		#todoCalendar .todoCalendar {
 			flex: 3;
 		}
 		#todoCalendar .todoList {
@@ -35,7 +35,7 @@
 </head>
 <body>
 		<div class="todoContainer">
-		<div class="calendarBox">
+		<div class="todoCalendar">
 			<%@ include file="calendar.jsp" %>
 		</div>
 		<div class="todoList">

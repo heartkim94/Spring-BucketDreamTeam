@@ -45,7 +45,7 @@ CREATE TABLE Members(
 ) ENGINE=InnoDB;
 
 -- toDo
-CREATE TABLE DoList(
+CREATE TABLE TodoList(
     doNum int auto_increment PRIMARY KEY,
     doName varchar(200) NOT NULL,
     doWhen date,
@@ -174,24 +174,23 @@ create table `GroupBoard1`(
 ) ENGINE=InnoDB;
 INSERT INTO Members VALUES(1, 1);
 
-insert into DoList(doName, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
+insert into TodoList(doName, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
     values('Dogether project', '2017-11-01', '2017-12-18', null, '1', 1, 0, 1, 1);
-insert into DoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
+insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
     values('Design project', null, null, 1, '1.1', 1, 1, 1, 1);
-insert into DoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
+insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
     values('View', null, null, 1, '1.2', 2, 1, 1, 1);
-insert into DoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
+insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
     values('Service', null, null, 1, '1.3', 3, 1, 1, 1);
-insert into DoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
+insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
     values('JSP pages for main', null, null, 3, '1.2.2', 2, 2, 1, 1);
-insert into DoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
+insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
     values('JSP pages for community', null, null, 3, '1.2.3', 3, 2, 1, 1);
-insert into DoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
+insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
     values('JSP pages for login', null, null, 3, '1.2.1', 1, 2, 1, 1);
-insert into DoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
+insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
     values('JSP pages for join', null, null, 7, '1.2.1.1', 1, 3, 1, 1);
-select  * from doList d order by path;
--- update dolist set done = true where doNum = 2;
+
 
 -- Community
 -- Notice

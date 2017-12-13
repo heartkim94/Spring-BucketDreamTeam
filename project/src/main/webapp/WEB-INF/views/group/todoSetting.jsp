@@ -55,6 +55,7 @@
 							<li class="tabCurrent"><a href="#todoList">목록</a></li>
 							<li><a href="#todoCalendar">달력</a></li>
 							<li><a href="#todoFlow?">플로우?</a></li>
+							<!-- 간트 차트(Gantt chart) -->
 						</ul>
 						<div class="clear"></div>
 						<div class="tabContent tabCurrent" id="todoList">
@@ -75,16 +76,28 @@
 	</div> <!-- wrapper End -->
 </body>
 <script>
-// let changed = false;
-// $(function() {
-// 	changed = true;
-// 	$(".tabs li").on("click", function(event) {
-// 		if(changed) {
-// 			event.stopImmediatePropagation();
-// 			alert("you didn't save");
-// 		}
-// 	});
-// });
+	let todoList = new TodoList(); 
+	<c:forEach var="todo" items="${todoList}">
+	todoList.push(new Todo({
+		doNum: "${todo.doNum}",
+		doName: "${todo.doName}",
+		doWhen: "${todo.doWhen}",
+		doWhenTime: "${todo.doWhenTime}",
+		doEnd: "${todo.doEnd}",
+		doEndTime: "${todo.doEndTime}",
+		doAllDay: "${todo.doAllDay}",
+		done: "${todo.done}",
+		parentNum: "${todo.parentNum}",
+		path: "${todo.path}",
+		pos: "${todo.pos}",
+		depth: "${todo.depth}",
+		groupNum: "${todo.groupNum}",
+		userNum: "${todo.userNum}"
+	}));
+	</c:forEach>
+	console.log(todoList);
+	
+	todoList.list();
 </script>
 <script src="/project/resources/js/tabs.js"></script>
 <script src="/project/resources/js/todoTools.js"></script>

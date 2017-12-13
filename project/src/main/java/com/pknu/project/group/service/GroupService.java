@@ -16,5 +16,6 @@ public interface GroupService {
 	
 	/* todo */
 	public void getTodoList(int groupNum, Model model);
-	public String updateTodoList(int groupNum, List<TodoDto> todoList);
+	public String updateTodoList(int groupNum, String userId, List<TodoDto> todoList);
+	public String deleteTodoList(List<Integer> deleteList);
 }

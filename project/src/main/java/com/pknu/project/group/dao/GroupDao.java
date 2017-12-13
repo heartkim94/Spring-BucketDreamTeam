@@ -18,4 +18,5 @@ public interface GroupDao {
 	/* todo */
 	public List<TodoDto> getTodoList(int groupNum);
 	public void updateTodoList(HashMap<String, Object> paramMap);
+	public void deleteTodoList(List<Integer> deleteList);
 }

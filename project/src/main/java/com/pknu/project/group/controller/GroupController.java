@@ -188,7 +188,7 @@ public class GroupController {
 		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	
-	/* do setting */
+	/* todo setting */
 	@RequestMapping(value="/{groupNum}/todoSetting", method=RequestMethod.GET)
 	public String doSetting(@PathVariable("groupNum") int groupNum, Model model) {
 		groupService.getGroup(groupNum, model);
@@ -199,11 +199,14 @@ public class GroupController {
 	@RequestMapping(value="/{groupNum}/updateTodoList", method=RequestMethod.POST)
 	@ResponseBody
 	public String updateTodoList(
-			@PathVariable("groupNum") int groupNum,
-			@RequestBody List<TodoDto> todoList) {
-		System.out.println("*** update TodoList ***");
-		return groupService.updateTodoList(groupNum, todoList);
-//		return "success";
+			@PathVariable("groupNum") int groupNum, HttpSession session,
+			@RequestBody UpdateTodoList update) {
+		if(!update.deleteList.isEmpty()) {
+			groupService.deleteTodoList(update.deleteList);
+		}
+		String id = (String) session.getAttribute("id");
+		groupService.updateTodoList(groupNum, id, update.todoList);
+		return "success";
 	}
 	
 	
@@ -250,4 +253,9 @@ public class GroupController {
 			@ModelAttribute("roomNum") int roomNum) {
 		return "chat/chat";
 	}
+}
+
+class UpdateTodoList {
+	public List<TodoDto> todoList;
+	public List<Integer> deleteList;
 }

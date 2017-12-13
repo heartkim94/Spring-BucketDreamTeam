@@ -66,11 +66,18 @@ public class GroupServiceImpl implements GroupService {
 	}
 	
 	@Override
-	public String updateTodoList(int groupNum, List<TodoDto> todoList) {
+	public String updateTodoList(int groupNum, String userId, List<TodoDto> todoList) {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("groupNum", groupNum);
+		paramMap.put("id", userId);
 		paramMap.put("todoList", todoList);
 		groupDao.updateTodoList(paramMap);
+		return "success";
+	}
+	
+	@Override
+	public String deleteTodoList(List<Integer> deleteList) {
+		groupDao.deleteTodoList(deleteList);
 		return "success";
 	}
 }

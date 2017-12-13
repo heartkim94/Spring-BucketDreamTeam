@@ -14,11 +14,12 @@
 	</select>
 	
 	<insert id="updateTodoList" parameterType="HashMap">
-		INSERT INTO TodoList(doNum, doName, done, parentNum, path, pos, depth, groupNum)
+		INSERT INTO TodoList(doNum, doName, done, parentNum, path, pos, depth, groupNum, userNum)
 		VALUES
 		<foreach collection="todoList" item="todo" separator=", ">
 			(#{todo.doNum}, #{todo.doName}, #{todo.done}, #{todo.parentNum}
-					, #{todo.path}, #{todo.pos}, #{todo.depth}, #{groupNum})
+					, #{todo.path}, #{todo.pos}, #{todo.depth}, #{groupNum},
+					(SELECT userNum FROM Users WHERE id=#{id}))
 		</foreach>
 		ON DUPLICATE KEY UPDATE
 			doName 		= VALUES(doName),
@@ -27,5 +28,13 @@
 			path 		= VALUES(path),
 			pos 		= VALUES(pos),
 			depth		= VALUES(depth)
+	</insert>
+	
+	<insert id="deleteTodoList" parameterType="List">
+		DELETE FROM TodoList
+		WHERE doNum in 
+		<foreach collection="list" item="doNum" separator=", " open="(" close=")">
+			#{doNum}
+		</foreach>
 	</insert>
 </mapper>

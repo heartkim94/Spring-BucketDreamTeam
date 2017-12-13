@@ -50,13 +50,26 @@
 		$(".calendar tbody").append(tr);
 		for(let i=0; i<7; i++) {
 			let td = $("<td/>");
+			let li = $("<li/>", {
+				class: "date",
+				date: date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),
+				text: date.getDate()
+			});
+			if(date.getMonth()!=month) {
+				li.addClass("notThisMonth");
+			}
+			
 			let day = date.getDate();
 			
-			$(td).text(day);
-			if(date.getMonth()!=month) {
-				td.addClass("notThisMonth");
-			}
-			$(tr).append(td);
+// 			$(td).text(day);
+// 			if(date.getMonth()!=month) {
+// 				td.addClass("notThisMonth");
+// 			}
+			
+// 			td = $("<td><ul/></td>")
+// 			$(tr).append(td);
+// 			$(td).children("ul").append(li);
+			$(tr).append($("<td/>").append($("<ul/>").append(li)));
 			date.setDate(day + 1);
 		}
 	} while(month == date.getMonth());
