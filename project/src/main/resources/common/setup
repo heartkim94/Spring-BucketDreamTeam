@@ -107,7 +107,7 @@ CREATE TABLE ProfileOf(
 
 -- #Data for admin
 INSERT INTO Users(userNum, id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
-    VALUES(-1, 'admin', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
+    VALUES(-1, 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
 INSERT INTO Categorys(catNum, catName, parentNum, path) VALUES(-1, 'hidden', 0, '-1');
 INSERT INTO Groups(groupNum, groupName, groupOwner, catNum) VALUES(-1, 'AdminGroup', -1, -1);
 INSERT INTO Members VALUES(-1, -1);
@@ -148,7 +148,7 @@ create table `GroupBoard-1`(
 -- #Data for test
 -- User
 insert into users(id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
-    values('test', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
+    values('test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
 
 -- Group
 insert into Categorys(catName, parentNum, path) values('generic', 0, '1');
@@ -207,7 +207,7 @@ insert into `GroupBoard-1` values(
     null, 'admin', 'test reply article5', 'no content', 1, 0, 1, 3, '2017-11-22', 0, 1);
 insert into `GroupBoard-1` values(
     null, 'admin', 'test reply article6', 'no content', 2, 0, 1, 2, '2017-11-22', 0, 1);
-    
+    select * from `groupBoard-1`;
 -- QnA
 insert into `GroupBoard-1` values(
     null, 'admin', 'test qna article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0, 2);

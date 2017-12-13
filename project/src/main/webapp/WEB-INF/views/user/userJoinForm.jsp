@@ -388,9 +388,10 @@
 					inputId:$("#id").val()
 				},
 				success:function(data){
+					console.log(data);
 					let html;
 					if($("#id").val()!=""){
-						if(data==1){
+						if(data==3){
 							html="<b>사용 가능한 아이디입니다.</b>"
 							$("#idcheck").html(html).css("color","green");
 							idcheck=true;

@@ -42,28 +42,23 @@ textarea {
 			}
 		});
 		
-		$(".button").on("click", function(event) {
-			event.stopPropagation();
-			event.preventDefault();
-			$(this).css("color", "red");
-			console.log("begin");
+		$(".button").on("click", function() {
 // 			if (fr.memberagree.checked == false) {
 			if ($("#memberagree").prop("checked") == false) {
+				$("#memberagree").focus();
 				// 				alert('이용약관에 동의해주세요');
 				swal("필수", "이용약관에 동의해주세요!", "error")
 // 				fr.memberagree.focus();
-				$("#memberagree").focus();
 				return false;
 			}
 // 			if (fr.privacyagree.checked == false) {
 			if ($("#privacyagree").prop("checked") == false) {
+				$("#privacyagree").focus();
 				// 				alert('개인정보 수집/이용 및 국외이전에 동의해주세요');
 				swal("필수", "개인정보 수집/이용 및 국외이전에 동의해주세요!", "error")
 // 				fr.privacyagree.focus();
-				$("#privacyagree").focus();
 				return false;
 			}
-			console.log("end");
 			location.href = "/project/userJoinForm";
 		});
 	});
