@@ -254,8 +254,8 @@ textarea {
 				html +="<li><a href='#' class='updateComment'>수정</a>&nbsp;|&nbsp;</li>";
 				html +="<li><a href='#' class='deleteComment')'>삭제</a></li>";
 			} else {
-				html +="<li><span style='color:#BDBDBD'>수정</span>&nbsp;|&nbsp;</li>";
-				html +="<li><span style='color:#BDBDBD')'>삭제</span></li>";
+				html +="<li><span style='color:#BDBDBD; cursor:default;'>수정</span>&nbsp;|&nbsp;</li>";
+				html +="<li><span style='color:#BDBDBD; cursor:default;')'>삭제</span></li>";
 			}
 			html +="</ul></div>";
 		});
