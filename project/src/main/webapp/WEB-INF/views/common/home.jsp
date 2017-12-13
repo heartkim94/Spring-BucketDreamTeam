@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<title>MAIN</title>
 <!-- 	<link rel="stylesheet" href="./resources/css/login.css"> -->
-<!-- 	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script> -->
+	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 	<script>
 		
@@ -23,7 +23,6 @@
 // 			document.location.href="./";
 		
 		$(document).ready(function(){
-			
 			let Certify=${dbCertify};
 			if(Certify == 0) {
 				alert("회원가입 이메일 인증을 안하셨습니다.");
