@@ -43,4 +43,10 @@
 	</update>
 	
 	<!-- 코멘트 삭제 -->
+
+	<delete id="deleteComment" parameterType="int">
+		delete FROM Comments WHERE commentNum 
+		in (select commentNum from 
+		(select commentNum from comments where path like concat('%', #{commentNum}, '%')) result);
+	</delete>
 </mapper>

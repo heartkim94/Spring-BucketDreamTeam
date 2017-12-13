@@ -51,6 +51,7 @@
     }
     .menuLogo {
     	display: inline-block;
+    	margin-left: 50px;
     }
     .menuItem {
     	position: absolute;
@@ -77,6 +78,11 @@
     	display: none;
 	    padding: 10px 7px;
     }
+    .responseMypageMenu  li {
+  			display: none;
+  			float: left;
+  			text-align: center;
+  		}
     .mypageMenu > li:hover {
    	    background: #f1f1f2;
     }
@@ -94,14 +100,35 @@
   		.mypageBtnIcon {
   			display: inline-block;
   		}
+  		.mypageBtnIcon img {
+  			width: 20px;
+  		}
   		header .wrap .menubar {
   			width: 100%;
   		}
   		.mypageMenu {
-  			
+  			display: none;
+  		}
+  		.responseMypageMenu  li {
+  			float: left;
+  			text-align: center;
+  			border-bottom: 1px solid #eee;
+  		}
+  		.responseMypageMenu  li:nth-child(1){
+  			width: 40%;
+  		}
+  		.responseMypageMenu  li:nth-child(2), li:nth-child(3){
+  			width: 30%;
+  		}
+  		.responseMypageMenu a {
+  			display: block;
+  			width: 100%;
+  			height: 100%;
+  			padding: 20px 0;
   		}
     }
-}
+    
+
 </style>
 
 </head>
@@ -116,10 +143,10 @@
 		<div class="menubar">
 			<div class="menuLogo">
 				<c:if test="${id != null}">
-					<a href="/project/group/main">Dogether</a>
+					<a href="/project/group/main"><h1>Dogether</h1></a>
 				</c:if>
 				<c:if test="${id == null}">
-					<a href="/project/home"><strong>Dogether</strong></a>
+					<a href="/project/home"><h1>Dogether</h1></a>
 				</c:if>
 			</div>
 			<ul class="menuItem">
@@ -134,18 +161,27 @@
 								// 헤더 마이페이지 버튼 클릭 시 토글효과
 								$('.mypageBtn').on("click", function(event){
 									event.preventDefault();
-// 									console.log("btnClick");
 									$(".mypageMenu").slideToggle();
 								});
-								
 								$('.mypageBtnIcon').on("click", function(event){
 									event.preventDefault();
-// 									console.log("btnClick");
-									$(".mypageMenu").slideToggle();
+									let menu = $(".responseMypageMenu li");
+									menu.fadeToggle();
 								});
 								
+								$(window).resize(function(){
+									let windowWidth = $(window).width();
+									if(windowWidth > 1024){
+										$(".responseMypageMenu").css("display", "none");
+									}else {
+										$(".responseMypageMenu").css("display", "block");
+									}
+									if(windowWidth <= 1024){
+										$(".mypageMenu").css("display", "none");
+									}
+								});
 								
-							})
+							});
 						</script>
 						<ul class="mypageMenu">
 							<li><a href="/project/mypage">회원정보 수정</a></li>
@@ -161,8 +197,15 @@
 				</li>
 			</ul>
 		</div>
+		
 	</div>
 </header>
+<!-- width:1024 이하일 때 display:block됨 -->
+<ul class="responseMypageMenu">
+	<li><a href="/project/mypage">회원정보 수정</a></li>
+	<li><a href="/project/myInfoDelForm">회원탈퇴</a></li>
+	<li><a href="/project/logout">로그아웃</a></li>
+</ul>
 </body>
 <script>
 
@@ -200,6 +243,7 @@ $(document).ready(function() {
 	});
 	
 	// $("#slider").nivoSlider();
+	
 	
 }); 
 </script>

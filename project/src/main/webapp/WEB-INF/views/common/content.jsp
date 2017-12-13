@@ -55,9 +55,6 @@ input {
 .commentList ul li {
 	float: left;
 }
-article.commentList input {
-	color: red;
-}
 .commentContent {
 	font-size: 14px;
 	line-height: 18px;
@@ -361,7 +358,7 @@ textarea {
 	$("#showComment").on("click", ".updateBtn", function(event){
 		let comment = $(this).parents(".comment");
 		let commentNum = $(comment).attr("commentNum");
-		let commentContent = $(comment).find(".inTextarea").val()
+		let commentContent = $(comment).find(".inTextarea").val();
 		$.ajax({
 			url : "/project/updateComment",
 			data: {
@@ -369,8 +366,13 @@ textarea {
 				commentContent : commentContent,
 			},
 			success: function(data){
-				$(comment).children(".commentContent").text(commentContent);
-				$(replyArea).remove();
+				if(commentContent == ""){
+					alert("내용을 입력하세요");
+					return;
+				}else {
+					$(comment).children(".commentContent").text(commentContent);
+					$(replyArea).remove();
+				}
 			}
 		});
 	});

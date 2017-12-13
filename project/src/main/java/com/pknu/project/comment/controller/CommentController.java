@@ -53,7 +53,9 @@ public class CommentController {
 	@ResponseBody
 	public HashMap<String, Object> replyComment(CommentDto comment, HttpSession session) {
 		comment.setId((String)session.getAttribute("id"));
-		commentService.replyComment(comment);
+		if(comment.getCommentContent() != "") {
+			commentService.replyComment(comment);
+		}
 		commentList=commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("result", 1);
@@ -68,5 +70,12 @@ public class CommentController {
 											@RequestParam("commentContent") String commentContent) {
 		commentService.updateComment(commentNum, commentContent);
 		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
+	}
+	
+	@RequestMapping(value="deleteComment")
+	@ResponseBody
+	public List<CommentDto> deleteComment(CommentDto comment) {
+		commentService.deleteComment(comment.getCommentNum());
+		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
 	}
 }
