@@ -37,6 +37,7 @@ public class GroupController {
 			return "redirect:/home";
 		}
 		groupService.getMyGroup(id, model);
+		groupService.getGroups(model);
 		return "group/main";
 	}
 	

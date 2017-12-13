@@ -24,11 +24,17 @@ public class GroupServiceImpl implements GroupService {
 	
 	private GroupDto group;
 	private HashMap<String, String> paramMap;
+	
 	@Override
 	public void getMyGroup(String id, Model model) {
-		model.addAttribute("groupList", groupDao.getMyGroup(id));
+		model.addAttribute("myGroupList", groupDao.getMyGroup(id));
 	}
 	
+	@Override
+	public void getGroups(Model model) {
+		model.addAttribute("groupList", groupDao.getGroups());
+	}
+
 	@Override
 	public GroupDto getGroup(int groupNum, Model model) {
 		group = groupDao.getGroup(groupNum);

@@ -23,6 +23,16 @@
 		            					on g.groupNum = c.groupNum
 		where 	u.id = #{id};
 	</select>
+	<select id="getGroups" resultType="group">
+		SELECT g.groupNum, g.groupName, memberCount
+		FROM groups g 
+			JOIN members m ON g.groupNum = m.groupNum 
+			JOIN (	SELECT groupNum, count(groupNum) as memberCount 
+		            FROM members 
+					GROUP BY groupNum) cnt ON g.groupNum = cnt.groupNum 
+		WHERE g.groupNum != -1
+		GROUP BY groupNum
+	</select>
 	<select id="getGroup" parameterType="int" resultType="group">
 		SELECT * FROM Groups WHERE groupNum=#{groupNum}
 	</select>

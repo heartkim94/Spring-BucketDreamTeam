@@ -149,6 +149,10 @@ create table `GroupBoard-1`(
 -- User
 insert into users(id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
     values('test', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
+insert into users(id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
+    values('t1', '1234', 'a', 'aa', 'a@email','010-1111-1111', 'm', 'test certkey', 1);
+insert into users(id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
+    values('t2', '1234', 'b', 'bb', 'b@email','010-1111-1111', 'm', 'test certkey', 1);
 
 -- Group
 insert into Categorys(catName, parentNum, path) values('generic', 0, '1');
