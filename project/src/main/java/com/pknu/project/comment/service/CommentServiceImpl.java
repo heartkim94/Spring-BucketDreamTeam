@@ -54,4 +54,9 @@ public class CommentServiceImpl implements CommentService {
 		commentMap.put("commentContent", commentContent);
 		commentDao.updateComment(commentMap);
 	}
+	
+	@Override
+	public void deleteComment(int commentNum) {
+		commentDao.deleteComment(commentNum);
+	}
 }
