@@ -12,7 +12,8 @@
 <link rel="stylesheet" href="/project/resources/css/normalize.css">
 <link rel="stylesheet" href="/project/resources/css/style.css">
 <!-- <link rel="stylesheet" href="/project/resources/css/header.css"> -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/project/resources/js/jquery-ui.js"></script>
 <script src="/project/resources/js/prefixfree.min.js"></script>
 
