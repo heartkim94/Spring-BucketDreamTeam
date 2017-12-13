@@ -10,21 +10,6 @@
 	<link rel="stylesheet" href="resources/nivo/nivo-slider.css">
 	<link rel="stylesheet" href="resources/nivo/default.css">
 
-	<!-- Link Swiper's CSS -->
-<!--   	<link rel="stylesheet" href="resources/plugin/swiper.min.css"> -->
-	<style>
-	/* 슬라이더 스타일 */
-/* 	.swiper-container { */
-/*       width: 1600px; */
-/*       height: 100%; */
-/*     } */
-/*     .swiper-slide { */
-/*       background-position: center; */
-/*        background-size: cover; */
-/*        height: 600px; */
-/*     }  */
-    
-	</style>
 </head>
 
 <body>
@@ -88,18 +73,6 @@
 						<img src="resources/img/slider3.png" />
 					</div>
 				</div>
-<!-- 				 <div class="swiper-container"> -->
-<!-- 				    <div class="swiper-wrapper"> -->
-<!-- 				      	<div class="swiper-slide" style="background-image:url(resources/img/slider1.png)"></div> -->
-<!-- 						<div class="swiper-slide" style="background-image:url(resources/img/slider2.png)"></div> -->
-<!-- 						<div class="swiper-slide" style="background-image:url(resources/img/slider3.png)"></div> -->
-<!-- 				    </div> -->
-<!-- 				    Add Pagination     -->
-<!-- 				    <div class="swiper-pagination swiper-pagination-white"></div> -->
-<!-- 				    Add Arrows -->
-<!-- 				    <div class="swiper-button-next swiper-button-white"></div> -->
-<!-- 				    <div class="swiper-button-prev swiper-button-white"></div> -->
-<!-- 				 </div> -->
 			</div>
 			<div class="contentRow contentRow3">
 				<ul>
@@ -276,8 +249,7 @@
 		
 	</style>
 	<script src="resources/nivo/jquery.nivo.slider.js"></script>
-	<!-- Swiper JS -->
-<!--   	<script src="resources/plugin/swiper.min.js"></script> -->
+	<script src="resources/nivo/hammer.min.js"></script>
 <script>
 		
 	$(document).ready(function(){
@@ -293,8 +265,8 @@
 		 
 			$('#slider').nivoSlider({
 			    effect: 'slideInLeft',
-				animSpeed: 700,
-				pauseTime: 4000
+				animSpeed: 300,
+				pauseTime: 2000
 			});
 	 
 			$('a.nivo-nextNav').css('visibility', 'hidden');
@@ -320,35 +292,10 @@
 			else {
 				$('#slider').nivoSlider({
 				    effect: 'fade',
-					animSpeed: 700,
-					pauseTime: 4000
+					animSpeed: 300,
+					pauseTime: 2000
 				});
 			}
-    
-
-		/* 슬라이더 효과 */
-// 		var swiper = new Swiper('.swiper-container', {
-// //	 	  autoHeight: true,
-// 	      spaceBetween: 30,
-// 	      centeredSlides: true,
-// 	      loop: true,
-// 	      resize: false,
-// 	      calculateHeight:true,
-// 	      autoplay: {
-// 	        delay: 2500,
-// 	        disableOnInteraction: false,
-// 	      },
-// 	      pagination: {
-// 	        el: '.swiper-pagination',
-// 	        clickable: true, 
-// 	      },
-// 	      navigation: {
-// 	        nextEl: '.swiper-button-next',
-// 	        prevEl: '.swiper-button-prev',
-// 	      },
-// 	    });
-		
-		
 	});
 	
 </script>
