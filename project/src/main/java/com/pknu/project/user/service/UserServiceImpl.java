@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 	public int delPassCheck(HttpSession session, String inputPass) {
 		String id = (String) session.getAttribute("id");
 		String dbPass = userDao.passCheck(id);
-		if(dbPass.equals(inputPass)) {
+		if(dbPass.equals(sha.encryptSHA256(inputPass))) {
 			return 2; // db에 있는 pass와 같으면
 		}else {
 			return 1;
@@ -225,12 +225,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void myInfoDel(HttpSession session, String pass) {
+		String passWord=sha.encryptSHA256(pass);
+		
 		String id = (String)session.getAttribute("id");
 		System.out.println(id); 
-		System.out.println(pass);
+		System.out.println(passWord);
 		paramMap = new HashMap<>();
 		paramMap.put("id", id);
-		paramMap.put("pass", pass);
+		paramMap.put("pass", passWord);
 		userDao.myInfoDel(paramMap);
 	}
 

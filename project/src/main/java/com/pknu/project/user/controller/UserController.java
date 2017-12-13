@@ -117,7 +117,6 @@ public class UserController {
 						
 	@RequestMapping(value="myInfoDel")
 	public String myInfoDel(HttpSession session, String pass) { // 회원탈퇴
-		System.out.println(session.getAttribute("id")); 
 		System.out.println(pass);
 		userService.myInfoDel(session, pass);
 		session.invalidate();

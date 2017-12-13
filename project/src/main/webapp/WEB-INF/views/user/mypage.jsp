@@ -61,14 +61,14 @@
             <div class="form-group" id="divName">
                 <label for="name" class="col-lg-2 control-label">이름</label>
                 <div class="col-lg-5">
-                    <input type="text" class="form-control onlyHangul" id="name" name="name" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
+                    <input type="text" class="form-control onlyHangul" id="name" name="name" value="${user.name}" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
                 </div>
             </div>
              
             <div class="form-group" id="divNickname">
                 <label for="nickName" class="col-lg-2 control-label">닉네임</label>
                 <div class="col-lg-5">
-                    <input type="text" class="form-control" id="nickName" name="nickName" data-rule-required="true" placeholder="닉네임" maxlength="15">
+                    <input type="text" class="form-control" id="nickName" name="nickName" value="${user.nickName}" data-rule-required="true" placeholder="닉네임" maxlength="15">
                 </div>
             </div>
              
@@ -82,7 +82,7 @@
             <div class="form-group" id="divPhoneNumber">
                 <label for="inputPhoneNumber" class="col-lg-2 control-label">휴대폰 번호</label>
                 <div class="col-lg-5">
-              		<input type="tel" class="form-control onlyNumber" id="phoneNumber" name="phoneNumber" data-rule-required="true" placeholder="ex) 010-1111-1111" maxlength="13">
+              		<input type="tel" class="form-control onlyNumber" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}" data-rule-required="true" placeholder="ex) 010-1111-1111" maxlength="13">
                 </div>
             </div>
             <div class="form-group">
@@ -138,7 +138,7 @@
                 $(".onlyNumber").keyup(function(event){ // 숫자 + - 
                     if (!(event.keyCode >=37 && event.keyCode<=40)) {
                         var inputVal = $(this).val();
-                        $(this).val(inputVal.replace(/[^-0-9]/gi,''));
+                        $(this).val(inputVal.replace(/^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/gi,'')); 
                     }
                 });
                  
