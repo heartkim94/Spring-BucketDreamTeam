@@ -234,6 +234,7 @@ $(document).ready(function() {
 		let pos = $(this).scrollTop();
 
 		if (pos >= 95) {
+			btnTop.css("display", "inline-block");
 			btnTop.stop(true).animate({
 				'opacity' : '0.8'
 			}, 200);
@@ -242,6 +243,7 @@ $(document).ready(function() {
 			btnTop.stop(true).animate({
 				'opacity' : '0'
 			}, 200);
+			btnTop.css("display", "none");
 		}
 	});
 	

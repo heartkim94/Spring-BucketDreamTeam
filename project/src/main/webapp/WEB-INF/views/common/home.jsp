@@ -163,8 +163,12 @@
 			margin: 0 auto;
 		}
 		.joinContainer {
-			display: block;
 			margin-top: 5px;
+			width: 49%;
+			float: left;
+		}
+		.joinContainer:nth-child(1) {
+			margin-right: 2%;
 		}
 		.joinContainer a {
 			font-size: 14px;
@@ -189,7 +193,9 @@
 			width: 100%;
 			margin: 0 auto;
 		}
-		
+		.nivoSlider {
+			box-shadow: none !important;
+		}
 		/* contentRow3 */
 		.contentRow3 {
 			padding: 100px 0;

@@ -55,6 +55,10 @@
 			padding-top: 10px;
 			display: block;
 		}
+		/* 제목 영역 폭 조절 */
+		.listTable th:nth-child(2) {
+			width: 30%;
+		}
 	}
 </style>
 </head>
