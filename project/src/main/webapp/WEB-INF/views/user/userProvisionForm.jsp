@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -32,23 +32,7 @@ textarea {
 }
 </style>
 <script>
-	function check() {
-		console.log("begin");
-		if (fr.memberagree.checked == false) {
-			// 				alert('이용약관에 동의해주세요');
-			swal("필수", "이용약관에 동의해주세요!", "error")
-			fr.memberagree.focus();
-			return false;
-		}
-		if (fr.privacyagree.checked == false) {
-			// 				alert('개인정보 수집/이용 및 국외이전에 동의해주세요');
-			swal("필수", "개인정보 수집/이용 및 국외이전에 동의해주세요!", "error")
-			fr.privacyagree.focus();
-			return false;
-		}
-		console.log("end");
-	}
-
+	
 	$(function() {
 		$("#allchecked").click(function() {
 			if ($("#allchecked").prop("checked")) {
@@ -56,6 +40,31 @@ textarea {
 			} else {
 				$("input[type=checkbox]").prop("checked", false);
 			}
+		});
+		
+		$(".button").on("click", function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+			$(this).css("color", "red");
+			console.log("begin");
+// 			if (fr.memberagree.checked == false) {
+			if ($("#memberagree").prop("checked") == false) {
+				// 				alert('이용약관에 동의해주세요');
+				swal("필수", "이용약관에 동의해주세요!", "error")
+// 				fr.memberagree.focus();
+				$("#memberagree").focus();
+				return false;
+			}
+// 			if (fr.privacyagree.checked == false) {
+			if ($("#privacyagree").prop("checked") == false) {
+				// 				alert('개인정보 수집/이용 및 국외이전에 동의해주세요');
+				swal("필수", "개인정보 수집/이용 및 국외이전에 동의해주세요!", "error")
+// 				fr.privacyagree.focus();
+				$("#privacyagree").focus();
+				return false;
+			}
+			console.log("end");
+			location.href = "/project/userJoinForm";
 		});
 	});
 </script>
@@ -66,8 +75,8 @@ textarea {
 		<%@ include file="../common/header.jsp"%>
 		<section>
 		<div class="container mainContent">
-			<form name="fr" method="post" action="/project/userJoinForm"
-				onsubmit="return check()">
+<!-- 			<form name="fr" method="post" action="#/project/userJoinForm" -->
+<!-- 				onsubmit="return check()"> -->
 				<table class="memCheck" width="960px" align="center">
 					<tr>
 						<td>
@@ -466,7 +475,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 				</div>
 				<br>
 				<br>
-			</form>
+<!-- 			</form> -->
 		</div>
 		</section>
 		<%@ include file="../common/footer.jsp"%>
