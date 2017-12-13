@@ -47,6 +47,7 @@ textarea {
 			return false;
 		}
 		console.log("end");
+		return true;
 	}
 
 	$(function() {
