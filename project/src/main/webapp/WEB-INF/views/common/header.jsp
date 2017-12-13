@@ -13,7 +13,11 @@
 <link rel="stylesheet" href="/project/resources/css/style.css">
 <!-- <link rel="stylesheet" href="/project/resources/css/header.css"> -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="/project/resources/js/jquery-ui.js"></script>
 <script src="/project/resources/js/prefixfree.min.js"></script>
+
+ 
+
 <style>
 	/* 상단으로 이동 버튼 */
 	#btnTop {
@@ -51,7 +55,7 @@
     }
     .menuLogo {
     	display: inline-block;
-    	margin-left: 50px;
+    	margin-left: 5%;
     }
     .menuItem {
     	position: absolute;
@@ -128,7 +132,6 @@
   		}
     }
     
-
 </style>
 
 </head>

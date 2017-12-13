@@ -7,16 +7,24 @@
 	<meta charset="utf-8">
 	<title>MAIN</title>
 <!-- 	<link rel="stylesheet" href="./resources/css/login.css"> -->
-<!-- 	<link rel="stylesheet" href="resources/nivo/nivo-slider.css"> -->
-<!-- 	<link rel="stylesheet" href="resources/nivo/default.css"> -->
+	<link rel="stylesheet" href="resources/nivo/nivo-slider.css">
+	<link rel="stylesheet" href="resources/nivo/default.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/css/swiper.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/css/swiper.min.css">
- 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.esm.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.esm.bundle.js"></script>
+	<!-- Link Swiper's CSS -->
+<!--   	<link rel="stylesheet" href="resources/plugin/swiper.min.css"> -->
+	<style>
+	/* 슬라이더 스타일 */
+/* 	.swiper-container { */
+/*       width: 1600px; */
+/*       height: 100%; */
+/*     } */
+/*     .swiper-slide { */
+/*       background-position: center; */
+/*        background-size: cover; */
+/*        height: 600px; */
+/*     }  */
+    
+	</style>
 </head>
 
 <body>
@@ -73,25 +81,25 @@
 				</div>
 			</div>
 			<div class="contentRow contentRow2">
-<!-- 				<div class="slider-wrapper theme-default"> -->
-<!-- 					<div id="slider" class=""> -->
-<!-- 						<img src="resources/img/slider1.png" /> -->
-<!-- 						<img src="resources/img/slider2.png" /> -->
-<!-- 						<img src="resources/img/slider3.png" /> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				<div class="swiper-containe">
-					<div id="slider" class="swiper-wrapper">
-						<div class="swiper-slide" style="background-image:url(resources/img/slider1.png)"></div>
-						<div class="swiper-slide" style="background-image:url(resources/img/slider2.png)"></div>
-						<div class="swiper-slide" style="background-image:url(resources/img/slider3.png)"></div>
+				<div class="slider-wrapper theme-default">
+					<div id="slider" class="">
+						<img src="resources/img/slider1.png" />
+						<img src="resources/img/slider2.png" />
+						<img src="resources/img/slider3.png" />
 					</div>
-						<!-- Add Pagination -->
-					    <div class="swiper-pagination swiper-pagination-white"></div>
-					    <!-- Add Arrows -->
-					    <div class="swiper-button-next swiper-button-white"></div>
-					    <div class="swiper-button-prev swiper-button-white"></div>
-					</div>
+				</div>
+<!-- 				 <div class="swiper-container"> -->
+<!-- 				    <div class="swiper-wrapper"> -->
+<!-- 				      	<div class="swiper-slide" style="background-image:url(resources/img/slider1.png)"></div> -->
+<!-- 						<div class="swiper-slide" style="background-image:url(resources/img/slider2.png)"></div> -->
+<!-- 						<div class="swiper-slide" style="background-image:url(resources/img/slider3.png)"></div> -->
+<!-- 				    </div> -->
+<!-- 				    Add Pagination     -->
+<!-- 				    <div class="swiper-pagination swiper-pagination-white"></div> -->
+<!-- 				    Add Arrows -->
+<!-- 				    <div class="swiper-button-next swiper-button-white"></div> -->
+<!-- 				    <div class="swiper-button-prev swiper-button-white"></div> -->
+<!-- 				 </div> -->
 			</div>
 			<div class="contentRow contentRow3">
 				<ul>
@@ -257,17 +265,19 @@
 		}
 		@media (max-width: 768px) {
 	  		.contentRow1 {
-	  			padding: 50px 0;
-	  			display: block;
+	  			padding: 50px 0 !important;
+	  			display: block !important;
 	  		}
 	  		.centerLine {
-	  			margin: 25px 0;
+	  			margin: 25px 0 !important;
 	  		}
   		}
 		
 		
 	</style>
 	<script src="resources/nivo/jquery.nivo.slider.js"></script>
+	<!-- Swiper JS -->
+<!--   	<script src="resources/plugin/swiper.min.js"></script> -->
 <script>
 		
 	$(document).ready(function(){
@@ -279,25 +289,68 @@
 // 		document.location.href="./";
 		
 // 		$("#slider").nivoSlider();
-	
-		var swiper = new Swiper('.swiper-container', {
-	      spaceBetween: 30,
-	      centeredSlides: true,
-	      autoplay: {
-	        delay: 2500,
-	        disableOnInteraction: false,
-	      },
-	      pagination: {
-	        el: '.swiper-pagination',
-	        clickable: true,
-	      },
-	      navigation: {
-	        nextEl: '.swiper-button-next',
-	        prevEl: '.swiper-button-prev',
-	      },
-	    });
-	});
+		if ("ontouchstart" in document.documentElement) {
+		 
+			$('#slider').nivoSlider({
+			    effect: 'slideInLeft',
+				animSpeed: 700,
+				pauseTime: 4000
+			});
+	 
+			$('a.nivo-nextNav').css('visibility', 'hidden');
+			$('a.nivo-prevNav').css('visibility', 'hidden');
+			
+			var element = document.getElementById('slider');
+			
+			var hammertime = Hammer(element).on("swipeleft", function(event) {
+				$('#slider img').attr("data-transition","slideInLeft");
+				$('a.nivo-nextNav').trigger('click');
+				return false; 
+			});
+				
+			var hammertime = Hammer(element).on("swiperight", function(event) {
+				$('#slider img').attr("data-transition","slideInRight");
+                $('a.nivo-prevNav').trigger('click');
+                $('#slider img').attr("data-transition","slideInLeft");
+                return false;
+			});
+		 
+			}
+		 
+			else {
+				$('#slider').nivoSlider({
+				    effect: 'fade',
+					animSpeed: 700,
+					pauseTime: 4000
+				});
+			}
+    
+
+		/* 슬라이더 효과 */
+// 		var swiper = new Swiper('.swiper-container', {
+// //	 	  autoHeight: true,
+// 	      spaceBetween: 30,
+// 	      centeredSlides: true,
+// 	      loop: true,
+// 	      resize: false,
+// 	      calculateHeight:true,
+// 	      autoplay: {
+// 	        delay: 2500,
+// 	        disableOnInteraction: false,
+// 	      },
+// 	      pagination: {
+// 	        el: '.swiper-pagination',
+// 	        clickable: true, 
+// 	      },
+// 	      navigation: {
+// 	        nextEl: '.swiper-button-next',
+// 	        prevEl: '.swiper-button-prev',
+// 	      },
+// 	    });
 		
+		
+	});
+	
 </script>
 
 </html>

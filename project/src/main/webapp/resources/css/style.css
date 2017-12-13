@@ -159,9 +159,9 @@ div.subContent table {
 	width: 100%;
 }
 .listTable tbody tr:hover td {
-	color: orange;
+	background-color: #e0e0e0;
 }
-.listTable tbody tr:hover a {
+.listTable tbody tr a:hover {
 	color: orange;
 }
 .listTable th {
