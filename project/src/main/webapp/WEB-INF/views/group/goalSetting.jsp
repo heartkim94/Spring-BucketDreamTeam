@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="/project/resources/css/group.css">
 	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script>
-		function setGoal(){
+		function setGoal() {
 			let f = document.goalSettingForm;
 			if($("#goal").val() == ""){
 				alert("목표를 입력해주세요");

@@ -6,18 +6,17 @@
 <mapper namespace="com.pknu.project.comment.dao.CommentDao">
 	
 	<select id="getComments" parameterType="HashMap" resultType="comment">
-		select * 		
-		from (select commentNum, id,commentContent,commentDate, articleNum, @rownum:=@rownum+1 as rownum
-		     from	comments,
-		     		(select @rownum:=0) vars
-		     where boardNum=#{boardNum} AND articleNum=#{articleNum}
-		     order by commentNum desc ) human 
-		where rownum between 1 and #{commentRow}
+		SELECT c.* 
+		FROM (	SELECT commentNum, id, commentContent, commentDate, articleNum, depth, @rownum:=@rownum+1 as rn 
+				FROM comments, (SELECT @rownum:=0) vars 
+				WHERE boardNum=#{boardNum} AND articleNum=#{articleNum} 
+				ORDER BY path) c 
+		WHERE rn BETWEEN 1 AND #{commentRow}
 	</select>
 	
 	<!-- 코멘트 쓰기 -->
 	<insert id="insertComment" parameterType="comment">
-		insert into comments values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum}, 0, '');
+		insert into comments values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum}, 0, '', 0);
 		update comments set path=commentNum where commentNum = last_insert_id();
 	</insert>
 	
@@ -26,26 +25,28 @@
 		select count(*) from Comments where boardNum=#{boardNum} AND articleNum=#{articleNum}
 	</select>
 	
-	<!-- 코멘트 수정 -->
-	<select id="updateGetComment" parameterType="HashMap" resultType="String">
-		SELECT commentContent
-		FROM Comments
-		WHERE articleNum=#{articleNum} AND boardNum=#{boardNum}
-	</select>
-	<update id="updateComment" parameterType="HashMap">
-		UPDATE Comments
-		SET commentContent=${commentContent}
-		WHERE commentNum=#{commentNum} AND articleNum=#{articleNum} AND boardNum=board${boardNum}
-	</update>
-	
 	<!-- 코멘트 답글 -->
 	<insert id="replyComment" parameterType="comment">
-		insert into comments values(null, #{id}, #{commentContent},now(),#{articleNum}, #{boardNum}, #{parentNum}, '');
-		update comments set path=concat((select path from comments where commentNum=#{parentNum}), '.', last_insert_id());
+		INSERT INTO comments 
+		VALUES(null, #{id}, #{commentContent}, now(), #{articleNum}, #{boardNum}, #{parentNum}, '', #{depth}+1);
+		
+		UPDATE comments child 
+		JOIN comments parent 
+		ON child.parentNum = parent.commentNum AND child.commentNum = last_insert_id() 
+		SET child.path = CONCAT(parent.path, '.', child.commentNum);
 	</insert>
 	
+	<!-- 코멘트 수정 -->
+	<update id="updateComment" parameterType="HashMap">
+		UPDATE comments
+		SET commentContent=#{commentContent} WHERE commentNum=#{commentNum} 
+	</update>
+	
 	<!-- 코멘트 삭제 -->
+
 	<delete id="deleteComment" parameterType="int">
-		DELETE * FROM Comments WHERE commentNum=#{commentNum}
+		delete FROM Comments WHERE commentNum 
+		in (select commentNum from 
+		(select commentNum from comments where path like concat('%', #{commentNum}, '%')) result);
 	</delete>
 </mapper>

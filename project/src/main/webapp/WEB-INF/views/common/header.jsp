@@ -11,222 +11,243 @@
 <title>header</title>
 <link rel="stylesheet" href="/project/resources/css/normalize.css">
 <link rel="stylesheet" href="/project/resources/css/style.css">
+<!-- <link rel="stylesheet" href="/project/resources/css/header.css"> -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="/project/resources/js/jquery-ui.js"></script>
 <script src="/project/resources/js/prefixfree.min.js"></script>
-<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
-<style>
-    * {
-        margin:0;
-        padding:0;
-        border:0;
-        font: 맑은고딕;
-        text-decoration:none;
-        letter-spacing:0px;
-    }
-    html {height:100%;}
- 
-    .wrap
-    {
-        width:100%;
-        font-size:14px;
-        font-weight:bold;
-    }
- 
-    .menubar
-    {
-        width:1024px;
-        margin: 0 auto;
-        border:none;
-        background: #1D375F;
-        overflow: hidden;
-    }
- 
-    .menuLogo
-    {
-        width:100px;
-        float:left;
-    }
- 
-    .menuItem
-    {
-        float:right;
-    }
- 
-    .menubar ul
-    {
-        background: #1D375F;
-        height:50px;
-        list-style:none;
-    }
- 
-    .menubar li
-    {
-        float:left;
-    }
- 
-    .menubar a
-    {
-        color:#FFFFFF;
-        display:block;
-        font-weight:normal;
-        line-height:49px;
-        padding:1px 25px;
-        text-align:center;
-    }
- 
-    .menubar li a:hover,
-    .menubar ul li:hover a {
-        background: #636363;
-        color:#FFFFFF;
-    }
- 
-    .menubar li:hover ul
-    {
-        display:block;
-    }
- 
-    .menubar li:hover li a
-    {
-        background:none;
-    }
- 
-    .menubar li ul
-    {
-        background: #1D375F;
-        display:none;
-        height:auto;
-        position:absolute;
-        z-index:999;
-    }
- 
-    .menubar li li a ,
-    .menubar li li
-    {
-        background: #1D375F;
-        display:block;
-        float:none;
-        min-width:135px;
-    }
- 
-    .menubar li ul a
-    {
-        display:block;
-        height:50px;
-        font-size:12px;
-        font-style:normal;
-        padding:0px 10px 0px 15px;
-        text-align:left;
-    }
- 
-    .menubar li ul a:hover,
-    .menubar li ul li:hover a{
-        background: #636363;
-        border:0px;
-        color:#ffffff;
-    }
-    
-/* 여기서부터 미디어쿼리 */    
-    
-#menu, #toggle { /* 체크박스 이름표와 체크박스 숨김*/
- 	display:none; 
-}
-.wrap { 
-	padding:0; margin:0;display:inline;
-}
-.wrap li {
-	display:inline;
-}
-#contents {
-	min-height: 200px; background: #D9E5FF;
-}
-/*
-footer {
- 	background-color:#EAEAEA; 
-	font-size:13px;
-}    
-*/    
-/* Android 버그 교정 */ 
-body { 
-  -webkit-animation: bugfix infinite 1s; 
-}
-@-webkit-keyframes bugfix { 
-  from { padding: 0; } 
-  to { padding: 0; } 
-} 
 
-@media screen and (max-width: 480px) { /* 화면 너비 480px 이하에서 적용 */
-	.wrap { /* 메뉴 숨김 */
-		display:none;
+ 
+
+<style>
+	/* 상단으로 이동 버튼 */
+	#btnTop {
+		position: fixed;
+		right: 10px;
+		bottom: 10px;
+		width: 40px;
+		height: 40px;
+		font-size: 0;
+		text-indent: -1000px;
+		text-align: center;
+		color: #fff;
+		background: url('/project/resources/img/toTop.png') center center no-repeat #777;
+		opacity: 0;
+		border-radius: 20px;
+		transition: 0.2s;
+		cursor: pointer;
+		z-index: 100;
 	}
-	#toggle:checked + .wrap { /* 체크박스 선택하면 메뉴가 나타남*/
-		display:block;
-	} 
-	.wrap .menubar .menuItem {
-		display:block;
-		width:100%;
-		text-align:center;
-		border-top:1px solid #ccc;
-		padding: 4px;
-	}
-	#menu {
- 		display:block;  
-		text-align:center;
-		background: url('/project/resources/img/menu.png'); 
-		background-repeat: no-repeat;
-		background-position:97% 10px;
-		background-size: 24px 19px;
-		font-size:20px; 
-		font-weight:bold;
-		padding:4px 3%;
-	}
-	footer .foot {
-			width: 480px;
-			padding: 15px 0;
-			margin: 0 auto;
-			text-align:center;
-			color:#fff;
-			clear: both;
-	}
-}
+	/* header normal style */
+    header {
+    	width: 100%;
+	    background: #fff;
+	    border-bottom: 1px solid #eee;
+	    z-index: 999;
+    }
+    header .wrap {
+   	    background: #fff;
+   		padding: 30px 0 24px;
+    }
+    header .wrap .menubar {
+    	width: 1024px;
+    	margin: 0 auto;
+    	position: relative;
+    }
+    .menuLogo {
+    	display: inline-block;
+    	margin-left: 5%;
+    }
+    .menuItem {
+    	position: absolute;
+	    right: 5%;
+	    top: 50%;
+	    transform: translateY(-50%);
+	    display: inline-block;
+	    float: right;
+	    vertical-align: top;
+    }
+    .mypageMenu {
+    	display: none;
+    	position: absolute;
+	    overflow: hidden;
+	    right: 70px;
+	    top: -10px;
+	    width: 140px;
+	    height: auto;
+	    background: #fff;
+	    border: 1px solid #e0e0e0;
+    }
+    /* .mypageBtnIcon은 반응형에서 동작 */
+    .mypageBtnIcon {
+    	display: none;
+	    padding: 10px 7px;
+    }
+    .responseMypageMenu  li {
+  			display: none;
+  			float: left;
+  			text-align: center;
+  		}
+    .mypageMenu > li:hover {
+   	    background: #f1f1f2;
+    }
+    .mypageMenu a {
+    	display: block;
+	    padding: 8px 14px;
+	    color: #333;
+	    font-family: arial;
+    }
+    /* header response style */
+    @media (max-width: 1024px) {
+  		.mypageBtn {
+  			font-size: 0;
+  		}
+  		.mypageBtnIcon {
+  			display: inline-block;
+  		}
+  		.mypageBtnIcon img {
+  			width: 20px;
+  		}
+  		header .wrap .menubar {
+  			width: 100%;
+  		}
+  		.mypageMenu {
+  			display: none;
+  		}
+  		.responseMypageMenu  li {
+  			float: left;
+  			text-align: center;
+  			border-bottom: 1px solid #eee;
+  		}
+  		.responseMypageMenu  li:nth-child(1){
+  			width: 40%;
+  		}
+  		.responseMypageMenu  li:nth-child(2), li:nth-child(3){
+  			width: 30%;
+  		}
+  		.responseMypageMenu a {
+  			display: block;
+  			width: 100%;
+  			height: 100%;
+  			padding: 20px 0;
+  		}
+    }
     
 </style>
 
 </head>
 <body>
 <header>
-	<label for="toggle" id="menu" onclick>MENU</label>
-	<input type="checkbox" id="toggle"/>
+	<!-- 위로올라가기 버튼 -->
+	<a id="btnTop"> 상단으로 이동 </a>
+	
+<!-- 	<label for="toggle" id="menu" onclick>MENU</label> -->
+<!-- 	<input type="checkbox" id="toggle"/> -->
 	<div class="wrap">
 		<div class="menubar">
-		<div class="menuLogo">
-			<c:if test="${id != null}">
-				<a href="/project/group/main">Dogether</a>
-			</c:if>
-			<c:if test="${id == null}">
-				<a href="/project/home"><strong>Dogether</strong></a>
-			</c:if>
-		</div>
-
-		<ul class="menuItem">
-			<li><a href="#">About Us</a></li>
-			<li><a href="#">Portfolio</a></li>
-			<li><a href="#">Contact Us</a></li>
-			<li>
+			<div class="menuLogo">
 				<c:if test="${id != null}">
-					<a href="#" class="mypageBtn" >마이페이지</a>
-					<ul class="mypageMenu">
-						<li><a href="#">Action</a></li>
-						<li><a href="/project/mypage">회원정보 수정</a></li>
-						<li><a href="/project/myInfoDelForm">회원탈퇴</a></li>
-						<li class="divider"></li>
-						<li><a href="/project/logout">로그아웃</a></li>
-					</ul>
+					<a href="/project/group/main"><h1>Dogether</h1></a>
 				</c:if>
-			</li>
-		</ul>
+				<c:if test="${id == null}">
+					<a href="/project/home"><h1>Dogether</h1></a>
+				</c:if>
+			</div>
+			<ul class="menuItem">
+				<li>
+					<c:if test="${id != null}">
+						<a href="#" class="mypageBtn">마이페이지</a>
+						<a href="#" class="mypageBtnIcon">
+							<img src="/project/resources/img/menuIcon.png" alt="menuIcon"/>  
+						</a>
+						<script>
+							$(function(){
+								// 헤더 마이페이지 버튼 클릭 시 토글효과
+								$('.mypageBtn').on("click", function(event){
+									event.preventDefault();
+									$(".mypageMenu").slideToggle();
+								});
+								$('.mypageBtnIcon').on("click", function(event){
+									event.preventDefault();
+									let menu = $(".responseMypageMenu li");
+									menu.fadeToggle();
+								});
+								
+								$(window).resize(function(){
+									let windowWidth = $(window).width();
+									if(windowWidth > 1024){
+										$(".responseMypageMenu").css("display", "none");
+									}else {
+										$(".responseMypageMenu").css("display", "block");
+									}
+									if(windowWidth <= 1024){
+										$(".mypageMenu").css("display", "none");
+									}
+								});
+								
+							});
+						</script>
+						<ul class="mypageMenu">
+							<li><a href="/project/mypage">회원정보 수정</a></li>
+							<li><a href="/project/myInfoDelForm">회원탈퇴</a></li>
+							<li><a href="/project/logout">로그아웃</a></li>
+						</ul>
+					</c:if>
+				</li>
+				<li>
+					<c:if test="${id == null}">
+						<a href="/project/userProvisionForm" class="headerJoinBtn">회원가입</a>
+					</c:if>
+				</li>
+			</ul>
 		</div>
+		
 	</div>
 </header>
+<!-- width:1024 이하일 때 display:block됨 -->
+<ul class="responseMypageMenu">
+	<li><a href="/project/mypage">회원정보 수정</a></li>
+	<li><a href="/project/myInfoDelForm">회원탈퇴</a></li>
+	<li><a href="/project/logout">로그아웃</a></li>
+</ul>
 </body>
-<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
-<!-- 	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>		 -->
+<script>
+
+$(document).ready(function() {
+	// 상단으로 바로가기 버튼
+	let btnTop = $('#btnTop');
+
+	btnTop.click(function() {
+		$('html, body').animate({
+			'scrollTop' : '0'
+		}, 100);
+		// ie에서 작동하기 위해서는 html로 선택해야 함.
+	});
+
+	btnTop.hover(function() {
+		$(this).css('background-color', '#cd8f47');
+	}, function() {
+		$(this).css('background-color', '#777');
+	});
+
+	$(window).scroll(function() {
+
+		let pos = $(this).scrollTop();
+
+		if (pos >= 95) {
+			btnTop.stop(true).animate({
+				'opacity' : '0.8'
+			}, 200);
+
+		} else {
+			btnTop.stop(true).animate({
+				'opacity' : '0'
+			}, 200);
+		}
+	});
+	
+	// $("#slider").nivoSlider();
+	
+	
+}); 
+</script>
 </html>

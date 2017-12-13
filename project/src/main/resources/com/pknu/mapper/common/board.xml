@@ -55,6 +55,12 @@
 		SELECT * FROM `GroupBoard${groupNum}` WHERE articleNum = #{articleNum}
 	</select>
 	
+	<select id="getFiles" parameterType="HashMap" resultType="file">
+		 SELECT storedFname 
+		 FROM filelist f, attached at 
+		 WHERE f.fileNum = at.fileNum AND at.articleNum = #{articleNum}
+	</select>
+	
 	<!-- hit 수 증가 -->
 	<update id="upHit" parameterType="HashMap">
 		UPDATE `GroupBoard${groupNum}` SET hit = hit + 1 WHERE articleNum=#{articleNum}
@@ -69,7 +75,7 @@
 	
 	<!-- filelist 테이블에 업데이트 된 파일 정보 담기 -->
 	<insert id="insertFile" parameterType="file">
-		INSERT INTO FILELIST (fileNum, storedFname, filelength)
+		INSERT INTO FILELIST (fileNum, storedFname, fileLength)
 		VALUES (0, #{storedFname}, #{fileLength});
 		INSERT INTO Attached VALUES (last_insert_id(), #{boardNum}, #{articleNum});
 	</insert>

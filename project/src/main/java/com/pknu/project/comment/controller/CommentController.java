@@ -12,18 +12,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pknu.project.comment.dto.CommentDto;
 import com.pknu.project.comment.service.CommentService;
+import com.pknu.project.common.dto.ArticleDto;
 
 @Controller
 public class CommentController {
 	@Autowired
 	CommentService commentService;
 	
+	int commentRow = 10;
+	
 	List<CommentDto> commentList = null;
 	
 	@RequestMapping(value="commentList")
 	@ResponseBody
 	public List<CommentDto> commentList(CommentDto comment){
-		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
+		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
 	}
 	
 	@RequestMapping(value="commentRead")
@@ -36,10 +39,10 @@ public class CommentController {
 	@RequestMapping(value="commentWrite")
 	@ResponseBody
 	public HashMap<String, Object> commentWrite(CommentDto comment, 
-															   HttpSession session){
+												HttpSession session) {
 		comment.setId((String)session.getAttribute("id"));
 		commentService.insertComment(comment);
-		commentList=commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
+		commentList=commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("result", 1);
 		hm.put("commentList", commentList);
@@ -48,22 +51,31 @@ public class CommentController {
 	
 	@RequestMapping(value="replyComment")
 	@ResponseBody
-	public String replyComment(CommentDto comment, HttpSession session) {
+	public HashMap<String, Object> replyComment(CommentDto comment, HttpSession session) {
 		comment.setId((String)session.getAttribute("id"));
-		return null;
+		if(comment.getCommentContent() != "") {
+			commentService.replyComment(comment);
+		}
+		commentList=commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("result", 1);
+		hm.put("commentList", commentList);
+		return hm;
 	}
 	
 	@RequestMapping(value="updateComment")
 	@ResponseBody
-	public String commentUpdate(@RequestParam String commentContent) {
-		return null;
+	public List<CommentDto> updateComment(CommentDto comment,
+											@RequestParam("commentNum") String commentNum,
+											@RequestParam("commentContent") String commentContent) {
+		commentService.updateComment(commentNum, commentContent);
+		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
 	}
 	
 	@RequestMapping(value="deleteComment")
 	@ResponseBody
-	public List<CommentDto> deleteComment(int articleNum, int boardNum, int commentNum) {
-		System.out.println(articleNum+boardNum+commentNum);
-		commentService.deleteComment(commentNum);
-		return commentService.getComments(boardNum, articleNum, 10);
+	public List<CommentDto> deleteComment(CommentDto comment) {
+		commentService.deleteComment(comment.getCommentNum());
+		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), 10);
 	}
 }
