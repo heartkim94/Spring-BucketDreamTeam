@@ -54,17 +54,4 @@ public class CommentServiceImpl implements CommentService {
 		commentMap.put("commentContent", commentContent);
 		commentDao.updateComment(commentMap);
 	}
-	
-	@Override
-	public void deleteComment(int boardNum, int articleNum, int commentNum) {
-		commentMap.put("boardNum", boardNum);
-		commentMap.put("articleNum", articleNum);
-		List<CommentDto> commentList = commentDao.getAllComments(commentMap);
-		String rootPath = commentDao.getPath(commentNum);
-		for(CommentDto comment : commentList) {
-			if(comment.getPath().contains(rootPath)) {
-				commentDao.deleteComment(comment.getCommentNum());
-			}
-		}
-	}
 }

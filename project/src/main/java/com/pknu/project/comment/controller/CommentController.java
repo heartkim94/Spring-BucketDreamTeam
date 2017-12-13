@@ -69,11 +69,4 @@ public class CommentController {
 		commentService.updateComment(commentNum, commentContent);
 		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
 	}
-	
-	@RequestMapping(value="deleteComment")
-	@ResponseBody
-	public List<CommentDto> deleteComment(CommentDto comment) {
-		commentService.deleteComment(comment.getBoardNum(), comment.getArticleNum(), comment.getCommentNum());
-		return commentService.getComments(comment.getBoardNum(), comment.getArticleNum(), commentRow);
-	}
 }
