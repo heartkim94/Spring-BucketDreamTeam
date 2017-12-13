@@ -7,7 +7,7 @@
 	
 	<select id="getComments" parameterType="HashMap" resultType="comment">
 		SELECT c.* 
-		FROM (	SELECT commentNum, id, commentContent, commentDate, articleNum, depth, @rownum:=@rownum+1 as rn 
+		FROM (	SELECT commentNum, id, commentContent, commentDate, articleNum, depth, parentNum, @rownum:=@rownum+1 as rn 
 				FROM comments, (SELECT @rownum:=0) vars 
 				WHERE boardNum=#{boardNum} AND articleNum=#{articleNum} 
 				ORDER BY path) c 
@@ -44,6 +44,8 @@
 	
 	<!-- 코멘트 삭제 -->
 	<delete id="deleteComment" parameterType="int">
-		DELETE FROM Comments WHERE commentNum=#{commentNum}
+		delete FROM Comments WHERE commentNum 
+		in (select commentNum from 
+		(select commentNum from comments where path like concat('%', #{commentNum}, '%')) result);
 	</delete>
 </mapper>

@@ -243,6 +243,7 @@ textarea {
 		$.each(data, function(index,item) {
 			html +="<div class='comment' commentNum='"+item.commentNum
 					+"' depth='"+item.depth
+					+"' parentNum='"+item.parentNum
 					+"' style='margin-left:"+ (100*item.depth) +"px'>";
 			html +="<div class='commentInfo'>";
 			if(item.depth > 0) { html += "<img src='/project/resources/img/icon_reply.gif'>"; }
@@ -250,7 +251,7 @@ textarea {
 // 			html +="<li>번호: "+item.commentNum+"</li>";
 			html +="<li>작성자: "+item.id+"&nbsp;|&nbsp;</li>";
 			html +="<li>작성일: "+item.commentDate+"</li>";
-// 			html +="<li>글번호: "+item.articleNum+"</li>";
+			html +="<li>parentNum: "+item.parentNum+"</li>";
 // 			html +="<li>depth: "+item.depth+"</li>";
 			html +="</ul></div>";
 			html +="<p class='commentContent'>"+item.commentContent+"</p>";
@@ -332,12 +333,13 @@ textarea {
 // 				let newRow = comment.clone();
 				if(commentContent == ""){
 					alert("내용을 입력하세요");
-					return;
-				}
-				if (data.result == 1) {
-// 					$("#commentContent").val("");
-// 					$(comment).append($(newRow));
-					showHtml(data.commentList, 1);
+					return showHtml(data.commentList, 1);
+				}else {
+					if (data.result == 1) {
+	// 					$("#commentContent").val("");
+	// 					$(comment).append($(newRow));
+						showHtml(data.commentList, 1);
+					}
 				}
 			}
 		});
@@ -369,7 +371,6 @@ textarea {
 		let comment = $(this).parents(".comment");
 		let commentNum = $(comment).attr("commentNum");
 		let commentContent = $(comment).find(".inTextarea").val();
-		console.log("번호"+commentNum+", 내용: "+commentContent);
 		$.ajax({
 			url : "/project/updateComment",
 			data: {
@@ -381,9 +382,10 @@ textarea {
 				if(commentContent == ""){
 					alert("내용을 입력하세요");
 					return;
+				}else {
+					$(comment).children(".commentContent").text(commentContent);
+					$(replyArea).remove();
 				}
-				$(comment).children(".commentContent").text(commentContent);
-				$(replyArea).remove();
 			}
 		});
 	});
@@ -392,13 +394,14 @@ textarea {
 		event.preventDefault();
 		let comment = $(this).parents(".comment");
 		let commentNum = $(comment).attr("commentNum");
-		let commentContent = $(comment).children(".commentContent").text();
+		let parentNum = $(comment).attr("parentNum");
 		$.ajax({
 			url : "/project/deleteComment",
 			data: {
 				articleNum : "${article.articleNum}",
 				boardNum : "${boardNum}",
-				commentNum : commentNum
+				parentNum : parentNum,
+				commentNum: commentNum
 			},
 			success: function(data){
 				showHtml(data, 1);
@@ -407,22 +410,22 @@ textarea {
 	});
 	
 	
-	function replyComment(event, parentNum, self){
-		event.preventDefault();
-		$.ajax({
-			url : "/project/replyComment",
-			data: {
-				id : "${id}",
-				commentContent : $("textarea[commentNum]'"+parentNum+"']").val(),
-				boardNum : "${boardNum}",
-				articleNum : "${article.articleNum}"
-			},
-			success: function(data){
-				alert(commentContent);
-			}
-		}); 
-		console.log(this);
-	}
+// 	function replyComment(event, parentNum, self){
+// 		event.preventDefault();
+// 		$.ajax({
+// 			url : "/project/replyComment",
+// 			data: {
+// 				id : "${id}",
+// 				commentContent : $("textarea[commentNum]'"+parentNum+"']").val(),
+// 				boardNum : "${boardNum}",
+// 				articleNum : "${article.articleNum}"
+// 			},
+// 			success: function(data){
+// 				alert(commentContent);
+// 			}
+// 		}); 
+// 		console.log(this);
+// 	}
 	
 </script>
 </html>

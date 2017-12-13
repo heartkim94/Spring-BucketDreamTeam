@@ -109,12 +109,10 @@
   		.mypageMenu {
   			display: none;
   		}
-  		.responseMypageMenu {
-  			border-bottom: 1px solid #eee;
-  		}
   		.responseMypageMenu  li {
   			float: left;
   			text-align: center;
+  			border-bottom: 1px solid #eee;
   		}
   		.responseMypageMenu  li:nth-child(1){
   			width: 40%;
@@ -129,7 +127,8 @@
   			padding: 20px 0;
   		}
     }
-}
+    
+
 </style>
 
 </head>
@@ -164,14 +163,22 @@
 									event.preventDefault();
 									$(".mypageMenu").slideToggle();
 								});
-								let width = $("body, html").css("width");
-								if(width > "1024px"){
-									$(".responseMypageMenu li").css("display", "none");
-								}
 								$('.mypageBtnIcon').on("click", function(event){
 									event.preventDefault();
 									let menu = $(".responseMypageMenu li");
 									menu.fadeToggle();
+								});
+								
+								$(window).resize(function(){
+									let windowWidth = $(window).width();
+									if(windowWidth > 1024){
+										$(".responseMypageMenu").css("display", "none");
+									}else {
+										$(".responseMypageMenu").css("display", "block");
+									}
+									if(windowWidth <= 1024){
+										$(".mypageMenu").css("display", "none");
+									}
 								});
 								
 							});
@@ -236,6 +243,7 @@ $(document).ready(function() {
 	});
 	
 	// $("#slider").nivoSlider();
+	
 	
 }); 
 </script>

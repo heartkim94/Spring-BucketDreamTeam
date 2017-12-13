@@ -7,8 +7,16 @@
 	<meta charset="utf-8">
 	<title>MAIN</title>
 <!-- 	<link rel="stylesheet" href="./resources/css/login.css"> -->
-	<link rel="stylesheet" href="resources/nivo/nivo-slider.css">
-	<link rel="stylesheet" href="resources/nivo/default.css">
+<!-- 	<link rel="stylesheet" href="resources/nivo/nivo-slider.css"> -->
+<!-- 	<link rel="stylesheet" href="resources/nivo/default.css"> -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/css/swiper.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/css/swiper.min.css">
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.esm.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.esm.bundle.js"></script>
 </head>
 
 <body>
@@ -65,13 +73,25 @@
 				</div>
 			</div>
 			<div class="contentRow contentRow2">
-				<div class="slider-wrapper theme-default">
-					<div id="slider" class="">
-						<img src="resources/img/slider1.jpg" />
-						<img src="resources/img/slider2.jpg" />
-						<img src="resources/img/slider3.jpg" />
+<!-- 				<div class="slider-wrapper theme-default"> -->
+<!-- 					<div id="slider" class=""> -->
+<!-- 						<img src="resources/img/slider1.png" /> -->
+<!-- 						<img src="resources/img/slider2.png" /> -->
+<!-- 						<img src="resources/img/slider3.png" /> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+				<div class="swiper-containe">
+					<div id="slider" class="swiper-wrapper">
+						<div class="swiper-slide" style="background-image:url(resources/img/slider1.png)"></div>
+						<div class="swiper-slide" style="background-image:url(resources/img/slider2.png)"></div>
+						<div class="swiper-slide" style="background-image:url(resources/img/slider3.png)"></div>
 					</div>
-				</div>
+						<!-- Add Pagination -->
+					    <div class="swiper-pagination swiper-pagination-white"></div>
+					    <!-- Add Arrows -->
+					    <div class="swiper-button-next swiper-button-white"></div>
+					    <div class="swiper-button-prev swiper-button-white"></div>
+					</div>
 			</div>
 			<div class="contentRow contentRow3">
 				<ul>
@@ -92,7 +112,7 @@
 	<%@ include file="footer.jsp" %>
 </div> <!-- wrapper End -->
 </body>
-<style type="text/css">
+<style>
 		section .mainContent {
 			width: 100%;
 		}
@@ -199,8 +219,8 @@
 		}
 		.contentRow3 li {
 			display: inline-block;
-		    width: 335px;
-		    padding-top: 164px;
+		    width: 330px;
+		    padding-top: 180px;
 		    text-align: center;
 		    vertical-align: top;
 		    background-position: 50% 49px;
@@ -220,10 +240,32 @@
 		.contentRow3 p {
 			font-size: 14px;
 			letter-spacing: -.2px;
+			padding-bottom: 20px;
 		}
-		.clear {
-			clear: both;
+		/* response style */
+		@media (max-width: 1024px) {
+			/* contentRow3 */
+			.contentRow3 {
+				padding: 25px 0;
+			}
+			.contentRow3 ul {
+				width: 100%;
+			}
+			.contentRow3 li {
+				width: 100%;
+			}
 		}
+		@media (max-width: 768px) {
+	  		.contentRow1 {
+	  			padding: 50px 0;
+	  			display: block;
+	  		}
+	  		.centerLine {
+	  			margin: 25px 0;
+	  		}
+  		}
+		
+		
 	</style>
 	<script src="resources/nivo/jquery.nivo.slider.js"></script>
 <script>
@@ -236,7 +278,24 @@
 // 		}
 // 		document.location.href="./";
 		
-		$("#slider").nivoSlider();
+// 		$("#slider").nivoSlider();
+	
+		var swiper = new Swiper('.swiper-container', {
+	      spaceBetween: 30,
+	      centeredSlides: true,
+	      autoplay: {
+	        delay: 2500,
+	        disableOnInteraction: false,
+	      },
+	      pagination: {
+	        el: '.swiper-pagination',
+	        clickable: true,
+	      },
+	      navigation: {
+	        nextEl: '.swiper-button-next',
+	        prevEl: '.swiper-button-prev',
+	      },
+	    });
 	});
 		
 </script>
