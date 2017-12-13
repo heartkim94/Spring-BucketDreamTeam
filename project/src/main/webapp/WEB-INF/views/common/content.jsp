@@ -5,8 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>글 상세 보기</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<%-- <link href="<c:url value='/resources/bootstrap-3.3.7/css/bootstrap.min.css'/>" rel="stylesheet"> --%>
+<link href="<c:url value='/resources/bootstrap-3.3.7/css/bootstrap.min.css'/>" rel="stylesheet">
 <style>
     #contentForm {
       width: 100%;
@@ -97,12 +96,6 @@
           </c:if>
         </div>
         <table id="commentTable" class="table table-condensed"></table>
-        <!-- Comment 태그 추가 -->
-		<div class="input-group" role="group" aria-label="..." style="margin-top: 10px; width: 100%;">
-<!-- 		    <div id="showComment" style="text-align: center;"></div> -->
-			<div id="showComment"></div>
-		</div>
-		<table id="commentWrite" class="table table-condensed"></table>
         <div class="input-group" role="group" aria-label="..." style="margin-top: 10px; width: 100%;">
 		    <p>전체 코멘트: <span style="color: blue">(${article.commentCount})</span></p>
 		    <textarea class="form-control" rows="3" id="commentContent" placeholder="댓글을 입력하세요." style="width: 100%;" ></textarea>
@@ -116,7 +109,11 @@
 		    </div>
 		</div>
 		 
-
+		<!-- Comment 태그 추가 -->
+		<div class="input-group" role="group" aria-label="..." style="margin-top: 10px; width: 100%;">
+<!-- 		    <div id="showComment" style="text-align: center;"></div> -->
+			<div id="showComment"></div>
+		</div>
 
 
         </div>
@@ -175,27 +172,26 @@
 	
 	function showHtml(data, commPageNum){
 		console.log(data);
-		var commentParentText = '<tr id="r1" name="commentParentCode">';
+		var html = "<article class='commentList'>";
 		$.each(data, function(index,item){
-			commentParentText += '<td colspan=2>';
-			commentParentText +="<strong>"+(index+1)+"</strong>";
-			commentParentText +="<strong>"+item.id+"</strong>";
-			commentParentText +="<strong>"+item.commentContent+"</strong>";
-			commentParentText +="<strong>"+item.commentDate+"</strong>";
-			commentParentText +="<a href='#' onclick='openReplyArea(event,"+item.commentNum+", this)'>답변</a>";
-			commentParentText +="<a href='#' onclick=''>수정</a>";
-			commentParentText +="<a href='#' onclick='deleteComment(event,"+item.commentNum+", this)'>삭제</a>";
-			commentParentText +="</ul>";
-			commentParentText +="</td>";	
+			html +="<div class='comment' commentNum='"+item.commentNum+"'>";
+			html +="<div class='commentInfo'><ul>";
+			html +="<li>"+(index+1)+"</li>";
+			html +="<li>"+item.id+"</li>";
+			html +="<li>"+item.commentContent+"</li>";
+			html +="<li>"+item.commentDate+"</li>";
+// 			html +="<li>"+item.articleNum+"</li>";
+			html +="</ul></div>";	
+// 			html +="<p>"+item.commentContent+"</p>";
+			html +="<ul class='btnComment'>";
+			html +="<li class='btnReComment'><a href='#' onclick='openReplyArea(event,"+item.commentNum+", this)'>답변</a></li>";
+			html +="<li><a href='#' onclick=''>수정</a></li>";
+			html +="<li><a href='#' onclick='deleteComment(event,"+item.commentNum+", this)'>삭제</a></li>";
+			html +="</ul>";
+			html +="</div>";	
 		});		
-		commentParentText +="</tr>";
+		html +="</article>";
 		commPageNum = parseInt(commPageNum);
-		if($('#commentWrite').contents().size==0) {
-			$('#commentWrite').append(commentParentText);
-		}else {
-			$('#commentWrite tr:last').after(commentParentText);
-		}
-		
 		if("${article.commentCount}" > commPageNum * 10){
 			nextPageNum = commPageNum+1;
 			html +="<br /><input type='button' onclick='getComment(nextPageNum,event)' value='다음comment보기'><br>";
