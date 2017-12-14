@@ -12,7 +12,7 @@
 		where	g.groupNum = -1
 				and userNum = #{userNum};
 	</select>
-	<select id="getMyGroup" parameterType="String" resultType="group">
+	<select id="getMyGroupList" parameterType="String" resultType="group">
 		select	g.*, ifnull(cnt, 0) as memberCount
 		from	groups g
 				left join	members m	on g.groupNum = m.groupNum
@@ -23,8 +23,25 @@
 		            					on g.groupNum = c.groupNum
 		where 	u.id = #{id};
 	</select>
+	<select id="getGroups" resultType="group">
+		SELECT g.groupNum, g.groupName, g.profileImg, memberCount
+		FROM groups g 
+			JOIN members m ON g.groupNum = m.groupNum 
+			JOIN (	SELECT groupNum, count(groupNum) as memberCount 
+		            FROM members 
+					GROUP BY groupNum) cnt ON g.groupNum = cnt.groupNum 
+		WHERE g.groupNum != -1
+		GROUP BY groupNum
+	</select>
 	<select id="getGroup" parameterType="int" resultType="group">
-		SELECT * FROM Groups WHERE groupNum=#{groupNum}
+		SELECT g.*, u.id as groupOwnerId 
+		FROM Groups g, users u
+		WHERE g.groupNum=#{groupNum} AND g.groupOwner=u.userNum
+	</select>
+	<select id="memberList" parameterType="int" resultType="String">
+		SELECT u.id 
+		FROM users u, (SELECT userNum FROM members WHERE groupNum=#{groupNum}) uNum 
+		WHERE u.userNum=uNum.userNum
 	</select>
 	<select id="getCategory" resultType="category">
 		SELECT c2.*
@@ -52,7 +69,17 @@
 	</update>
 	
 	<delete id="deleteGroup" parameterType="int">
-		DELETE FROM groups
+		DELETE FROM groups 
 		WHERE groupNum=#{groupNum}
+	</delete>
+	
+	<insert id="joinGroup" parameterType="HashMap">
+		INSERT INTO members 
+		VALUES(#{groupNum}, (SELECT userNum FROM users u WHERE u.id=#{id}))
+	</insert>
+	
+	<delete id="leaveGroup" parameterType="HashMap">
+		DELETE FROM members 
+		WHERE groupNum=#{groupNum} AND userNum=(SELECT userNum FROM users u WHERE u.id=#{id})
 	</delete>
 </mapper>

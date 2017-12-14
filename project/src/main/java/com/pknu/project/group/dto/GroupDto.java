@@ -10,6 +10,7 @@ public class GroupDto {
 	private String groupOwnerId;
 	private int catNum;
 	private int memberCount;
+	private String profileImg;
 	
 	public int getGroupNum() {
 		return groupNum;
@@ -46,5 +47,11 @@ public class GroupDto {
 	}
 	public void setMemberCount(int memberCount) {
 		this.memberCount = memberCount;
+	}
+	public String getProfileImg() {
+		return profileImg;
+	}
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
 	}
 }

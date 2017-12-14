@@ -24,23 +24,45 @@ public class GroupServiceImpl implements GroupService {
 	
 	private GroupDto group;
 	private HashMap<String, String> paramMap;
-	@Override
-	public void getMyGroup(String id, Model model) {
-		model.addAttribute("groupList", groupDao.getMyGroup(id));
-	}
 	
+	@Override
+	public void getMyGroupList(String id, Model model) {
+		model.addAttribute("myGroupList", groupDao.getMyGroupList(id));
+	}
+
+	@Override
+	public void getGroups(Model model) {
+		model.addAttribute("groupList", groupDao.getGroups());
+	}
+
 	@Override
 	public GroupDto getGroup(int groupNum, Model model) {
 		group = groupDao.getGroup(groupNum);
-		if(model!=null) {
-			model.addAttribute("group", group);
-		}
+		List<String> memberList = groupDao.memberList(groupNum);
+		model.addAttribute("group", group);
+		model.addAttribute("memberList", memberList);
 		return group;
 	}
 	
 	@Override
 	public void deleteGroup(int groupNum) {
 		groupDao.deleteGroup(groupNum);
+	}
+	
+	@Override
+	public void joinGroup(String id, int groupNum) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("id", id);
+		paramMap.put("groupNum", String.valueOf(groupNum));
+		groupDao.joinGroup(paramMap);
+	}
+
+	@Override
+	public void leaveGroup(String id, int groupNum) {
+		paramMap = new HashMap<>();
+		paramMap.put("id", id);
+		paramMap.put("groupNum", String.valueOf(groupNum));
+		groupDao.leaveGroup(paramMap);
 	}
 	
 	/* new */
