@@ -10,6 +10,7 @@ public class TodoDto {
 	private boolean doAllDay;
 	private String color;
 	private boolean done;
+	private String memo;
 	private int parentNum;
 	private String path;
 	private int pos;
@@ -70,6 +71,12 @@ public class TodoDto {
 	}
 	public void setDone(boolean done) {
 		this.done = done;
+	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 	public int getParentNum() {
 		return parentNum;

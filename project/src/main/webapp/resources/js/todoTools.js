@@ -80,6 +80,7 @@ $(function() {
 			let selected = todoList.get(doNum);
 			let prev = todoList.getPrev(doNum);
 			
+			console.log(prev);
 			if(prev!=null) {
 				todoList.getNextAll(doNum).map(function(todo) {
 					todo.pos += -1;
@@ -225,6 +226,15 @@ $(function() {
 			let doNum =$(".selected").attr("doNum");
 			let todo = todoList.get(doNum);
 			todo.doAllDay = $(this).prop("checked");
+			
+			if($(this).prop("checked")) {
+				$(".todoContent [type=time]").prop("readonly", true)
+											 .val("");
+			} else {
+				$(".todoContent [type=time]").prop("readonly", false);
+				$(".todoContent [name=doWhenTime]").val(todo.doWhenTime);
+				$(".todoContent [name=doEndTime]").val(todo.doEndTime);
+			}
 		}
 	})
 	$(".todoContent [type=date]").change(function() {
@@ -242,6 +252,14 @@ $(function() {
 			let todo = todoList.get(doNum);
 			todo.color = $(this).val();
 			todoList.list(doNum);
+		}
+	});
+	
+	$(".todoContent .memo").on("blur", function() {
+		if($(".selected").exist()) {
+			let doNum = $(".selected").attr("doNum");
+			let todo = todoList.get(doNum);
+			todo.memo = $(this).val();
 		}
 	});
 	
@@ -267,6 +285,7 @@ $(function() {
 				todo.doEnd = null;
 				todo.doEndTime = null;
 			}
+			console.log(todo.memo);
 			
 			updateList.push(todo);
 		}
@@ -295,17 +314,6 @@ $(function() {
 	});
 });
 
-function rgb2hex(rgb) {
-    if (  rgb.search("rgb") == -1 ) {
-         return rgb;
-    } else {
-         rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
-         function hex(x) {
-              return ("0" + parseInt(x).toString(16)).slice(-2);
-         }
-         return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
-    }
-}
 jQuery.fn.exist = function() {
 	return this.length > 0;
 }
@@ -331,6 +339,7 @@ function Todo(todo) {		// *1: convert string to int
 	this.doAllDay = (todo.doAllDay == "true");
 	this.color = todo.color;
 	this.done = (todo.done == "true");
+	this.memo = todo.memo;
 	this.parentNum = todo.parentNum *1;
 	this.path = todo.path;
 	this.pos = todo.pos *1;
@@ -350,6 +359,7 @@ TodoList.prototype.select = function(doNum) {
 	$(".selected").removeClass("selected");
 	$(".todoList li[doNum="+doNum+"]").addClass("selected");
 	
+	// 선택한 todo의 정보를 .todoContent에 표시함
 	let todo = this.get(doNum);
 	$(".todoContent [name=doName]").val(todo.doName);
 	$(".todoContent [name=doAllDay]").prop("checked", todo.doAllDay);
@@ -366,6 +376,7 @@ TodoList.prototype.select = function(doNum) {
 	if(todo.color) {
 		$(".todoContent [name=color]").val(todo.color);
 	}
+	$(".todoContent .memo").val(todo.memo);
 }
 TodoList.prototype.list = function(doNum = null) {
 	let self = this;
@@ -424,23 +435,24 @@ TodoList.prototype.list = function(doNum = null) {
 	$(".todoCalendar .todo").remove();
 	for(let i=0; i<this.length; i++) {
 		if(this[i].doWhen) {
-			let date = new Date(this[i].doWhen);
-			let today = new Date();
+			let todoDate = new Date(this[i].doWhen);
 			
-			if(date.getMonth() == today.getMonth()) {
-				let li = $(".todoCalendar .date").filter(function(index, item) {
-					let date = $(item).attr("date");
-					return (self.checkDate(self[i].doNum, date));
+			let li = $(".todoCalendar .date").filter(function(index, item) {
+				let date = $(item).attr("date");
+				return (self.checkDate(self[i].doNum, date));
+			});
+			
+			if(li) {
+				let todo = $("<div/>", {
+					class: "todo",
+					doNum: this[i].doNum,
+					text: this[i].doName,
 				});
-				if(li) {
-					let todo = $("<div/>", {
-						class: "todo",
-						doNum: this[i].doNum,
-						text: this[i].doName,
-					});
-					$(todo).css("background", this[i].color);
-					$(todo).insertAfter(li);
+				if(!this[i].color) {
+					this[i].color = $(".todoContent [name=color]").val();
 				}
+				$(todo).css("background", this[i].color);
+				$(todo).insertAfter(li);
 			}
 		}
 	}
@@ -537,10 +549,6 @@ TodoList.prototype.delete = function(doNum) {
 TodoList.prototype.checkDate = function(doNum, date) {
 	let todo = this.get(doNum);
 	if(todo.doWhen && todo.doEnd) {
-		console.log(date);
-		console.log(todo.doWhen, "~", todo.doEnd);
-		console.log(date >= todo.doWhen);
-		console.log(date <= todo.doEnd);
 		if(date >= todo.doWhen && date <= todo.doEnd) { return true; }
 	}
 	if(todo.doWhen) {

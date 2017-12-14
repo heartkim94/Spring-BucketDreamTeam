@@ -7,19 +7,19 @@
 	<select id="getTodoList" parameterType="int" resultType="todo">
 		SELECT	doNum, doName, date_format(doWhen, "%Y-%m-%d") as doWhen, date_format(doWhen, "%H:%i") as doWhenTime,
 				date_format(doEnd, "%Y-%m-%d") as doEnd, date_format(doEnd, "%H:%i") as doEndTime, doAllDay, color,
-				done, parentNum, path, pos, depth, groupNum, userNum   
+				done, memo, parentNum, path, pos, depth, groupNum, userNum   
 		FROM	TodoList
 		WHERE	groupNum = #{groupNum}
 		ORDER BY path;
 	</select>
 	
 	<insert id="updateTodoList" parameterType="HashMap">
-		INSERT INTO TodoList(doNum, doName, doWhen, doEnd, doAllDay, color, done, parentNum, path, pos, depth, groupNum, userNum)
+		INSERT INTO TodoList(doNum, doName, doWhen, doEnd, doAllDay, color, done, memo, parentNum, path, pos, depth, groupNum, userNum)
 		VALUES
 		<foreach collection="todoList" item="todo" separator=", ">
 			(#{todo.doNum}, #{todo.doName}, concat(#{todo.doWhen}, ' ', #{todo.doWhenTime}),
 					concat(#{todo.doEnd}, ' ', #{todo.doEndTime}), #{todo.doAllDay},
-					#{todo.color}, #{todo.done}, #{todo.parentNum},
+					#{todo.color}, #{todo.done}, #{todo.memo}, #{todo.parentNum},
 					#{todo.path}, #{todo.pos}, #{todo.depth}, #{groupNum},
 					(SELECT userNum FROM Users WHERE id=#{id}))
 		</foreach>
@@ -30,6 +30,7 @@
 			doAllDay	= VALUES(doAllDay),
 			color		= VALUES(color),
 			done 		= VALUES(done),
+			memo		= VALUES(memo),
 			parentNum 	= VALUES(parentNum),
 			path 		= VALUES(path),
 			pos 		= VALUES(pos),

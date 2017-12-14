@@ -45,8 +45,11 @@
 			height: 100px;
 			vertical-align: top;
 			font-size: 0.9em;
+			overflow: hidden;
 		}
 		.todoCalendar .todo {
+			width: 100px;
+			box-sizing: border-box;
 			border-radius: 5px;
 			white-space: nowrap;
 			overflow: hidden;
@@ -87,27 +90,30 @@
 						<div class="todoList">
 							<ul></ul>
 							<hr class="line">
-							<span>
+							<span class="todoTools">
 								<button class="moveUpTodo">▲</button>
 								<button class="moveDownTodo">▼</button>
 								<button class="moveLeftTodo">◀</button>
 								<button class="moveRightTodo">▶</button>
+								<button class="addTodo">추가</button>
+								<button class="deleteTodo">제거</button>
 							</span>
 							<hr class="line">
-							<div class="todoTools">
-								<ul>
-									<li>
-										<button class="renameTodo">이름 변경</button>
-										<button class="addTodo">목표 추가</button>
-										<button class="deleteTodo">목표 제거</button>
-									</li>
-								</ul>
-							</div>
+<!-- 							<div class="todoTools"> -->
+<!-- 								<ul> -->
+<!-- 									<li> -->
+<!-- 										<button class="renameTodo">이름 변경</button> -->
+<!-- 										<button class="addTodo">목표 추가</button> -->
+<!-- 										<button class="deleteTodo">목표 제거</button> -->
+<!-- 									</li> -->
+<!-- 								</ul> -->
+<!-- 							</div> -->
 							<div class="todoContent">
 								<br>
 								<ul>
 									<li>
 										<label>이름: <input type="text" name="doName"></label>
+										<button>저장</button>
 									<li>
 									<li>일시 <input type="checkbox" name="doAllDay">하루종일</li>
 									<li>시작: <input type="date" name="doWhen"></li>
@@ -115,11 +121,8 @@
 									<li>종료: <input type="date" name="doEnd"></li>
 									<li>종료시간: <input type="time" name="doEndTime" readonly></li>
 									<li>색깔: <input type="color" name="color" value="#73AD21"></li>
-									<li>|</li>
-									<li>|예시</li>
-									<li>종료: [2017-12:15] [오후 12:00]</li>
 									<li>메모</li>
-									<li><textarea>aaa</textarea><li>
+									<li><textarea class="memo"></textarea><li>
 								</ul>
 								<div class="test">
 								</div>
@@ -153,6 +156,7 @@ $(function() {
 		doAllDay: "${todo.doAllDay}",
 		color: "${todo.color}",
 		done: "${todo.done}",
+		memo: "${todo.memo}",
 		parentNum: "${todo.parentNum}",
 		path: "${todo.path}",
 		pos: "${todo.pos}",
@@ -166,7 +170,6 @@ $(function() {
 	
 	
 	$(".calendar").on("click", ".calendarLeft", function() {
-		console.log("list");
 		todoList.list();
 	});
 	
