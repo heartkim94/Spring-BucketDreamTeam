@@ -54,7 +54,8 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="/{groupNum}/view", method=RequestMethod.GET)
-	public String view(@PathVariable("groupNum") int groupNum, Model model) {
+	public String view(@PathVariable("groupNum") int groupNum,
+						HttpSession session, Model model) {
 		groupService.getGroup(groupNum, model);
 		boardService.getBoards(groupNum, model);
 		return "group/view";

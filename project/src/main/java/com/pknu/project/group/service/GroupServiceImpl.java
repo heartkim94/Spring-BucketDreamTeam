@@ -38,9 +38,9 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public GroupDto getGroup(int groupNum, Model model) {
 		group = groupDao.getGroup(groupNum);
-		if(model!=null) {
-			model.addAttribute("group", group);
-		}
+		List<String> memberList = groupDao.memberList(groupNum);
+		model.addAttribute("group", group);
+		model.addAttribute("memberList", memberList);
 		return group;
 	}
 	

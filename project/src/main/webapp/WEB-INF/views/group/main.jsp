@@ -11,14 +11,14 @@
 /* 			border: 1px solid black; */
 			margin: 20px;
 			width: 200px;
-			height: 300px;
+			height: 250px;
 			cursor: pointer;
 			float: left;
 		}
 		.clear {
 			clear: both;
 		}
-		.groupList .group img {
+		.group img {
 			width: 200px;
 			height: 200px;
 		}
@@ -36,12 +36,12 @@
 				<div class="myGroupContainer">
 					내 그룹
 					<div class="myGroup">
-						<div class="newGroup">
+						<div class="newGroup" style="border:1px solid">
 							그룹추가하기
 						</div>
 						<c:forEach var="myGroup" items="${myGroupList}">
 							<div class="group" groupNum="${myGroup.groupNum}">
-								프로필이미지<br>
+								<img src="/project/resources/img/흐엉.jpg" alt="프로필 이미지 없음"><br>
 								${myGroup.groupName}<br>
 								멤버:${myGroup.memberCount}명
 							</div>

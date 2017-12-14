@@ -12,6 +12,7 @@ public interface GroupDao {
 	public List<GroupDto> getMyGroup(String id);
 	public List<GroupDto> getGroups();
 	public GroupDto getGroup(int groupNum);
+	public List<String> memberList(int groupNum);
 	public List<CategoryDto> getCategory();
 	public void newGroup(GroupDto group);
 	public void deleteGroup(int groupNum);

@@ -27,7 +27,7 @@
 				<%@ include file="asideMenu.jsp" %>
 				<div class="groupMain">
 					내용<br>
-					asdsdaf<br>
+					git싫엉<br>
 				</div>
 				<%@ include file="asideApp.jsp" %>
 				<div class="clear"></div>

@@ -34,7 +34,14 @@
 		GROUP BY groupNum
 	</select>
 	<select id="getGroup" parameterType="int" resultType="group">
-		SELECT * FROM Groups WHERE groupNum=#{groupNum}
+		SELECT g.*, u.id as groupOwnerId 
+		FROM Groups g, users u
+		WHERE g.groupNum=#{groupNum} AND g.groupOwner=u.userNum
+	</select>
+	<select id="memberList" parameterType="int" resultType="String">
+		SELECT u.id 
+		FROM users u, (SELECT userNum FROM members WHERE groupNum=#{groupNum}) uNum 
+		WHERE u.userNum=uNum.userNum
 	</select>
 	<select id="getCategory" resultType="category">
 		SELECT c2.*
