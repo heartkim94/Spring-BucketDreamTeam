@@ -69,7 +69,17 @@
 	</update>
 	
 	<delete id="deleteGroup" parameterType="int">
-		DELETE FROM groups
+		DELETE FROM groups 
 		WHERE groupNum=#{groupNum}
+	</delete>
+	
+	<insert id="joinGroup" parameterType="HashMap">
+		INSERT INTO members 
+		VALUES(#{groupNum}, (SELECT userNum FROM users u WHERE u.id=#{id}))
+	</insert>
+	
+	<delete id="leaveGroup" parameterType="HashMap">
+		DELETE FROM members 
+		WHERE groupNum=#{groupNum} AND userNum=(SELECT userNum FROM users u WHERE u.id=#{id})
 	</delete>
 </mapper>

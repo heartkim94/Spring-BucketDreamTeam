@@ -16,6 +16,8 @@ public interface GroupDao {
 	public List<CategoryDto> getCategory();
 	public void newGroup(GroupDto group);
 	public void deleteGroup(int groupNum);
+	public void joinGroup(HashMap<String, Object> paramMap);
+	public void leaveGroup(HashMap<String, String> paramMap);
 	
 	/* todo */
 	public List<TodoDto> getTodoList(int groupNum);

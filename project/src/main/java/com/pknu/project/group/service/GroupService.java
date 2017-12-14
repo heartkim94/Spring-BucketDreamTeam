@@ -14,6 +14,8 @@ public interface GroupService {
 	public void getCategory(Model model);
 	public void newGroup(GroupDto group);
 	public void deleteGroup(int groupNum);
+	public void joinGroup(String id, int groupNum);
+	public void leaveGroup(String id, int groupNum);
 	
 	/* todo */
 	public void getTodoList(int groupNum, Model model);

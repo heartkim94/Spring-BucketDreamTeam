@@ -67,11 +67,22 @@ public class GroupController {
 		return "redirect:../group/main";
 	}
 	
+	@RequestMapping(value="/{groupNum}/joinGroup")
+	public String joinGroup(HttpSession session, int groupNum) {
+		groupService.joinGroup(String.valueOf(session.getAttribute("id")), groupNum);
+		return "redirect:../group/main";
+	}
+	
+	@RequestMapping(value="/{groupNum}/leaveGroup")
+	public String leaveGroup(HttpSession session, int groupNum) {
+		groupService.leaveGroup(String.valueOf(session.getAttribute("id")), groupNum);
+		return "redirect:../group/main";
+	}
+	
 	@RequestMapping(value="/group/goalSettingForm", method=RequestMethod.GET)
 	public String goalSetting() {
 		return "group/goalSetting";
 	}
-	
 	
 	
 	

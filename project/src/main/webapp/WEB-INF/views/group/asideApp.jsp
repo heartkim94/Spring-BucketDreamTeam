@@ -49,9 +49,9 @@ $(document).ready(function(data) {
 		if("${id}" == item) { isGroupMember=true; }
 	});
 	if(!isGroupMember) {
-		html += "<li><input type='button' id='joinGroup' value='그룹 가입' onclick='document.location.href=\"#\"'></li>";
+		html += "<li><input type='button' id='joinGroup' value='그룹 가입' onclick='document.location.href=\"joinGroup?groupNum=${groupNum}\"'></li>";
 	} else {
-		html += "<li><input type='button' id='leaveGroup' value='그룹 탈퇴' onclick='document.location.href=\"#\"'></li>";
+		html += "<li><input type='button' id='leaveGroup' value='그룹 탈퇴' onclick='document.location.href=\"leaveGroup?groupNum=${groupNum}\"'></li>";
 	}
 	html += "</article>";
 	$("#groupIO").html(html);

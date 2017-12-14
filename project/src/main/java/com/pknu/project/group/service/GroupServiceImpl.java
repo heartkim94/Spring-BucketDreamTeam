@@ -29,7 +29,7 @@ public class GroupServiceImpl implements GroupService {
 	public void getMyGroupList(String id, Model model) {
 		model.addAttribute("myGroupList", groupDao.getMyGroupList(id));
 	}
-	
+
 	@Override
 	public void getGroups(Model model) {
 		model.addAttribute("groupList", groupDao.getGroups());
@@ -47,6 +47,22 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public void deleteGroup(int groupNum) {
 		groupDao.deleteGroup(groupNum);
+	}
+	
+	@Override
+	public void joinGroup(String id, int groupNum) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("id", id);
+		paramMap.put("groupNum", String.valueOf(groupNum));
+		groupDao.joinGroup(paramMap);
+	}
+
+	@Override
+	public void leaveGroup(String id, int groupNum) {
+		paramMap = new HashMap<>();
+		paramMap.put("id", id);
+		paramMap.put("groupNum", String.valueOf(groupNum));
+		groupDao.leaveGroup(paramMap);
 	}
 	
 	/* new */
