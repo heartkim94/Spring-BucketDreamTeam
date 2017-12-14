@@ -56,7 +56,7 @@
 	</select>
 	
 	<select id="getFiles" parameterType="HashMap" resultType="file">
-		 SELECT storedFname 
+		 SELECT storedFname, f.fileNum
 		 FROM filelist f, attached at 
 		 WHERE f.fileNum = at.fileNum AND at.articleNum = #{articleNum}
 	</select>
@@ -108,7 +108,7 @@
 	</select>
 	
 	<!-- 답글 달기 -->
-	<insert id="reply" parameterType="article">
+	<insert id="reply" parameterType="article" useGeneratedKeys="true" keyProperty="articleNum" keyColumn="articleNum">
 		INSERT INTO `GroupBoard${groupNum}` (id, title, content, depth, hit, groupId, pos, writeDate, fileStatus, boardNum) 
 					VALUES (#{id}, #{title}, #{content}, #{depth}+1, 0, #{groupId}, #{pos}+1, now(), #{fileStatus}, #{boardNum});
 	</insert>
@@ -156,4 +156,14 @@
 		SET title=#{title}, content=#{content}, fileStatus=#{fileStatus}
 		WHERE articleNum=#{articleNum}
 	</update>
+	
+	<delete id="someDelFile" parameterType="List">
+		delete 
+		from FILELIST 
+		where storedFname IN
+		<foreach collection="list" item="storedFname" open="(" separator="," close=")">
+			#{storedFname}
+		</foreach>
+	</delete>
+	
 </mapper>

@@ -20,8 +20,7 @@ public interface BoardService {
 	public String deleteBoard(int boardNum);
 	/* Article */
 	public void getArticles(int groupNum, int boardNum, int pageNum, Model model);
-	public ArticleDto getArticle(int groupNum, String boardNum, String articleNum,
-			int fileStatus, Model model);
+	public ArticleDto getArticle(int groupNum, String boardNum, String articleNum, int fileStatus, Model model);
 	public void writeArticle(ArticleDto article);
 	//검색 기능 구현
 	public void getSearchedArticles(int groupNum, int boardNum, int pageNum, String searchOption, String keyword, Model model);

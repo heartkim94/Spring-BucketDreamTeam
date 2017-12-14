@@ -1,5 +1,7 @@
 package com.pknu.project.community.controller;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -68,9 +70,10 @@ public class CommunityController {
 			@RequestParam("articleNum") String articleNum,
 			@ModelAttribute("pageNum") String pageNum,
 			@RequestParam("fileStatus") int fileStatus,
-			Model model, HttpSession session) {						
+			Model model, HttpSession session) {	
+
 		boardService.getArticle(-1, boardNum, articleNum, fileStatus, model);
-		System.out.println("***getNoticeArticle***");
+		System.out.println("***getArticle***");
 		return "community/content";
 	}
 	
@@ -136,7 +139,8 @@ public class CommunityController {
 	public String updateForm(@ModelAttribute("articleNum") String articleNum,
 							 @ModelAttribute("boardNum") String boardNum,
 							 @ModelAttribute("pageNum") int pageNum,
-							 @ModelAttribute("fileStatus") int fileStatus, Model model) {
+							 @ModelAttribute("fileStatus") int fileStatus, Model model
+							 ) {
 		boardService.updateGetArticle(-1, articleNum, boardNum, fileStatus, model);
 		model.addAttribute("action", "update");
 		return "community/writeForm";
@@ -155,9 +159,12 @@ public class CommunityController {
 	@RequestMapping(value="/download")
 	@ResponseBody
 	public FileSystemResource download(HttpServletResponse resp,
-										@RequestParam("storedFname") String storedFname) {
-		
+										@RequestParam("storedFname") String storedFname,
+										@RequestParam("fileNum") int fileNum) {
+		System.out.println("fileNum: "+fileNum);
 		return boardService.download(resp, storedFname);
 	}
+	
+	
 	
 }

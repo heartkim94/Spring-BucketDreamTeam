@@ -67,6 +67,12 @@ input {
 textarea {
 	box-sizing: border-box;
 }
+
+@media (max-width: 1024px) {
+	div.subContent {
+		width: 100%;
+	}
+}
 </style>
 </head>
 <body>
@@ -96,7 +102,7 @@ textarea {
 					<c:if test="${fileList!=null}">
 						<ul>
 							<c:forEach var="file" items="${fileList}">
-								<li>
+								<li>(${file.fileNum})
 									<a href="/project/community/download?storedFname=${file.storedFname}">${file.storedFname.substring(file.storedFname.indexOf("_")+1)}</a>
 								</li>
 							</c:forEach>
@@ -117,6 +123,7 @@ textarea {
 		<input type="hidden" name="depth" value="${article.depth}">
     	<input type="hidden" name="pos" value="${article.pos}">
    	 	<input type="hidden" name="groupId" value="${article.groupId}">
+   	 	<input type="hidden" name="fileNum" value="${file.fileNum}">
    		<c:if test="${id !=null}">
 	    	<ul class="btnConfirm">
 				<li><input type="button" value="목록으로" onclick="document.location.href='list?boardNum=${boardNum}&pageNum=${pageNum}'"></li>

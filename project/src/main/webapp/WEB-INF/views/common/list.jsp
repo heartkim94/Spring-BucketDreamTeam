@@ -64,7 +64,7 @@
 </head>
 <body>
 	<%@ include file="listSearch.jsp" %>
-    ${totalCount}개의 게시물이 있습니다.
+<%--     ${totalCount}개의 게시물이 있습니다. --%>
     
 	<table class="listTable" style=TABLE-layout:fixed>
 		<thead>

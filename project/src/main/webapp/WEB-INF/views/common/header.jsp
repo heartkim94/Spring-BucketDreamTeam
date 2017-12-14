@@ -121,7 +121,10 @@
   		.responseMypageMenu  li:nth-child(1){
   			width: 40%;
   		}
-  		.responseMypageMenu  li:nth-child(2), li:nth-child(3){
+  		.responseMypageMenu  li:nth-child(2){
+  			width: 30%;
+  		}
+  		.responseMypageMenu  li:nth-child(3){
   			width: 30%;
   		}
   		.responseMypageMenu a {
