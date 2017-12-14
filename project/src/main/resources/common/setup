@@ -30,6 +30,7 @@ CREATE TABLE Groups(
     groupName varchar(200) NOT NULL,
     groupOwner int /*NOT*/ NULL,
     catNum int NOT NULL,
+    profileImg varchar(100),
     FOREIGN KEY(groupOwner) REFERENCES Users(userNum) ON DELETE SET NULL,
     FOREIGN KEY(catNum) REFERENCES Categorys(catNum)
 ) ENGINE=InnoDb;
@@ -109,7 +110,7 @@ CREATE TABLE ProfileOf(
 INSERT INTO Users(userNum, id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
     VALUES(-1, 'admin', '1234', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
 INSERT INTO Categorys(catNum, catName, parentNum, path) VALUES(-1, 'hidden', 0, '-1');
-INSERT INTO Groups(groupNum, groupName, groupOwner, catNum) VALUES(-1, 'AdminGroup', -1, -1);
+INSERT INTO Groups(groupNum, groupName, groupOwner, catNum, profileImg) VALUES(-1, 'AdminGroup', -1, -1, '/project/resources/profileImg/admin_temp.jpeg');
 INSERT INTO Members VALUES(-1, -1);
 
 -- #Table for admin setting
@@ -162,7 +163,8 @@ insert into Categorys(catName, parentNum, path) values('bibliography', 1, '1.4')
 insert into Categorys(catName, parentNum, path) values('information science', 1, '1.5');
 insert into Categorys(catName, parentNum, path) values('encyclopedia', 1, '1.6');
 
-insert into Groups(groupName, groupOwner, catNum) values('TestGroup', 1, 1);
+insert into Groups(groupName, groupOwner, catNum, profileImg) values('TestGroup', 1, 1, '/project/resources/profileImg/hueong1.jpg');
+
 insert into BoardList values(0, 'Board', 1);
 create table `GroupBoard1`(
     articleNum int primary key auto_increment,

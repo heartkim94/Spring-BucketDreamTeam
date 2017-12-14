@@ -36,7 +36,7 @@ public class GroupController {
 		if(id==null) {
 			return "redirect:/home";
 		}
-		groupService.getMyGroup(id, model);
+		groupService.getMyGroupList(id, model);
 		groupService.getGroups(model);
 		return "group/main";
 	}

@@ -12,7 +12,7 @@
 		where	g.groupNum = -1
 				and userNum = #{userNum};
 	</select>
-	<select id="getMyGroup" parameterType="String" resultType="group">
+	<select id="getMyGroupList" parameterType="String" resultType="group">
 		select	g.*, ifnull(cnt, 0) as memberCount
 		from	groups g
 				left join	members m	on g.groupNum = m.groupNum
@@ -24,7 +24,7 @@
 		where 	u.id = #{id};
 	</select>
 	<select id="getGroups" resultType="group">
-		SELECT g.groupNum, g.groupName, memberCount
+		SELECT g.groupNum, g.groupName, g.profileImg, memberCount
 		FROM groups g 
 			JOIN members m ON g.groupNum = m.groupNum 
 			JOIN (	SELECT groupNum, count(groupNum) as memberCount 

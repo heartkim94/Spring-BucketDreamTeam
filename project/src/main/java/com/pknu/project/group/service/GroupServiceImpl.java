@@ -26,8 +26,8 @@ public class GroupServiceImpl implements GroupService {
 	private HashMap<String, String> paramMap;
 	
 	@Override
-	public void getMyGroup(String id, Model model) {
-		model.addAttribute("myGroupList", groupDao.getMyGroup(id));
+	public void getMyGroupList(String id, Model model) {
+		model.addAttribute("myGroupList", groupDao.getMyGroupList(id));
 	}
 	
 	@Override

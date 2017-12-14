@@ -9,7 +9,7 @@ import com.pknu.project.group.dto.TodoDto;
 
 public interface GroupDao {
 	public boolean isAdminMember(int userNum);
-	public List<GroupDto> getMyGroup(String id);
+	public List<GroupDto> getMyGroupList(String id);
 	public List<GroupDto> getGroups();
 	public GroupDto getGroup(int groupNum);
 	public List<String> memberList(int groupNum);

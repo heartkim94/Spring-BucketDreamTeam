@@ -41,7 +41,7 @@
 						</div>
 						<c:forEach var="myGroup" items="${myGroupList}">
 							<div class="group" groupNum="${myGroup.groupNum}">
-								<img src="/project/resources/img/흐엉.jpg" alt="프로필 이미지 없음"><br>
+								<img src="${myGroup.profileImg}" alt="프로필 이미지 없음"><br>
 								${myGroup.groupName}<br>
 								멤버:${myGroup.memberCount}명
 							</div>
@@ -56,7 +56,7 @@
 					<div class="groupList">
 						<c:forEach var="group" items="${groupList}">
 							<div class="group" groupNum="${group.groupNum}">
-								<img src="/project/resources/img/흐엉.jpg" alt="프로필 이미지 없음"><br>
+								<img src="${group.profileImg}" alt="프로필 이미지 없음"><br>
 								${group.groupName}<br>
 								멤버:${group.memberCount}명
 							</div>
