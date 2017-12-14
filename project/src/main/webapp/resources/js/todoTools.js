@@ -1,12 +1,17 @@
 var isFirst;
 $(function() {
 	isFirst = (isFirst == undefined);
-	if(!isFirst) { console.log("canceled"); return; }
+	if(!isFirst) { return; }
 	
 	// todo 선택
-	$(".todoList").on("click", "li", function() {
+	$(".todoList > ul").on("click", "li", function() {
 //		selectTodo(this);
 		todoList.select($(this).attr("doNum"));
+	});
+	
+	$(".todoCalendar").on("click", ".todo", function() {
+		let doNum = $(this).attr("doNum");
+		todoList.select(doNum);
 	});
 	
 	
@@ -139,7 +144,7 @@ $(function() {
 	});
 	
 	// doName 저장
-	$(".todoList").on("blur", "input:text", function() {
+	$(".todoList > ul").on("blur", "input:text", function() {
 		let doName = $(this).val();
 //		$("<sapn/>", { class: "doName", text: doName }).insertAfter($(this));
 //		$(this).remove();
@@ -149,7 +154,7 @@ $(function() {
 	});
 	
 
-	$(".todoList").on("keyup", "input:text", function(event) {
+	$(".todoList > ul").on("keyup", "input:text", function(event) {
 		if(event.keyCode == 13) {		// 엔터 이벤트 -- blur event
 			$(this).blur();
 		}
@@ -188,7 +193,7 @@ $(function() {
 		
 		$(item).append(checkBox)
 		$(item).append(input);
-		$(".todoList ul").append(item);
+		$(".todoList > ul").append(item);
 		selectTodo(item);
 		$(input).focus();
 		$(input).val("새 목표");
@@ -215,17 +220,55 @@ $(function() {
 	})
 	
 	
+	$(".todoContent [name=doAllDay]").change(function() {
+		if($(".selected").exist()) {
+			let doNum =$(".selected").attr("doNum");
+			let todo = todoList.get(doNum);
+			todo.doAllDay = $(this).prop("checked");
+		}
+	})
+	$(".todoContent [type=date]").change(function() {
+		if($(".selected").exist()) {
+			let doNum = $(".selected").attr("doNum");
+			let todo = todoList.get(doNum);
+			let name = $(this).attr("name");
+			todo[name] = this.value;
+			todoList.list(doNum);
+		}
+	});
+	$(".todoContent [name=color]").change(function() {
+		if($(".selected").exist()) {
+			let doNum = $(".selected").attr("doNum");
+			let todo = todoList.get(doNum);
+			todo.color = $(this).val();
+			todoList.list(doNum);
+		}
+	});
+	
+	
 	// save all changes
 	$(".saveBtn").on("click", function() {
 		todoList.orderByPos();
 		todoList.list();
-		let _todoList = [];
+		let updateList = [];
 		let deleteList = [];
 		for(let i=0; i<todoList.length; i++) {
-			if(todoList[i].doNum<0) {
-				todoList[i].doNum = 0;
+			let todo = Object.assign({}, todoList[i]);
+			if(todo.doNum<0) {
+				todo.doNum = 0;
 			}
-			_todoList.push(todoList[i]);
+						
+			if(!todo.doWhen) {
+				todo.doWhen = null;
+				todo.doWhenTime = null;
+			}
+			
+			if(!todo.doEnd) {
+				todo.doEnd = null;
+				todo.doEndTime = null;
+			}
+			
+			updateList.push(todo);
 		}
 		for(let i=0; i<todoList.deleteList.length; i++) {
 			deleteList.push(todoList.deleteList[i].doNum);
@@ -239,7 +282,7 @@ $(function() {
 //			dataType: "json",
 			contentType: "application/json",
 			data: JSON.stringify({
-				todoList: _todoList,
+				todoList: updateList,
 				deleteList: deleteList
 			}),
 			success: function(data) {
@@ -250,12 +293,19 @@ $(function() {
 			}
 		});
 	});
-	// end -- todoList
-	
-	// todoCalendar
-	// end -- todoCalendar
 });
 
+function rgb2hex(rgb) {
+    if (  rgb.search("rgb") == -1 ) {
+         return rgb;
+    } else {
+         rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+         function hex(x) {
+              return ("0" + parseInt(x).toString(16)).slice(-2);
+         }
+         return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    }
+}
 jQuery.fn.exist = function() {
 	return this.length > 0;
 }
@@ -279,6 +329,7 @@ function Todo(todo) {		// *1: convert string to int
 	this.doEnd = todo.doEnd;
 	this.doEndTime = todo.doEndTime;
 	this.doAllDay = (todo.doAllDay == "true");
+	this.color = todo.color;
 	this.done = (todo.done == "true");
 	this.parentNum = todo.parentNum *1;
 	this.path = todo.path;
@@ -298,6 +349,23 @@ TodoList.prototype = new Array;
 TodoList.prototype.select = function(doNum) {
 	$(".selected").removeClass("selected");
 	$(".todoList li[doNum="+doNum+"]").addClass("selected");
+	
+	let todo = this.get(doNum);
+	$(".todoContent [name=doName]").val(todo.doName);
+	$(".todoContent [name=doAllDay]").prop("checked", todo.doAllDay);
+	$(".todoContent [name=doWhen]").val(todo.doWhen);
+	$(".todoContent [name=doEnd]").val(todo.doEnd);
+	if(todo.doAllDay) {
+		$("todoContent [type=time]").prop("readonly", true)
+									.val("");
+	} else {
+		$(".todoContent [type=time]").prop("readonly", false);
+		$(".todoContent [name=doWhenTime]").val(todo.doWhenTime);
+		$(".todoContent [name=doEndTime]").val(todo.doEndTime);
+	}
+	if(todo.color) {
+		$(".todoContent [name=color]").val(todo.color);
+	}
 }
 TodoList.prototype.list = function(doNum = null) {
 	let self = this;
@@ -314,7 +382,12 @@ TodoList.prototype.list = function(doNum = null) {
 			if(self[i].doNum == doNum) {	// 선택된 li 처리
 				$(li).addClass("selected");
 			}
-			$(li).css("margin-left", self[i].depth * 15);	// margin-left 설정
+//			$(li).css("margin-left", self[i].depth * 15);	// margin-left 설정
+			if(self[i].depth > 0) {
+				let indent = $("<span/>", { class: "indent"});
+				$(indent).css("margin-left", self[i].depth*10);
+				$(li).append(indent);
+			}
 			
 			// 체크박스
 			let done = $("<input/>", { type: "checkbox", name: "done" });
@@ -348,22 +421,25 @@ TodoList.prototype.list = function(doNum = null) {
 	}); // end -- todoList
 	
 	// todoCalendar
-	for(let i=0; i<todoList.length; i++) {
-		if(todoList[i].doWhen) {
-			console.log(todoList[i].doWhen);
-			let date = new Date(todoList[i].doWhen);
-			console.log(date);
-			let year = date.getFullYear();
-			let month = date.getMonth();
-			let day = date.getDate();
-			console.log(year, month+1, day);
+	$(".todoCalendar .todo").remove();
+	for(let i=0; i<this.length; i++) {
+		if(this[i].doWhen) {
+			let date = new Date(this[i].doWhen);
 			let today = new Date();
-			if(month == today.getMonth()) {
-				let td = $(".calendar td").filter(function(index, item) {
-					return ($(item).children("ul").text() == day);
+			
+			if(date.getMonth() == today.getMonth()) {
+				let li = $(".todoCalendar .date").filter(function(index, item) {
+					let date = $(item).attr("date");
+					return (self.checkDate(self[i].doNum, date));
 				});
-				if(td) {
-					$(td).append($("<span/>", { class: "todo", text: todoList[i].doName }));
+				if(li) {
+					let todo = $("<div/>", {
+						class: "todo",
+						doNum: this[i].doNum,
+						text: this[i].doName,
+					});
+					$(todo).css("background", this[i].color);
+					$(todo).insertAfter(li);
 				}
 			}
 		}
@@ -457,4 +533,18 @@ TodoList.prototype.delete = function(doNum) {
 	let index = this.indexOf(todo);
 	this.splice(index, 1);
 	this.deleteList.push(todo);
+}
+TodoList.prototype.checkDate = function(doNum, date) {
+	let todo = this.get(doNum);
+	if(todo.doWhen && todo.doEnd) {
+		console.log(date);
+		console.log(todo.doWhen, "~", todo.doEnd);
+		console.log(date >= todo.doWhen);
+		console.log(date <= todo.doEnd);
+		if(date >= todo.doWhen && date <= todo.doEnd) { return true; }
+	}
+	if(todo.doWhen) {
+		if(date == todo.doWhen) { return true; }
+	}
+	return false;
 }

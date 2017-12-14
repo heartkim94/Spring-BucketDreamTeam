@@ -27,17 +27,47 @@
 		.line {
 			border:0.5px solid black
 		}
-		/* #todoList */
-		#todoList .todoList {
-			flex: 1;
+		
+		/* #todoCaldendar */
+		.todoList {
+			flex: 3;
 		}
-		#todoList .todoTools {
+	</style>
+	<style>
+		.todoContainer {
+			display: flex;
+		}
+		.todoCalendar {
+			flex: 3;
+		}
+		.todoCalendar td {
+			width: 100px;
+			height: 100px;
+			vertical-align: top;
+			font-size: 0.9em;
+		}
+		.todoCalendar .todo {
+			border-radius: 5px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			padding: 0 5px;
+		}
+		.todoList {
 			border: 1px solid black;
 			flex: 1;
 		}
-		/* #todoCaldendar */
-		#todoCalendar .todoList {
-			flex: 3;
+		.todoList .selected {
+			background: #ccc;
+		}
+		.todoList input[type=text] {
+			border: 1px solid black;
+		}
+		.folded {
+			display: none;
+		}
+		.line {
+			border:0.5px solid black
 		}
 	</style>
 </head>
@@ -45,38 +75,73 @@
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
-			<div class="container groupContainer">
-				<%@ include file="asideMenu.jsp" %>
-				<div class="groupMain">
+			<div class="container xgroupContainer">
+<%-- 				<%@ include file="asideMenu.jsp" %> --%>
+<!-- 				<div class="groupMain"> -->
 					<h3>목표</h3>
 					<hr><br>
-					<div class="tabContainer">
-						<ul class="tabs">
-							<li class="tabCurrent"><a href="#todoList">목록</a></li>
-							<li><a href="#todoCalendar">달력</a></li>
-							<li><a href="#todoFlow?">플로우?</a></li>
-							<!-- 간트 차트(Gantt chart) -->
-						</ul>
-						<div class="clear"></div>
-						<div class="tabContent tabCurrent" id="todoList">
-							<%@ include file="todoList.jsp" %>
+					<div class="todoContainer">
+						<div class="todoCalendar">
+							<div class="calendar"></div>
 						</div>
-						<div class="tabContent" id="todoCalendar">
-							<%@ include file="todoCalendar.jsp" %>
+						<div class="todoList">
+							<ul></ul>
+							<hr class="line">
+							<span>
+								<button class="moveUpTodo">▲</button>
+								<button class="moveDownTodo">▼</button>
+								<button class="moveLeftTodo">◀</button>
+								<button class="moveRightTodo">▶</button>
+							</span>
+							<hr class="line">
+							<div class="todoTools">
+								<ul>
+									<li>
+										<button class="renameTodo">이름 변경</button>
+										<button class="addTodo">목표 추가</button>
+										<button class="deleteTodo">목표 제거</button>
+									</li>
+								</ul>
+							</div>
+							<div class="todoContent">
+								<br>
+								<ul>
+									<li>
+										<label>이름: <input type="text" name="doName"></label>
+									<li>
+									<li>일시 <input type="checkbox" name="doAllDay">하루종일</li>
+									<li>시작: <input type="date" name="doWhen"></li>
+									<li>시작시간: <input type="time" name="doWhenTime" readonly></li>
+									<li>종료: <input type="date" name="doEnd"></li>
+									<li>종료시간: <input type="time" name="doEndTime" readonly></li>
+									<li>색깔: <input type="color" name="color" value="#73AD21"></li>
+									<li>|</li>
+									<li>|예시</li>
+									<li>종료: [2017-12:15] [오후 12:00]</li>
+									<li>메모</li>
+									<li><textarea>aaa</textarea><li>
+								</ul>
+								<div class="test">
+								</div>
+							</div>
 						</div>
 					</div>
 					<br>
 					<button onclick="location.href='view'">취소</button>
 					<button class="saveBtn" onclick="location_href='view'">저장</button>
-				</div>
-				<%@ include file="asideApp.jsp" %>
+<!-- 				</div> -->
+<%-- 				<%@ include file="asideApp.jsp" %> --%>
 			</div>
 		</section>
 		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->
 </body>
+<script src="/project/resources/js/calendar.js"></script>
+<script src="/project/resources/js/todoTools.js"></script>
 <script>
-	let todoList = new TodoList(); 
+let todoList
+$(function() {
+	todoList = new TodoList(); 
 	<c:forEach var="todo" items="${todoList}">
 	todoList.push(new Todo({
 		doNum: "${todo.doNum}",
@@ -86,6 +151,7 @@
 		doEnd: "${todo.doEnd}",
 		doEndTime: "${todo.doEndTime}",
 		doAllDay: "${todo.doAllDay}",
+		color: "${todo.color}",
 		done: "${todo.done}",
 		parentNum: "${todo.parentNum}",
 		path: "${todo.path}",
@@ -95,10 +161,18 @@
 		userNum: "${todo.userNum}"
 	}));
 	</c:forEach>
-	console.log(todoList);
 	
 	todoList.list();
+	
+	
+	$(".calendar").on("click", ".calendarLeft", function() {
+		console.log("list");
+		todoList.list();
+	});
+	
+	$(".calendar").on("click", ".calendarRight", function() {
+		todoList.list();
+	})
+});
 </script>
-<script src="/project/resources/js/tabs.js"></script>
-<script src="/project/resources/js/todoTools.js"></script>
 </html>

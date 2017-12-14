@@ -205,6 +205,7 @@ public class GroupController {
 	@RequestMapping(value="/{groupNum}/todoSetting", method=RequestMethod.GET)
 	public String doSetting(@PathVariable("groupNum") int groupNum, Model model) {
 		groupService.getGroup(groupNum, model);
+		boardService.getBoards(groupNum, model);
 		groupService.getTodoList(groupNum, model);
 		return "group/todoSetting";
 	}
