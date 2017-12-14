@@ -103,7 +103,7 @@ div.login {
 
 /* 서브 페이지 콘텐츠 영역 스타일 */
 div.subContent {
-	padding: 20px 50px;
+	padding: 20px 40px;
 	box-sizing: border-box;
 	min-height: 600px;
 }
@@ -178,13 +178,13 @@ div.subContent table {
 	background-color: #fff;
 	border-bottom: 1px solid #e1e1e1;
 	color: #777;
-}
+} 
 .listTable td.alignL {
-	padding-left: 10px;
+	padding-left: 10px;   
 	text-align: left;
 	text-overflow : ellipsis; 
 	overflow : hidden;
-	white-space: nowrap;
+/* 	white-space: nowrap; */
 }
 .searchBox {
   	clear: both;

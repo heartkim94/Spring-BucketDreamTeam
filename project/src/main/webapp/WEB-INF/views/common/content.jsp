@@ -7,7 +7,71 @@
 <title>글 상세 보기</title>
 <style>
 .contentTable {
-/* 	border: 1px solid black; */
+	clear: both;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-top: 2px solid #444547;
+}
+.title {
+    padding: 10px 0 15px 20px;
+    color: #333;
+    text-align: left;
+    background: #fff;
+    font-size: 15px;
+    border-bottom: solid 1px #d0d4d7;
+    position: relative;
+}
+.title p {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    border: 0;
+    color: #333;
+}
+.title span {
+	margin: 0 3px 0 8px;
+}
+.contentTable dl {
+	clear: both;
+    overflow: hidden;
+    padding: 10px 0;
+    border-bottom: 1px solid #e1e1e1;
+}
+.contentTable dl dt {
+	float: left;
+    width: 80px;
+    text-align: center;
+    color: #777;
+}
+.contentTable dl dd {
+    float: left;
+    width: 80%;
+    overflow: hidden;
+}
+.fileDown {
+	padding: 5px 0;
+    padding-left: 20px;
+    font-size: 12px;
+    border-bottom: 1px solid #e2e2e2;
+    border-top: 1px solid #e2e2e2;
+    background-color: #f7f7f7;
+}
+.fileDown td {
+    padding-right: 13px;
+    margin-right: 10px;
+}
+.fileDown td:nth-child(1) {
+	width: 20%;
+	padding: 20px;
+}
+
+
+
+
+
+.contentTable table {
+	table-layout:fixed
 }
 .contentTable th {
 	border-bottom: 1px solid #e1e1e1;
@@ -77,41 +141,32 @@ textarea {
 </head>
 <body>
 <div class="contentTable">
-	<table>
-		<tr>
-			<th>제목</th>
-			<td>${article.title}</td>
-		</tr>
-		<tr>
-			<th>작성자</th>
-			<td>${article.id}</td>
-		</tr>
-		<tr>
-			<th>작성일</th>
-			<td>${article.writeDate}</td>
-		</tr>
-		<tr>
-			<th>조회</th>
-			<td>${article.hit}</td>
-		</tr>
+	<h1 class="title">
+		${article.title}
+		<p>
+			<span>작성일</span>${article.writeDate}
+			<span>조회</span>${article.hit}
+		</p>
 		
-		<tr>
-			<th>다운로드</th>
-			<td>
-				<c:if test="${article.fileStatus !=0}">
-					<c:if test="${fileList!=null}">
-						<ul>
-							<c:forEach var="file" items="${fileList}">
-								<li>(${file.fileNum})
-									<a href="/project/community/download?storedFname=${file.storedFname}">${file.storedFname.substring(file.storedFname.indexOf("_")+1)}</a>
-								</li>
-							</c:forEach>
-						</ul>
-					</c:if>
-				</c:if>
-			</td>
-		</tr>
-		
+	</h1>
+	<dl>
+		<dt>작성자</dt>
+		<dd>${article.id}</dd>
+	</dl>
+	<table class="fileDown">
+		<td>다운로드</td>
+		<c:if test="${article.fileStatus !=0}">
+			<c:if test="${fileList!=null}">
+				<td>
+					<c:forEach var="file" items="${fileList}">
+						<p>(${file.fileNum})
+							<a href="/project/community/download?storedFname=${file.storedFname}">${file.storedFname.substring(file.storedFname.indexOf("_")+1)}</a>
+						</p>
+					</c:forEach>
+				</td>
+			</c:if>
+		</c:if>
+	</table>
 		<tr>
 			<th>내용</th>
 			<td colspan="4">${article.content}</td>
