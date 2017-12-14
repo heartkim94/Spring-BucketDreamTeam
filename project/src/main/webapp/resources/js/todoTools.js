@@ -253,21 +253,22 @@ $(function() {
 		let updateList = [];
 		let deleteList = [];
 		for(let i=0; i<todoList.length; i++) {
-			if(todoList[i].doNum<0) {
-				todoList[i].doNum = 0;
+			let todo = Object.assign({}, todoList[i]);
+			if(todo.doNum<0) {
+				todo.doNum = 0;
+			}
+						
+			if(!todo.doWhen) {
+				todo.doWhen = null;
+				todo.doWhenTime = null;
 			}
 			
-			let doWhen = todoList[i].doWhen;
-			let doEnd = todoList[i].doEnd;
-			if(!todoList[i].doAllDay) {
-				todoList[i].doWhen += " "+todoList[i].doWhenTime;
-				todoList[i].doEnd += " "+todoList[i].doEndTime;
+			if(!todo.doEnd) {
+				todo.doEnd = null;
+				todo.doEndTime = null;
 			}
-			updateList.push(todoList[i]);
-			if(!todoList[i].doAllDay) {
-				todoList[i].doWhen = doWhen;
-				todoList[i].doEnd = doEnd;
-			}
+			
+			updateList.push(todo);
 		}
 		for(let i=0; i<todoList.deleteList.length; i++) {
 			deleteList.push(todoList.deleteList[i].doNum);

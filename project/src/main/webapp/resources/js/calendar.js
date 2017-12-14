@@ -10,22 +10,68 @@ $(function() {
 	$(head).append(link);
 	
 	$(".calendar").each(function(index, item) {
-		let year = $(".calendar").attr("year");
-		let month = $(".calendar").attr("month");
+		let year = $(item).attr("year");
+		let month = $(item).attr("month");
 		
 		if(year==undefined || month==undefined) {
 			let today = new Date();
 			year = today.getFullYear();
 			month = today.getMonth()+1;
+			$(item).attr("year", year);
+			$(item).attr("month", month);
+		} else {
+			let date = new Date(year, month-1);
+			year = date.getFullYear();
+			month = date.getMonth()+1;
 		}
+		
 		let calendar = newCalendar(year, month-1);
 		$(this).append(calendar);
+	});
+	
+	$(".calendar").on("click", ".calendarLeft", function() {
+		let parent = $(this).parents(".calendar");
+		let year = $(parent).attr("year")*1;
+		let month = $(parent).attr("month")*1-1;
+		
+		let date = new Date(year, month-1);
+		year = date.getFullYear();
+		month = date.getMonth()+1;
+		
+		let calendar = newCalendar(year, month-1);
+		$(parent).empty();
+		$(parent).append(calendar);
+		$(parent).attr("year", year);
+		$(parent).attr("month", month);
+	});
+	
+	$(".calendar").on("click", ".calendarRight", function() {
+		let parent = $(this).parents(".calendar");
+		let year = $(parent).attr("year")*1;
+		let month = $(parent).attr("month")*1+1;
+		
+		let date = new Date(year, month-1);
+		year = date.getFullYear();
+		month = date.getMonth()+1;
+		
+		let calendar = newCalendar(year, month-1);
+		$(parent).empty();
+		$(parent).append(calendar);
+		$(parent).attr("year", year);
+		$(parent).attr("month", month);
 	});
 });
 
 function newCalendar(year, month) {
+	let date = new Date(year, month, 1);
+	
 	let str =
 		"<table>"
+		+"<caption>"
+			+"<span class='calendarLeft'><</span>"
+			+date.getFullYear()+"-"+(date.getMonth()+1)
+			+"<span class='calendarRight'>></span>"
+		+"</caption>"
 		+"<thead>"
 			+"<tr>"
 				+"<th>일</th>"
@@ -42,7 +88,6 @@ function newCalendar(year, month) {
 	let calendar = $(str);
 	// $(calendar).addClass("calendar");
 	
-	let date = new Date(year, month, 1);
 	date.setDate(1-date.getDay());
 	do {
 		let tr = $("<tr/>");
@@ -59,10 +104,11 @@ function newCalendar(year, month) {
 			
 			if(date.getMonth() != month) {
 				$(td).addClass("notThisMonth");
-				}
-				$(tr).append(td);
-				date.setDate(1+date.getDate());
 			}
-		} while(month == date.getMonth());
-		return calendar;
+			$(tr).append(td);
+			date.setDate(1+date.getDate());
+		}
+	} while(month == date.getMonth());
+	
+	return calendar;
 }

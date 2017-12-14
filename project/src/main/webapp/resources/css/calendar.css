@@ -5,7 +5,12 @@
 .calendar td {
 	border: 1px solid black;
 }
-
+.calendar .calendarLeft:hover, .calendar .calendarRight:hover {
+	cursor:pointer;
+}
+.calendar .calendarLeft, .calendar .calendarRight {
+	margin: 0 30px;
+}
 .calendar .notThisMonth {
 	color: #ccc;
 }

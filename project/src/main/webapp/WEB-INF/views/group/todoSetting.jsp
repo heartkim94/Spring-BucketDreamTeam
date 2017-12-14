@@ -163,6 +163,16 @@ $(function() {
 	</c:forEach>
 	
 	todoList.list();
+	
+	
+	$(".calendar").on("click", ".calendarLeft", function() {
+		console.log("list");
+		todoList.list();
+	});
+	
+	$(".calendar").on("click", ".calendarRight", function() {
+		todoList.list();
+	})
 });
 </script>
 </html>
