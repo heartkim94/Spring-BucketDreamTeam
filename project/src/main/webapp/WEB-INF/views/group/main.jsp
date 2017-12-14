@@ -8,16 +8,20 @@
 	<title>Home</title>
 	<style>
 		.group, .newGroup {
-			border: 1px solid black;
+/* 			border: 1px solid black; */
+			margin: 20px;
 			width: 200px;
-			height: 200px;
+			height: 250px;
 			cursor: pointer;
 			float: left;
 		}
 		.clear {
 			clear: both;
 		}
-		
+		.group img {
+			width: 200px;
+			height: 200px;
+		}
 	</style>
 	<!-- 합쳐지고 최소화된 최신 CSS -->
 <!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
@@ -32,29 +36,29 @@
 				<div class="myGroupContainer">
 					내 그룹
 					<div class="myGroup">
-						<div class="newGroup">
+						<div class="newGroup" style="border:1px solid">
 							그룹추가하기
 						</div>
-						<c:forEach var="group" items="${groupList}">
-							<div class="group" groupNum="${group.groupNum}">
-								프로필이미지<br>
-								${group.groupName}<br>
-								멤버:${group.memberCount}명
+						<c:forEach var="myGroup" items="${myGroupList}">
+							<div class="group" groupNum="${myGroup.groupNum}">
+								<img src="${myGroup.profileImg}" alt="프로필 이미지 없음"><br>
+								${myGroup.groupName}<br>
+								멤버:${myGroup.memberCount}명
 							</div>
 						</c:forEach>
 						<div class="clear"></div>
 					</div> <!-- myGroup End -->
-					<div class="clear"></div>
+<!-- 					<div class="clear"></div> -->
 				</div> <!-- myGroupContainer End -->
 				<hr>
 				<div class="groupListContainer">
 					그룹목록
 					<div class="groupList">
-						<c:forEach begin="1" end="10" step="1" var="i">
-							<div class="group">
-								프로필이미지<br>
-								예시그룹${i}<br>
-								멤버:${i}명
+						<c:forEach var="group" items="${groupList}">
+							<div class="group" groupNum="${group.groupNum}">
+								<img src="${group.profileImg}" alt="프로필 이미지 없음"><br>
+								${group.groupName}<br>
+								멤버:${group.memberCount}명
 							</div>
 						</c:forEach>
 						<div class="clear"></div>

@@ -16,9 +16,20 @@
 					채팅방
 				</div>
 			</li>
-			<li>
-				<input type="button" value="그룹 없애기" onclick="document.location.href='deleteGroup?groupNum=${groupNum}'" id="deleteGroup">
-			</li>
+			<c:if test="${id == group.groupOwnerId || id == 'admin'}">
+				<li>
+					<input type="button" id="deleteGroup" value="그룹 없애기" onclick="document.location.href='deleteGroup?groupNum=${groupNum}'">
+				</li>
+			</c:if>
+<!-- 			<li> -->
+<!-- 				<input type="button" id="joinGroup" value="그룹 가입" onclick="document.location.href='#'"> -->
+<!-- 			</li> -->
+<%-- 			<c:forEach items="${memberList}" var="memberId"> --%>
+<%-- 				<c:if test="${id == memberId}"> --%>
+<%-- 					${"#joinGroup"}.remove(); --%>
+<%-- 				</c:if> --%>
+<%-- 			</c:forEach> --%>
+			<div id="groupIO"></div>
 		</ul>
 	</aside>
 </body>
@@ -27,6 +38,23 @@ $(function() {
 	$(".chatRoomList").on("click", function() {
 		window.open("chatrooms", "main", "width=320, height=500");
 	});
+});
+
+$(document).ready(function(data) {
+	let isGroupMember=false;
+	let html = "<article class='groupIO'>";
+	let memberList = "${memberList}".replace("[","").replace("]","").split(", ");
+	
+	$.each(memberList, function(index, item) {
+		if("${id}" == item) { isGroupMember=true; }
+	});
+	if(!isGroupMember) {
+		html += "<li><input type='button' id='joinGroup' value='그룹 가입' onclick='document.location.href=\"joinGroup?groupNum=${groupNum}\"'></li>";
+	} else {
+		html += "<li><input type='button' id='leaveGroup' value='그룹 탈퇴' onclick='document.location.href=\"leaveGroup?groupNum=${groupNum}\"'></li>";
+	}
+	html += "</article>";
+	$("#groupIO").html(html);
 });
 </script>
 </html>
