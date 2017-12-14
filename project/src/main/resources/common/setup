@@ -51,6 +51,7 @@ CREATE TABLE TodoList(
     doWhen date,
     doEnd date,
     doAllDay boolean NOT NULL default true,
+    color char(7),
     done boolean NOT NULL default false,
     parentNum int,
     path text NOT NULL,
@@ -175,8 +176,8 @@ create table `GroupBoard1`(
 ) ENGINE=InnoDB;
 INSERT INTO Members VALUES(1, 1);
 
-insert into TodoList(doName, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
-    values('Dogether project', '2017-11-01', '2017-12-18', null, '0.1', 1, 0, 1, 1);
+insert into TodoList(doName, doWhen, doEnd, color, parentNum, path, pos, depth, groupNum, userNum)
+    values('Dogether project', '2017-11-01', '2017-12-18', '#73AD21', null, '0.1', 1, 0, 1, 1);
 insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
     values('Design project', null, null, 1, '0.1.1', 1, 1, 1, 1);
 insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
@@ -191,7 +192,8 @@ insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNu
     values('JSP pages for login', null, null, 3, '0.1.2.1', 1, 2, 1, 1);
 insert into TodoList(doname, doWhen, doEnd, parentNum, path, pos, depth, groupNum, userNum)
     values('JSP pages for join', null, null, 7, '0.1.2.1.1', 1, 3, 1, 1);
-
+insert into TodoList(doname, doWhen, doEnd, color, parentNum, path, pos, depth, groupNum, userNum)
+    values('Date test', '2017-12-14', null, '#73AD21', null, '0.2', 2, 0, 1, 1);
 
 -- Community
 -- Notice
@@ -207,7 +209,7 @@ insert into `GroupBoard-1` values(
     null, 'admin', 'test reply article5', 'no content', 1, 0, 1, 3, '2017-11-22', 0, 1);
 insert into `GroupBoard-1` values(
     null, 'admin', 'test reply article6', 'no content', 2, 0, 1, 2, '2017-11-22', 0, 1);
-    select * from `groupBoard-1`;
+    
 -- QnA
 insert into `GroupBoard-1` values(
     null, 'admin', 'test qna article1', 'no content', 0, 0, 1, 0, '2017-11-22', 0, 2);
