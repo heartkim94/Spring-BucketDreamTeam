@@ -1,5 +1,6 @@
 package com.pknu.project.common.service;
 
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ public class BoardServiceImpl implements BoardService {
 	private CommentService commentService;
 	
 	private ArticleDto article;
+	private FileDto file;
 	
 	private List<ArticleDto> articleList;
 	private List<FileDto> fileList;
@@ -105,11 +107,10 @@ public class BoardServiceImpl implements BoardService {
 		paramMap.put("groupNum", String.valueOf(groupNum));
 		paramMap.put("boardNum", boardNum);
 		paramMap.put("articleNum", articleNum);
-		
 		boardDao.upHit(paramMap);
+		boardDao.getFiles(paramMap); 
 		article=boardDao.getArticle(paramMap);
 		article.setCommentCount(commentService.commentCount(Integer.parseInt(boardNum), article.getArticleNum()));
-		
 		model.addAttribute("article", article);
 		if(fileStatus == 1) {
 			fileList = boardDao.getFiles(paramMap);
@@ -144,17 +145,6 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 	
-	public void commonFileUpload(int articleNum, int boardNum, List<String> fileNames) {
-		FileDto fileDto = null;
-		
-		for(String storedFname: fileNames){					
-			fileDto = new FileDto();			
-			fileDto.setStoredFname(storedFname);			
-			fileDto.setArticleNum(articleNum);
-			fileDto.setBoardNum(boardNum);
-			boardDao.insertFile(fileDto);
-		}
-	}
 	
 	//검색 기능 구현
 	@Override
@@ -181,8 +171,15 @@ public class BoardServiceImpl implements BoardService {
 	// 답변 달기
 	@Override
 	public void reply(ArticleDto article) {
-		boardDao.upPos(article);
-		boardDao.reply(article);
+		if(article.getFileNames()==null) {
+			boardDao.reply(article);
+		}else {
+			article.setFileStatus((byte)1);
+			// 리턴을 하지 않아도 article에 값이 넘어옴
+			boardDao.upPos(article);
+			boardDao.reply(article);
+			commonFileUpload(article.getArticleNum(), article.getBoardNum(),article.getFileNames());
+		}
 	}
 	
 	// 글 삭제
@@ -212,6 +209,7 @@ public class BoardServiceImpl implements BoardService {
 				replyParamMap.put("articleNum", String.valueOf(reply.getArticleNum()));
 				boardDao.deleteArticle(replyParamMap);
 			}
+			
 		}
 	}
 	
@@ -229,6 +227,25 @@ public class BoardServiceImpl implements BoardService {
 			boardDao.deleteSomeReplyAll(paramMap);
 		}
 	}
+	
+	// 파일 삭제 메서드
+//	public void deleteFile(int articleNum, int boardNum, int fileNum){
+//		System.out.println("articleNum: "+articleNum);
+//		System.out.println("boardNum: "+boardNum);
+//		System.out.println("fileNum: "+fileNum);
+//		HashMap<String, String> paramMap = new HashMap<>();
+//		paramMap.put("articleNum", String.valueOf(articleNum));
+//		paramMap.put("boardNum", String.valueOf(boardNum));
+//		List<FileDto> storedFnameList=(List<FileDto>) boardDao.getFiles(paramMap);
+//		if(!storedFnameList.isEmpty()){
+//			for(FileDto storedFname : storedFnameList){
+//				File file = new File(saveDir+storedFname);
+//				if(file.exists()){ 
+//					file.delete();
+//				}
+//			}
+//		}
+//	}
 	
 	//글 수정
 	@Override
@@ -258,8 +275,37 @@ public class BoardServiceImpl implements BoardService {
 		paramMap.put("title", article.getTitle());
 		paramMap.put("content", article.getContent());
 		paramMap.put("fileStatus", String.valueOf(article.getFileStatus()));
-		System.out.println(paramMap);
-		boardDao.updateArticle(paramMap);
+//		boardDao.updateArticle(paramMap);
+		if(article.getFileNames()==null) {
+			boardDao.updateArticle(paramMap);
+		}else {
+			article.setFileStatus((byte)1);
+			boardDao.updateArticle(paramMap);
+			commonFileUpload(article.getArticleNum(), article.getBoardNum(),article.getFileNames());
+		}
 	}
+	
+	public void commonFileUpload(int articleNum, int boardNum, List<String> fileNames) {
+		FileDto fileDto = null;
+		
+		for(String storedFname: fileNames){					
+			fileDto = new FileDto();			
+			fileDto.setStoredFname(storedFname);			
+			fileDto.setArticleNum(articleNum);
+			fileDto.setBoardNum(boardNum);
+			boardDao.insertFile(fileDto);
+		}
+	}
+	
+	// 글 수정시 파일 삭제
+	public void updateSomeDelFile(String storedFname){		
+		if(!storedFname.isEmpty()){			
+			File file = new File(saveDir+storedFname);
+			if(file.exists()){
+				file.delete();
+			}			
+		}
+	}
+	
 	
 }

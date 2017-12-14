@@ -114,6 +114,8 @@ input.submitBtn {
 			<input type="hidden" name="boardNum" value="${boardNum}">
 			<c:if test="${action eq 'update'}">
 				<input type="hidden" name="articleNum" value="${articleNum}">
+				<input type="hidden" name="fileStatus" value="${fileStatus }">
+				<input type="hidden" name="fileCount" value="${fileCount }">
 			</c:if>
 			<c:if test="${action eq 'reply'}">
 				<input type="hidden" name="groupId" value="${groupId}">
@@ -153,6 +155,24 @@ input.submitBtn {
 							<input type="button" class="allDelete" value="모두 삭제">
 						</td>
 					</tr>
+				</c:if> 
+				<c:if test="${action eq 'update'}">
+					<tr>
+						<td>첨부된화일 :</td>
+						<td>
+							<c:if test="${fileList!=null}">
+								<ul id="delGroup">
+									<c:forEach var="storedFname" items="${fileList}">
+										<!-- 				JQuery 함수 사용				 -->
+										<li>${storedFname.substring(storedFname.indexOf("_")+1)}<!-- 화면에 보이는 originFname임 -->
+											<input type="button" deleteFileName="${storedFname}" value="삭제"
+											class="delFile">
+										</li>
+									</c:forEach>
+								</ul>
+							</c:if>
+						</td>
+					</tr>
 				</c:if>
 			</table>
 		</div>
@@ -163,135 +183,23 @@ input.submitBtn {
 		</div>
 	</form>
 </div>
+<script src="/project/resources/js/uploadAjax.js"></script> 
 <script>
-	$(function(){
-		/* 화살표 누름 동작 */
-// 		$(".openFList").on("click", function(e){
-// 			e.preventDefault();
-// 			$(".uploadListWrap").toggle();
-// 			if($(".uploadListWrap").css('display') == 'block'){
-// 				$(".openFList").text('▲');
-// 			}else {
-// 				$(".openFList").text('▼');
-// 			}
-// 		});
-		
-		$(".fileDrop").on("dragenter dragover", function(e){
-			e.preventDefault();
+	// 기존의 파일을 삭제할 때 
+	$(document).ready(function() {
+		//		id 값으로 읽어 올려면 하나만 선택되어짐..클래스 사용
+		$(".delFile").on("click", function() {
+			alert($(this)
+					.attr("deleteFileName"));
+			// 		storedFname이 원래 있던 속성이 아니므로 아래처럼 하면 못읽어옴
+			// 		var storedFname=$(this).prop("deleteFileName");			
+			var storedFname = $(this).attr(
+					"deleteFileName");
+			$(this).parent().remove();
+			let deleteFileName = "<input type='hidden' name='deleteFileName' value='"+storedFname+"'>";
+			$(deleteFileName).appendTo("form");
 		});
-		$(".fileDrop").on("drop", function(e){
-			e.preventDefault();
-			
-			$(".fileDrop").removeAttr("placeholder");
-			
-			let files = e.originalEvent.dataTransfer.files;
-			let formData = new FormData();
-			$.each(files,function(index,item){
-				formData.append("multiFile", item);
-			});	
-			$.ajax({
-				  url: '/project/uploadAjax',
-				  data: formData,
-//					  복수개를 업로드시 
-				  dataType:'json',
-				  processData: false,
-				  contentType: false,
-				  type: 'POST',
-				  success: function(data) {
-					  var str ="";
-// 					  alert(data);
-					  $.each(data, function(index, fileName) {
-						  if(checkImageType(fileName)) {
-							  str ="<div><img src='/project/displayFile?fileName="+fileName+"'/>"
-								  +"<small class='human' data-src='"+fileName+"'>&nbsp;삭제</small>"
-//			 				 이미지 파일일 경우에는 이름에 s_ 가 포함되어있으므로 테이블에 바로 입력하면
-//			 				 다운로드시 썸네일 파일을 다운로드 받게됨...이름에 s_ 제거하고 테이블에 입력
-								  +"<input type='hidden' name='fileNames' value='"+getImageLink(fileName)+"'></div>";
-						  } else {
-						 	  str ="<div>"+ getOriginFname(fileName)
-							  +"<small class='human' data-src='"+fileName+"'>&nbsp;삭제</small>"
-							  +"<input type='hidden' name='fileNames' value='"+fileName+"'></div>";
-						  }
-						  $(".fileDrop").append(str);
-					  });
-				  },
-				  error : function(xhr) {
-						alert("error html = " + xhr.statusText);
-				  }
-				});	//$.ajax END
-				
-			$(".fileDrop").on("click", "small", function(event) {
-				let that = $(this);
-				$.ajax({
-					   url:"/project/deleteFile",
-					   type:"post",
-					   data: {
-						   fileName:$(this).attr("data-src")
-					   },
-					   dataType:"text",
-					   success:function(result){
-						   if(result == 'deleted'){				   
-							   that.parent("div").remove();
-// 							   alert("삭제성공");
-						   }
-					   }
-				});
-			});
-			//글쓰기 취소시에 업로드 되어있는 파일 삭제
-			$(".cancelBtn").on("click", function(){	 
-				allDeleteFiles();	
-			});
-			// 모두 삭제 버튼 클릭시 업로드 되어있는 파일 삭제
-			$(".allDelete").on("click", function(){			
-				allDeleteFiles();
-			});
 
-			function allDeleteFiles(){
-				let files=[];
-				$.each($(".human"),function(index,item){
-//						files[index]=$(this).attr("data-src");
-					files.push($(this).attr("data-src"));
-				});
-//				배열을 직렬화해서 전송함
-				jQuery.ajaxSettings.traditional = true;
-				$.ajax({
-					   url:"/project/deleteAllFiles",
-					   type:"post",
-					   data: {files: files},
-					   dataType:"text",
-					   success:function(result){
-						   if(result == 'deleted'){
-							   $(".fileDrop").children().remove();
-// 							   alert("삭제성공");
-						   }
-					   }
-				});
-			}
-			
-			function checkImageType(fileName){	
-//					/i는 대소문자 구분 하지 말라는 뜻임
-				var pattern = /.jpg|.gif|.png/i;		
-				return fileName.match(pattern);		
-			}
-
-			function getImageLink(fileName){
-				if(!checkImageType(fileName)){
-					return;
-				}	
-				var front = fileName.substr(0,12);
-				var end = fileName.substr(14);			
-				return front + end;	
-			}
-
-			function getOriginFname(fileName){
-				if(checkImageType(fileName)){
-					return;
-				}
-				
-				var idx = fileName.indexOf("_") + 1 ;
-				return fileName.substr(idx);	
-			}
-		}); // $(".fileDrop") END
 	});
 </script>
  

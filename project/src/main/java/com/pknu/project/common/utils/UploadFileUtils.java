@@ -21,7 +21,7 @@ public class UploadFileUtils {
 	    String storedPath = calcPath(saveDir);    
 	    File target = new File(saveDir +storedPath,storedFname);    
 	    FileCopyUtils.copy(fileData, target);    
-	    String formatName = originFname.substring(originFname.lastIndexOf(".")+1);    
+	    String formatName = originFname.substring(originFname.lastIndexOf(".")+1);
 	    String uploadedFileName = null;
 	    
 	    if(MediaUtils.getMediaType(formatName) != null){

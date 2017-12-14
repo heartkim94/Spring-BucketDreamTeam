@@ -18,7 +18,7 @@
 	border-top: 2px solid #444547
 	}
 	.acrdTable th, td {
-		padding: 10px 20px 10px 50px;
+		padding: 20px 20px 20px 25px;
 		border-bottom: 1px solid #e1e1e1;
 	}
 	.acrdTable tbody th, td {
@@ -40,6 +40,7 @@
 	   	color: #555;
 	}
 	.acrdTable button {
+		position: relative;
 	    margin: 0;
 	    padding: 0;
 	    border: 0;
@@ -50,7 +51,31 @@
 	    cursor: pointer;
 	    line-height: 1;
 	    outline: none;
+	}
+	i {
+	    position: absolute;
+	    top: 20px;
+	    right: 20px;
+	    display: block;
+	    width: 18px;
+	    height: 18px;
+	    background-image: url(/project/resources/img/downArrow.png);
+	    background-position: bottom;
+	    background-repeat: no-repeat;
+	    background-size: 15px;
+	    font-size: 0;
+	}
+	
+	@media (max-width: 1024px) {
+		section .container {
+			width: 100%;
 		}
+		div.subContent {
+			padding-left: 3%;
+			padding-right: 3%;
+		}
+    }
+    
 </style>
 </head>
 
@@ -67,7 +92,7 @@
 					<c:forEach var="article" items="${articleList}">
 						<tr>
 							<th class="titleBox"  articleNum="${article.articleNum}" fileStatus="${article.fileStatus}">
-								<button><span>Q: </span>${article.title}</button>
+								<button><span>Q: </span>${article.title}</button><i class="downArrow">a</i>
 							</th>
 						</tr>
 					</c:forEach>
@@ -86,6 +111,7 @@ $(function() {
 		let titleRow = $(this).parent();
 		let articleNum = $(this).attr("articleNum");
 		let fileStatus = $(this).attr("fileStatus");
+		let arrow = $(this).children().hasClass("downArrow");
 		console.log(articleNum+", "+fileStatus);
 		$.ajax({
 			url: "content",
@@ -106,6 +132,7 @@ $(function() {
 				if(preArticle!=articleNum) {
 					$(articleBox).insertAfter(titleRow);
 					preArticle = articleNum;
+// 					$(arrow).css("background-image", "url(/project/resources/img/toTop.png)");
 				} else {
 					preArticle = null;
 				}

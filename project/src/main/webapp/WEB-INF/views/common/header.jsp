@@ -121,7 +121,10 @@
   		.responseMypageMenu  li:nth-child(1){
   			width: 40%;
   		}
-  		.responseMypageMenu  li:nth-child(2), li:nth-child(3){
+  		.responseMypageMenu  li:nth-child(2){
+  			width: 30%;
+  		}
+  		.responseMypageMenu  li:nth-child(3){
   			width: 30%;
   		}
   		.responseMypageMenu a {
@@ -234,6 +237,7 @@ $(document).ready(function() {
 		let pos = $(this).scrollTop();
 
 		if (pos >= 95) {
+			btnTop.css("display", "inline-block");
 			btnTop.stop(true).animate({
 				'opacity' : '0.8'
 			}, 200);
@@ -242,6 +246,7 @@ $(document).ready(function() {
 			btnTop.stop(true).animate({
 				'opacity' : '0'
 			}, 200);
+			btnTop.css("display", "none");
 		}
 	});
 	

@@ -1,5 +1,6 @@
 package com.pknu.project.common.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,4 +40,7 @@ public interface BoardDao {
 	// 글 수정
 	public ArticleDto updateGetArticle(HashMap<String, String> paramMap);
 	public void updateArticle(HashMap<String, String> paramMap);
+	
+	// 글 수정시 파일삭제
+	public void someDelFile(ArrayList<String> storedFnameList);
 }
