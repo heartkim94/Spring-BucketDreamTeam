@@ -6,7 +6,7 @@
 <mapper namespace="com.pknu.project.group.dao.GroupDao">
 	<select id="getTodoList" parameterType="int" resultType="todo">
 		SELECT	doNum, doName, date_format(doWhen, "%Y-%m-%d") as doWhen, date_format(doWhen, "%H:%i") as doWhenTime,
-				date_format(doEnd, "%Y-%m-%d") as doEnd, date_format(doEnd, "%H:%i") as doEndTime, doAllDay,
+				date_format(doEnd, "%Y-%m-%d") as doEnd, date_format(doEnd, "%H:%i") as doEndTime, doAllDay, color,
 				done, parentNum, path, pos, depth, groupNum, userNum   
 		FROM	TodoList
 		WHERE	groupNum = #{groupNum}

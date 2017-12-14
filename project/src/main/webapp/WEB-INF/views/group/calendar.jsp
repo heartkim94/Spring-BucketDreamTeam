@@ -13,10 +13,9 @@
 		}
 		.calendar td {
 			border: 1px solid black;
-			width: 70px;
-			height: 70px;
 		}
-		.calendar td.notThisMonth {
+		
+		.calendar .notThisMonth {
 			color: #ccc;
 		}
 	</style>
@@ -39,39 +38,51 @@
 	</table>
 </body>
 <script>
-	let today = new Date();
-	let year = today.getFullYear();
-	let month= today.getMonth();
-	let date = new Date(year, month, 1);
-	date.setDate(1-date.getDay());
-	console.log(date);
-	do {
-		let tr = $("<tr/>");
-		$(".calendar tbody").append(tr);
-		for(let i=0; i<7; i++) {
-			let td = $("<td/>");
-			let li = $("<li/>", {
-				class: "date",
-				date: date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),
-				text: date.getDate()
-			});
-			if(date.getMonth()!=month) {
-				li.addClass("notThisMonth");
+	$(function() {
+		let today = new Date();
+		let calendar = newCalendar(today.getFullYear(), today.getMonth());
+		$(calendar).insertAfter($(".calendar:first"));
+		$(".calendar:first").remove();
+	});
+	function newCalendar(year, month) {
+		let str =
+			"<table>"
+				+"<thead>"
+					+"<tr>"
+						+"<th>일</th>"
+						+"<th>월</th>"
+						+"<th>화</th>"
+						+"<th>수</th>"
+						+"<th>목</th>"
+						+"<th>금</th>"
+						+"<th>토</th>"
+					+"</tr>"
+				+"</thead>"
+				+"<tbody></tbody>"
+			+"</table>";
+		let calendar = $(str);
+		$(calendar).addClass("calendar");
+		
+		let date = new Date(year, month, 1);
+		date.setDate(1-date.getDay());
+		do {
+			let tr = $("<tr/>");
+			$(calendar).find("tbody").append(tr);
+			for(let i=0; i<7; i++) {
+				let str =
+					"<td>"
+						+ "<span class='date'>"+date.getDate() +"</span>"
+					+"</td>";
+				let td = $(str);
+				
+				if(date.getMonth() != month) {
+					$(td).addClass("notThisMonth");
+				}
+				$(tr).append(td);
+				date.setDate(1+date.getDate());
 			}
-			
-			let day = date.getDate();
-			
-// 			$(td).text(day);
-// 			if(date.getMonth()!=month) {
-// 				td.addClass("notThisMonth");
-// 			}
-			
-// 			td = $("<td><ul/></td>")
-// 			$(tr).append(td);
-// 			$(td).children("ul").append(li);
-			$(tr).append($("<td/>").append($("<ul/>").append(li)));
-			date.setDate(day + 1);
-		}
-	} while(month == date.getMonth());
+		} while(month == date.getMonth());
+		return calendar;
+	}
 </script>
 </html>

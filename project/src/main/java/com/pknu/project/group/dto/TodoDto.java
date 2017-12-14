@@ -8,6 +8,7 @@ public class TodoDto {
 	private String doEnd;
 	private String doEndTime;
 	private boolean doAllDay;
+	private String color;
 	private boolean done;
 	private int parentNum;
 	private String path;
@@ -57,6 +58,12 @@ public class TodoDto {
 	}
 	public void setDoAllDay(boolean doAllDay) {
 		this.doAllDay = doAllDay;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 	public boolean isDone() {
 		return done;

@@ -15,6 +15,20 @@
 		#todoCalendar .todoCalendar {
 			flex: 3;
 		}
+		.todoCalendar td {
+			width: 100px;
+			height: 100px;
+			vertical-align: top;
+			font-size: 0.9em;
+		}
+		.todoCalendar .todo {
+			border-radius: 5px;
+			background: #73AD21;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			padding: 0 5px;
+		}
 		#todoCalendar .todoList {
 			border: 1px solid black;
 			flex: 1;
@@ -34,49 +48,50 @@
 	</style>
 </head>
 <body>
-		<div class="todoContainer">
-		<div class="todoCalendar">
-			<%@ include file="calendar.jsp" %>
-		</div>
-		<div class="todoList">
+	<div class="todoCalendar">
+		<div class="calendar"></div>
+	</div>
+	<div class="todoList">
+		<ul></ul>
+		<hr class="line">
+		<span>
+			<button class="moveUpTodo">▲</button>
+			<button class="moveDownTodo">▼</button>
+			<button class="moveLeftTodo">◀</button>
+			<button class="moveRightTodo">▶</button>
+		</span>
+		<hr class="line">
+		<div class="todoTools">
 			<ul>
-				<c:forEach var="todo" items="${todoList}" varStatus="status">
-					<li style="margin-left: ${10 * todo.depth}"
-						doNum="${todo.doNum}" depth="${todo.depth}">
-						<input type="checkbox" name="done" <c:if test="${todo.done}">checked</c:if>>
-						<span class="doName">${todo.doName}</span>
-						<c:if test="${todoList[status.index+1]!= null
-									&& todoList[status.index+1].depth > todo.depth}">
-							<button class="fold">접기</button>
-						</c:if>
-						<c:if test="${todo.doWhen!=null}">
-							<br>
-							|    &nbsp;[
-							${todo.doWhen} <c:if test="${!todo.doAllDay}">${todo.doWhenTime}</c:if>
-							~ ${todo.doEnd} <c:if test="${!todo.doAllDay}">${todo.doEndTime}</c:if>
-							]
-						</c:if>
-					</li>
-					<c:set var="lastPath" value="${todo.path}"/>
-				</c:forEach>
+				<li>
+					<button class="renameTodo">이름 변경</button>
+					<button class="addTodo">목표 추가</button>
+					<button class="deleteTodo">목표 제거</button>
+				</li>
 			</ul>
-			<hr class="line">
-			<span>
-				<button class="moveUpTodo">▲</button>
-				<button class="moveDownTodo">▼</button>
-				<button class="moveLeftTodo">◀</button>
-				<button class="moveRightTodo">▶</button>
-			</span>
-			<hr class="line">
-			<div class="todoTools">
-				<ul>
-					<li><button class="renameTodo">이름 변경</button><li>
-					<li><button class="addTodo">목표 추가</button></li>
-					<li><button>test</button></li>
-				</ul>
+		</div>
+		<div class="todoContent">
+			<br>
+			<ul>
+				<li>
+					<label>이름: <input type="text" name="doName"></label>
+				<li>
+				<li>일시 <input type="checkbox" name="doAllDay"></li>
+				<li>시작:
+					<input type="date" name="doWhen">
+					<input type="time" name="doWhenTime">
+				</li>
+				<li>종료: [2017-12:15] [오후 12:00]</li>
+				<li>메모</li>
+				<li><textarea>aaa</textarea><li>
+			</ul>
+			<div class="test">
 			</div>
 		</div>
 	</div>
 </body>
+<script src="/project/resources/js/calendar.js"></script>
 <script src="/project/resources/js/todoTools.js"></script>
+<script>
+</script>
 </html>
