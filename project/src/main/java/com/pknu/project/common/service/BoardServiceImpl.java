@@ -13,14 +13,13 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.pknu.project.comment.dao.CommentDao;
-import com.pknu.project.comment.dto.CommentDto;
 import com.pknu.project.comment.service.CommentService;
 import com.pknu.project.common.dao.BoardDao;
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.dto.BoardDto;
 import com.pknu.project.common.dto.FileDto;
 import com.pknu.project.common.utils.Page;
+import com.pknu.project.community.service.CommunityService;
 
 @Service
 public class BoardServiceImpl implements BoardService {

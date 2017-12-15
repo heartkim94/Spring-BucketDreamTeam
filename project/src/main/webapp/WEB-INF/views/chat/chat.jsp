@@ -87,6 +87,17 @@ $(function() {
 		sessionId: "${pageContext.session.id}",
 		paint: paint.getImage()
 	})
+	
+	
+	socket = io.connect("http://210.119.12.240:50000");
+	
+	socket.emit("msgType", data);
+	socket.on("msgType", function(data) {
+		
+	});
+	
+	
+	
 	socket.on("join", function(data) {
 		$("li.myCanvas").attr("paintNum", data.paintNum);
 		$(".paint").attr("paintNum", data.paintNum);

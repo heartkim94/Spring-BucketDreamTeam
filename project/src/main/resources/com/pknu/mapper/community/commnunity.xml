@@ -12,10 +12,11 @@
 	</select>
 	<insert id="insertAdminBoardSetting" parameterType="HashMap">
 		INSERT INTO AdminBoardSetting
-		VALUES(#{boardNum}, true, #{adminOnly}, #{view})
+		VALUES(#{boardNum}, true, true, #{view})
 	</insert>
 	<update id="updateAdminBoardSetting" parameterType="HashMap">
 		UPDATE	AdminBoardSetting
-		SET		adminOnly = #{adminOnly}, #{view}
+		SET		adminOnly = #{adminOnly}, view = #{view}
+		WHERE	boardNum = #{boardNum}
 	</update>
 </mapper>

@@ -5,6 +5,8 @@ let roomList = [];
 
 
 io.sockets.on('connection', function(socket) {
+	
+	
 	socket.on('join', function(data) {
 		let client = new Client(socket, data);
 		let room=null;

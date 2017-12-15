@@ -33,12 +33,12 @@ public class CommunityServiceImpl implements CommunityService {
 		model.addAttribute("adminOnly", map.get("adminOnly"));
 	}
 	
-//	@Override
+	@Override
 	public void getAdminBoardSettings(Model model) {
 		model.addAttribute("settings", communityDao.getAdminBoardSettings());
 	}
 	
-//	@Override
+	@Override
 	public void insertAdminBoardSetting(int boardNum, String view) {
 		map = new HashMap<String, Object>();
 		map.put("boardNum", boardNum);
@@ -46,13 +46,13 @@ public class CommunityServiceImpl implements CommunityService {
 		communityDao.insertAdminBoardSetting(map);
 	}
 	
-//	@Override
+	@Override
 	public void updateAdminBoardSetting(int boardNum, boolean adminOnly, String view) {
 		map = new HashMap<String, Object>();
 		map.put("boardNum", boardNum);
 		map.put("adminOnly", adminOnly);
 		map.put("view", view);
-		communityDao.insertAdminBoardSetting(map);
+		communityDao.updateAdminBoardSetting(map);
 	}
 //	@def @class User: {
 //		id: str;

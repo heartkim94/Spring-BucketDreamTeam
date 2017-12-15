@@ -2,6 +2,7 @@ package com.pknu.project.group.controller;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class GroupController {
 	private BoardService boardService;
 	@Autowired
 	private CommunityService communityService;
+	@Autowired
+	private ServletContext servletContext;
 	
 	
 	@RequestMapping(value="/group/main", method=RequestMethod.GET)
@@ -234,7 +237,7 @@ public class GroupController {
 		groupService.getGroup(groupNum, model);
 		boardService.getBoards(groupNum, model);
 		if(groupNum == -1) {
-			communityService.get
+			communityService.getAdminBoardSettings(model);
 		}
 		return "group/boardSetting";
 	}
@@ -245,21 +248,40 @@ public class GroupController {
 			@PathVariable("groupNum") String groupNum,
 			BoardDto board) {
 		boardService.renameBoard(board);
+		if(groupNum.equals("-1")) {
+			communityService.getAdminBoards(servletContext);
+		}
 		return "success";
 	}
 	
 	@RequestMapping(value="/{groupNum}/newBoard", method=RequestMethod.POST)
 	@ResponseBody
-	public int newBoard(@PathVariable("groupNum") int groupNum, String boardName) {
-		return boardService.newBoard(boardName, groupNum);
+	public int newBoard(@PathVariable("groupNum") int groupNum, String boardName, String view) {
+		int boardNum = boardService.newBoard(boardName, groupNum);
+		if(groupNum == -1) {
+			communityService.insertAdminBoardSetting(boardNum, view);
+			communityService.getAdminBoards(servletContext);
+		}
+		return boardNum;
 	}
 	
 	@RequestMapping(value="/{groupNum}/deleteBoard", method=RequestMethod.POST)
 	@ResponseBody
-	public String deleteBoard(int boardNum) {
-		return boardService.deleteBoard(boardNum);
+	public String deleteBoard(@PathVariable("groupNum") int groupNum, int boardNum) {
+		String result = boardService.deleteBoard(boardNum);
+		if(groupNum == -1) {
+			communityService.getAdminBoards(servletContext);
+		}
+		return result;
 	}
 	
+	@RequestMapping(value="/{groupNum}/updateAdminBoardSetting", method=RequestMethod.POST)
+	@ResponseBody
+	public String updateAdminBoardSetting(
+			int boardNum, boolean adminOnly, String view) {
+		communityService.updateAdminBoardSetting(boardNum, adminOnly, view);
+		return "success";
+	}
 	
 	/* chatroom */
 	@RequestMapping(value="/{groupNum}/chatrooms", method=RequestMethod.GET)
