@@ -79,11 +79,13 @@
 	    border: 1px solid #e0e0e0;
 	    z-index: 1000;
     }
-    /* .mypageBtnIcon은 반응형에서 동작 */
     .mypageBtnIcon {
-    	display: none;
+    	display: inline-block;
 	    padding: 10px 7px;
     }
+    .mypageBtnIcon img {
+  			width: 20px;
+  		}
     .responseMypageMenu  li {
   			display: none;
   			float: left;
@@ -99,43 +101,35 @@
 	    font-family: arial;
     }
     /* header response style */
-    @media (max-width: 1024px) {
-  		.mypageBtn {
-  			font-size: 0;
-  		}
-  		.mypageBtnIcon {
-  			display: inline-block;
-  		}
-  		.mypageBtnIcon img {
-  			width: 20px;
-  		}
-  		header .wrap .menubar {
-  			width: 100%;
-  		}
-  		.mypageMenu {
-  			display: none;
-  		}
-  		.responseMypageMenu  li {
-  			float: left;
-  			text-align: center;
-  			border-bottom: 1px solid #eee;
-  		}
-  		.responseMypageMenu  li:nth-child(1){
-  			width: 40%;
-  		}
-  		.responseMypageMenu  li:nth-child(2){
-  			width: 30%;
-  		}
-  		.responseMypageMenu  li:nth-child(3){
-  			width: 30%;
-  		}
-  		.responseMypageMenu a {
-  			display: block;
-  			width: 100%;
-/*   			height: 100%; */
-  			padding: 20px 0;
-  		}
-    }
+/*     @media (max-width: 1024px) { */
+  		
+/*   		header .wrap .menubar { */
+/*   			width: 100%; */
+/*   		} */
+/*   		.mypageMenu { */
+/*   			display: none; */
+/*   		} */
+/*   		.responseMypageMenu  li { */
+/*   			float: left; */
+/*   			text-align: center; */
+/*   			border-bottom: 1px solid #eee; */
+/*   		} */
+/*   		.responseMypageMenu  li:nth-child(1){ */
+/*   			width: 40%; */
+/*   		} */
+/*   		.responseMypageMenu  li:nth-child(2){ */
+/*   			width: 30%; */
+/*   		} */
+/*   		.responseMypageMenu  li:nth-child(3){ */
+/*   			width: 30%; */
+/*   		} */
+/*   		.responseMypageMenu a { */
+/*   			display: block; */
+/*   			width: 100%; */
+/* /*   			height: 100%; */ */
+/*   			padding: 20px 0; */
+/*   		} */
+/*     } */
     
 </style>
 
@@ -160,7 +154,6 @@
 			<ul class="menuItem">
 				<li>
 					<c:if test="${id != null}">
-						<a href="#" class="mypageBtn">마이페이지</a>
 						<a href="#" class="mypageBtnIcon">
 							<img src="/project/resources/img/menuIcon.png" alt="menuIcon"/>  
 						</a>

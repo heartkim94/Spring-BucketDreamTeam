@@ -133,6 +133,10 @@ div.comment {
 .commentList ul li {
 	float: left;
 }
+.btn {
+	float: right;
+	display: block;
+}
 .commentContent {
 	font-size: 14px;
 	line-height: 18px;
@@ -144,7 +148,6 @@ div.comment {
     word-wrap: break-word;
 }
 .commentArea > div.commTableWrap {
-	border: 1px solid #b3b3b3;
 	margin: 10px 0;
 	overflow: hidden;
 }
@@ -214,12 +217,12 @@ textarea {
 				<c:if test="${fileList!=null}">
 					<dd>
 						<c:forEach var="file" items="${fileList}">
-							<p>(${file.fileNum})
-								<a href="/project/community/download?storedFname=${file.storedFname}">${file.storedFname.substring(file.storedFname.indexOf("_")+1)}</a>
+							<p>
+								<a href="/project/community/download?fileNum=${file.fileNum}&storedFname=${file.storedFname}">${file.storedFname.substring(file.storedFname.indexOf("_")+1)}</a>
 							</p>
 						</c:forEach>
 					</dd>
-				</c:if>
+				</c:if> 
 			</c:if>
 		</dl>
 	</div>
@@ -284,10 +287,17 @@ textarea {
 		</div>
 		<!-- 코멘트 리스트 -->
 <%-- 		<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead"> --%>
-		<div style="width: 100%; min-height: 100px; padding: 20px 0;">
-			<div id="showComment" align="center"></div>
-			<input type="hidden" id="commPageNum" value="1">
-		</div>
+		<c:if test="${article.commentCount > 0 }"> 
+			<div style="width: 100%; min-height: 100px; padding: 20px 0;">
+				<div id="showComment" align="center"></div>
+				<input type="hidden" id="commPageNum" value="1">
+			</div>
+		</c:if>
+		<c:if test="${article.commentCount == 0 }"> 
+			<div style="width: 100%; min-height: 100px; padding: 20px 0;">
+				<div id="noComment" align="center">등록된 댓글이 없습니다</div>
+			</div>
+		</c:if>
 	</div> <!-- commentArea end -->
 </div> <!-- contentTable end -->
 </body>
@@ -351,15 +361,17 @@ textarea {
 		let html = "<article class='commentList'>";
 		let id = "${id}";
 		$.each(data, function(index,item) {
-			html +="<div class='comment' commentNum='"+item.commentNum+"depth='"+item.depth+"'>";
+			html +="<div class='comment' commentNum='"+item.commentNum
+					+"' depth='"+item.depth
+					+"' style='margin-left:"+ (20*item.depth) +"px'>";
 			html +="<div class='commentInfo'>";
 			if(item.depth > 0) { html += "<img src='/project/resources/img/icon_reply.png' style='margin-right: 5px;'>"; }
 			html +="<ul>";
 			html +="<li>작성자: "+item.id+"&nbsp;|&nbsp;</li>";
 			html +="<li>작성일: "+item.commentDate+"</li>";
 			html +="</ul></div>";
-			html +="<p class='commentContent'>"+item.commentContent+" </p>";
-			html +="<div class='commentBtn'><ul>";
+			html +="<p class='commentContent'>"+item.commentContent+"</p>";
+			html +="<ul class='btn'>";
 			html +="<li><a href='#' class='replyComment')'>답변</a>&nbsp;|&nbsp;</li>";
 			if(id == item.id) {
 				html +="<li><a href='#' class='updateComment'>수정</a>&nbsp;|&nbsp;</li>";
@@ -369,7 +381,6 @@ textarea {
 				html +="<li><span style='color:#BDBDBD; cursor:default;')'>삭제</span></li>";
 			}
 			html +="</ul></div>";
-			html +="</div>";
 		});
 		html +="</article>";
 		commPageNum = parseInt(commPageNum);
@@ -495,17 +506,22 @@ textarea {
 		let comment = $(this).parents(".comment");
 		let commentNum = $(comment).attr("commentNum");
 // 		let commentContent = $(comment).children(".commentContent").text();
-		$.ajax({
-			url : "/project/deleteComment",
-			data: {
-				articleNum : "${article.articleNum}",
-				boardNum : "${boardNum}",
-				commentNum : commentNum
-			},
-			success: function(data){
-				showHtml(data, 1);
-			}
-		});
+		let cf = confirm("정말로 지우시겠습니까?");
+		if(cf == true){
+			$.ajax({
+				url : "/project/deleteComment",
+				data: {
+					articleNum : "${article.articleNum}",
+					boardNum : "${boardNum}",
+					commentNum : commentNum
+				},
+				success: function(data){
+					showHtml(data, 1);
+				}
+			});
+		}else {
+			return;
+		}
 	});
 	
 	

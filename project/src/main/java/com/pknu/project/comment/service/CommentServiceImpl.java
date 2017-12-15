@@ -16,6 +16,7 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	CommentDao commentDao;
 	
+	
 	HashMap<String, Integer> commentMap;
 
 	@Override

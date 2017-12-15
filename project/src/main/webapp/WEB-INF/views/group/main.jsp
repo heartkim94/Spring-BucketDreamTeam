@@ -71,7 +71,7 @@
 	    border-bottom: 1px solid #eee;
 	}
 	.groupListContainer {
-		
+		border: 0;
 	}
 	.group, .newGroup {
 		margin: 20px;
