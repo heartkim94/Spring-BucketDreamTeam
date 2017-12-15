@@ -18,7 +18,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	private BoardService boardService;
 	
-	private HashMap<String, Object> resMap;
+	private HashMap<String, Object> map;
 	
 	@Override
 	public void getAdminBoards(ServletContext servletContext) {
@@ -27,9 +27,33 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public void getAdminBoardSetting(int boardNum, Model model) {
-		resMap = communityDao.getAdminBoardSetting(boardNum);
+		map = communityDao.getAdminBoardSetting(boardNum);
 		model.addAttribute("isAdminBoard", true);
-		model.addAttribute("view", resMap.get("view"));
-		model.addAttribute("adminOnly", resMap.get("adminOnly"));
+		model.addAttribute("view", map.get("view"));
+		model.addAttribute("adminOnly", map.get("adminOnly"));
 	}
+	
+	public void getAdminBoardSettings(Model model) {
+		model.addAttribute("settings", communityDao.getAdminBoardSettings());
+	}
+	
+	public void insertAdminBoardSetting(int boardNum, String view) {
+		map = new HashMap<String, Object>();
+		map.put("boardNum", boardNum);
+		map.put("view", view);
+		communityDao.insertAdminBoardSetting(map);
+	}
+	
+	public void updateAdminBoardSetting(int boardNum, boolean adminOnly, String view) {
+		map = new HashMap<String, Object>();
+		map.put("boardNum", boardNum);
+		map.put("adminOnly", adminOnly);
+		map.put("view", view);
+		communityDao.insertAdminBoardSetting(map);
+	}
+//	@def @class User: {
+//		id: str;
+//		pass: str;
+//		name: str;
+//	}
 }

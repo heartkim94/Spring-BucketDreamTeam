@@ -1,6 +1,7 @@
 package com.pknu.project.community.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.pknu.project.common.dto.ArticleDto;
 
@@ -9,6 +10,10 @@ public interface CommunityDao {
 	public ArticleDto search(HashMap<String, String> searchMap);
 //	public String getAdminBoardSetting(int boardNum);
 	public HashMap<String, Object> getAdminBoardSetting(int boardNum);
+	
+	public List<HashMap<String, Object>> getAdminBoardSettings();
+	public void insertAdminBoardSetting(HashMap<String, Object> paramMap);
+	public void updateAdminBoardSetting(HashMap<String, Object> paramMap);
 	
 	/* Notice */
 	/*

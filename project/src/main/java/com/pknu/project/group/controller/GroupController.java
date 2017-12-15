@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.dto.BoardDto;
 import com.pknu.project.common.service.BoardService;
+import com.pknu.project.community.service.CommunityService;
 import com.pknu.project.group.dto.GroupDto;
 import com.pknu.project.group.dto.TodoDto;
 import com.pknu.project.group.service.GroupService;
@@ -28,6 +29,8 @@ public class GroupController {
 	private GroupService groupService;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private CommunityService communityService;
 	
 	
 	@RequestMapping(value="/group/main", method=RequestMethod.GET)
@@ -226,9 +229,13 @@ public class GroupController {
 	
 	/* board setting */
 	@RequestMapping(value="/{groupNum}/boardSetting", method=RequestMethod.GET)
-	public String BoardSetting(@PathVariable("groupNum") int groupNum, Model model) {
+	public String BoardSetting(Model model,
+			@ModelAttribute @PathVariable("groupNum") int groupNum) {
 		groupService.getGroup(groupNum, model);
 		boardService.getBoards(groupNum, model);
+		if(groupNum == -1) {
+//			communityService.
+		}
 		return "group/boardSetting";
 	}
 	
