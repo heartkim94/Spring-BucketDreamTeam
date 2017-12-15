@@ -43,7 +43,9 @@ public class Page {
 			} else {
 				sb.append("&nbsp;&nbsp;<a href='list.do?pageNum=");
 				sb.append(i);
-				sb.append("&boardNum=2'>");
+				sb.append("&boardNum=");
+				sb.append(boardNum);
+				sb.append("'>");
 				sb.append(i);
 				sb.append("</a>");
 			}

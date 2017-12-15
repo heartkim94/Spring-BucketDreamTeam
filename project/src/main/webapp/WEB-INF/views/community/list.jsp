@@ -21,4 +21,6 @@
 	<%@ include file="../common/footer.jsp" %>
 </div>
 </body>
+<style>
+</style>
 </html>

@@ -6,25 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Home</title>
-	<style>
-		.group, .newGroup {
-/* 			border: 1px solid black; */
-			margin: 20px;
-			width: 200px;
-			height: 250px;
-			cursor: pointer;
-			float: left;
-		}
-		.clear {
-			clear: both;
-		}
-		.group img {
-			width: 200px;
-			height: 200px;
-		}
-	</style>
-	<!-- 합쳐지고 최소화된 최신 CSS -->
-<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+	
 	
 </head>
 
@@ -36,14 +18,23 @@
 				<div class="myGroupContainer">
 					내 그룹
 					<div class="myGroup">
-						<div class="newGroup" style="border:1px solid">
-							그룹추가하기
+						<div class="newGroup">
+							<div class="cover">
+								<span class="plusIcon"></span>
+							</div>
+							<div class="groupName">
+								<span>그룹 만들기</span>
+							</div>
 						</div>
 						<c:forEach var="myGroup" items="${myGroupList}">
 							<div class="group" groupNum="${myGroup.groupNum}">
-								<img src="${myGroup.profileImg}" alt="프로필 이미지 없음"><br>
-								${myGroup.groupName}<br>
-								멤버:${myGroup.memberCount}명
+								<div class="cover">
+									<img src="${myGroup.profileImg}" alt="프로필 이미지 없음">
+								</div>
+								<div class="groupName">
+									<span>${myGroup.groupName}</span><br><br>
+									<span>멤버:${myGroup.memberCount}명</span>
+								</div>
 							</div>
 						</c:forEach>
 						<div class="clear"></div>
@@ -56,9 +47,13 @@
 					<div class="groupList">
 						<c:forEach var="group" items="${groupList}">
 							<div class="group" groupNum="${group.groupNum}">
-								<img src="${group.profileImg}" alt="프로필 이미지 없음"><br>
-								${group.groupName}<br>
-								멤버:${group.memberCount}명
+								<div class="cover">
+									<img src="${group.profileImg}" alt="프로필 이미지 없음">
+								</div>
+								<div class="groupName">
+									<span>${group.groupName}</span><br><br>
+									<span>멤버:${group.memberCount}명</span>
+								</div>
 							</div>
 						</c:forEach>
 						<div class="clear"></div>
@@ -70,6 +65,99 @@
 	
 	</div> <!-- wrapper End -->
 </body>
+<style>
+	.myGroupContainer, .groupListContainer {
+	    padding: 37px 0 15px;
+	    border-bottom: 1px solid #eee;
+	}
+	.groupListContainer {
+		border: 0;
+	}
+	.group, .newGroup {
+		margin: 20px;
+		width: 200px;
+		height: 200px;
+		cursor: pointer;
+		float: left;
+		box-sizing: border-box;
+		overflow: hidden;
+	    box-shadow: 0 1px 2px 0 #999;
+	}
+	.group:hover, .newGroup:hover {
+		box-shadow: 0 2px 4px 0 #999;
+		padding-bottom: 2px;
+	}
+	.cover {
+		overflow: hidden;
+	}
+	.newGroup .cover {
+		position: relative;
+		padding-top: 70px;
+		text-align: center;
+		box-sizing: border-box;
+	}
+	.group .cover {
+		position: relative;
+		box-sizing: border-box;
+		height: 60%;
+	}
+	.cover > img {
+		position: absolute;
+	    margin: auto;
+	    top: 0;
+	    bottom: 0;
+	    border-radius: 0;
+	    height: auto;
+	    width: 100%;
+	}
+	.groupName {
+	    padding-top: 10px;
+    	text-align: center;
+    	position: relative;
+	    height: 40%;
+	    padding: 9px 12px 14px;
+	    background-color: #fff;
+	    box-sizing: border-box;
+	    white-space: nowrap;
+		text-overflow: ellipsis;
+    	overflow: hidden;
+	}
+	span.plusIcon {
+		display: inline-block;
+		width: 50px;
+		height: 50px;
+		border-radius: 50px;
+		background-color: #e0e0e0;
+		background-image: url("/project/resources/img/plusIcon.png");
+		background-size: 50px;
+		background-repeat: no-repeat;
+	}
+	.clear {
+		clear: both;
+	}
+	
+	@media (max-width: 1024px) {
+		div.groupContent{
+			width: 768px;
+		}
+	}
+	@media (max-width: 768px) {
+		div.groupContent{
+			width: 560px;
+		}
+	}
+	@media (max-width: 560px) {
+		div.groupContent{
+			width: 100%;
+		}
+		.group, .newGroup {
+		margin: 5%;
+		width: 40%;
+		height: 160px;
+	}
+	}
+</style>
+
 <script>
 $(function() {
 	$(".newGroup").on("click", function() {
