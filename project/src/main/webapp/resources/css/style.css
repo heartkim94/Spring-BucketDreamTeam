@@ -1,7 +1,17 @@
 @charset "UTF-8";
 
+html {
+width : 100%;
+height : 100%;
+}
 body {
-/* 	font: 14px 맑은 고딕; */
+overflow : auto;
+width      : 100%;
+height      : 100%;
+}
+/* 스크롤바 안보이면서 기능은 유지 */
+body::-webkit-scrollbar { 
+    display: none; 
 }
 
 /* 초기화(공통) 스타일 */
@@ -18,9 +28,6 @@ img {
 }
 ol, ul {
 	list-style: none;	
-}
-div{
-/* 	border:1px solid #8000ff; */
 }
 h1{
 	font-size: 1.5em;		
@@ -51,22 +58,22 @@ header {
 	width: 100%;
 	background-color:#aaa;
 }
-header .head {
-	width: 1024px;
-	height: 150px;
-	margin: 0 auto;
-	background-image: url(../img/흐엉_small.jpg);
-	background-repeat: no-repeat;
-	background-position: left center;
-	text-align:center;
-	box-sizing: border-box;
-}
+/* header .head { */
+/* 	width: 1024px; */
+/* 	height: 150px; */
+/* 	margin: 0 auto; */
+/* 	background-image: url(../img/흐엉_small.jpg); */
+/* 	background-repeat: no-repeat; */
+/* 	background-position: left center; */
+/* 	text-align:center; */
+/* 	box-sizing: border-box; */
+/* } */
 
-div.loginbtn {
-	height:30px;
-	text-align:right;
-	padding:20px 20px 0 0;
-}
+/* div.loginbtn { */
+/* 	height:30px; */
+/* 	text-align:right; */
+/* 	padding:20px 20px 0 0; */
+/* } */
 
 
 /* 콘텐츠 영역(공통) 스타일 */
@@ -131,7 +138,6 @@ div.subContent table {
 	clear: both;
     position: relative;
     width: 100%;
-    height: 37px;
     overflow: hidden;
     margin-top: 15px;
     text-align: right;

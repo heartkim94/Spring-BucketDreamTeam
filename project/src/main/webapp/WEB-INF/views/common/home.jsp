@@ -28,50 +28,52 @@
 	<section>
 		<div class="container mainContent">
 			<div class="contentRow contentRow1">
-				<div class="intro">
-					<img src="resources/img/흐엉.jpg" width="300" height="300" alt="홈페이지 소개 사진이나 글, 슬라이드"><br>
-					<h1>Hello, world!</h1>
-					<p>blah blah</p>
-					<button type="button" onclick="alert('Coming Soon!!!')">Click!!</button>
-				</div>
-				<div class="centerLineWrap">
-					<p class="centerLine"></p>
-				</div>
-				<div class="login">
-					<div class="loginInner">
-						<c:if test="${id == null}">
-							<form action="/project/login" method="post" id="loginForm">
-								<div>
-									<div class="loginInfoInput">
-										<input type="text" id="id" name="id" placeholder="아이디" required=""/><br>
-										<input type="password" id="pass" name="pass" placeholder="비밀번호" required=""/><br>
+				<article>
+					<div class="intro">
+						<img src="resources/img/흐엉.jpg" width="300" height="300" alt="홈페이지 소개 사진이나 글, 슬라이드"><br>
+						<h1>Hello, world!</h1>
+						<p>blah blah</p>
+						<button type="button" onclick="alert('Coming Soon!!!')">Click!!</button>
+					</div>
+					<div class="centerLineWrap">
+						<p class="centerLine"></p>
+					</div>
+					<div class="login">
+						<div class="loginInner">
+							<c:if test="${id == null}">
+								<form action="/project/login" method="post" id="loginForm">
+									<div>
+										<div class="loginInfoInput">
+											<input type="text" id="id" name="id" placeholder="아이디" required=""/><br>
+											<input type="password" id="pass" name="pass" placeholder="비밀번호" required=""/><br>
+										</div>
+										<div class="loginBtn">
+											<input type="submit" value="로그인"><br>
+										</div>
 									</div>
-									<div class="loginBtn">
-										<input type="submit" value="로그인"><br>
+									<div class="searchJoin">
+										<div class="joinContainer">
+											<a href="javascript:void(window.open('/project/userIdPassFind', '_blank','width=450, height=270'))">ID / PW 찾기</a>
+										</div>
+											<!-- <a href="#">ID / PW 찾기</a> &nbsp; | &nbsp; <a href="userProvisionForm">회원가입</a> -->
+										<div class="joinContainer">
+											<a href="userProvisionForm">회원가입</a>
+										</div>
 									</div>
-								</div>
-								<div class="searchJoin">
-									<div class="joinContainer">
-										<a href="javascript:void(window.open('/project/userIdPassFind', '_blank','width=450, height=270'))">ID / PW 찾기</a>
-									</div>
-										<!-- <a href="#">ID / PW 찾기</a> &nbsp; | &nbsp; <a href="userProvisionForm">회원가입</a> -->
-									<div class="joinContainer">
-										<a href="userProvisionForm">회원가입</a>
-									</div>
-								</div>
-							</form>
-						</c:if>
-						<c:if test="${id != null}">
-							<center>
-								<form action="/project/logout" method="post">
-								 	<p>${id}님 환영합니다</p>
-								 	<a href="/project/mypage">회원정보수정</a><br>
-								 	<a href="/project/myInfoDelForm">회원탈퇴</a><br>
-									<button id="logout">로그아웃</button>
 								</form>
-							</center>
-						</c:if>
-					</div> 
+							</c:if>
+							<c:if test="${id != null}">
+								<center>
+									<form action="/project/logout" method="post">
+									 	<p>${id}님 환영합니다</p>
+									 	<a href="/project/mypage">회원정보수정</a><br>
+									 	<a href="/project/myInfoDelForm">회원탈퇴</a><br>
+										<button id="logout">로그아웃</button>
+									</form>
+								</center>
+							</c:if>
+						</div> 
+					</article>
 				</div>
 			</div>
 			<div class="contentRow contentRow2">
@@ -107,10 +109,14 @@
 			width: 100%;
 		}
 		/* contentRow1 */
-		.contentRow1 {
-			width: 1024px;
+		div.contentRow1 {
 			padding: 150px 0;
 			background-color: #f8f6f3;
+		}
+		div.contentRow1 article {
+			width: 1024px;
+			margin: 0 auto;
+			display: flex;
 		}
 		.centerLineWrap {
 		    align-self: stretch;
@@ -240,6 +246,7 @@
 		}
 		/* response style */
 		@media (max-width: 1024px) {
+			
 			/* contentRow3 */
 			.contentRow3 {
 				padding: 25px 0;
@@ -252,6 +259,10 @@
 			}
 		}
 		@media (max-width: 768px) {
+			div.contentRow1 article {
+				width: 100%;
+				display: block !important;
+			}
 	  		.contentRow1 {
 	  			padding: 50px 0 !important;
 	  			display: block !important;

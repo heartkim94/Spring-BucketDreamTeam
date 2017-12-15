@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>글 상세 보기</title>
 <style>
+
+textarea {
+	resize: none;
+	
+}
 .contentTable {
 	clear: both;
     position: relative;
@@ -15,7 +20,6 @@
 }
 .title {
     padding: 10px 0 15px 20px;
-    color: #333;
     text-align: left;
     background: #fff;
     font-size: 15px;
@@ -27,7 +31,6 @@
     right: 20px;
     top: 10px;
     border: 0;
-    color: #333;
 }
 .title span {
 	margin: 0 3px 0 8px;
@@ -35,38 +38,47 @@
 .contentTable dl {
 	clear: both;
     overflow: hidden;
-    padding: 10px 0;
+    padding: 10px 20px;
     border-bottom: 1px solid #e1e1e1;
 }
 .contentTable dl dt {
 	float: left;
-    width: 80px;
+    margin-right: 20px;
     text-align: center;
-    color: #777;
 }
 .contentTable dl dd {
     float: left;
     width: 80%;
     overflow: hidden;
 }
+.content {
+	clear: both;
+    overflow: hidden;
+    padding: 20px 16px;
+    border-bottom: 1px solid #e1e1e1;
+    white-space: pre-line;
+}
 .fileDown {
+	overflow: hidden;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
 	padding: 5px 0;
-    padding-left: 20px;
-    font-size: 12px;
+    font-size: 14px;
     border-bottom: 1px solid #e2e2e2;
-    border-top: 1px solid #e2e2e2;
     background-color: #f7f7f7;
 }
-.fileDown td {
-    padding-right: 13px;
-    margin-right: 10px;
+.fileDown dl {
+	border-bottom: 0;
 }
-.fileDown td:nth-child(1) {
-	width: 20%;
-	padding: 20px;
+.fileDown p {
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 10px;
 }
-
-
+.fileDown p:first-child {
+	padding-top: 0;
+}
 
 
 
@@ -102,15 +114,17 @@ input {
 
 /* comment */
 .commentArea {
-	text-align: center;
+/* 	text-align: center; */
+	margin-top: 50px;
 }
 #commentContent{
 	width: 100%;
 	height: 100px;
-}
-.commentList > div.comment {
+} 
+div.comment {
 	padding: 15px 0;
-	border-bottom: 1px solid #e2e2e2;
+	overflow: hidden;
+	border-bottom: 1px dotted black;
 }
 .commentList ul {
 	overflow: hidden;
@@ -122,21 +136,58 @@ input {
 .commentContent {
 	font-size: 14px;
 	line-height: 18px;
+	text-align: left;
+	padding: 10px 0;
+	white-space: pre-line;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
 }
-
 .commentArea > div.commTableWrap {
 	border: 1px solid #b3b3b3;
 	margin: 10px 0;
+	overflow: hidden;
 }
+div.commTableWrap input {
+	float: right;
+}
+#showComment {
+    overflow: hidden;  
+    padding: 15px 15px 0;
+    border-top: 2px solid #444547;
+    background: #f7f7f8;
+}
+.commentInfo {
+	overflow: hidden;
+}
+.commentInfo ul, img {
+	float: left;
+}
+.commentBtn {
+	overflow: hidden;
+}
+.commentBtn ul {
+	float: right;
+}
+
+
+
 textarea {
 	box-sizing: border-box;
 }
+
 
 @media (max-width: 1024px) {
 	div.subContent {
 		width: 100%;
 	}
 }
+@media (max-width: 560px) {
+	.contentTable dl dd {
+	    width: 60%;
+	}
+}
+
 </style>
 </head>
 <body>
@@ -153,26 +204,27 @@ textarea {
 		<dt>작성자</dt>
 		<dd>${article.id}</dd>
 	</dl>
-	<table class="fileDown">
-		<td>다운로드</td>
-		<c:if test="${article.fileStatus !=0}">
-			<c:if test="${fileList!=null}">
-				<td>
-					<c:forEach var="file" items="${fileList}">
-						<p>(${file.fileNum})
-							<a href="/project/community/download?storedFname=${file.storedFname}">${file.storedFname.substring(file.storedFname.indexOf("_")+1)}</a>
-						</p>
-					</c:forEach>
-				</td>
+	<div class="content">
+		<p>${article.content}</p>
+	</div>
+	<div class="fileDown">
+		<dl>
+			<dt>다운로드</dt>
+			<c:if test="${article.fileStatus !=0}">
+				<c:if test="${fileList!=null}">
+					<dd>
+						<c:forEach var="file" items="${fileList}">
+							<p>(${file.fileNum})
+								<a href="/project/community/download?storedFname=${file.storedFname}">${file.storedFname.substring(file.storedFname.indexOf("_")+1)}</a>
+							</p>
+						</c:forEach>
+					</dd>
+				</c:if>
 			</c:if>
-		</c:if>
-	</table>
-		<tr>
-			<th>내용</th>
-			<td colspan="4">${article.content}</td>
-		</tr>
-	</table>
-	<form action="reply" method="get">
+		</dl>
+	</div>
+	<div class="btnArea">
+		<form action="reply" method="get">
 		<input type="hidden" name="boardNum" value="${boardNum}">
 		<input type="hidden" name="pageNum" value="${pageNum}">
 		<input type="hidden" name="depth" value="${article.depth}">
@@ -211,9 +263,8 @@ textarea {
 				<li><input type="submit" value="답글달기"disabled="disabled" style="cursor:default"></li>
 			</ul>
 		</c:if>
-		</table>
 	</form>
-	<hr>
+	</div>
 	<!-- 코멘트 -->
 	<div class="commentArea">
 		<p>전체 코멘트: <span style='color: blue'>(${article.commentCount})</span></p>
@@ -300,17 +351,15 @@ textarea {
 		let html = "<article class='commentList'>";
 		let id = "${id}";
 		$.each(data, function(index,item) {
-			html +="<div class='comment' commentNum='"+item.commentNum
-					+"' depth='"+item.depth
-					+"' style='margin-left:"+ (100*item.depth) +"px'>";
+			html +="<div class='comment' commentNum='"+item.commentNum+"depth='"+item.depth+"'>";
 			html +="<div class='commentInfo'>";
-			if(item.depth > 0) { html += "<img src='/project/resources/img/icon_reply.gif'>"; }
+			if(item.depth > 0) { html += "<img src='/project/resources/img/icon_reply.png' style='margin-right: 5px;'>"; }
 			html +="<ul>";
 			html +="<li>작성자: "+item.id+"&nbsp;|&nbsp;</li>";
 			html +="<li>작성일: "+item.commentDate+"</li>";
 			html +="</ul></div>";
-			html +="<p class='commentContent'>"+item.commentContent+"</p>";
-			html +="<ul class='btn'>";
+			html +="<p class='commentContent'>"+item.commentContent+" </p>";
+			html +="<div class='commentBtn'><ul>";
 			html +="<li><a href='#' class='replyComment')'>답변</a>&nbsp;|&nbsp;</li>";
 			if(id == item.id) {
 				html +="<li><a href='#' class='updateComment'>수정</a>&nbsp;|&nbsp;</li>";
@@ -320,6 +369,7 @@ textarea {
 				html +="<li><span style='color:#BDBDBD; cursor:default;')'>삭제</span></li>";
 			}
 			html +="</ul></div>";
+			html +="</div>";
 		});
 		html +="</article>";
 		commPageNum = parseInt(commPageNum);

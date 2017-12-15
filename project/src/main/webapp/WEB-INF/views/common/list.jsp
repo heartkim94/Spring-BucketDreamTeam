@@ -59,6 +59,10 @@
 		.listTable th:nth-child(2) {
 			width: 30%;
 		}
+		div.subContent {
+			padding-left: 1%;
+			padding-right: 1%;
+		}
 	}
 </style>
 </head>
@@ -82,7 +86,7 @@
 					<td><c:out value="${article.articleNum}" /></td>
 					<td class="alignL">
 						<c:if test="${article.depth > 0}">
-							<img src="/project/resources/img/icon_reply.gif" style="margin-left:${10 * article.depth}">RE: 
+							<img src="/project/resources/img/icon_reply.png" style="margin-left:${10 * article.depth}">RE: 
 						</c:if>
 <%-- 								<c:if test="${article.depth == 0}"> --%>
 <!-- 									<img src="" width="0" height="16"> -->
@@ -97,18 +101,11 @@
 							<span class="hit">hit!</span>
 						</c:if>
 						<c:if test="${article.fileStatus == 1 }">
-							<img src="/project/resources/img/icon_file.gif" alt="첨부파일"/>
+							<img src="/project/resources/img/icon_file.png" alt="첨부파일"/>
 						</c:if>
-						<!-- 모바일 반응형 크기에서 나옴 -->
+						<!-- 모바일 반응형 크기에서 제목 밑으로 가는 작성일 태그 -->
 						<p class="respDate" style="margin-left:${20 * article.depth}">${article.writeDate}</p>
 					</td>
-					
-<!-- 							<td> -->
-<%-- 								<c:if test="${article.fileStatus == 1 }"> --%>
-<!-- 									<img src="/project/resources/img/icon_file.gif" alt="첨부파일"/> -->
-<%-- 								</c:if> --%>
-<!-- 							</td> -->
-					
 					<td>${article.id}</td>
 					<td>${article.writeDate}</td>
 					<td>${article.hit}</td>

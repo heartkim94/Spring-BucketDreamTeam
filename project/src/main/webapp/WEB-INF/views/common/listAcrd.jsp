@@ -18,47 +18,54 @@
 	border-top: 2px solid #444547
 	}
 	.acrdTable th, td {
-		padding: 20px 20px 20px 25px;
+	    position: relative;
+	    font-size: 16px;
+	    padding: 15px 55px 15px 100px;
+	    margin: 0;
 		border-bottom: 1px solid #e1e1e1;
-	}
-	.acrdTable tbody th, td {
-		position: relative;
-	    overflow: hidden;
+		overflow: hidden;
 	    text-align: left;
 	}
 	.acrdTable tbody th button{
 	    color: #333;
 		font-weight: bold;
 		text-align: left;
-	}
-	.acrdTable tbody span{
-	    left: 20px;
-	    top: 10px;
-	}
-	td.articleBox { 
-	    background: #f7f7f7;
-	   	color: #555;
-	}
-	.acrdTable button {
 		position: relative;
 	    margin: 0;
 	    padding: 0;
 	    border: 0;
 	    font: inherit;
-	    color: inherit;
 	    background: transparent;
 	    overflow: visible;
 	    cursor: pointer;
 	    line-height: 1;
 	    outline: none;
 	}
-	i {
+	td.articleBox { 
+	    background: #f7f7f7;
+	   	color: #555;
+	   	/* 글 개행 표현 */
+   	    white-space: pre-line;
+	}
+	.acrdTable button {
+		
+	}
+	.acrdTable span {
 	    position: absolute;
-	    top: 20px;
-	    right: 20px;
+	    top: 15px;
+	    left: 0px;
+	    width: 100px;
+	    text-align: center;
+	    color: #999;
+	    font-size: 12px
+	}
+	i {
+		position: absolute;
+	    top: 15px;
+	    right: 5%;
 	    display: block;
 	    width: 18px;
-	    height: 18px;
+	    height: 15px;
 	    background-image: url(/project/resources/img/downArrow.png);
 	    background-position: bottom;
 	    background-repeat: no-repeat;
@@ -75,6 +82,18 @@
 			padding-right: 3%;
 		}
     }
+    @media (max-width: 560px) {
+    	.acrdTable span {
+    		display: none;
+    	}
+    	.acrdTable th, td {
+    		padding-left: 5%;
+    	}
+    	div.subContent {
+			padding-left: 1%;
+			padding-right: 1%;
+		}
+	}
     
 </style>
 </head>
@@ -92,7 +111,9 @@
 					<c:forEach var="article" items="${articleList}">
 						<tr>
 							<th class="titleBox"  articleNum="${article.articleNum}" fileStatus="${article.fileStatus}">
-								<button><span>Q: </span>${article.title}</button><i class="downArrow">a</i>
+								<span>${article.articleNum }</span>
+								<button>${article.title}</button>
+								<i class="downArrow">a</i> 
 							</th>
 						</tr>
 					</c:forEach>

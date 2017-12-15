@@ -77,6 +77,7 @@
 	    height: auto;
 	    background: #fff;
 	    border: 1px solid #e0e0e0;
+	    z-index: 1000;
     }
     /* .mypageBtnIcon은 반응형에서 동작 */
     .mypageBtnIcon {
