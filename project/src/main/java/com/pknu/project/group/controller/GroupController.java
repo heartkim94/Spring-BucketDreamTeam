@@ -234,7 +234,7 @@ public class GroupController {
 		groupService.getGroup(groupNum, model);
 		boardService.getBoards(groupNum, model);
 		if(groupNum == -1) {
-			communityService.get
+//			communityService.get
 		}
 		return "group/boardSetting";
 	}
