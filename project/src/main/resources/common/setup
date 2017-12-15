@@ -54,6 +54,7 @@ CREATE TABLE TodoList(
     doAllDay boolean NOT NULL default true,
     color char(7),
     done boolean NOT NULL default false,
+    memo text,
     parentNum int,
     path text NOT NULL,
     pos int NOT NULL,

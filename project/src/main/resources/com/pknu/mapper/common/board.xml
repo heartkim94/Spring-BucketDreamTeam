@@ -37,7 +37,10 @@
 	<!-- #Article -->
 	<!-- Board 글개수 가져오기 -->
 	<select id="getCount" parameterType="HashMap" resultType="int">
-		select count(*) from `GroupBoard${groupNum}` where boardNum = #{boardNum}
+		select count(*) from `GroupBoard${groupNum}`
+		<if test="boardNum != 0">
+       		where boardNum = #{boardNum}
+       	</if>
 	</select>
 	
 	<!-- Board 목록 보기 -->
@@ -45,7 +48,9 @@
 		SELECT articleNum, id, title, depth, hit, date_format(writeDate, '%Y-%m-%d') as writeDate, fileStatus
         FROM (SELECT b.*, @rownum := @rownum+1 as rownum
               FROM `GroupBoard${groupNum}` b, (SELECT @rownum := 0) vars
-              where boardNum = #{boardNum}
+           	  <if test="boardNum != 0">
+           		where boardNum = #{boardNum}
+           	  </if>
 			  order by groupId desc, pos) n
 		WHERE rownum between #{startRow} and #{endRow}
 	</select>
@@ -94,7 +99,9 @@
 			  FROM (SELECT * 
 				    FROM `GroupBoard${groupNum}`
 				    WHERE ${searchOption} LIKE CONCAT('%', '${keyword}', '%')
-				    	  and boardNum = #{boardNum}
+				    	  <if test="boardNum != 0">
+				    	  	and boardNum = #{boardNum}
+				    	  </if>
 				   ) searched, (SELECT @rownum := 0) r
 			  ORDER BY groupId DESC, pos) result
 		WHERE rownum between 1 and 10
@@ -104,7 +111,9 @@
 	<select id="getSearchedCount" parameterType="HashMap" resultType="int">
 		select count(*) from `GroupBoard${groupNum}`
 		WHERE ${searchOption} LIKE CONCAT('%', #{keyword}, '%')
-			  and boardNum = #{boardNum}
+			  <if test="boardNum != 0">
+	    	  	and boardNum = #{boardNum}
+	    	  </if>
 	</select>
 	
 	<!-- 답글 달기 -->

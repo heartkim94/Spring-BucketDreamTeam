@@ -6,18 +6,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link rel="stylesheet" href="/project/resources/css/group.css" >
 </head>
 <body>
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
 			<%@ include file="asideMenu.jsp" %>
-			<div class="groupMain">
+			<div class="container subContent">
 				<%@ include file="../common/writeForm.jsp" %>
 			</div>
-			<%@ include file="asideApp.jsp" %>
-			<div class="clear"></div>
 		</section>
 		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div class="btnArea">
-		<c:if test="${!adminOnly || isAdmin}">
+		<c:if test="${(!adminOnly || isAdmin) && boardNum != 0}">
 			<td><a href="write?boardNum=${boardNum}">글쓰기</a></td>
 		</c:if>
 	</div>

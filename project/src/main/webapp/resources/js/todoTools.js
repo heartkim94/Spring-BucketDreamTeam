@@ -130,44 +130,6 @@ $(function() {
 	});
 	
 	
-	// todo doName 변경
-	$(".renameTodo").on("click", function() {
-		if($(".selected").exist()) {
-			let doName = $(".tabCurrent .selected .doName");
-			let input = $("<input/>", {type: "text", name: "doName"});
-			console.log(doName);
-			
-			$(input).insertAfter($(doName));
-			$(input).focus();
-			$(input).val($(doName).text());
-			$(doName).remove();
-		}
-	});
-	
-	// doName 저장
-	$(".todoList > ul").on("blur", "input:text", function() {
-		let doName = $(this).val();
-//		$("<sapn/>", { class: "doName", text: doName }).insertAfter($(this));
-//		$(this).remove();
-		let doNum = $(this).parent().attr("doNum");
-		todoList.get(doNum).doName = doName;
-		todoList.list(doNum);
-	});
-	
-
-	$(".todoList > ul").on("keyup", "input:text", function(event) {
-		if(event.keyCode == 13) {		// 엔터 이벤트 -- blur event
-			$(this).blur();
-		}
-	});
-	// show todoList -- for test
-	$(window).on("keyup", function(event) {
-		if(event.keyCode == 192) {
-			todoList.show();	// '~' key
-		}
-	});
-	
-	
 	// todo 추가
 	$(".addTodo").on("click", function() {
 		let min = todoList.reduce(function(res, item) {
@@ -177,27 +139,20 @@ $(function() {
 		if(min.doNum > 0) { min = 0; }
 		else { min = min.doNum; }
 		let pos = todoList.getSub(0).length+1;
+		
 		let todo = new Todo({
 			doNum: min-1,
+			doName: "새 목표",
 			doAllDay: "true",
 			parentNum: 0,
 			depth: 0,
 			pos: pos,
-			userId: "${id}"
 		});
 		todoList.push(todo);
 		todo.path = todoList.getPathOf(todo.doNum);
 		
-		let item = $("<li/>", {doNum: todo.doNum, depth: todo.depth});
-		let checkBox = $("<input/>", {type: "checkbox", name: "done"});
-		let input = $("<input/>", {type: "text", name: "doName"});
-		
-		$(item).append(checkBox)
-		$(item).append(input);
-		$(".todoList > ul").append(item);
-		selectTodo(item);
-		$(input).focus();
-		$(input).val("새 목표");
+		todoList.list();
+		todoList.select(todo.doNum);
 	});
 	
 	$(".deleteTodo").on("click", function() {
@@ -220,6 +175,35 @@ $(function() {
 		}
 	})
 	
+	
+	// doName 변경
+	$(".todoContent [name=doName]").on("change", function() {
+		let doNum = $(".selected").attr("doNum");
+		let todo = todoList.get(doNum);
+		let doName = $(".todoContent [name=doName]").val();
+		
+		todo.doName = doName;
+		todoList.list(doNum);
+	});
+	
+
+	$(".todoContent input:text, .todoContent").on("keyup", function(event) {
+		if(event.keyCode == 13) {		// 엔터 이벤트 -- blur event
+			$(this).blur();
+		}
+	});
+	// show todoList -- for test
+	$(window).on("keyup", function(event) {
+		if(event.keyCode == 192) {
+			todoList.show();	// '~' key
+		}
+	});
+	
+	$(".todoList > ul").on("change", "[name=done]", function() {
+		let doNum = $(this).parent().attr("doNum");
+		let todo = todoList.get(doNum);
+		todo.done = $(this).prop("checked");
+	});
 	
 	$(".todoContent [name=doAllDay]").change(function() {
 		if($(".selected").exist()) {
@@ -255,7 +239,7 @@ $(function() {
 		}
 	});
 	
-	$(".todoContent .memo").on("blur", function() {
+	$(".todoContent .memo").on("change", function() {
 		if($(".selected").exist()) {
 			let doNum = $(".selected").attr("doNum");
 			let todo = todoList.get(doNum);
@@ -285,7 +269,6 @@ $(function() {
 				todo.doEnd = null;
 				todo.doEndTime = null;
 			}
-			console.log(todo.memo);
 			
 			updateList.push(todo);
 		}
@@ -351,8 +334,8 @@ function Todo(todo) {		// *1: convert string to int
 }
 function TodoList() {
 	this.deleteList = [];
-	this.userId;
 	this.changed = false;
+	this.isFirstListing = true;
 }
 TodoList.prototype = new Array;
 TodoList.prototype.select = function(doNum) {
@@ -387,7 +370,7 @@ TodoList.prototype.list = function(doNum = null) {
 			let li = $("<li/>");
 			$(li).attr("doNum", self[i].doNum);
 			$(li).attr("depth", self[i].depth);
-			if(self[i].parentNum < 0) {
+			if(self.isFirstListing && self[i].parentNum < 0) {
 				self[i].parentNum = self[i-1].doNum;
 			}
 			if(self[i].doNum == doNum) {	// 선택된 li 처리
@@ -430,6 +413,7 @@ TodoList.prototype.list = function(doNum = null) {
 			$(item).append(li);
 		}
 	}); // end -- todoList
+	this.isFirstListing = false;
 	
 	// todoCalendar
 	$(".todoCalendar .todo").remove();

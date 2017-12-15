@@ -32,7 +32,7 @@
 	<%@ include file="../common/header.jsp" %>
 	<div id="wrapper">
 		<section>
-			<div class="container groupContent">
+			<div class="container subContent">
 				<div class="myGroupContainer">
 					내 그룹
 					<div class="myGroup">

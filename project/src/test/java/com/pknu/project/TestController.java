@@ -24,8 +24,6 @@ public class TestController {
 	
 	@Test
 	public void test() {
-		paramMap = new HashMap<>();
-		paramMap.put("boardNum", "-1");
-		// dao.createTableBoard(paramMap);
+		System.out.println(String.valueOf(null));
 	}
 }
