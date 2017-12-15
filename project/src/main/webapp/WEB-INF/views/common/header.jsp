@@ -11,11 +11,14 @@
 <title>header</title>
 <link rel="stylesheet" href="/project/resources/css/normalize.css">
 <link rel="stylesheet" href="/project/resources/css/style.css">
+<link rel="stylesheet" href="/project/resources/sideMenu/dist/stylesheets/jquery.sidr.dark.css">
 <!-- <link rel="stylesheet" href="/project/resources/css/header.css"> -->
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/project/resources/js/jquery-ui.js"></script>
 <script src="/project/resources/js/prefixfree.min.js"></script>
+<script src="/project/resources/sideMenu/dist/jquery.sidr.js"></script>
+
 
  
 
@@ -47,7 +50,7 @@
     }
     header .wrap {
    	    background: #fff;
-   		padding: 30px 0 24px;
+   		padding: 30px 0 24px; 
     }
     header .wrap .menubar {
     	width: 1024px;
@@ -67,69 +70,69 @@
 	    float: right;
 	    vertical-align: top;
     }
-    .mypageMenu {
-    	display: none;
-    	position: absolute;
-	    overflow: hidden;
-	    right: 70px;
-	    top: -10px;
-	    width: 140px;
-	    height: auto;
-	    background: #fff;
-	    border: 1px solid #e0e0e0;
-	    z-index: 1000;
-    }
-    .mypageBtnIcon {
-    	display: inline-block;
-	    padding: 10px 7px;
-    }
-    .mypageBtnIcon img {
-  			width: 20px;
-  		}
-    .responseMypageMenu  li {
-  			display: none;
-  			float: left;
-  			text-align: center;
-  		}
-    .mypageMenu > li:hover {
-   	    background: #f1f1f2;
-    }
-    .mypageMenu a {
-    	display: block;
-	    padding: 8px 14px;
-	    color: #333;
-	    font-family: arial;
-    }
+     .mypageBtnIcon { 
+     	display: inline-block; 
+ 	    padding: 10px 7px; 
+ 	    opacity: 0.5;
+	    transition-duration: 0.5s;
+     } 
+     .mypageBtnIcon:hover {
+     	transform: scale(1.4);
+		opacity: 1;
+     }
+     .mypageBtnIcon img { 
+   			width: 20px; 
+   	 } 
+   	 .sideMenuLayer {
+   	 	position: fixed;
+   	 	top: 0;
+   	 	right: 0;
+   	 	width: 200px;
+   	 	height: 100%;
+   	 	z-index: 999;
+   	 	border: 1px solid black;
+   	 	box-sizing: border-box;
+   	 }
+   	 .MypageMenu {
+   	 	border: 1px solid red;
+   	 	box-sizing: border-box;
+   	 }
+   	 
+   	 
+   	 
+     
+      .sideMenuLayer { 
+	      	display: none;
+		    position: absolute;
+		    position: fixed;
+		    top: 0;
+		    height: 100%;
+		    z-index: 999999;
+		    width: 260px;
+		    overflow-x: none;
+		    overflow-y: auto;
+		    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+		    font-size: 15px;
+		    background: #333333;
+		    color: white;
+		    -webkit-box-shadow: inset 0 0 5px 5px #222222;
+		    -moz-box-shadow: inset 0 0 5px 5px #222222;
+		    box-shadow: inset 0 0 5px 5px #222222;
+		}
+
+
+
+
+
+      } 
     /* header response style */
-/*     @media (max-width: 1024px) { */
+    
+     @media (max-width: 1024px) { 
   		
-/*   		header .wrap .menubar { */
-/*   			width: 100%; */
-/*   		} */
-/*   		.mypageMenu { */
-/*   			display: none; */
-/*   		} */
-/*   		.responseMypageMenu  li { */
-/*   			float: left; */
-/*   			text-align: center; */
-/*   			border-bottom: 1px solid #eee; */
-/*   		} */
-/*   		.responseMypageMenu  li:nth-child(1){ */
-/*   			width: 40%; */
-/*   		} */
-/*   		.responseMypageMenu  li:nth-child(2){ */
-/*   			width: 30%; */
-/*   		} */
-/*   		.responseMypageMenu  li:nth-child(3){ */
-/*   			width: 30%; */
-/*   		} */
-/*   		.responseMypageMenu a { */
-/*   			display: block; */
-/*   			width: 100%; */
-/* /*   			height: 100%; */ */
-/*   			padding: 20px 0; */
-/*   		} */
-/*     } */
+   		header .wrap .menubar { 
+   			width: 100%; 
+   		} 
+     }
     
 </style>
 
@@ -151,103 +154,49 @@
 					<a href="/project/home"><h1>Dogether</h1></a>
 				</c:if>
 			</div>
-			<ul class="menuItem">
-				<li>
-					<c:if test="${id != null}">
-						<a href="#" class="mypageBtnIcon">
-							<img src="/project/resources/img/menuIcon.png" alt="menuIcon"/>  
-						</a>
-						<script>
-							$(function(){
-								// 헤더 마이페이지 버튼 클릭 시 토글효과
-								$('.mypageBtn').on("click", function(event){
-									event.preventDefault();
-									$(".mypageMenu").slideToggle();
-								});
-								$('.mypageBtnIcon').on("click", function(event){
-									event.preventDefault();
-									let menu = $(".responseMypageMenu li");
-									menu.fadeToggle();
-								});
-								
-								$(window).resize(function(){
-									let windowWidth = $(window).width();
-									if(windowWidth > 1024){
-										$(".responseMypageMenu").css("display", "none");
-									}else {
-										$(".responseMypageMenu").css("display", "block");
-									}
-									if(windowWidth <= 1024){
-										$(".mypageMenu").css("display", "none");
-									}
-								});
-								
-							});
-						</script>
-						<ul class="mypageMenu">
-							<li><a href="/project/mypage">회원정보 수정</a></li>
-							<li><a href="/project/myInfoDelForm">회원탈퇴</a></li>
-							<li><a href="/project/logout">로그아웃</a></li>
-						</ul>
-					</c:if>
-				</li>
-				<li>
-					<c:if test="${id == null}">
-						<a href="/project/userProvisionForm" class="headerJoinBtn">회원가입</a>
-					</c:if>
-				</li>
-			</ul>
-		</div>
-		
-	</div>
+			<div class="menuItem">
+				<a href="#" class="mypageBtnIcon" id="mypageBtnIcon" href="#sidr">
+					<img src="/project/resources/img/menuIcon.png" alt="menuIcon"/>  
+				</a>
+			
+<%-- 					<c:if test="${id == null}"> --%>
+						
+<%-- 					</c:if> --%>
+			</div> <!-- menuItem end -->
+		</div> <!-- menubar end -->
+	</div> <!-- wrap end -->
 </header>
-<!-- width:1024 이하일 때 display:block됨 -->
-<ul class="responseMypageMenu">
-	<li><a href="/project/mypage">회원정보 수정</a></li>
-	<li><a href="/project/myInfoDelForm">회원탈퇴</a></li>
-	<li><a href="/project/logout">로그아웃</a></li>
-</ul>
+<div class="sideMenuLayer" id="sidr">
+	<ul class="MypageMenu">
+		<li><a href="/project/userProvisionForm" class="headerJoinBtn">회원가입</a></li>
+		<li><a href="/project/mypage">회원정보 수정</a></li>
+		<li><a href="/project/myInfoDelForm">회원탈퇴</a></li>
+		<li><a href="/project/logout">로그아웃</a></li>
+	</ul>
+</div>
 </body>
+<!-- 젤 위로 이동 하기 버튼 동작 -->
+<script src="/project/resources/js/toTop.js"></script>
 <script>
+	$(function(){
+		// 헤더 마이페이지 버튼 클릭 시 토글효과
+// 		$('.mypageBtnIcon').on("click", function(event){
+// 			event.preventDefault();
+// 			let menu = $(".sideMenuLayer");
+// 			menu.slide(700);
+// 		});
+		$('#mypageBtnIcon').sidr();
 
-$(document).ready(function() {
-	// 상단으로 바로가기 버튼
-	let btnTop = $('#btnTop');
-
-	btnTop.click(function() {
-		$('html, body').animate({
-			'scrollTop' : '0'
-		}, 100);
-		// ie에서 작동하기 위해서는 html로 선택해야 함.
+		
+// 		$(window).resize(function(){
+// 			let windowWidth = $(window).width();
+// 			if(windowWidth > 1024){
+// 				$(".responseMypageMenu").css("display", "none");
+// 			}else {
+// 				$(".responseMypageMenu").css("display", "block");
+// 			}
+// 		});
+		
 	});
-
-	btnTop.hover(function() {
-		$(this).css('background-color', '#cd8f47');
-	}, function() {
-		$(this).css('background-color', '#777');
-	});
-
-	$(window).scroll(function() {
-
-		let pos = $(this).scrollTop();
-
-		if (pos >= 95) {
-			btnTop.css("display", "inline-block");
-			btnTop.stop(true).animate({
-				'opacity' : '0.8'
-			}, 200);
-
-		} else {
-			btnTop.stop(true).animate({
-				'opacity' : '0'
-			}, 200);
-			btnTop.css("display", "none");
-		}
-	});
-	
-	// $("#slider").nivoSlider();
-	
-	
-}); 
 </script>
 </html>

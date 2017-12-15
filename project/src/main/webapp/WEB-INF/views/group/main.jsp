@@ -14,7 +14,7 @@
 	<%@ include file="../common/header.jsp" %>
 	<div id="wrapper">
 		<section>
-			<div class="container subContent">
+			<div class="container groupContent">
 				<div class="myGroupContainer">
 					내 그룹
 					<div class="myGroup">
@@ -151,10 +151,10 @@
 			width: 100%;
 		}
 		.group, .newGroup {
-		margin: 5%;
-		width: 40%;
-		height: 160px;
-	}
+			margin: 5%;
+			width: 40%;
+			height: 160px;
+		}
 	}
 </style>
 
