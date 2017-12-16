@@ -20,17 +20,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css"
 	rel="stylesheet">
 
-<style>
-.memCheck td {
-	border-bottom: none;
-}
-textarea {
-	resize: none;
-}
-.memCheck h1 {
-	text-align: center;
-}
-</style>
+
 <script>
 	
 	$(function() {
@@ -72,7 +62,7 @@ textarea {
 		<div class="container mainContent">
 <!-- 			<form name="fr" method="post" action="#/project/userJoinForm" -->
 <!-- 				onsubmit="return check()"> -->
-				<table class="memCheck" width="960px" align="center">
+				<table class="memCheck">
 					<tr>
 						<td>
 							<h1>회원약관</h1>
@@ -81,7 +71,7 @@ textarea {
 
 					<tr>
 						<td align="center">
-							<table width="800px">
+							<table>
 								<!-- 전체 동의 체크박스 시작 -->
 								<div align="center">
 									<input type="checkbox" id="allchecked"> <span
@@ -476,4 +466,25 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 		<%@ include file="../common/footer.jsp"%>
 	</div>
 </body>
+<style>
+.memCheck td {
+	border-bottom: none;
+}
+textarea {
+	resize: none;
+}
+table.memCheck {
+	width: 100%;
+	margin: 0 auto;
+}
+table.memCheck h1 {
+	text-align: center;
+}
+@media (max-width: 1024px) { 
+	section .container {
+		width: 100%;
+	}	
+}
+
+</style>
 </html>

@@ -8,8 +8,6 @@
 <meta charset="UTF-8">
 <title>새글등록</title>
 <style>
-
-
 .writeFormWrap {
 	width: 100%;
 }
@@ -25,14 +23,12 @@
 }
 .writeFormWrap th {
 	width: 120px;
-    padding: 7px 13px;
     border: 1px solid #e9e9e9;
     border-left: 0;
     background: #f5f8f9;
     text-align: left;
 }
 .writeFormWrap td {
-	padding: 7px 10px;
     border-top: 1px solid #e9e9e9;
     border-bottom: 1px solid #e9e9e9;
     background: transparent;
@@ -104,6 +100,27 @@ input.submitBtn {
 	cursor: pointer;
 	color: red;
 }
+
+@media (max-width: 1024px) {
+	div.subContent {
+		width: 100%; 
+	}
+}
+@media (max-width: 768px) {
+	.writeFormWrap th {
+		padding: 0;
+		width: 60px;
+	}
+	tr:nth-child(4){ 
+ 		display: none; 
+ 	} 
+}
+@media (max-width: 560px) {
+	div.subContent {
+		padding-left: 3%;
+		padding-right: 3%;
+	}
+}
 </style>
 </head>
 <body>
@@ -135,7 +152,7 @@ input.submitBtn {
 				</tr>
 				<tr>
 					<th><label for="content">내용</label></th>
-					<td align="left"><textarea id="content" style="resize: none;" name="content" cols="40" rows="10">${content}</textarea></td>
+					<td align="left"><textarea id="content" style="resize: none;" name="content">${content}</textarea></td>
 				</tr>
 				<!-- 파일첨부영역 -->
 				<!-- faq 글쓰기 할 때는 필요없음 -->
@@ -145,7 +162,7 @@ input.submitBtn {
 					 		파일 첨부
 <!-- 							 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a> -->
 					 	</th>
-						<td>
+						<td>  
 							<div class="uploadListWrap">
 								<div class="upListHead">
 									업로드 파일명 
@@ -155,7 +172,17 @@ input.submitBtn {
 							<input type="button" class="allDelete" value="모두 삭제">
 						</td>
 					</tr>
+<!-- 					<tr> -->
+<!-- 						<th style="vertical-align: top;"> -->
+<!-- 					 		파일 첨부 -->
+<!-- <!-- 							 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a> --> 
+<!-- 					 	</th> -->
+<!-- 					 	<td> -->
+<!-- 					 		<input type="file"  name="fname" multiple="multiple" /> -->
+<!-- 					 	</td> -->
+<!-- 					</tr> -->
 				</c:if> 
+				<!-- 글 수정시 등장 -->
 				<c:if test="${action eq 'update'}">
 					<tr>
 						<td>첨부된화일 :</td>
@@ -163,7 +190,6 @@ input.submitBtn {
 							<c:if test="${fileList!=null}">
 								<ul id="delGroup">
 									<c:forEach var="storedFname" items="${fileList}">
-										<!-- 				JQuery 함수 사용				 -->
 										<li>${storedFname.substring(storedFname.indexOf("_")+1)}<!-- 화면에 보이는 originFname임 -->
 											<input type="button" deleteFileName="${storedFname}" value="삭제"
 											class="delFile">
@@ -184,6 +210,7 @@ input.submitBtn {
 	</form>
 </div>
 <script src="/project/resources/js/uploadAjax.js"></script> 
+<!-- 글 수정 시 기존에 업로드 된 파일 삭제 여부 기능 -->
 <script>
 	// 기존의 파일을 삭제할 때 
 	$(document).ready(function() {
@@ -199,7 +226,6 @@ input.submitBtn {
 			let deleteFileName = "<input type='hidden' name='deleteFileName' value='"+storedFname+"'>";
 			$(deleteFileName).appendTo("form");
 		});
-
 	});
 </script>
  

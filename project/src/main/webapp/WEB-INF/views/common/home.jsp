@@ -10,15 +10,6 @@
 	<link rel="stylesheet" href="resources/nivo/nivo-slider.css">
 	<link rel="stylesheet" href="resources/nivo/default.css">
 	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
-	<script>
-	$(document).ready(function(){
-// 		let Certify=${dbCertify};
-// 		if(Certify == 0) {
-// 			alert("회원가입 이메일 인증을 안하셨습니다.");
-// 		}
-// 		document.location.href="./";
-	});
-	</script>
 </head>
 
 <body>
@@ -280,13 +271,15 @@
 		
 	$(document).ready(function(){
 		
+		// 메인화면 접속시 아이디 입력창에 커서 위치
+		$("#id").focus();
+		
 // 		let Certify="${dbCertify}";
 // 		if(Certify == 0) {
 // 			alert("회원가입 이메일 인증을 안하셨습니다.");
 // 		}
 // 		document.location.href="./";
 		
-// 		$("#slider").nivoSlider();
 		if ("ontouchstart" in document.documentElement) {
 		 
 			$('#slider').nivoSlider({

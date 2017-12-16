@@ -14,11 +14,14 @@
 		<section>
 			<div class="container">
 				<form method="post" action="new" id="groupForm">
-					
 					<h3>그룹</h3>
 					<hr>
 					<input type="hidden" name="groupOwnerId" value="${id}">
-					<label>이름: &nbsp;<input type="text" id="groupName" name="groupName"></label><br>
+					<div class="inputGroupName">
+						<label class="nameLabel">이름: <br>
+						<input type="text" id="groupName" name="groupName" placeholder="group이름 입력"></label><br>
+					</div>
+					<div class="kind">
 					<label>분류: &nbsp;
 						<select name="catNum" form="groupForm">
 							<c:forEach var="cat" items="${catList}">
@@ -29,6 +32,7 @@
 							</c:forEach>
 						</select>
 					</label>
+					</div>
 					<h3>목표</h3>
 					<hr>
 					<a href="javascript:void(window.open('/project/group/goalSettingForm', '_blank','width=450, height=300'))">목표 설정</a>
@@ -41,4 +45,34 @@
 		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->
 </body>
+<style>
+	.nameLabel {
+		overflow: hidden!important;
+	    position: absolute!important;
+	    height: 1px!important;
+	    width: 1px!important;
+	    clip: rect(1px,1px,1px,1px);
+	}
+	.inputGroupName{
+		width: 100%;
+		height: 50px;
+		border: 1px solid blue;
+	}
+	input#groupName {
+	    position: relative;
+	    width: 100%;
+	    height: 100%;
+	    border: none;
+	    padding: 0;
+	    background: 0 0;
+	    line-height: 54px;
+	    border-bottom: 1px solid #ccc;
+	    font-size: 30px;
+	    font-weight: 400;
+	    color: #333;
+	}
+	.kind {
+		border: 1px solid red;
+	}
+</style>
 </html>

@@ -11,7 +11,6 @@
 <title>header</title>
 <link rel="stylesheet" href="/project/resources/css/normalize.css">
 <link rel="stylesheet" href="/project/resources/css/style.css">
-<!-- <link rel="stylesheet" href="/project/resources/css/header.css"> -->
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/project/resources/js/jquery-ui.js"></script>
@@ -38,79 +37,157 @@
 	}
 	/* header normal style */
     header {
+   		position: relative;
     	width: 100%;
 	    background: #fff;
 	    border-bottom: 1px solid #eee;
 	    z-index: 999;
+	    overflow: hidden;
+    }
+    .headerFixed {
+    	position: fixed;
     }
     header .wrap {
    	    background: #fff;
-   		padding: 30px 0 24px; 
+   	    top: 0;
     }
     header .wrap .menubar {
     	width: 1024px;
     	margin: 0 auto;
     	position: relative;
     }
-    .menuLogo {
+    .menuLogo, .menuItem {
     	display: inline-block;
     	margin-left: 5%;
     }
-    .menuItem {
-    	position: absolute;
-	    right: 5%;
-	    top: 50%;
-	    transform: translateY(-50%);
-	    display: inline-block;
-	    float: right;
-	    vertical-align: top;
+    .menuLogo {
+    	float: left;
+    	margin-left: 5%;
     }
-     .mypageBtnIcon { 
-     	display: inline-block; 
- 	    padding: 10px 7px; 
+    h1.logo {
+    	font-size: 1em;
+    	margin: 0;
+    }
+    .menuItem {
+    	float: right;
+    	margin-right: 5%;
+    }
+    a.mypageBtnIcon { 
  	    opacity: 0.5;
 	    transition-duration: 0.5s;
-     } 
+    } 
+    h1.logo, .mypageBtnIcon img {
+    	padding: 20px 0;
+    }
      .mypageBtnIcon:hover {
      	transform: scale(1.4);
 		opacity: 1;
      }
      .mypageBtnIcon img { 
-   			width: 20px; 
+   		width: 20px; 
    	 } 
+   	 /* 사이드 메뉴바 */
    	 .sideMenuLayer {
+   	 	display: none;
    	 	position: fixed;
-   	 	top: 0;
+   	 	top: 58px;
    	 	right: 0;
-   	 	width: 200px;
-   	 	height: 100%;
+   	 	width: 100%;
+   	 	height: 200px;
    	 	z-index: 999;
-   	 	border: 1px solid black;
-   	 	box-sizing: border-box;
+   	 	background-color: #eef0f3;
+   	 }
+   	 .sideMenuLayer > div {
+   	 	width: 1024px;
+   	 	border-bottom: 1px solid #999;
+   	 	margin: 0 auto;
+   	 }
+   	 .myInfo {
+	    width: 100%;
+	    height: 61px;
+	    padding: 10px 15px 0 15px;
+	    box-sizing: border-box;
+	    border-bottom: 1px solid #999;
+	    background-color: #e9e9e9;
+	    z-index: 100;
+	}
+	a.pleaseJoin, .welcome {
+		display:inline-block;
+		padding: 10px;
+	}
+	.closeBtn {
+   	 	display: block;
+	    position: absolute;
+	    top: 14px;
+	    right: 8px;
+	    width: 30px;
+	    height: 30px;
+	    text-align: center;
+	    z-index: 999;
+	    background-image: url("/project/resources/img/cancelIcon.png");
+	    background-size: 30px;
+	    background-repeat: no-repeat;
+	    background-position: center;
+	    font-size: 0;
    	 }
    	 .MypageMenu {
-   	 	border: 1px solid red;
-   	 	box-sizing: border-box;
+   	 	overflow: hidden;
    	 }
-   	 .sideMenuLayer { 
-      	display: none;
-	    position: fixed;
-	    top: 0;
-	    width: 260px;
-	    height: 100%;
-	    z-index: 999;
-	    font-size: 15px;
-	    background: #333333;
-	    color: white;
-	}
-	
+   	 .MypageMenu li {
+   	 	float: left;
+	    width: 49%;
+	    box-sizing: border-box;
+	    text-align: center;
+	    vertical-align: top;
+	    margin-bottom: 10px;
+	    margin-right: 2%;
+   	 }
+   	 .MypageMenu li:last-child {
+   	 	margin: 0;
+   	 }
+   	 .MypageMenu li:first-child a {
+   	 	margin-right: 3%;
+   	 	background-image: url("/project/resources/img/ModifyIcon.png");
+   	 }
+   	 .MypageMenu li:last-child  a {
+   	 	background-image: url("/project/resources/img/logoutIcon.png");
+   	 }
+   	 .MypageMenu li a {
+   		padding-top: 80px;
+   	 	display: block;
+   	 	width: 100%;
+   	 	background-size: 30px;
+   	 	background-repeat: no-repeat;
+   	 	background-position: 50%;
+   	 	font-size: 12px;
+   	 }
     /* header response style */
-    
      @media (max-width: 1024px) { 
   		
    		header .wrap .menubar { 
    			width: 100%; 
    		} 
+   		/* 사이드 메뉴 */
+   		.sideMenuLayer {
+	   	 	display: none;
+	   	 	position: fixed;
+	   	 	top: 0;
+	   	 	right: 0;
+	   	 	width: 300px;
+	   	 	height: 100%;
+	   	 }
+	   	 .sideMenuLayer > div {
+	   	 	width: 100%;
+	   	 }
+	   	 .MypageMenuWrap {
+	   	 	width: 250px;
+	   	 	margin: 0 auto;
+	   	 }
+     }
+     @media (max-width: 768px) {
+     
+  	 }
+     @media (max-width: 660px) {
      }
     
 </style>
@@ -127,10 +204,10 @@
 		<div class="menubar">
 			<div class="menuLogo">
 				<c:if test="${id != null}">
-					<a href="/project/group/main"><h1>Dogether</h1></a>
+					<a href="/project/group/main"><h1 class="logo">Dogether</h1></a>
 				</c:if>
 				<c:if test="${id == null}">
-					<a href="/project/home"><h1>Dogether</h1></a>
+					<a href="/project/home"><h1 class="logo">Dogether</h1></a>
 				</c:if>
 			</div>
 			<div class="menuItem">
@@ -138,22 +215,38 @@
 					<img src="/project/resources/img/menuIcon.png" alt="menuIcon"/>  
 				</a>
 			
-<%-- 					<c:if test="${id == null}"> --%>
+	<%-- 					<c:if test="${id == null}"> --%>
 						
-<%-- 					</c:if> --%>
+	<%-- 					</c:if> --%>
 			</div> <!-- menuItem end -->
 		</div> <!-- menubar end -->
+		
+		<div class="sideMenuLayer">
+			<div>
+				<div class="myInfo">
+					<c:if test="${id == null}">
+						<a href="userProvisionForm" class="pleaseJoin"><b>회원가입해 주세요</b></a>
+					</c:if>
+					<c:if test="${id != null}">
+						<span class="welcome"><b>${id }</b>님 반갑습니다</span>
+					</c:if>
+					<a href="#" class="closeBtn">닫기</a>
+				</div>
+				<c:if test="${id != null }">
+				<div class="MypageMenuWrap">
+					<ul class="MypageMenu">
+						<li><a href="/project/mypage">회원정보 수정</a></li>
+<!-- 						<li><a href="/project/myInfoDelForm">회원탈퇴</a></li> -->
+						<li><a href="/project/logout">로그아웃</a></li>
+	<%-- 					<li><%@ include file="../group/asideMenu.jsp" %></li>  --%>
+					</ul>
+				</div>
+				</c:if>
+			</div>
+		</div>
 	</div> <!-- wrap end -->
+	
 </header>
-<div class="sideMenuLayer">
-	<ul class="MypageMenu">
-		<li><a href="/project/userProvisionForm" class="headerJoinBtn">회원가입</a></li>
-		<li><a href="/project/mypage">회원정보 수정</a></li>
-		<li><a href="/project/myInfoDelForm">회원탈퇴</a></li>
-		<li><a href="/project/logout">로그아웃</a></li>
-		<%@ include file="../group/asideMenu.jsp" %> 
-	</ul>
-</div>
 </body>
 <!-- 젤 위로 이동 하기 버튼 동작 -->
 <script src="/project/resources/js/toTop.js"></script>
@@ -162,27 +255,40 @@
 		// 헤더 마이페이지 버튼 클릭 시 토글효과
 		$('.mypageBtnIcon').on("click", function(event){
 			event.preventDefault();
+			let windowWh = $(window).width();
 			let menu = $(".sideMenuLayer");
-// 			menu.animate({'width': 'toggle'});
-			if (menu.is(":visible") ) {
-				menu.stop(true,true).hide("slide", { direction: "right" }, 200);
-		    } else {
-		    	menu.stop(true,true).show("slide", { direction: "right" }, 200);
-		    }
+			if(windowWh <= 1024){
+				if (menu.is(":visible") ) {
+					menu.stop(true,true).hide("slide", { direction: "right" }, 200);
+			    } else {
+			    	menu.stop(true,true).show("slide", { direction: "right" }, 200);
+			    }
+				$(".closeBtn").on("click", function(){
+					$(".sideMenuLayer").stop(true,true).hide("slide", { direction: "right" }, 200);
+				})
+			}else if(windowWh > 1024){
+				if (menu.is(":visible") ) {
+					menu.stop(true,true).hide("slide", { direction: "up" }, 200);
+			    } else {
+			    	menu.stop(true,true).show("slide", { direction: "up" }, 200);
+			    }
+				$(".closeBtn").on("click", function(e){
+					e.preventDefault();
+					$(".sideMenuLayer").stop(true,true).hide("slide", { direction: "up" }, 200);
+				})
+			}
 		});
-		$(".sideMenuLayer").on("click", function(){
-			$(".sideMenuLayer").stop(true,true).hide("slide", { direction: "right" }, 200);
-		})
-		
-// 		$(window).resize(function(){
-// 			let windowWidth = $(window).width();
-// 			if(windowWidth > 1024){
-// 				$(".responseMypageMenu").css("display", "none");
-// 			}else {
-// 				$(".responseMypageMenu").css("display", "block");
-// 			}
-// 		});
-		
+		// 스크롤 아래로 움직일 시 헤더 브라우저에 고정!
+		let headerOffset = $('header').offset();
+        $( window ).scroll( function() {
+          if ( $( document ).scrollTop() > headerOffset.top ) {
+        	  $('header').addClass('headerFixed');
+          }
+          else {
+        	  $('header').removeClass('headerFixed');
+          }
+        });
+        
 	});
 </script>
 </html>

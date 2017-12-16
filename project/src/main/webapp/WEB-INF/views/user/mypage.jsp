@@ -101,8 +101,10 @@
 
 			 <div class="wrap">
   				<button class="button"><b>확인</b></button>
-			 </div><br><br>
+			 </div>
         </form>
+        <a href="/project/home" class="button"><b>취소</b></a>
+  		<a href="/project/myInfoDelForm" class="button"><b>회워탈퇴</b></a>
         <!--// 본문 들어가는 부분 -->
     </div>
     <hr/>
