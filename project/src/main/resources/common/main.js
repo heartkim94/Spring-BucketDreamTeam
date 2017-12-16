@@ -3,131 +3,124 @@ let io = require('socket.io').listen(50000);
 // let clientList = [];
 let roomList = [];
 
-
 io.sockets.on('connection', function(socket) {
-	
-	
 	socket.on('join', function(data) {
 		let client = new Client(socket, data);
-		let room=null;
-		for(let i in roomList) {
-			if(client.roomNum == roomList[i].roomNum) {
-				room = roomList[i];
-				break;
-			}
+		let room = roomList.find(function(item) {
+			return item.roomNum == client.roomNum;
+		});
+		if(room == undefined) {
+			socket.emit('joinFail', 'fail');
+			return;
 		}
 		let clientList = room.clientList;
+		let res = { log: room.log };
+
+		let sameClient = clientList.find(function(item) {
+			return item.sessionId == client.sessionId;
+		});
+		if(sameClient != undefined) {
+			console.log('rejoined');
+			// sameClient.disconnected = false;
+			sameClient.disconnected[0].status = false;
+			sameClient.disconnected.splice(0, 1);
+			sameClient.socketId = socket.id;
+			res.paintNum = sameClient.paintNum;
+			res.paint = sameClient.paint;
+		} else {
+			client.paintNum = room.paintCounter();
+			clientList.push(client);
+			res.paintNum = client.paintNum;
+		}
+
 		let paintList = [];
-		for(let i in clientList) {
+		clientList.forEach(function(item, index) {
 			let paint = {
-				paintNum: clientList[i].paintNum,
-				paint: clientList[i].paint,
-				userId: clientList[i].userId
+				paintNum: item.paintNum,
+				paint: item.paint,
+				userId: item.userId
 			}
 			paintList.push(paint);
-		}
+		});
 
-		for(let i in clientList) {
-			if(client.sessionId == clientList[i].sessionId) {
-				clientList[i].disconnected = false;
-				clientList[i].socketId = socket.id;
-				socket.emit("join", {
-					log: room.log,
-					paintNum: clientList[i].paintNum,
-					paint: clientList[i].paint,
-					paintList: paintList
-				});
-				return;
-			}
-		}
-
-		client.paintNum = room.paintCounter();
-		clientList.push(client);
+		res.paintList = paintList;
 
 		
-		socket.emit("join", {	// 채팅 로그 전송
-			log: room.log,
-			paintNum: client.paintNum,
-			paintList: paintList
-		});
+		socket.emit('join', res);		// 채팅 로그 전송
 	});
 
 	socket.on('leave', function(data) {
-		let room, clientList;
-		for(let i=0; i<roomList.length; i++) {
-			room = roomList[i];
-			clientList = room.clientList;
-			for(let j=0; j<clientList.length; j++) {
-				if(clientList[j].sessionId == data.sessionId) {
-					clientList.splice(j, 1);
-					room.checkDel(i);
-					return;
-				}
+		roomList.find(function(room, roomIndex) {
+			let clientIndex = room.clientList.findIndex(function(client) {
+				return client.sessionId == data.sessionId;
+			});
+
+			if(clientIndex >= 0) {
+				room.clientList.splice(clientIndex, 1);
+				room.checkDel();
+				return true;
+			} else {
+				return false;
 			}
-		}
+		});
 	});
 
 	socket.on('disconnect', function(data) {
-		let room
-		for(let i in roomList) {
-			room = roomList[i];
-			let clientList = room.clientList;
-			for(let j in clientList) {
-				if(clientList[j].socketId == socket.id) {
-					let client = clientList[j];
-					client.disconnected = true;
-					setTimeout(function() {
-						if(client.disconnected) {
-							clientList.splice(j, 1);
-							room.checkDel(i);
-						}
-					}, 1000);
-					break;
-				}
+		roomList.find(function(room, roomIndex) {
+			let client = room.clientList.find(function(client) {
+				return client.socketId == socket.id;
+			});
+			
+			if(client!=undefined) {
+				let disconnected = { status: true };
+				client.disconnected.push(disconnected);
+				setTimeout(function() {
+					if(disconnected.status) {
+						let clientIndex = room.clientList.indexOf(client);
+						room.clientList.splice(clientIndex, 1);
+						room.checkDel();
+					}
+				}, 100);
+				return true;
+			} else {
+				return false;
 			}
-		}
+		});
 	});
 
 	socket.on('send', function(data) {
 		let logged = false;
-		let room;
-		for(let i in roomList) {
-			if(roomList[i].roomNum == data.roomNum) {
-				room = roomList[i];
-			}
-		}
+		let room = roomList.find(function(item) {
+			return item.roomNum == data.roomNum;
+		});
+		if(room == undefined) { return; }
+
 		if(!logged) {	// 메세지 로깅
 			switch(data.type) {
 			case 'msg':
 				room.log.push({userId: data.userId, msg: data.msg});
 				break;
 			case 'paint':
-				for(let i in room.clientList) {
-					let client = room.clientList[i];
-					if(client.paintNum == data.paintNum) {
-						client.paint = data.paint;
-						break;
-					}
+				let client = room.clientList.find(function(client) {
+					return client.paintNum == data.paintNum;
+				});
+				if(client != undefined) {
+					client.paint = data.paint;
 				}
 				break;
 			}
 			logged = true;
 		}
 		data.sessionId = undefined;
-		for(let i in room.clientList) {
-			let client = room.clientList[i];
+		room.clientList.forEach(function(client, index) {
 			io.to(client.socketId).emit('sendAll', data);
-		}
+		});
 	});
 
 	socket.on('getRoomList', function(data) {
-		let groupNum = data.groupNum;
-		let res = [];
-		for(let i in roomList) {
-			if(roomList[i].groupNum == groupNum) {
-				res.push(roomList[i]);
-			}
-		}
+		let res = roomList.filter(function(room) {
+			return room.groupNum == data.groupNum;
+		});
 		socket.emit('getRoomList', { roomList: res });
 	});
 
@@ -138,22 +131,18 @@ io.sockets.on('connection', function(socket) {
 	});
 
 	socket.on('switchPaint', function(data) {
-		console.log(data);
-		let room;
-		for(let i in roomList) {
-			if(data.roomNum == roomList[i].roomNum) {
-				room = roomList[i];
-				break;
-			}
-		}
-		for(let i in room.clientList) {
-			console.log(room.clientList[i].paintNum);
-			if(data.paintNum == room.clientList[i].paintNum) {
+		let room = roomList.find(function(room) {
+			return room.roomNum == data.roomNum;
+		});
+		if(room != undefined) {
+			let client = room.clientList.find(function(client) {
+				return client.paintNum == data.paintNum;
+			});
+			if(client != undefined) {
 				socket.emit('switchPaint', {
 					paintNum: data.paintNum,
-					paint: room.clientList[i].paint
+					paint: client.paint
 				});
-				break;
 			}
 		}
 	});
@@ -172,6 +161,7 @@ function Client(socket, data) {
 	this.socketId = socket.id;
 	this.userId = data.userId;
 	this.sessionId = data.sessionId;
+	this.disconnected = [];
 	this.paint = data.paint;
 	/*
 	for(let i in roomList) {
@@ -192,12 +182,14 @@ function Room(data) {
 	this.paintCounter = counter();
 }
 Room.prototype.counter = counter();
-Room.prototype.checkDel = function(index) {
+Room.prototype.checkDel = function() {
 	let res = false;
-	if(this.clientList.length == 0
-	&& roomList[index].roomNum==this.roomNum) {
-		roomList.splice(index, 1);
-		res = true;
+	if(this.clientList.length == 0) {
+		let roomIndex = roomList.indexOf(this);
+		if(roomIndex >= 0) {
+			roomList.splice(roomIndex, 1);
+			res = true;
+		}
 	}
 	return res;
 }

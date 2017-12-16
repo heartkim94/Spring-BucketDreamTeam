@@ -121,7 +121,7 @@ CREATE TABLE AdminBoardSetting(
     isShow boolean NOT NULL,
     adminOnly boolean NOT NULL,
     view varchar(200) NOT NULL,
-    FOREIGN KEY(boardNum) REFERENCES BoardList(boardNum)
+    FOREIGN KEY(boardNum) REFERENCES BoardList(boardNum) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- #Community
@@ -129,9 +129,11 @@ insert into BoardList(boardName, groupNum) values('Notice', -1);
 insert into BoardList(boardName, groupNum) values('QnA', -1);
 insert into BoardList(boardName, groupNum) values('FAQ', -1);
 
-insert into AdminBoardSetting values(1, true, true, '../common/list.jsp');
-insert into AdminBoardSetting values(2, true, false, '../common/list.jsp');
-insert into AdminBoardSetting values(3, true, true, '../common/listAcrd.jsp');
+use project;
+delete from AdminBoardSetting;
+insert into AdminBoardSetting values(1, true, true, '/WEB-INF/views/common/list.jsp');
+insert into AdminBoardSetting values(2, true, false, '/WEB-INF/views/common/list.jsp');
+insert into AdminBoardSetting values(3, true, true, '/WEB-INF/views/common/listAcrd.jsp');
 
 create table `GroupBoard-1`(
     articleNum int primary key auto_increment,

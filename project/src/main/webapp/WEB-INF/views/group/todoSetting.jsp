@@ -135,11 +135,14 @@
 		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->
 </body>
+<script>
+</script>
 <script src="/project/resources/js/calendar.js"></script>
 <script src="/project/resources/js/todoTools.js"></script>
 <script>
 let todoList
 $(function() {
+	console.log("asdad", TodoList);
 	todoList = new TodoList(); 
 	<c:forEach var="todo" items="${todoList}">
 	todoList.push(new Todo({

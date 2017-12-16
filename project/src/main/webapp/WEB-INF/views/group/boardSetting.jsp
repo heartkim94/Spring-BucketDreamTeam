@@ -53,8 +53,6 @@
 								<li>
 							</c:forEach>
 						</ul>
-						<br>
-						<button class="newBoard">새로만들기</button>
 					</div>
 					<div class="boardContent">
 						<table>

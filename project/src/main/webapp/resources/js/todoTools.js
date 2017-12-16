@@ -338,6 +338,15 @@ function TodoList() {
 	this.isFirstListing = true;
 }
 TodoList.prototype = new Array;
+if(TodoList.prototype.find == undefined) {
+	TodoList.prototype.find = function(func) {
+		for(let i=0; i<this.length; i++) {
+			if(func(this[i], i)) {
+				return this[i];
+			}
+		}
+	}
+}
 TodoList.prototype.select = function(doNum) {
 	$(".selected").removeClass("selected");
 	$(".todoList li[doNum="+doNum+"]").addClass("selected");
@@ -361,7 +370,7 @@ TodoList.prototype.select = function(doNum) {
 	}
 	$(".todoContent .memo").val(todo.memo);
 }
-TodoList.prototype.list = function(doNum = null) {
+TodoList.prototype.list = function(doNum) {
 	let self = this;
 	let foldAt = null;
 	$(".todoList > ul").each(function(index, item) {
@@ -406,7 +415,7 @@ TodoList.prototype.list = function(doNum = null) {
 			}
 			
 			// fold 됐으면 숨김
-			if(self[i].path.includes(foldAt) && self[i].path != foldAt) {
+			if(self[i].path.indexOf(foldAt) >= 0 && self[i].path != foldAt) {
 				$(li).addClass("folded");
 			}
 			

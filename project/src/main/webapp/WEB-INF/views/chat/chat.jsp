@@ -34,12 +34,40 @@
 			padding:0 10px 0 0;
 			list-style-type: none;
 		}
+		/* alert box */
+		.alertBox {
+			position: fixed;
+			border-radius: 15px;
+			border: 1px solid #ccc;
+			box-shadow: 0 1px #ccc;
+			padding: 20px 30px;
+		}
+		.alertBox .btns {
+			position: relative;
+			height: 40px;
+		}
+		.alertBox .ok {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			margin-top: 10px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			color: #ffffff;
+			background: #507BE8;
+			padding: 5px;
+		}
 	</style>
 </head>
 <body>
 	<div id="wrapper">
 		<section>
-			
+			<div class="alertBox" style="display: none">
+				<div class="text">잘못된 요청입니다.</div>
+				<div class="btns">
+					<div class="ok">확인</div>
+				</div>
+			</div>
 			<div class="canvasContainer" style="display:none">
 				<ul class="canvasList">
 					<li class="myCanvas">my canvas</li>
@@ -73,11 +101,23 @@
 	</div> <!-- wrapper End -->
 </body>
 <script>
+let windowWidth = 320;
+let windowHeight = 500;
+let gap = 100;
 let ctx;
 let paint;
 let socket;
 
 $(function() {
+	// 사이즈 조절
+	if(document.body.clientWidth != windowWidth
+	|| document.body.clientHeight != windowHeight) {
+		let dw = windowWidth - document.body.clientWidth;
+		let dh = windowHeight - document.body.clientHeight;
+		window.resizeBy(dw, dh);
+		window.moveBy(-dw, 0);
+	}
+	
 	paint = new Paint();
 	// socket
 	socket = io.connect("http://210.119.12.240:50000");
@@ -87,16 +127,6 @@ $(function() {
 		sessionId: "${pageContext.session.id}",
 		paint: paint.getImage()
 	})
-	
-	
-	socket = io.connect("http://210.119.12.240:50000");
-	
-	socket.emit("msgType", data);
-	socket.on("msgType", function(data) {
-		
-	});
-	
-	
 	
 	socket.on("join", function(data) {
 		$("li.myCanvas").attr("paintNum", data.paintNum);
@@ -123,6 +153,19 @@ $(function() {
 		}
 	});
 	
+	socket.on("joinFail", function(data) {
+		console.log(data);
+// 		alert("잘못된 요청입니다.");
+		console.log($(".alertBox").position());
+		$(".alertBox").center();
+		console.log($(".alertBox").position());
+		$(".alertBox").css("display", "");
+		// $("button.leave").click();
+	});
+	$(".alertBox .ok").on("click", function() {
+		$("button.leave").click();
+	});
+	
 	$(".leave").on("click", function() {	// 나가기 버튼 클릭시
 		if($(".canvasContainer").css("display")!="none") {  // 창 크기 원래대로 변경
 			$(".paintBtn").click();
@@ -132,6 +175,7 @@ $(function() {
 			sessionId: "${pageContext.session.id}"
 		});
 	});
+	
 	socket.on("sendAll", function(data) {
 		switch(data.type) {
 		case "msg":							// 메세지를 chatLog에 입력
@@ -179,18 +223,19 @@ $(function() {
 	$(".paintBtn").on("click", function() {
 		if($(".canvasContainer").css("display")=="none") {
 			// 그림판 열기
-			let d = (320*2 + 100) - document.body.clientWidth;
+			let d = (windowWidth*2 + gap) - document.body.clientWidth;
 			window.resizeBy(d, 0);
 			window.moveBy(-d, 0);
 			$(".canvasContainer").css("display", "");
 		} else {
 			// 그림판 닫기
-			let d = 320 - document.body.clientWidth;
+			let d = windowWidth - document.body.clientWidth;
 			$(".canvasContainer").css("display", "none");
 			window.resizeBy(d, 0);
 			window.moveBy(-d, 0);
 		}
 	});
+	
 	$(".paintTools .pen").on("click", function() {
 		paint.penMode();
 	});
@@ -231,6 +276,14 @@ $(function() {
 	});
 });
 
+jQuery.fn.center = function() {
+	let top = ($("body").height() - $(this).outerHeight()) / 2;
+	let left = ($("body").width() - $(this).outerWidth()) / 2
+	this.css("position", "fixed");
+	this.css("top", (top > 0 ? top : 0)+"px");
+	this.css("left", (left > 0 ? left : 0)+"px");
+	console.log("centered: ", $(this).position());
+}
 
 function insertMessage(data) {
 	let str = "<div class='log'>"+data.userId+": "+data.msg+"</div>";
