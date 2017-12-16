@@ -5,13 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>error</title>
 </head>
 <body>
-	<div style="width: 1024px; margin: 0 auto;">
-		<div><i>사용중 오류가 발생하였습니다.</i></div>
-		<div>
-			<c:out value="${msg }"></c:out>
+	<div class="wrapper">
+		<div class="pageWrap">
+			<div align="center">
+				<c:out value="${msg }" />
+			</div>
 		</div>
 	</div>
 </body>

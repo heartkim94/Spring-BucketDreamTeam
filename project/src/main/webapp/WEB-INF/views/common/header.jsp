@@ -11,16 +11,11 @@
 <title>header</title>
 <link rel="stylesheet" href="/project/resources/css/normalize.css">
 <link rel="stylesheet" href="/project/resources/css/style.css">
-<link rel="stylesheet" href="/project/resources/sideMenu/dist/stylesheets/jquery.sidr.dark.css">
 <!-- <link rel="stylesheet" href="/project/resources/css/header.css"> -->
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/project/resources/js/jquery-ui.js"></script>
 <script src="/project/resources/js/prefixfree.min.js"></script>
-<script src="/project/resources/sideMenu/dist/jquery.sidr.js"></script>
-
-
- 
 
 <style>
 	/* 상단으로 이동 버튼 */
@@ -97,34 +92,18 @@
    	 	border: 1px solid red;
    	 	box-sizing: border-box;
    	 }
-   	 
-   	 
-   	 
-     
-      .sideMenuLayer { 
-	      	display: none;
-		    position: absolute;
-		    position: fixed;
-		    top: 0;
-		    height: 100%;
-		    z-index: 999999;
-		    width: 260px;
-		    overflow-x: none;
-		    overflow-y: auto;
-		    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
-		    font-size: 15px;
-		    background: #333333;
-		    color: white;
-		    -webkit-box-shadow: inset 0 0 5px 5px #222222;
-		    -moz-box-shadow: inset 0 0 5px 5px #222222;
-		    box-shadow: inset 0 0 5px 5px #222222;
-		}
-
-
-
-
-
-      } 
+   	 .sideMenuLayer { 
+      	display: none;
+	    position: fixed;
+	    top: 0;
+	    width: 260px;
+	    height: 100%;
+	    z-index: 999;
+	    font-size: 15px;
+	    background: #333333;
+	    color: white;
+	}
+	
     /* header response style */
     
      @media (max-width: 1024px) { 
@@ -155,7 +134,7 @@
 				</c:if>
 			</div>
 			<div class="menuItem">
-				<a href="#" class="mypageBtnIcon" id="mypageBtnIcon" href="#sidr">
+				<a href="#" class="mypageBtnIcon" >
 					<img src="/project/resources/img/menuIcon.png" alt="menuIcon"/>  
 				</a>
 			
@@ -166,12 +145,13 @@
 		</div> <!-- menubar end -->
 	</div> <!-- wrap end -->
 </header>
-<div class="sideMenuLayer" id="sidr">
+<div class="sideMenuLayer">
 	<ul class="MypageMenu">
 		<li><a href="/project/userProvisionForm" class="headerJoinBtn">회원가입</a></li>
 		<li><a href="/project/mypage">회원정보 수정</a></li>
 		<li><a href="/project/myInfoDelForm">회원탈퇴</a></li>
 		<li><a href="/project/logout">로그아웃</a></li>
+		<%@ include file="../group/asideMenu.jsp" %> 
 	</ul>
 </div>
 </body>
@@ -180,13 +160,19 @@
 <script>
 	$(function(){
 		// 헤더 마이페이지 버튼 클릭 시 토글효과
-// 		$('.mypageBtnIcon').on("click", function(event){
-// 			event.preventDefault();
-// 			let menu = $(".sideMenuLayer");
-// 			menu.slide(700);
-// 		});
-		$('#mypageBtnIcon').sidr();
-
+		$('.mypageBtnIcon').on("click", function(event){
+			event.preventDefault();
+			let menu = $(".sideMenuLayer");
+// 			menu.animate({'width': 'toggle'});
+			if (menu.is(":visible") ) {
+				menu.stop(true,true).hide("slide", { direction: "right" }, 200);
+		    } else {
+		    	menu.stop(true,true).show("slide", { direction: "right" }, 200);
+		    }
+		});
+		$(".sideMenuLayer").on("click", function(){
+			$(".sideMenuLayer").stop(true,true).hide("slide", { direction: "right" }, 200);
+		})
 		
 // 		$(window).resize(function(){
 // 			let windowWidth = $(window).width();

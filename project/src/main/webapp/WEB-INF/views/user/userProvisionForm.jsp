@@ -20,7 +20,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css"
 	rel="stylesheet">
 
-<style type="text/css">
+<style>
 .memCheck td {
 	border-bottom: none;
 }
