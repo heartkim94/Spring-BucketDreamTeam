@@ -202,6 +202,9 @@
 		.nivoSlider {
 			box-shadow: none !important;
 		}
+		.nivoSlider img {
+			max-height: 600px;
+		}
 		/* contentRow3 */
 		.contentRow3 {
 			padding: 100px 0;

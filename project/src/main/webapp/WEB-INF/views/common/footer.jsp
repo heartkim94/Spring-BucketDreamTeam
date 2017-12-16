@@ -7,25 +7,56 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script>
-	
+	$(function(){
+		footerWidth();
+		$(window).resize(function(){
+			footerWidth();
+			footerPosition();
+		});
+		footerPosition();
+	})
+	function footerWidth(){
+		let windowWh = $(window).width();
+		console.log(windowWh);
+		if(windowWh >1024){
+			$("footer").css({
+				"position": "fixed",
+				"bottom" : "0",
+				"z-index" : "100"
+			});
+		}else {
+			$("footer").css({
+				"position": "relative",
+			});
+		}
+	}
+	function footerPosition(){
+		if(${id != null}){
+			$("footer").css({
+				"position": "relative",
+			});
+		}
+	}
 </script>
 <style>
 /* 푸터 스타일 */
 	footer {
 		width: 100%;
-	    background: #e0e0e0;
-	    border-top: 1px solid #eee;
+	    background: rgba(0, 0, 0, 0.5);
 	}
 	
 	footer .foot {
 		width: 1024px;
-		padding: 15px 0;
+		padding: 5px 0;
 		margin: 0 auto;
 		text-align: center;
-		color: #999;
 		clear: both;
+	    letter-spacing: 2px;
+	    color: #fff;
 	}
-	
+	.foot a {
+		color: #fff;
+	}
 	footer a:hover {
 		color: orange;
 	}
@@ -43,19 +74,15 @@
 			<div>
 				<c:forEach var="board" items="${communityBoardList}"
 					varStatus="status">
-					<a
-						href="/project/community/list?pageNum=1&boardNum=${board.boardNum}">
+					<a href="/project/community/list?pageNum=1&boardNum=${board.boardNum}">
 						<strong>${board.boardName}</strong>
 					</a>
 					<c:if test="${!status.last}">&nbsp;&nbsp;&nbsp;</c:if>
 				</c:forEach>
 			</div>
-			<br>
 			<div>
 				<p class="text-center">
-					<small><strong> 사거리</strong></small><br> <small>대표 :
-						홍길동 ㆍ 주소 : 사거리 ㆍ 사업자등록번호:123-12-12345 ㆍ 전화 : 064-123-1234</small><br>
-					<small>Copyrightⓒ test.com All rights reserved.</small>
+					<small>Copyrightⓒ  2017 dogether All rights reserved.</small>
 				</p>
 			</div>
 		</div>

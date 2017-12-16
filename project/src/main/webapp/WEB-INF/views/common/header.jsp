@@ -20,8 +20,8 @@
 	/* 상단으로 이동 버튼 */
 	#btnTop {
 		position: fixed;
-		right: 10px;
-		bottom: 10px;
+		right: 30px;
+		bottom: 2px;
 		width: 40px;
 		height: 40px;
 		font-size: 0;
@@ -33,7 +33,7 @@
 		border-radius: 20px;
 		transition: 0.2s;
 		cursor: pointer;
-		z-index: 100;
+		z-index: 1000;
 	}
 	/* header normal style */
     header {
@@ -262,6 +262,10 @@
 					menu.stop(true,true).hide("slide", { direction: "right" }, 200);
 			    } else {
 			    	menu.stop(true,true).show("slide", { direction: "right" }, 200);
+			    	$("body, html").stop(true,true).animate({
+			    		'position': 'absolute',
+			    		'right': '200px'
+			    	}, 200);
 			    }
 				$(".closeBtn").on("click", function(){
 					$(".sideMenuLayer").stop(true,true).hide("slide", { direction: "right" }, 200);
