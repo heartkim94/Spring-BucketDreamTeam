@@ -6,57 +6,60 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
 			<div class="container">
-				<form method="post" action="new" id="groupForm">
-					<h3>그룹</h3>
-					<hr>
-					<input type="hidden" name="groupOwnerId" value="${id}">
-					<div class="inputGroupName">
-						<label class="nameLabel">이름: <br>
-						<input type="text" id="groupName" name="groupName" placeholder="group이름 입력"></label><br>
-					</div>
-					<div class="kind">
-					<label>분류: &nbsp;
-						<select name="catNum" form="groupForm">
-							<c:forEach var="cat" items="${catList}">
-								<option value="${cat.catNum}">
+				<div class="makeGroup">
+					<form method="post" action="new" id="groupForm">
+						<h3>그룹</h3>
+						<hr>
+						<input type="hidden" name="groupOwnerId" value="${id}">
+						<div class="inputGroupName">
+							<label class="nameLabel" for="groupName">이름: </label>
+							<input type="text" id="groupName" name="groupName" placeholder="group이름 입력" />
+						</div>
+						<div class="kind">
+						<label>분류: &nbsp;
+							<select name="catNum" form="groupForm">
+								<c:forEach var="cat" items="${catList}">
+									<option value="${cat.catNum}">
 									<c:if test="${cat.parentNum!=0}">&nbsp;  </c:if>
 									${cat.catName}
 								</option>
-							</c:forEach>
-						</select>
-					</label>
-					</div>
-					<h3>목표</h3>
-					<hr>
-					<a href="javascript:void(window.open('/project/group/goalSettingForm', '_blank','width=450, height=300'))">목표 설정</a>
-					<!--menubar, status, resizable, titlebar, location, top, left -->
-					<br><br>
-					<input type="submit" value="만들기">
-				</form>
+								</c:forEach>
+							</select>
+						</label>
+						</div>
+						<h3>목표</h3>
+						<hr>
+						<a href="javascript:void(window.open('/project/group/goalSettingForm', '_blank','width=450, height=300'))">목표 설정</a>
+						<!--menubar, status, resizable, titlebar, location, top, left -->
+						<br><br>
+						<input type="submit" value="만들기">
+					</form>
+				</div>
 			</div>
 		</section>
 		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->
 </body>
 <style>
+	.makeGroup {
+		padding: 100px 0;
+	}
 	.nameLabel {
-		overflow: hidden!important;
-	    position: absolute!important;
-	    height: 1px!important;
-	    width: 1px!important;
-	    clip: rect(1px,1px,1px,1px);
+		overflow: hidden;
+	    position: absolute;
+	    height: 1px;
+	    width: 1px;
 	}
 	.inputGroupName{
 		width: 100%;
 		height: 50px;
-		border: 1px solid blue;
+		margin-bottom: 20px;
 	}
 	input#groupName {
 	    position: relative;
