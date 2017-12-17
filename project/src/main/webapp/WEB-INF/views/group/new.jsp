@@ -35,7 +35,7 @@
 								</select>
 							</label>
 						</div>
-						<label><a href="javascript:void(window.open('/project/group/profileImg', '_blank','width=350, height=460'))">그룹 메인 설정</a></label><br>
+						<label><a href="javascript:void(window.open('/project/group/profileImg', '_blank','width=350, height=510'))">그룹 메인 설정</a></label><br>
 						<h3>목표</h3>
 						<hr>
 						<a href="javascript:void(window.open('/project/group/goalSettingForm', '_blank','width=450, height=300'))">목표 설정</a>
