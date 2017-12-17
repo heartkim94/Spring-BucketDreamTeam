@@ -32,7 +32,7 @@ public class UploadFileUtils {
 	    return uploadedFileName;
 	}
 	
-	public static String uploadProfileImg(String saveDir, String originFname, byte[] fileData) throws Exception{
+	public static String uploadProfileImg(String saveDir, String originFname, byte[] fileData) throws Exception {
 		System.out.println("Utils - uploadProfileImg 실행됨");
 		UUID uid = UUID.randomUUID();
 		String storedFname = uid.toString() + "_" + originFname;

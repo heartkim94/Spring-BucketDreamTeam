@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>새글등록</title>
+<title>글 쓰기</title>
 <style>
 .writeFormWrap {
 	width: 100%;
@@ -148,7 +148,12 @@ input.submitBtn {
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td align="left">${id}</td>
+					<c:if test="${id != null}">
+						<td align="left">${id}</td> <!-- 작성자 id -->
+					</c:if>
+					<c:if test="${id == null}">
+						<td align="left">Guest</td> <!-- 게스트 id -->
+					</c:if>
 				</tr>
 				<tr>
 					<th><label for="content">내용</label></th>

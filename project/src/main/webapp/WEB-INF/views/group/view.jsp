@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>그룹 메인</title>
 	<!-- 합쳐지고 최소화된 최신 CSS -->
 </head>
 <body>

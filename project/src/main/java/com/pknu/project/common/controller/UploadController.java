@@ -37,7 +37,6 @@ public class UploadController {
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST)
 	public List<String> uploadAjax(@RequestPart("multiFile") List<MultipartFile> multiFile) throws Exception {
-		System.out.println("Upcontroller - uploadAjax 실행됨");
 		List<String> fileList = new ArrayList<>();
 		for (MultipartFile file : multiFile) {
 			fileList.add(UploadFileUtils.uploadFile(saveDir, file.getOriginalFilename(), file.getBytes()));
@@ -54,7 +53,6 @@ public class UploadController {
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 			MediaType mType = MediaUtils.getMediaType(formatName);
-			System.out.println("displayFile - mType : " + mType);
 			if (mType != null) {
 				in = new FileInputStream(saveDir + fileName);
 			}

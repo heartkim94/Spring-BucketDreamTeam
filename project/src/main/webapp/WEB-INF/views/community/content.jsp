@@ -13,8 +13,14 @@
 		<section> 
 			<div class="container subContent">
 				<nav>
+					<c:if test="${boardNum == 1}">
 					<h1>NOTICE</h1>
 					<span>home > community > notice</span>
+				</c:if>
+				<c:if test="${boardNum == 2}">
+					<h1>QnA</h1>
+					<span>home > community > QnA</span>
+				</c:if>
 				</nav>
 				<%@ include file="../common/content.jsp" %>
 			</div>

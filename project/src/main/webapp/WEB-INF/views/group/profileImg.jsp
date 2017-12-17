@@ -34,9 +34,9 @@
 <!-- 		<input type="hidden" name="" value=""> -->
 		
 		그룹 프로필 사진: &nbsp;<input type="file" id="profileImg" name="profileImg" onchange="previewFile()"><br>
-		<img src="" width="200" height="200" alt="Image Preview"><br>
+		<img src="" width="200" height="150" alt="Image Preview"><br>
 		<p id="holder" style="color:gray">
-			※ 이미지 권장 사이즈 : 200x200<br>
+			※ 이미지 권장 사이즈 : 200x150<br>
 			※ 이미지 제한 크기 : 200KB<br>
 			※ 설정하지 않을 경우 기본 이미지로 표시됩니다.
 		</p>
