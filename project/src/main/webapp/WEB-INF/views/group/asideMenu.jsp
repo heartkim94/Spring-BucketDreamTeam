@@ -20,46 +20,48 @@
 	</style>
 </head>
 <body>
-	<aside class="groupMenu">
-		<div class="groupInfo">
+	<c:if test="${groupNum != null}">
+		<aside class="groupMenu">
+			<div class="groupInfo">
+				<ul>
+					<li><a href="view">프로필이미지</a></li>
+					<li>${group.groupName}</li>
+					<li class="groupNum">${groupNum}</li>
+					<li><a href="todoSetting">설정</a></li>
+				</ul>
+			</div>
+			<hr>
+			메뉴<br>
+			<hr>
 			<ul>
-				<li><a href="view">프로필이미지</a></li>
-				<li>${group.groupName}</li>
-				<li class="groupNum">${groupNum}</li>
-				<li><a href="todoSetting">설정</a></li>
-			</ul>
-		</div>
-		<hr>
-		메뉴<br>
-		<hr>
-		<ul>
-			<li><a href="list?boardNum=0&pageNum=1">전체글보기</a><li>
-			<c:forEach var="board" items="${boardList}">
-				<li><a href="list?boardNum=${board.boardNum}&pageNum=1">${board.boardName}</a></li>
-			</c:forEach>
-			<li><a href="boardSetting">게시판 설정</a><li>
-			<li>기타 기능</li>
-			<li>
-				<div class="chatRoomList">
-					채팅방
-				</div>
-			</li>
-			<c:if test="${id == group.groupOwnerId || id == 'admin'}">
+				<li><a href="list?boardNum=0&pageNum=1">전체글보기</a><li>
+				<c:forEach var="board" items="${boardList}">
+					<li><a href="list?boardNum=${board.boardNum}&pageNum=1">${board.boardName}</a></li>
+				</c:forEach>
+				<li><a href="boardSetting">게시판 설정</a><li>
+				<li>기타 기능</li>
 				<li>
-					<input type="button" id="deleteGroup" value="그룹 없애기" onclick="document.location.href='deleteGroup?groupNum=${groupNum}'">
+					<div class="chatRoomList">
+						채팅방
+					</div>
 				</li>
-			</c:if>
-<!-- 			<li> -->
-<!-- 				<input type="button" id="joinGroup" value="그룹 가입" onclick="document.location.href='#'"> -->
-<!-- 			</li> -->
-<%-- 			<c:forEach items="${memberList}" var="memberId"> --%>
-<%-- 				<c:if test="${id == memberId}"> --%>
-<%-- 					${"#joinGroup"}.remove(); --%>
-<%-- 				</c:if> --%>
-<%-- 			</c:forEach> --%>
-			<div id="groupIO"></div>
-		</ul>
-	</aside>
+				<c:if test="${id == group.groupOwnerId || id == 'admin'}">
+					<li>
+						<input type="button" id="deleteGroup" value="그룹 없애기" onclick="document.location.href='deleteGroup?groupNum=${groupNum}'">
+					</li>
+				</c:if>
+	<!-- 			<li> -->
+	<!-- 				<input type="button" id="joinGroup" value="그룹 가입" onclick="document.location.href='#'"> -->
+	<!-- 			</li> -->
+	<%-- 			<c:forEach items="${memberList}" var="memberId"> --%>
+	<%-- 				<c:if test="${id == memberId}"> --%>
+	<%-- 					${"#joinGroup"}.remove(); --%>
+	<%-- 				</c:if> --%>
+	<%-- 			</c:forEach> --%>
+				<div id="groupIO"></div>
+			</ul>
+		</aside>
+	</c:if>
 </body>
 <script>
 $(function() {

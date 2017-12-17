@@ -58,7 +58,6 @@ $(function(){
 			let formData = new FormData();
 			$.each(files,function(index,item){
 				formData.append("multiFile", item);
-//				alert(formData);
 			});
 			
 			$.ajax({
@@ -71,14 +70,9 @@ $(function(){
 				  type: 'POST',
 				  success: function(data) {
 					  var str ="";
-//					  alert(data);
 					  $.each(data, function(index, fileName) {
 						  
 						  if(checkImageType(fileName)) {
-							  let file = {
-									  fileLength: files[index].size,
-									  storedFname: getImageLink(fileName)
-							  }
 							  str ="<div><img src='/project/displayFile?fileName="+fileName+"'/>"
 								  +"<small class='human' data-src='"+fileName+"'>&nbsp;삭제</small>"
 //			 				 이미지 파일일 경우에는 이름에 s_ 가 포함되어있으므로 테이블에 바로 입력하면
@@ -149,7 +143,7 @@ $(function(){
 			
 			function checkImageType(fileName){	
 //					/i는 대소문자 구분 하지 말라는 뜻임
-				var pattern = /.jpg|.gif|.png/i;		
+				var pattern = /.jpg|.jpeg|.gif|.png/i;		
 				return fileName.match(pattern);		
 			}
 

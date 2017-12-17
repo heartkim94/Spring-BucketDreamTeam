@@ -19,7 +19,8 @@ textarea {
     border-top: 2px solid #444547;
 }
 .title {
-    padding: 10px 0 15px 20px;
+	margin: 0;
+    padding: 15px 0 15px 20px;
     text-align: left;
     background: #fff;
     font-size: 15px;
@@ -31,6 +32,9 @@ textarea {
     right: 20px;
     top: 10px;
     border: 0;
+}
+.mobileView {
+	display: none;	
 }
 .title span {
 	margin: 0 3px 0 8px;
@@ -57,6 +61,7 @@ textarea {
     padding: 20px 16px;
     border-bottom: 1px solid #e1e1e1;
     white-space: pre-line;
+    min-height: 300px;
 }
 .fileDown {
 	overflow: hidden;
@@ -186,9 +191,26 @@ textarea {
 	}
 }
 @media (max-width: 560px) {
+	div.subContent {
+		padding-left: 3%;
+		padding-right: 3%;
+	}
 	.contentTable dl dd {
 	    width: 60%;
 	}
+	.title > p {
+		display: none;
+	}
+	.mobileView {
+		display: block;
+		text-align: right;
+	    padding: 10px 20px;
+	    border-bottom: 1px solid #e1e1e1;
+	}
+	.btnConfirm li {
+ 		width: 23%;
+	    display: initial;
+ 	}
 }
 
 </style>
@@ -201,8 +223,11 @@ textarea {
 			<span>작성일</span>${article.writeDate}
 			<span>조회</span>${article.hit}
 		</p>
-		
 	</h1>
+	<p class="mobileView">
+		<span>작성일</span>${article.writeDate}
+		<span>조회</span>${article.hit}
+	</p>
 	<dl>
 		<dt>작성자</dt>
 		<dd>${article.id}</dd>

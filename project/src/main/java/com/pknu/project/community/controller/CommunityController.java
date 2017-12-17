@@ -48,7 +48,6 @@ public class CommunityController {
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String writeForm(HttpSession session, Model model,
 			@ModelAttribute("boardNum") int boardNum){
-		System.out.println("***writeForm***");
 		model.addAttribute("action", "write");
 		return "community/writeForm";
 	}
@@ -60,7 +59,6 @@ public class CommunityController {
 //		article.setId((String)session.getAttribute("id"));
 		article.setGroupNum(-1);
 		boardService.writeArticle(article);
-		System.out.println("***write***");
 		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}
 	

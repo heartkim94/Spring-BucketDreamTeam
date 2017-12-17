@@ -8,11 +8,12 @@
  	  <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 	  <!-- 합쳐지고 최소화된 최신 CSS -->
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	  <title>마이페이지</title>
+	  <link rel="stylesheet" href="/project/resources/css/style.css">
       <link rel="stylesheet" href="./resources/css/submit.css">
+	  <title>마이페이지</title>
     </head>
     <body>
-    <%@ include file="../common/header.jsp" %>
+<%--     <%@ include file="../common/header.jsp" %> --%>
         <div class="container"><!-- 좌우측의 공간 확보 -->
 		<!-- 부트스트랩 (header.jsp 위로두면 안먹음)-->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
@@ -40,74 +41,95 @@
         <form class="form-horizontal" role="form" method="post" action="/project/userUpdate">
             <div align="center"><h1>회원 수정</h1></div><br>
             
-            <div class="form-group" id="divId">
+            <div class="" id="divId">
 				<label for="id" class="col-lg-2 control-label">아이디</label>
-				<div class="col-lg-5">
+				<div>
                		 <input type="text" class="form-control" id="id" name="id" value="${user.id}" readonly="readonly">
            		</div>
             </div>
-            <div class="form-group" id="divPassword">
+            <div class="" id="divPassword">
                 <label for="pass" class="col-lg-2 control-label">패스워드(수정)</label>
-                <div class="col-lg-5">
+                <div>
                     <input type="password" class="form-control" id="pass" name="pass" data-rule-required="true" placeholder="패스워드" maxlength="30">
                 </div>
             </div>
-            <div class="form-group" id="divPasswordCheck">
+            <div class="" id="divPasswordCheck">
                 <label for="passCheck" class="col-lg-2 control-label">패스워드(수정) 확인</label>
-                <div class="col-lg-5">
+                <div>
                     <input type="password" class="form-control" id="passCheck" data-rule-required="true" placeholder="패스워드 확인" maxlength="30">
                 </div>
             </div>
-            <div class="form-group" id="divName">
+            <div class="" id="divName">
                 <label for="name" class="col-lg-2 control-label">이름</label>
-                <div class="col-lg-5">
+                <div>
                     <input type="text" class="form-control onlyHangul" id="name" name="name" value="${user.name}" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
                 </div>
             </div>
              
-            <div class="form-group" id="divNickname">
+            <div class="" id="divNickname">
                 <label for="nickName" class="col-lg-2 control-label">닉네임</label>
-                <div class="col-lg-5">
+                <div>
                     <input type="text" class="form-control" id="nickName" name="nickName" value="${user.nickName}" data-rule-required="true" placeholder="닉네임" maxlength="15">
                 </div>
             </div>
              
-            <div class="form-group" id="divEmail">
+            <div class="" id="divEmail">
                 <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
-                <div class="col-lg-5">
+                <div>
                 	<input type="text" class="form-control" id="email" name="email" value="${user.email}" readonly="readonly">
                 </div>
                 <div id="emailcheck"></div>
             </div>
-            <div class="form-group" id="divPhoneNumber">
+            <div class="" id="divPhoneNumber">
                 <label for="inputPhoneNumber" class="col-lg-2 control-label">휴대폰 번호</label>
-                <div class="col-lg-5">
+                <div>
               		<input type="tel" class="form-control onlyNumber" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}" data-rule-required="true" placeholder="ex) 010-1111-1111" maxlength="13">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="">
                 <label for="inputGender" class="col-lg-2 control-label">성별</label>
                 <div class="col-lg-5">
                 	<input type="radio" id="gender" name="gender" value="M" checked>남자
 					<input type="radio" id="gender" name="gender" value="F">여자
                 </div>
-            </div>
+            </div><br><br>
 
 <!--             <div class="form-group"> -->
 <!--                 <div class="col-lg-offset-2 col-lg-10"> -->
 <!--                     <button type="submit" class="btn btn-default" >회원정보 수정</button> -->
 <!--                 </div> -->
 <!--             </div> -->
-
-			 <div class="wrap">
-  				<button class="button"><b>확인</b></button>
-			 </div><br><br>
+			<div class="wrap">
+				<button class="button">
+					<b>확인</b>
+				</button>
+				<a href="/project/home" class="button"><b>취소</b></a> 
+  				<a href="/project/myInfoDelForm" class="button"><b>회원탈퇴</b></a> 
+			</div>
         </form>
+        
         <!--// 본문 들어가는 부분 -->
     </div>
-    <hr/>
-    <%@ include file="../common/footer.jsp" %>
+<%--     <%@ include file="../common/footer.jsp" %> --%>
     </body>
+    <style>
+    	.form-horizontal {
+    		width: 1024px;
+    		margin: 0 auto;
+    	}
+    	.form-horizontal .control-label {
+    		text-align: left;
+    	}
+    	.container {
+    		padding: 50px 0 30px 0;
+    	}
+    	@media (max-width: 1024px) {
+    		.form-horizontal {
+	    		width: 100%;
+	    		margin: 0 auto;
+	    	}
+    	}
+    </style>
     <script>
             $(function(){
                 //모달을 전역변수로 선언

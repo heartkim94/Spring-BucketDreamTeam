@@ -112,7 +112,7 @@ CREATE TABLE ProfileOf(
 INSERT INTO Users(userNum, id, pass, name, nickname, email, phoneNumber, gender, certkey, certify)
     VALUES(-1, 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
 INSERT INTO Categorys(catNum, catName, parentNum, path) VALUES(-1, 'hidden', 0, '-1');
-INSERT INTO Groups(groupNum, groupName, groupOwner, catNum, profileImg) VALUES(-1, 'AdminGroup', -1, -1, '/project/resources/profileImg/admin_temp.jpeg');
+INSERT INTO Groups(groupNum, groupName, groupOwner, catNum, profileImg) VALUES(-1, 'AdminGroup', -1, -1, '/GroupProfileImg/profileImg_default.jpg');
 INSERT INTO Members VALUES(-1, -1);
 
 -- #Table for admin setting
@@ -163,9 +163,12 @@ insert into Categorys(catName, parentNum, path) values('bibliography', 1, '1.4')
 insert into Categorys(catName, parentNum, path) values('information science', 1, '1.5');
 insert into Categorys(catName, parentNum, path) values('encyclopedia', 1, '1.6');
 
-insert into Groups(groupName, groupOwner, catNum, profileImg) values('TestGroup', 1, 1, '/project/resources/profileImg/hueong1.jpg');
+insert into Groups(groupName, groupOwner, catNum, profileImg) values('TestGroup1', 1, 3, '/GroupProfileImg/profileImg_default.jpg');
+INSERT INTO Members VALUES(1, 1);
+INSERT INTO fileList VALUES(0, '/GroupProfileImg/profileImg_test.jpg', 0);
+INSERT INTO profileOf VALUES(1, 1);
 
-insert into BoardList values(0, 'Board', 1);
+insert into BoardList values(0, 'TestGroup1Board', 1);
 create table `GroupBoard1`(
     articleNum int primary key auto_increment,
     id varchar(300) not null,
@@ -179,7 +182,6 @@ create table `GroupBoard1`(
     fileStatus int(1) not null,
     boardNum int not null
 ) ENGINE=InnoDB;
-INSERT INTO Members VALUES(1, 1);
 
 insert into TodoList(doName, doWhen, doEnd, color, parentNum, path, pos, depth, groupNum, userNum)
     values('Dogether project', '2017-11-01', '2017-12-18', '#73AD21', null, '0.1', 1, 0, 1, 1);

@@ -14,9 +14,9 @@
 	<%@ include file="../common/header.jsp" %>
 	<div id="wrapper">
 		<section>
-			<div class="container subContent">
+			<div class="container groupContent">
 				<div class="myGroupContainer">
-					내 그룹
+					<h4>내 그룹</h4>
 					<div class="myGroup">
 						<div class="newGroup">
 							<div class="cover">
@@ -29,7 +29,7 @@
 						<c:forEach var="myGroup" items="${myGroupList}">
 							<div class="group" groupNum="${myGroup.groupNum}">
 								<div class="cover">
-									<img src="${myGroup.profileImg}" alt="프로필 이미지 없음">
+									<img src="/project/displayFile?fileName=${myGroup.profileImg}">
 								</div>
 								<div class="groupName">
 									<span>${myGroup.groupName}</span><br><br>
@@ -43,12 +43,12 @@
 				</div> <!-- myGroupContainer End -->
 				<hr>
 				<div class="groupListContainer">
-					그룹목록
+					<h4>공개 그룹</h4>
 					<div class="groupList">
 						<c:forEach var="group" items="${groupList}">
 							<div class="group" groupNum="${group.groupNum}">
 								<div class="cover">
-									<img src="${group.profileImg}" alt="프로필 이미지 없음">
+									<img src="/project/displayFile?fileName=${group.profileImg}">
 								</div>
 								<div class="groupName">
 									<span>${group.groupName}</span><br><br>
@@ -75,8 +75,8 @@
 	}
 	.group, .newGroup {
 		margin: 20px;
-		width: 200px;
-		height: 200px;
+		width: 215px;
+		height: 230px;
 		cursor: pointer;
 		float: left;
 		box-sizing: border-box;
@@ -99,7 +99,7 @@
 	.group .cover {
 		position: relative;
 		box-sizing: border-box;
-		height: 60%;
+		height: 65%;
 	}
 	.cover > img {
 		position: absolute;
@@ -114,7 +114,7 @@
 	    padding-top: 10px;
     	text-align: center;
     	position: relative;
-	    height: 40%;
+	    height: 35%;
 	    padding: 9px 12px 14px;
 	    background-color: #fff;
 	    box-sizing: border-box;
@@ -151,10 +151,10 @@
 			width: 100%;
 		}
 		.group, .newGroup {
-		margin: 5%;
-		width: 40%;
-		height: 160px;
-	}
+			margin: 5%;
+			width: 40%;
+			height: 160px;
+		}
 	}
 </style>
 

@@ -41,7 +41,6 @@ public class UploadController {
 		for (MultipartFile file : multiFile) {
 			fileList.add(UploadFileUtils.uploadFile(saveDir, file.getOriginalFilename(), file.getBytes()));
 		}
-		System.out.println("upload run");
 		return fileList;
 	}
 
@@ -59,6 +58,7 @@ public class UploadController {
 			}
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), HttpStatus.CREATED);
 		} catch (Exception e) {
+			System.out.println("@@@Upcontroller - catch@@@");
 			e.printStackTrace();
 			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
 		} finally {

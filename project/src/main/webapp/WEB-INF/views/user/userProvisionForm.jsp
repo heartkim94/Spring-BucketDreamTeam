@@ -20,17 +20,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css"
 	rel="stylesheet">
 
-<style type="text/css">
-.memCheck td {
-	border-bottom: none;
-}
-textarea {
-	resize: none;
-}
-.memCheck h1 {
-	text-align: center;
-}
-</style>
+<link rel="stylesheet" href="/project/resources/css/style.css">
+<link rel="stylesheet" href="./resources/css/submit.css">
 <script>
 	
 	$(function() {
@@ -63,16 +54,16 @@ textarea {
 		});
 	});
 </script>
-<link rel="stylesheet" href="./resources/css/submit.css">
+<!-- <link rel="stylesheet" href="./resources/css/submit.css"> -->
 </head>
 <body>
 	<div id="wrapper">
-		<%@ include file="../common/header.jsp"%>
+<%-- 		<%@ include file="../common/header.jsp"%> --%>
 		<section>
 		<div class="container mainContent">
 <!-- 			<form name="fr" method="post" action="#/project/userJoinForm" -->
 <!-- 				onsubmit="return check()"> -->
-				<table class="memCheck" width="960px" align="center">
+				<table class="memCheck">
 					<tr>
 						<td>
 							<h1>회원약관</h1>
@@ -81,7 +72,7 @@ textarea {
 
 					<tr>
 						<td align="center">
-							<table width="800px">
+							<table>
 								<!-- 전체 동의 체크박스 시작 -->
 								<div align="center">
 									<input type="checkbox" id="allchecked"> <span
@@ -98,8 +89,7 @@ textarea {
 									</td>
 								</tr>
 								<tr>
-									<td align="center"><textarea name="tos" rows="15"
-											cols="100" readonly="readonly">
+									<td align="center"><textarea name="tos" readonly="readonly">
 제1조(목적)
  이 약관은 oooo 회사(전자상거래 사업자)가 운영하는 oooo 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련
  서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리ㆍ의무 및 책임사항을 규정함을 목적으로 합니다.
@@ -343,8 +333,7 @@ textarea {
 									</td>
 								</tr>
 								<tr>
-									<td align="center"><textarea name="tos" rows="15"
-											cols="100" readonly="readonly">
+									<td align="center"><textarea name="tos" readonly="readonly">
 수집하는 개인정보의 항목
 회사는 회원가입, 상담, 서비스 신청 및 제공 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 - 이름, 이메일, 주소, 연락처, 핸드폰 번호, 아이디, 비밀번호, 닉네임, 팩스번호, 홈페이지 주소 또한 서비스 이용과정이나 사업
@@ -467,13 +456,43 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 					<button class="button">
 						<b>확인</b>
 					</button>
+					<a href="/project/home"><span>취소</span></a>
 				</div>
 				<br>
 				<br>
 <!-- 			</form> -->
 		</div>
 		</section>
-		<%@ include file="../common/footer.jsp"%>
+<%-- 		<%@ include file="../common/footer.jsp"%> --%>
 	</div>
 </body>
+<style>
+.memCheck {
+	padding: 50px 0 30px 0;
+}
+.memCheck td {
+	border-bottom: none;
+}
+textarea {
+	resize: none;
+}
+table.memCheck {
+	width: 100%;
+	margin: 0 auto;
+}
+table.memCheck h1 {
+	text-align: center;
+	padding-bottom: 20px;
+}
+textarea {
+	width: 100%;
+    height: 200px;
+}
+@media (max-width: 1024px) { 
+	section .container {
+		width: 100%;
+	}	
+}
+
+</style>
 </html>

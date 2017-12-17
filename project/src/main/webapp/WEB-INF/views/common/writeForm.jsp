@@ -6,10 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>새글등록</title>
+<title>글 쓰기</title>
 <style>
-
-
 .writeFormWrap {
 	width: 100%;
 }
@@ -25,14 +23,12 @@
 }
 .writeFormWrap th {
 	width: 120px;
-    padding: 7px 13px;
     border: 1px solid #e9e9e9;
     border-left: 0;
     background: #f5f8f9;
     text-align: left;
 }
 .writeFormWrap td {
-	padding: 7px 10px;
     border-top: 1px solid #e9e9e9;
     border-bottom: 1px solid #e9e9e9;
     background: transparent;
@@ -52,22 +48,24 @@ textarea {
 	margin: 20px 0;
 	text-align: center;
 }
-input.submitBtn {
-	padding: 8px;
-    border: 0;
-    background: orange;
+.submitBtn, .cancelBtn {
+	display: inline-block;
+    margin: 0 0 0 15px;
+    padding: 5px 30px;
     color: #fff;
-    letter-spacing: -0.1em;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 2px;
+    background: #5c5b65;
     cursor: pointer;
+ 	outline: none;
+ 	border: none;
 }
 .cancelBtn {
-	display: inline-block;
-    padding: 7px;
-    border: 1px solid #ccc;
-    background: #fafafa;
-    color: #000;
-    text-decoration: none;
-    vertical-align: middle;
+	background-color: #fff;
+	border: 1px solid #e0e0e0;
+	box-sizing: border-box;
+	color: #111;
 }
 .uploadListWrap {
 	display: block;
@@ -92,17 +90,41 @@ input.submitBtn {
 	height: auto;
 }
 .allDelete {
-	cursor: pointer;
-	padding: 8px;
-    border: 0;
-    background: #E83F38;
-    font-size: 14px;
+	display: inline-block;
+    padding: 5px 30px;
     color: #fff;
-    letter-spacing: -0.1em;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 2px;
+    background: #5c5b65;
+    cursor: pointer;
+ 	outline: none;
+ 	border: none;
 }
 .human {
 	cursor: pointer;
 	color: red;
+}
+
+@media (max-width: 1024px) {
+	div.subContent {
+		width: 100%; 
+	}
+}
+@media (max-width: 768px) {
+	.writeFormWrap th {
+		padding: 0;
+		width: 60px;
+	}
+	tr:nth-child(4){ 
+ 		display: none; 
+ 	} 
+}
+@media (max-width: 560px) {
+	div.subContent {
+		padding-left: 3%;
+		padding-right: 3%;
+	}
 }
 </style>
 </head>
@@ -131,11 +153,16 @@ input.submitBtn {
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td align="left">${id}</td>
+					<c:if test="${id != null}">
+						<td align="left">${id}</td> <!-- 작성자 id -->
+					</c:if>
+					<c:if test="${id == null}">
+						<td align="left">Guest</td> <!-- 게스트 id -->
+					</c:if>
 				</tr>
 				<tr>
 					<th><label for="content">내용</label></th>
-					<td align="left"><textarea id="content" style="resize: none;" name="content" cols="40" rows="10">${content}</textarea></td>
+					<td align="left"><textarea id="content" style="resize: none;" name="content">${content}</textarea></td>
 				</tr>
 				<!-- 파일첨부영역 -->
 				<!-- faq 글쓰기 할 때는 필요없음 -->
@@ -145,7 +172,7 @@ input.submitBtn {
 					 		파일 첨부
 <!-- 							 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a> -->
 					 	</th>
-						<td>
+						<td>  
 							<div class="uploadListWrap">
 								<div class="upListHead">
 									업로드 파일명 
@@ -155,7 +182,17 @@ input.submitBtn {
 							<input type="button" class="allDelete" value="모두 삭제">
 						</td>
 					</tr>
+<!-- 					<tr> -->
+<!-- 						<th style="vertical-align: top;"> -->
+<!-- 					 		파일 첨부 -->
+<!-- <!-- 							 		<a href="#" title="파일 첨부 열기" class="openFList">▼</a> --> 
+<!-- 					 	</th> -->
+<!-- 					 	<td> -->
+<!-- 					 		<input type="file"  name="fname" multiple="multiple" /> -->
+<!-- 					 	</td> -->
+<!-- 					</tr> -->
 				</c:if> 
+				<!-- 글 수정시 등장 -->
 				<c:if test="${action eq 'update'}">
 					<tr>
 						<td>첨부된화일 :</td>
@@ -163,7 +200,6 @@ input.submitBtn {
 							<c:if test="${fileList!=null}">
 								<ul id="delGroup">
 									<c:forEach var="file" items="${fileList}">
-										<!-- 				JQuery 함수 사용				 -->
 										<li>${file.storedFname.substring(file.storedFname.indexOf("_")+1)}<!-- 화면에 보이는 originFname임 -->
 											<input type="button" deleteFileName="${file.storedFname}" value="삭제"
 											class="delFile">
@@ -178,12 +214,16 @@ input.submitBtn {
 		</div>
 		<!-- 글 작성 버튼 영역 -->
 		<div class="btnConfirm">
-			<input type="submit" value="작성 완료" class="submitBtn" />
+			<button class="submitBtn">
+					<b>작성완료</b>
+			</button>
+<!-- 			<input type="submit" value="작성 완료" class="submitBtn" /> -->
 			<a href="list?boardNum=${boardNum}&pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
 		</div>
 	</form>
 </div>
 <script src="/project/resources/js/uploadAjax.js"></script> 
+<!-- 글 수정 시 기존에 업로드 된 파일 삭제 여부 기능 -->
 <script>
 	// 기존의 파일을 삭제할 때 
 	$(document).ready(function() {
@@ -199,7 +239,6 @@ input.submitBtn {
 			let deleteFileName = "<input type='hidden' name='deleteFileName' value='"+storedFname+"'>";
 			$(deleteFileName).appendTo("form");
 		});
-
 	});
 </script>
  
