@@ -30,7 +30,7 @@ CREATE TABLE Groups(
     groupName varchar(200) NOT NULL,
     groupOwner int /*NOT*/ NULL,
     catNum int NOT NULL,
-    profileImg varchar(100) DEFAULT '/GroupProfileImg/profileImg_default.jpg',
+    profileImg varchar(100),
     FOREIGN KEY(groupOwner) REFERENCES Users(userNum) ON DELETE SET NULL,
     FOREIGN KEY(catNum) REFERENCES Categorys(catNum)
 ) ENGINE=InnoDb;
