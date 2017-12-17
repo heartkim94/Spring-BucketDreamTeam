@@ -39,7 +39,7 @@ public interface BoardDao {
 	public void deleteSomeReplyAll(HashMap<String, String> paramMap);
 	// 글 수정
 	public ArticleDto updateGetArticle(HashMap<String, String> paramMap);
-	public void updateArticle(HashMap<String, String> paramMap);
+	public void updateArticle(ArticleDto article);
 	
 	// 글 수정시 파일삭제
 	public void someDelFile(ArrayList<String> storedFnameList);

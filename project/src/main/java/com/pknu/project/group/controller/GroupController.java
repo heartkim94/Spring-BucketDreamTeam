@@ -148,10 +148,12 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="/{groupNum}/write", method=RequestMethod.POST)
+	@ResponseBody
 	public String write(
 			@PathVariable("groupNum") int groupNum,
-			ArticleDto article, HttpSession session, Model model){
+			@RequestBody ArticleDto article, HttpSession session, Model model){
 		groupService.getGroup(groupNum, model);
+		article.setGroupNum(groupNum);
 		boardService.writeArticle(article);
 		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}
@@ -178,13 +180,12 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="/{groupNum}/update", method=RequestMethod.POST)
+	@ResponseBody
 	public String updateArticle(@PathVariable("groupNum") int groupNum,
-								@ModelAttribute("boardNum") String boardNum,
-								@ModelAttribute("pageNum") int pageNum,
-								ArticleDto article, Model model) {
+								@RequestBody ArticleDto article, Model model) {
 		article.setGroupNum(groupNum);
-		boardService.updateArticle(article, boardNum, model);
-		return "redirect:list";
+		boardService.updateArticle(article, String.valueOf(article.getBoardNum()), model);
+		return "redirect:list?pageNum="+article.getPageNum()+"&boardNum="+article.getBoardNum();
 	}
 	
 	@RequestMapping(value="/{groupNum}/reply", method=RequestMethod.GET)
@@ -201,8 +202,12 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="/{groupNum}/reply", method=RequestMethod.POST)
-	public String reply(ArticleDto article, HttpSession session){		
+	@ResponseBody
+	public String reply(
+			@PathVariable("groupNum") int groupNum,
+			@RequestBody ArticleDto article, HttpSession session){		
 		article.setId((String)session.getAttribute("id"));
+		article.setGroupNum(groupNum);
 		boardService.reply(article);
 		return "redirect:list?pageNum=1&boardNum="+article.getBoardNum();
 	}

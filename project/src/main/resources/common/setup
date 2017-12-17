@@ -97,14 +97,14 @@ CREATE TABLE Attached(
 	fileNum int PRIMARY KEY,
 	boardNum int NOT NULL,
 	articleNum int NOT NULL,
-    FOREIGN KEY(fileNum) REFERENCES FileList(fileNum),
+    FOREIGN KEY(fileNum) REFERENCES FileList(fileNum) ON DELETE CASCADE,
     FOREIGN KEY(boardNum) REFERENCES BoardList(boardNum)
 ) ENGINE=InnoDB;
-	
+
 CREATE TABLE ProfileOf(
 	fileNum int PRIMARY KEY,
 	groupNum int NOT NULL,
-    FOREIGN KEY(fileNum) REFERENCES FileList(fileNum),
+    FOREIGN KEY(fileNum) REFERENCES FileList(fileNum) ON DELETE CASCADE,
     FOREIGN KEY(groupNum) REFERENCES Groups(groupNum)
 ) ENGINE=InnoDB;
 

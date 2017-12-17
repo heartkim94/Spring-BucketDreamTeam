@@ -127,8 +127,22 @@
 	
 	<!-- 글 삭제 -->
 	<delete id="deleteArticle" parameterType="HashMap">
-		DELETE FROM `GroupBoard${groupNum}`
-		WHERE articleNum=#{articleNum}
+<!-- 		DELETE FROM Comments -->
+<!-- 		WHERE articleNum = #{articleNum} and boardNum = #{boardNum}; -->
+		
+<!-- 		DELETE	f -->
+<!-- 		FROM	FileList f -->
+<!-- 		JOIN	Attached a	ON f.fileNum = a.fileNum -->
+<!-- 		WHERE	articleNum = #{articleNum} and boardNum = #{boardNum}; -->
+		
+<!-- 		DELETE FROM `GroupBoard${groupNum}` -->
+<!-- 		WHERE articleNum=#{articleNum}; -->
+		DELETE b, c, f
+		FROM `GroupBoard${groupNum}` b
+		LEFT JOIN Comments c ON c.articleNum = b.articleNum and c.boardNum = b.boardNum
+		LEFT JOIN Attached at ON at.articleNum = b.articleNum and at.boardNum = b.boardNum
+		LEFT JOIN FileList f ON f.fileNum = at.fileNum
+		WHERE b.articleNum=#{articleNum}
 	</delete>
 	
 	<select id="getReply" parameterType="HashMap" resultType="article">
@@ -144,13 +158,21 @@
 	</select>
 	
 	<delete id="deleteSomeReply" parameterType="HashMap">
-		DELETE FROM `GroupBoard${groupNum}`
-		WHERE groupId=#{groupId} AND depth > #{depth} AND #{endPos} > pos AND pos > #{pos}
+		DELETE b, c, f
+		FROM `GroupBoard${groupNum}` b
+		LEFT JOIN Comments c ON c.articleNum = b.articleNum and c.boardNum = b.boardNum
+		LEFT JOIN Attached at ON at.articleNum = b.articleNum and at.boardNum = b.boardNum
+		LEFT JOIN FileList f ON f.fileNum = at.fileNum
+		WHERE b.groupId=#{groupId} AND b.depth > #{depth} AND #{endPos} > b.pos AND b.pos > #{pos}
 	</delete>
 	
 	<delete id="deleteSomeReplyAll" parameterType="HashMap">
-		DELETE FROM `GroupBoard${groupNum}`
-		WHERE groupId=#{groupId} AND depth > #{depth} AND pos > #{pos}
+		DELETE b, c, f
+		FROM `GroupBoard${groupNum}` b
+		LEFT JOIN Comments c ON c.articleNum = b.articleNum and c.boardNum = b.boardNum
+		LEFT JOIN Attached at ON at.articleNum = b.articleNum and at.boardNum = b.boardNum
+		LEFT JOIN FileList f ON f.fileNum = at.fileNum
+		WHERE b.groupId=#{groupId} AND b.depth > #{depth} AND b.pos > #{pos}
 	</delete>
 	
 	<!-- 글 수정 -->
@@ -160,7 +182,7 @@
 		WHERE articleNum=#{articleNum}
 	</select>
 	
-	<update id="updateArticle" parameterType="HashMap">
+	<update id="updateArticle" parameterType="article">
 		UPDATE `GroupBoard${groupNum}`
 		SET title=#{title}, content=#{content}, fileStatus=#{fileStatus}
 		WHERE articleNum=#{articleNum}

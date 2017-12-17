@@ -1,5 +1,51 @@
 $(function(){
-		
+		$("form").on("submit", function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+			
+			let files = [];
+			$.each($("[name=storedFname]"), function(index, item) {
+				let file = {
+						storedFname: $(item).val(),
+						fileLength: $(item).next("[name=fileLength]").val()
+				}
+				files.push(file);
+			});
+			let data = {
+				boardNum: $("[name=boardNum]").val(),
+				title: $("[name=title]").val(),
+				articleNum: $("[name=articleNum]").val(),
+				fileStatus: $("[name=fileStatus]").val(),
+				fileCount: $("[name=fileCount]").val(),
+				groupId: $("[name=groupId]").val(),
+				pos: $("[name=pos]").val(),
+				depth: $("[name=depth]").val(),
+				pageNum: $("[name=pageNum]").val(),
+				id: $("[name=id]").val(),
+				title: $("[name=title]").val(),
+				content: $("[name=content]").val(),
+				files: files
+			};
+			
+			$.ajax({
+				url: $(this).attr("action"),
+				type: "POST",
+				contentType: "application/json",
+				data: JSON.stringify(data),
+				success: function(data) {
+					console.log(data);
+					console.log(location);
+					let colon = data.indexOf(":");
+					let link = data.slice(colon+1);
+					console.log(link);
+					location.href = "./"+link;
+				},
+				error: function(xhr) {
+					alert("error html = "+xhr.statusText);
+				}
+			})
+			
+		});
 		$(".fileDrop").on("dragenter dragover", function(e){
 			e.preventDefault();
 		});
@@ -12,8 +58,9 @@ $(function(){
 			let formData = new FormData();
 			$.each(files,function(index,item){
 				formData.append("multiFile", item);
-				alert(formData);
-			});	
+//				alert(formData);
+			});
+			
 			$.ajax({
 				  url: '/project/uploadAjax',
 				  data: formData,
@@ -24,14 +71,21 @@ $(function(){
 				  type: 'POST',
 				  success: function(data) {
 					  var str ="";
-					  alert(data);
+//					  alert(data);
 					  $.each(data, function(index, fileName) {
+						  
 						  if(checkImageType(fileName)) {
+							  let file = {
+									  fileLength: files[index].size,
+									  storedFname: getImageLink(fileName)
+							  }
 							  str ="<div><img src='/project/displayFile?fileName="+fileName+"'/>"
 								  +"<small class='human' data-src='"+fileName+"'>&nbsp;삭제</small>"
 //			 				 이미지 파일일 경우에는 이름에 s_ 가 포함되어있으므로 테이블에 바로 입력하면
 //			 				 다운로드시 썸네일 파일을 다운로드 받게됨...이름에 s_ 제거하고 테이블에 입력
-								  +"<input type='hidden' name='fileNames' value='"+getImageLink(fileName)+"'></div>";
+								  +"<input type='hidden' name='fileNames' value='"+getImageLink(fileName)+"'>"//</div>"
+							  	  +"<input type='hidden' name='storedFname' value='"+getImageLink(fileName)+"'>"
+							  	  +"<input type='hidden' name='fileLength' value='"+files[index].size+"'></div>"
 						  } else {
 						 	  str ="<div>"+ getOriginFname(fileName)
 							  +"<small class='human' data-src='"+fileName+"'>&nbsp;삭제</small>"

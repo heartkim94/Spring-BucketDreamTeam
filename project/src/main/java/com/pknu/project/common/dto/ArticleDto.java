@@ -19,7 +19,8 @@ public class ArticleDto {
 	private String searchCondition;
 	private String searchKeyword;
 	
-	private List<String> fileNames;
+	private List<FileDto> files;
+	private int pageNum;
 	
 	public int getArticleNum() {
 		return articleNum;
@@ -112,10 +113,16 @@ public class ArticleDto {
 		this.searchKeyword = searchKeyword;
 	}
 	
-	public List<String> getFileNames() {
-		return fileNames;
+	public List<FileDto> getFiles() {
+		return files;
 	}
-	public void setFileNames(List<String> fileNames) {
-		this.fileNames = fileNames;
+	public void setFiles(List<FileDto> files) {
+		this.files = files;
+	}
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
 }

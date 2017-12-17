@@ -107,8 +107,8 @@ public class BoardServiceImpl implements BoardService {
 		paramMap.put("boardNum", boardNum);
 		paramMap.put("articleNum", articleNum);
 		boardDao.upHit(paramMap);
-		boardDao.getFiles(paramMap); 
-		article=boardDao.getArticle(paramMap);
+		boardDao.getFiles(paramMap);
+		article = boardDao.getArticle(paramMap);
 		article.setCommentCount(commentService.commentCount(Integer.parseInt(boardNum), article.getArticleNum()));
 		model.addAttribute("article", article);
 		if(fileStatus == 1) {
@@ -133,14 +133,13 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void writeArticle(ArticleDto article) {
-//		boardDao.writeArticle(article);
-		if(article.getFileNames()==null) {
+		if(article.getFiles().size()==0) {
 			boardDao.writeArticle(article);
 		}else {
 			article.setFileStatus((byte)1);
 			// 리턴을 하지 않아도 article에 값이 넘어옴
 			boardDao.writeArticle(article);
-			commonFileUpload(article.getArticleNum(), article.getBoardNum(),article.getFileNames());
+			commonFileUpload(article.getArticleNum(), article.getBoardNum(), article.getFiles());
 		}
 	}
 	
@@ -170,14 +169,14 @@ public class BoardServiceImpl implements BoardService {
 	// 답변 달기
 	@Override
 	public void reply(ArticleDto article) {
-		if(article.getFileNames()==null) {
+		if(article.getFiles().size()==0) {
 			boardDao.reply(article);
 		}else {
 			article.setFileStatus((byte)1);
 			// 리턴을 하지 않아도 article에 값이 넘어옴
 			boardDao.upPos(article);
 			boardDao.reply(article);
-			commonFileUpload(article.getArticleNum(), article.getBoardNum(),article.getFileNames());
+			commonFileUpload(article.getArticleNum(), article.getBoardNum(),article.getFiles());
 		}
 	}
 	
@@ -257,39 +256,30 @@ public class BoardServiceImpl implements BoardService {
 		
 		model.addAttribute("title", article.getTitle());
 		model.addAttribute("content", article.getContent());
-//		if(fileStatus == 1) {
+		if(fileStatus == 1) {
 //			model.addAttribute("fileList", boardDao.getFiles(articleNum, boardNum));
 //			model.addAttribute("fileCount", boardDao.getFiles(articleNum, boardNum).size);
-//		} else {
-//			model.addAttribute("fileCount", 0);
-//		}
+			model.addAttribute("fileList", boardDao.getFiles(paramMap));
+			model.addAttribute("fileCount", boardDao.getFiles(paramMap).size());
+		} else {
+			model.addAttribute("fileCount", 0);
+		}
 	}
 	
 	@Override
 	public void updateArticle(ArticleDto article, String boardNum, Model model) {
-		paramMap = new HashMap<>();
-		paramMap.put("groupNum", String.valueOf(article.getGroupNum()));
-		paramMap.put("articleNum", String.valueOf(article.getArticleNum()));
-		paramMap.put("boardNum", String.valueOf(article.getBoardNum()));
-		paramMap.put("title", article.getTitle());
-		paramMap.put("content", article.getContent());
-		paramMap.put("fileStatus", String.valueOf(article.getFileStatus()));
-//		boardDao.updateArticle(paramMap);
-		if(article.getFileNames()==null) {
-			boardDao.updateArticle(paramMap);
+		if(article.getFiles().size()==0) {
+			article.setFileStatus((byte)0);
+			boardDao.updateArticle(article);
 		}else {
 			article.setFileStatus((byte)1);
-			boardDao.updateArticle(paramMap);
-			commonFileUpload(article.getArticleNum(), article.getBoardNum(),article.getFileNames());
+			boardDao.updateArticle(article);
+			commonFileUpload(article.getArticleNum(), article.getBoardNum(),article.getFiles());
 		}
 	}
 	
-	public void commonFileUpload(int articleNum, int boardNum, List<String> fileNames) {
-		FileDto fileDto = null;
-		
-		for(String storedFname: fileNames){					
-			fileDto = new FileDto();			
-			fileDto.setStoredFname(storedFname);			
+	public void commonFileUpload(int articleNum, int boardNum, List<FileDto> files) {
+		for(FileDto fileDto: files){
 			fileDto.setArticleNum(articleNum);
 			fileDto.setBoardNum(boardNum);
 			boardDao.insertFile(fileDto);

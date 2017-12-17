@@ -270,7 +270,7 @@ textarea {
 	</div>
 	<!-- 코멘트 -->
 	<div class="commentArea">
-		<p>전체 코멘트: <span style='color: blue'>(${article.commentCount})</span></p>
+		<p>전체 코멘트: <span id="commentCount" style='color: blue'>(${article.commentCount})</span></p>
 		<!-- 코멘트 쓰기 영역 -->
 		<div class="commTableWrap">
 			<table class="commentTable">
@@ -287,17 +287,17 @@ textarea {
 		</div>
 		<!-- 코멘트 리스트 -->
 <%-- 		<input type="button" value="comment 읽기(${article.commentCount })" onclick="getComment(1,event)" id="commentRead"> --%>
-		<c:if test="${article.commentCount > 0 }"> 
+<%-- 		<c:if test="${article.commentCount > 0 }">  --%>
 			<div style="width: 100%; min-height: 100px; padding: 20px 0;">
 				<div id="showComment" align="center"></div>
 				<input type="hidden" id="commPageNum" value="1">
 			</div>
-		</c:if>
-		<c:if test="${article.commentCount == 0 }"> 
+<%-- 		</c:if> --%>
+<%-- 		<c:if test="${article.commentCount == 0 }">  --%>
 			<div style="width: 100%; min-height: 100px; padding: 20px 0;">
 				<div id="noComment" align="center">등록된 댓글이 없습니다</div>
 			</div>
-		</c:if>
+<%-- 		</c:if> --%>
 	</div> <!-- commentArea end -->
 </div> <!-- contentTable end -->
 </body>
@@ -358,6 +358,15 @@ textarea {
 		}); // ajax end	
 	}
 	function showHtml(data, commPageNum){
+		$("#commentCount").text("("+data.length+")");	// 전체 코멘트 수 갱신
+		if(data.length > 0) {		// 댓글이 있으면 #showComment 보이게 하기
+			$("#showComment").parent().css("display", "");
+			$("#noComment").parent().css("display", "none");
+		} else {					// 댓글이 없으면 #noComment 보이게 하기
+			$("#showComment").parent().css("display", "none");
+			$("#noComment").parent().css("display", "");
+		}
+		
 		let html = "<article class='commentList'>";
 		let id = "${id}";
 		$.each(data, function(index,item) {

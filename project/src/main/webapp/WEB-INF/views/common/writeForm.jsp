@@ -162,10 +162,10 @@ input.submitBtn {
 						<td>
 							<c:if test="${fileList!=null}">
 								<ul id="delGroup">
-									<c:forEach var="storedFname" items="${fileList}">
+									<c:forEach var="file" items="${fileList}">
 										<!-- 				JQuery 함수 사용				 -->
-										<li>${storedFname.substring(storedFname.indexOf("_")+1)}<!-- 화면에 보이는 originFname임 -->
-											<input type="button" deleteFileName="${storedFname}" value="삭제"
+										<li>${file.storedFname.substring(file.storedFname.indexOf("_")+1)}<!-- 화면에 보이는 originFname임 -->
+											<input type="button" deleteFileName="${file.storedFname}" value="삭제"
 											class="delFile">
 										</li>
 									</c:forEach>

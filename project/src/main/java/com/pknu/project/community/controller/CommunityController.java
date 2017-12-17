@@ -1,7 +1,5 @@
 package com.pknu.project.community.controller;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +10,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,7 +54,9 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String write(ArticleDto article, HttpSession session){
+	@ResponseBody
+	public String write(
+			@RequestBody ArticleDto article, HttpSession session){
 //		article.setId((String)session.getAttribute("id"));
 		article.setGroupNum(-1);
 		boardService.writeArticle(article);
@@ -117,7 +118,9 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/reply", method=RequestMethod.POST)
-	public String reply(ArticleDto article, HttpSession session){		
+	@ResponseBody
+	public String reply(
+			@RequestBody ArticleDto article, HttpSession session){		
 		article.setId((String)session.getAttribute("id"));
 		article.setGroupNum(-1);
 		boardService.reply(article);
@@ -147,12 +150,11 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String updateArticle(@ModelAttribute("boardNum") String boardNum,
-								@ModelAttribute("pageNum") int pageNum,
-								ArticleDto article, Model model) {
+	@ResponseBody
+	public String updateArticle(@RequestBody ArticleDto article, Model model) {
 		article.setGroupNum(-1);
-		boardService.updateArticle(article, boardNum, model);
-		return "redirect:list";
+		boardService.updateArticle(article, String.valueOf(article.getBoardNum()), model);
+		return "redirect:list?pageNum="+article.getPageNum()+"&boardNum="+article.getBoardNum();
 	}
 	
 	// 첨부파일 다운로드
