@@ -21,26 +21,38 @@ public class UploadFileUtils {
 	    String storedPath = calcPath(saveDir);    
 	    File target = new File(saveDir +storedPath,storedFname);    
 	    FileCopyUtils.copy(fileData, target);    
+	    
 	    String formatName = originFname.substring(originFname.lastIndexOf(".")+1);
 	    String uploadedFileName = null;
-	    
-	    if(MediaUtils.getMediaType(formatName) != null){
-	      uploadedFileName = makeThumbnail(saveDir, storedPath, storedFname);
-	    }else{
-	      uploadedFileName = makeIcon(saveDir, storedPath, storedFname);
+	    if(MediaUtils.getMediaType(formatName) != null) {
+	    	uploadedFileName = makeThumbnail(saveDir, storedPath, storedFname);
+	    } else {
+	    	uploadedFileName = makeIcon(saveDir, storedPath, storedFname);
 	    }
 	    return uploadedFileName;
+	}
+	
+	public static String uploadProfileImg(String saveDir, String originFname, byte[] fileData) throws Exception{
+		System.out.println("Utils - uploadProfileImg 실행됨");
+		UUID uid = UUID.randomUUID();
+		String storedFname = uid.toString() + "_" + originFname;
+		String storedPath = File.separator+"GroupProfileImg";
+		File dirPath = new File(saveDir+storedPath);
+		if(!dirPath.exists()) {
+			dirPath.mkdir();
+		}
+	    File target = new File(saveDir + storedPath, storedFname);
+	    FileCopyUtils.copy(fileData, target);
+	    System.out.println("Utils - 파일 카피됨");
+	    return (storedPath + "/" + storedFname).replace(File.separator, "/");
 	}
 	
 	private static String calcPath(String uploadPath){    
 	   Calendar cal = Calendar.getInstance();    
 	   String yearPath = File.separator+cal.get(Calendar.YEAR);    
-	   String monthPath = yearPath + File.separator + 
-	       new DecimalFormat("00").format(cal.get(Calendar.MONTH)+1);
-
-	   String datePath = monthPath + File.separator + 
-	       new DecimalFormat("00").format(cal.get(Calendar.DATE));
-	    
+	   String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH)+1);
+	   String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+	   
 	   makeDir(uploadPath, yearPath,monthPath,datePath);    
 	   logger.info(datePath);
 	    
@@ -61,11 +73,11 @@ public class UploadFileUtils {
 	   return thumbnailName.substring(saveDir.length()).replace(File.separatorChar, '/');
 	} 
 	
-	private static  String makeIcon(String saveDir, String storedPath,String storedFname) throws Exception{	
-	    String iconName = saveDir + storedPath + File.separator+ storedFname;    
-	    return iconName.substring(saveDir.length()).replace(File.separatorChar, '/');
-    }  
-	 
+	private static  String makeIcon(String saveDir, String storedPath,String storedFname) throws Exception {
+		String iconName = saveDir + storedPath + File.separator+ storedFname;
+		return iconName.substring(saveDir.length()).replace(File.separatorChar, '/');
+	}
+	
 	private static void makeDir(String uploadPath, String... paths){    
 	   if(new File(paths[paths.length-1]).exists()){
 	     return;

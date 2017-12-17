@@ -9,11 +9,12 @@ $(function(){
 			$(".fileDrop").removeAttr("placeholder");
 			
 			let files = e.originalEvent.dataTransfer.files;
+			
 			let formData = new FormData();
 			$.each(files,function(index,item){
 				formData.append("multiFile", item);
-				alert(formData);
-			});	
+			});
+			
 			$.ajax({
 				  url: '/project/uploadAjax',
 				  data: formData,
@@ -24,7 +25,6 @@ $(function(){
 				  type: 'POST',
 				  success: function(data) {
 					  var str ="";
-					  alert(data);
 					  $.each(data, function(index, fileName) {
 						  if(checkImageType(fileName)) {
 							  str ="<div><img src='/project/displayFile?fileName="+fileName+"'/>"
@@ -95,7 +95,7 @@ $(function(){
 			
 			function checkImageType(fileName){	
 //					/i는 대소문자 구분 하지 말라는 뜻임
-				var pattern = /.jpg|.gif|.png/i;		
+				var pattern = /.jpg|.jpeg|.gif|.png/i;		
 				return fileName.match(pattern);		
 			}
 

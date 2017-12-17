@@ -289,7 +289,7 @@ public class BoardServiceImpl implements BoardService {
 		FileDto fileDto = null;
 		
 		for(String storedFname: fileNames){					
-			fileDto = new FileDto();			
+			fileDto = new FileDto();
 			fileDto.setStoredFname(storedFname);			
 			fileDto.setArticleNum(articleNum);
 			fileDto.setBoardNum(boardNum);

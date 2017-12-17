@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pknu.project.common.dto.ArticleDto;
 import com.pknu.project.common.dto.BoardDto;
@@ -51,9 +52,23 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="/group/new", method=RequestMethod.POST)
-	public String newGroup(GroupDto group) {
-		groupService.newGroup(group);
+	public String newGroup(GroupDto group, HttpSession session) {
+		MultipartFile profileImg = (MultipartFile)session.getAttribute("profileImg");
+		System.out.println("GroupController - 세션에서 꺼냄:"+profileImg);
+		groupService.newGroup(group, profileImg);
+		session.removeAttribute("profileImg");
 		return "redirect:main";
+	}
+	
+	@RequestMapping(value="/group/profileImg", method=RequestMethod.GET)
+	public String profileImgForm() {
+		return "group/profileImg";
+	}
+	
+	@RequestMapping(value="/group/profileImg", method=RequestMethod.POST)
+	public void profileImg(MultipartFile profileImg, HttpSession session) {
+		session.setAttribute("profileImg", profileImg);
+		System.out.println("GroupController - 세션에 넣음:"+profileImg);
 	}
 	
 	@RequestMapping(value="/{groupNum}/view", method=RequestMethod.GET)

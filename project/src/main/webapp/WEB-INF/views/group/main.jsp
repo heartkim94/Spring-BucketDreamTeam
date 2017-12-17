@@ -29,7 +29,7 @@
 						<c:forEach var="myGroup" items="${myGroupList}">
 							<div class="group" groupNum="${myGroup.groupNum}">
 								<div class="cover">
-									<img src="${myGroup.profileImg}" alt="프로필 이미지 없음">
+									<img src="/project/displayFile?fileName=${myGroup.profileImg}">
 								</div>
 								<div class="groupName">
 									<span>${myGroup.groupName}</span><br><br>
@@ -48,7 +48,7 @@
 						<c:forEach var="group" items="${groupList}">
 							<div class="group" groupNum="${group.groupNum}">
 								<div class="cover">
-									<img src="${group.profileImg}" alt="프로필 이미지 없음">
+									<img src="/project/displayFile?fileName=${group.profileImg}">
 								</div>
 								<div class="groupName">
 									<span>${group.groupName}</span><br><br>

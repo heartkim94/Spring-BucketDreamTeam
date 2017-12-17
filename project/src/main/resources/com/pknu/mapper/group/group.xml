@@ -68,6 +68,16 @@
 		);
 	</update>
 	
+	<insert id="insertProfileImg" parameterType="file">
+		INSERT INTO fileList VALUES(0, #{storedFname}, #{fileLength});
+		INSERT INTO profileOf VALUES(last_insert_id(), #{groupNum});
+		UPDATE groups SET profileImg=#{storedFname} WHERE groupNum=#{groupNum};
+	</insert>
+	
+	<update id="setDefaultProfile" parameterType="file">
+		UPDATE groups SET profileImg=#{storedFname} WHERE groupNum=#{groupNum};
+	</update>
+	
 	<delete id="deleteGroup" parameterType="int">
 		DELETE FROM groups 
 		WHERE groupNum=#{groupNum}
