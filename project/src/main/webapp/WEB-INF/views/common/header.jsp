@@ -72,12 +72,19 @@
     	float: right;
     	margin-right: 5%;
     }
-    a.mypageBtnIcon { 
+    a.mypageBtnIcon {
+    	display: inline-block; 
  	    opacity: 0.5;
 	    transition-duration: 0.5s;
     } 
-    h1.logo, .mypageBtnIcon img {
+    h1.logo, .mypageBtnIcon, .hdLoginBtn, .hdJoinBtn {
     	padding: 20px 0;
+    }
+    .hdLoginBtn, .hdJoinBtn {
+    	display: inline-block;
+    }
+    .hdLoginBtn {
+    	margin-right: 10px;
     }
      .mypageBtnIcon:hover {
      	transform: scale(1.4);
@@ -90,15 +97,16 @@
    	 .sideMenuLayer {
    	 	display: none;
    	 	position: fixed;
-   	 	top: 58px;
+   	 	top: 0;
    	 	right: 0;
-   	 	width: 100%;
-   	 	height: 200px;
+   	 	width: 300px;
+   	 	height: 100%;
+   	 	display: none;
    	 	z-index: 999;
    	 	background-color: #eef0f3;
    	 }
    	 .sideMenuLayer > div {
-   	 	width: 1024px;
+   	 	width: 100%;
    	 	border-bottom: 1px solid #999;
    	 	margin: 0 auto;
    	 }
@@ -168,17 +176,17 @@
    			width: 100%; 
    		} 
    		/* 사이드 메뉴 */
-   		.sideMenuLayer {
-	   	 	display: none;
-	   	 	position: fixed;
-	   	 	top: 0;
-	   	 	right: 0;
-	   	 	width: 300px;
-	   	 	height: 100%;
-	   	 }
-	   	 .sideMenuLayer > div {
-	   	 	width: 100%;
-	   	 }
+/*    		.sideMenuLayer { */
+/* 	   	 	display: none; */
+/* 	   	 	position: fixed; */
+/* 	   	 	top: 0; */
+/* 	   	 	right: 0; */
+/* 	   	 	width: 300px; */
+/* 	   	 	height: 100%; */
+/* 	   	 } */
+/* 	   	 .sideMenuLayer > div { */
+/* 	   	 	width: 100%; */
+/* 	   	 } */
 	   	 .MypageMenuWrap {
 	   	 	width: 250px;
 	   	 	margin: 0 auto;
@@ -211,13 +219,15 @@
 				</c:if>
 			</div>
 			<div class="menuItem">
-				<a href="#" class="mypageBtnIcon" >
-					<img src="/project/resources/img/menuIcon.png" alt="menuIcon"/>  
-				</a>
-			
-	<%-- 					<c:if test="${id == null}"> --%>
-						
-	<%-- 					</c:if> --%>
+				<c:if test="${id != null}">
+					<a href="#" class="mypageBtnIcon" >
+						<img src="/project/resources/img/menuIcon.png" alt="menuIcon"/>  
+					</a>
+				</c:if>
+				<c:if test="${id == null}">
+					<a href="/project/home" class="hdLoginBtn">로그인</a>
+					<a href="/project/userProvisionForm" class="hdJoinBtn">회원가입</a>
+				</c:if>
 			</div> <!-- menuItem end -->
 		</div> <!-- menubar end -->
 		
@@ -257,7 +267,7 @@
 			event.preventDefault();
 			let windowWh = $(window).width();
 			let menu = $(".sideMenuLayer");
-			if(windowWh <= 1024){
+// 			if(windowWh <= 1024){
 				if (menu.is(":visible") ) {
 					menu.stop(true,true).hide("slide", { direction: "right" }, 200);
 			    } else {
@@ -270,17 +280,18 @@
 				$(".closeBtn").on("click", function(){
 					$(".sideMenuLayer").stop(true,true).hide("slide", { direction: "right" }, 200);
 				})
-			}else if(windowWh > 1024){
-				if (menu.is(":visible") ) {
-					menu.stop(true,true).hide("slide", { direction: "up" }, 200);
-			    } else {
-			    	menu.stop(true,true).show("slide", { direction: "up" }, 200);
-			    }
-				$(".closeBtn").on("click", function(e){
-					e.preventDefault();
-					$(".sideMenuLayer").stop(true,true).hide("slide", { direction: "up" }, 200);
-				})
-			}
+// 			}
+// 			}else if(windowWh > 1024){
+// 				if (menu.is(":visible") ) {
+// 					menu.stop(true,true).hide("slide", { direction: "up" }, 200);
+// 			    } else {
+// 			    	menu.stop(true,true).show("slide", { direction: "up" }, 200);
+// 			    }
+// 				$(".closeBtn").on("click", function(e){
+// 					e.preventDefault();
+// 					$(".sideMenuLayer").stop(true,true).hide("slide", { direction: "up" }, 200);
+// 				})
+// 			}
 		});
 		// 스크롤 아래로 움직일 시 헤더 브라우저에 고정!
 		let headerOffset = $('header').offset();
