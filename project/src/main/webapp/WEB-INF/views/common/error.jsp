@@ -29,6 +29,19 @@
 		width: 300px;
 		height: 300px;
 	}
+	a {
+		display: inline-block;
+	    margin: 10px 0;
+	    padding: 20px 30px;
+	    color: #fff;
+	    font-weight: 500;
+	    font-size: 14px;
+	    border-radius: 2px;
+	    background: #5c5b65;
+	    cursor: pointer;
+	 	outline: none;
+	 	border: none;
+	}
 	 @media (max-width: 1024px) { 
 	 	
      }
@@ -52,7 +65,7 @@
 	<div class="errorPageContainer">
 		<div>
 			<article>
-				<img src="resources/img/흐엉.jpg"alt="홈페이지 소개 사진이나 글, 슬라이드"><br>
+				<img src="/project/resources/img/흐엉.jpg"alt="홈페이지 소개 사진이나 글, 슬라이드"><br>
 			</article>
 			<h1>{<c:out value="${msg1 }"/>}</h1>
 			<p><c:out value="${msg }" /></p>

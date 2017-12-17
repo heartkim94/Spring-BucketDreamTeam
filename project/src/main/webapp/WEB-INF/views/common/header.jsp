@@ -248,8 +248,11 @@
 						<li><a href="/project/mypage">회원정보 수정</a></li>
 <!-- 						<li><a href="/project/myInfoDelForm">회원탈퇴</a></li> -->
 						<li><a href="/project/logout">로그아웃</a></li>
-	<%-- 					<li><%@ include file="../group/asideMenu.jsp" %></li>  --%>
+						<li></li> 
 					</ul>
+				</div>
+				<div>
+					<%@ include file="../group/asideMenu.jsp" %>
 				</div>
 				</c:if>
 			</div>
