@@ -60,7 +60,7 @@
         <form class="form-horizontal" id="passCheck" role="form" method="post" action="/project/myInfoDel">
             <div align="center"><h1>회원 탈퇴</h1></div><br>
             
-            <div class="form-group" id="divPassword">
+            <div class="" id="divPassword">
 <!--                 <label for="password" class="col-lg-2 control-label">패스워드</label> -->
                 <div >
                     <input type="password" class="form-control" id="pass" name="pass" data-rule-required="true" placeholder="패스워드" maxlength="30">
@@ -78,9 +78,21 @@
 <%--         <%@ include file="../common/footer.jsp" %> --%>
     </body>
     <style> 
+    	.form-horizontal {
+    		width: 1024px;
+    		margin: 0 auto;
+    	}
+    	.form-horizontal .control-label {
+    		text-align: left;
+    	}
     	.container {
     		padding: 50px 0 30px 0;
     	}
-    	
+    	@media (max-width: 1024px) {
+    		.form-horizontal {
+	    		width: 100%;
+	    		margin: 0 auto;
+	    	}
+    	} 
     </style>
 </html>

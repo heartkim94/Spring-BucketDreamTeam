@@ -12,10 +12,10 @@
 		<%@ include file="../common/header.jsp" %>
 		<section> 
 			<div class="container subContent">
-				<nav>
-					<h1>NOTICE</h1>
-					<span>home > community > notice</span>
-				</nav>
+<!-- 				<nav> -->
+<!-- 					<h1>NOTICE</h1> -->
+<!-- 					<span>home > community > notice</span> -->
+<!-- 				</nav> -->
 				<%@ include file="../common/content.jsp" %>
 			</div>
 		</section>

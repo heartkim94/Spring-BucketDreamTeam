@@ -48,22 +48,24 @@ textarea {
 	margin: 20px 0;
 	text-align: center;
 }
-input.submitBtn {
-	padding: 8px;
-    border: 0;
-    background: orange;
+.submitBtn, .cancelBtn {
+	display: inline-block;
+    margin: 0 0 0 15px;
+    padding: 5px 30px;
     color: #fff;
-    letter-spacing: -0.1em;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 2px;
+    background: #5c5b65;
     cursor: pointer;
+ 	outline: none;
+ 	border: none;
 }
 .cancelBtn {
-	display: inline-block;
-    padding: 7px;
-    border: 1px solid #ccc;
-    background: #fafafa;
-    color: #000;
-    text-decoration: none;
-    vertical-align: middle;
+	background-color: #fff;
+	border: 1px solid #e0e0e0;
+	box-sizing: border-box;
+	color: #111;
 }
 .uploadListWrap {
 	display: block;
@@ -88,13 +90,16 @@ input.submitBtn {
 	height: auto;
 }
 .allDelete {
-	cursor: pointer;
-	padding: 8px;
-    border: 0;
-    background: #E83F38;
-    font-size: 14px;
+	display: inline-block;
+    padding: 5px 30px;
     color: #fff;
-    letter-spacing: -0.1em;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 2px;
+    background: #5c5b65;
+    cursor: pointer;
+ 	outline: none;
+ 	border: none;
 }
 .human {
 	cursor: pointer;
@@ -204,7 +209,10 @@ input.submitBtn {
 		</div>
 		<!-- 글 작성 버튼 영역 -->
 		<div class="btnConfirm">
-			<input type="submit" value="작성 완료" class="submitBtn" />
+			<button class="submitBtn">
+					<b>작성완료</b>
+			</button>
+<!-- 			<input type="submit" value="작성 완료" class="submitBtn" /> -->
 			<a href="list?boardNum=${boardNum}&pageNum=1" class="cancelBtn">취소</a><!-- 클릭시 리스트 페이지로 이동 -->
 		</div>
 	</form>
