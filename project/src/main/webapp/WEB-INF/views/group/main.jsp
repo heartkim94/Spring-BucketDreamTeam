@@ -14,9 +14,9 @@
 	<%@ include file="../common/header.jsp" %>
 	<div id="wrapper">
 		<section>
-			<div class="container subContent">
+			<div class="container groupContent">
 				<div class="myGroupContainer">
-					내 그룹
+					<h4>내 그룹</h4>
 					<div class="myGroup">
 						<div class="newGroup">
 							<div class="cover">
@@ -43,7 +43,7 @@
 				</div> <!-- myGroupContainer End -->
 				<hr>
 				<div class="groupListContainer">
-					그룹목록
+					<h4>공개 그룹</h4>
 					<div class="groupList">
 						<c:forEach var="group" items="${groupList}">
 							<div class="group" groupNum="${group.groupNum}">
@@ -151,10 +151,10 @@
 			width: 100%;
 		}
 		.group, .newGroup {
-		margin: 5%;
-		width: 40%;
-		height: 160px;
-	}
+			margin: 5%;
+			width: 40%;
+			height: 160px;
+		}
 	}
 </style>
 

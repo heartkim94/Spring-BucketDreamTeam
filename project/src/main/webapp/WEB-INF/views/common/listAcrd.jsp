@@ -99,30 +99,26 @@
 </head>
 
 <body>
-	<section>
-		<div class="subContent">
-			<table class="acrdTable">
-				<thead>
-					<tr>
-						<th align="center" width="250">제 목</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="article" items="${articleList}">
-						<tr>
-							<th class="titleBox"  articleNum="${article.articleNum}" fileStatus="${article.fileStatus}">
-								<span>${article.articleNum }</span>
-								<button>${article.title}</button>
-								<i class="downArrow">a</i> 
-							</th>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<%@ include file="listBtn.jsp" %>
-			<div class="pageNav">${pageCode}</div>
-		</div>
-	</section>
+	<table class="acrdTable">
+		<thead>
+			<tr>
+				<th align="center" width="250">제 목</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="article" items="${articleList}">
+				<tr>
+					<th class="titleBox"  articleNum="${article.articleNum}" fileStatus="${article.fileStatus}">
+						<span>${article.articleNum }</span>
+						<button>${article.title}</button>
+						<i class="downArrow">a</i> 
+					</th>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<%@ include file="listBtn.jsp" %>
+	<div class="pageNav">${pageCode}</div>
 </body>
 <script>
 $(function() {

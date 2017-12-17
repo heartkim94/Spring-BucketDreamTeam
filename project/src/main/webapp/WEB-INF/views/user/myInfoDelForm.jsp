@@ -9,7 +9,7 @@
 	  <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 	  <title>회원탈퇴 페이지</title>
 	  <!--부트스트랩-->
-<!-- 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
       <!-- 합쳐지고 최소화된 최신 CSS -->
 	  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="./resources/css/submit.css">
@@ -54,26 +54,33 @@
 	  </script>
     </head>
     <body>
-    	<%@ include file="../common/header.jsp" %>
+<%--     	<%@ include file="../common/header.jsp" %> --%>
         <div class="container"><!-- 좌우측의 공간 확보 -->
  		<!-- 본문 들어가는 부분 -->
         <form class="form-horizontal" id="passCheck" role="form" method="post" action="/project/myInfoDel">
             <div align="center"><h1>회원 탈퇴</h1></div><br>
             
             <div class="form-group" id="divPassword">
-                <label for="password" class="col-lg-2 control-label">패스워드</label>
-                <div class="col-lg-5">
+<!--                 <label for="password" class="col-lg-2 control-label">패스워드</label> -->
+                <div >
                     <input type="password" class="form-control" id="pass" name="pass" data-rule-required="true" placeholder="패스워드" maxlength="30">
-                </div>
+                </div> 
             </div><br><br>
              
             <div class="wrap">
   				<button class="button" id="passCheckBtn"><b>확인</b></button>
+  				<a href="/project/home" class="button"><b>취소</b></a>
+  				<a href="javascript:history.back()" class="button"><b>이전으로</b></a>
 			</div><br><br>
         </form>
         <!--// 본문 들어가는 부분 -->
         </div>
-        <hr/>
-        <%@ include file="../common/footer.jsp" %>
+<%--         <%@ include file="../common/footer.jsp" %> --%>
     </body>
+    <style> 
+    	.container {
+    		padding: 50px 0 30px 0;
+    	}
+    	
+    </style>
 </html>

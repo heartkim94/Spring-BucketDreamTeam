@@ -20,17 +20,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css"
 	rel="stylesheet">
 
-<style type="text/css">
-.memCheck td {
-	border-bottom: none;
-}
-textarea {
-	resize: none;
-}
-.memCheck h1 {
-	text-align: center;
-}
-</style>
+<link rel="stylesheet" href="/project/resources/css/style.css">
+<link rel="stylesheet" href="./resources/css/submit.css">
 <script>
 	
 	$(function() {
@@ -63,16 +54,16 @@ textarea {
 		});
 	});
 </script>
-<link rel="stylesheet" href="./resources/css/submit.css">
+<!-- <link rel="stylesheet" href="./resources/css/submit.css"> -->
 </head>
 <body>
 	<div id="wrapper">
-		<%@ include file="../common/header.jsp"%>
+<%-- 		<%@ include file="../common/header.jsp"%> --%>
 		<section>
 		<div class="container mainContent">
 <!-- 			<form name="fr" method="post" action="#/project/userJoinForm" -->
 <!-- 				onsubmit="return check()"> -->
-				<table class="memCheck" width="960px" align="center">
+				<table class="memCheck">
 					<tr>
 						<td>
 							<h1>회원약관</h1>
@@ -81,7 +72,7 @@ textarea {
 
 					<tr>
 						<td align="center">
-							<table width="800px">
+							<table>
 								<!-- 전체 동의 체크박스 시작 -->
 								<div align="center">
 									<input type="checkbox" id="allchecked"> <span
@@ -467,13 +458,39 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 					<button class="button">
 						<b>확인</b>
 					</button>
+					<a href="/project/home"><span>취소</span></a>
 				</div>
 				<br>
 				<br>
 <!-- 			</form> -->
 		</div>
 		</section>
-		<%@ include file="../common/footer.jsp"%>
+<%-- 		<%@ include file="../common/footer.jsp"%> --%>
 	</div>
 </body>
+<style>
+.memCheck {
+	padding: 50px 0 30px 0;
+}
+.memCheck td {
+	border-bottom: none;
+}
+textarea {
+	resize: none;
+}
+table.memCheck {
+	width: 100%;
+	margin: 0 auto;
+}
+table.memCheck h1 {
+	text-align: center;
+	padding-bottom: 20px;
+}
+@media (max-width: 1024px) { 
+	section .container {
+		width: 100%;
+	}	
+}
+
+</style>
 </html>
