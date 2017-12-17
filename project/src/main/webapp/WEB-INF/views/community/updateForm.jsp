@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>새글등록</title>
+<title>글 수정</title>
 <style>
 
 

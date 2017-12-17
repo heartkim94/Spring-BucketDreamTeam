@@ -76,7 +76,7 @@
 	.group, .newGroup {
 		margin: 20px;
 		width: 200px;
-		height: 200px;
+		height: 230px;
 		cursor: pointer;
 		float: left;
 		box-sizing: border-box;
@@ -99,7 +99,7 @@
 	.group .cover {
 		position: relative;
 		box-sizing: border-box;
-		height: 60%;
+		height: 65%;
 	}
 	.cover > img {
 		position: absolute;
@@ -114,7 +114,7 @@
 	    padding-top: 10px;
     	text-align: center;
     	position: relative;
-	    height: 40%;
+	    height: 35%;
 	    padding: 9px 12px 14px;
 	    background-color: #fff;
 	    box-sizing: border-box;

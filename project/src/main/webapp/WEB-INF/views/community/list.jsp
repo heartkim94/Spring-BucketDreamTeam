@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>공지사항</title>
+<title>게시판</title>
 <style>
 	
 </style>

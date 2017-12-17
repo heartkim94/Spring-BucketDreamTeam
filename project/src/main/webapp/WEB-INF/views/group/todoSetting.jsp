@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>그룹 일정 관리</title>
 	<style>
 		/* todoCaldendar */
 		.todoCalendar {

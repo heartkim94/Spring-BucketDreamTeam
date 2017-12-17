@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>공지사항</title>
+<title>listSearch</title>
 <style>
 	.searchBar {
 		position: relative;
