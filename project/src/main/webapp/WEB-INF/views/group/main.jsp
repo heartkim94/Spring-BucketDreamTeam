@@ -75,7 +75,7 @@
 	}
 	.group, .newGroup {
 		margin: 20px;
-		width: 200px;
+		width: 215px;
 		height: 230px;
 		cursor: pointer;
 		float: left;
