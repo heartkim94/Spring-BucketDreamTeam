@@ -44,20 +44,20 @@
           	<div align="center"><h1>회원 가입</h1></div><br>
           
             <div class="" id="divId">
-                <label for="id" class="col-lg-2 control-label">아이디</label>
+                <label for="id" class="col-lg-2 control-label">*아이디</label>
                 <div class="">
                     <input type="text" class="form-control onlyAlphabetAndNumber" id="id" name="id" data-rule-required="true" placeholder="알파벳, 언더스코어(_), 숫자만 입력 가능합니다." maxlength="30">
                 </div>
                 <div id="idcheck"></div>
             </div>
             <div class="" id="divPassword">
-                <label for="pass" class="col-lg-2 control-label">패스워드</label>
+                <label for="pass" class="col-lg-2 control-label">*패스워드</label>
                 <div class="">
                     <input type="password" class="form-control" id="pass" name="pass" data-rule-required="true" placeholder="패스워드" maxlength="30">
                 </div>
             </div>
             <div class="" id="divPasswordCheck">
-                <label for="passCheck" class="col-lg-2 control-label">패스워드 확인</label>
+                <label for="passCheck" class="col-lg-2 control-label">*패스워드 확인</label>
                 <div class="">
                     <input type="password" class="form-control" id="passCheck" data-rule-required="true" placeholder="패스워드 확인" maxlength="30">
                 </div>
@@ -77,7 +77,7 @@
             </div>
              
             <div class="" id="divEmail">
-                <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
+                <label for="inputEmail" class="col-lg-2 control-label">*이메일</label>
                 <div class="">
                     <input type="email" class="form-control" id="email" name="email" data-rule-required="true" placeholder="이메일" maxlength="40">
                 </div>

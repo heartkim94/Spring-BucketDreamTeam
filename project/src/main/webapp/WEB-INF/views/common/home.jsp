@@ -271,17 +271,19 @@
 	<script src="resources/nivo/jquery.nivo.slider.js"></script>
 	<script src="resources/nivo/hammer.min.js"></script>
 <script>
-		
 	$(document).ready(function(){
 		
 		// 메인화면 접속시 아이디 입력창에 커서 위치
 		$("#id").focus();
 		
-// 		let Certify="${dbCertify}";
-// 		if(Certify == 0) {
-// 			alert("회원가입 이메일 인증을 안하셨습니다.");
-// 		}
-// 		document.location.href="./";
+		$(window).load(function() {
+			let Certify="${dbCertify}";
+			if(Certify === "0") {
+				alert("회원가입 이메일 인증을 안하셨습니다.");
+				document.location.href="./";
+			}
+			alert("after ready load?");
+		});
 		
 		if ("ontouchstart" in document.documentElement) {
 		 
@@ -309,17 +311,13 @@
                 return false;
 			});
 		 
-			}
-		 
-			else {
-				$('#slider').nivoSlider({
-				    effect: 'fade',
-					animSpeed: 300,
-					pauseTime: 2000
-				});
-			}
+		} else {
+			$('#slider').nivoSlider({
+			    effect: 'fade',
+				animSpeed: 300,
+				pauseTime: 2000
+			});
+		}
 	});
-	
 </script>
-
 </html>
