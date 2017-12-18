@@ -6,17 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>그룹 메인</title>
-	<!-- 합쳐지고 최소화된 최신 CSS -->
-	<style>
-	#todoList, #todoCalendar, .todoContent {
-		float: left;
-	}
-	.todoContent {
-		border: 1px solid black;
-		margin-top: 30px;
-		margin-left: 50px;
-	}
-	</style>
+	
 </head>
 <body>
 <%@ include file="../common/header.jsp" %>
@@ -85,6 +75,31 @@
 		<%@ include file="../common/footer.jsp" %>
 	</div> <!-- wrapper End -->
 </body>
+<style>
+	#todoList, #todoCalendar {
+		float: left;
+	}
+	.todoContent {
+		float: right;
+	}
+	.todoContent {
+		border: 1px solid black;
+		margin-top: 30px;
+		margin-left: 50px;
+	}
+	
+	@media (max-width: 1024px) { 
+  		
+   		section .container {
+   			width: 100%;
+   		}
+     }
+     @media (max-width: 768px) {
+     
+  	 }
+     @media (max-width: 660px) {
+     }
+</style>
 <script	src="/project/resources/js/tabs.js"></script>
 <script src="/project/resources/js/calendar.js"></script>
 <script src="/project/resources/js/todoTools.js"></script>
