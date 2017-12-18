@@ -130,7 +130,7 @@ textarea {
 </head>
 <body>
 <div>
-	<form action="${action}" method="post">
+	<form action="${action}" name="fr" method="post" onsubmit="return check()">
 		<!-- 글쓰기 영역 전체 감쌈 -->
 		<div class="writeFormWrap"> 
 			<input type="hidden" name="boardNum" value="${boardNum}">
@@ -214,7 +214,7 @@ textarea {
 		</div>
 		<!-- 글 작성 버튼 영역 -->
 		<div class="btnConfirm">
-			<button class="submitBtn">
+			<button type="submit" class="submitBtn" on>
 					<b>작성완료</b>
 			</button>
 <!-- 			<input type="submit" value="작성 완료" class="submitBtn" /> -->
@@ -225,6 +225,17 @@ textarea {
 <script src="/project/resources/js/uploadAjax.js"></script> 
 <!-- 글 수정 시 기존에 업로드 된 파일 삭제 여부 기능 -->
 <script>
+	function check() {
+		if(fr.title.value=="") {
+			alert("제목을 입력해주세요.");
+			fr.title.focus();
+			return false;
+		}else if(fr.content.value.length==0) {
+			alert("내용을 입력해주세요.");
+			fr.content.focus();
+			return false;
+		}
+	}
 	// 기존의 파일을 삭제할 때 
 	$(document).ready(function() {
 		//		id 값으로 읽어 올려면 하나만 선택되어짐..클래스 사용
