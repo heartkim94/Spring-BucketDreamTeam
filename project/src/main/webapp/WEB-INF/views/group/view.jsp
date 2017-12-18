@@ -23,8 +23,6 @@
 	<div id="wrapper">
 		<section>
 		<div class="container subContent">
-			내용<br>
-			git싫엉<br>
 			<div class="tabs">
 				<ul>
 					<li class="tabCurrent"><a href="#todoList">목록</a></li>

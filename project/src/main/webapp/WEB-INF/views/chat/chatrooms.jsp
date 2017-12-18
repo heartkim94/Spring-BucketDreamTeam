@@ -17,7 +17,6 @@
 				<ul class="chatroomList">
 				</ul>
 				<button class="newRoom">새로운 채팅방 만들기</button>
-				<div class="test"></div>
 		</section>
 	</div> <!-- wrapper End -->
 </body>

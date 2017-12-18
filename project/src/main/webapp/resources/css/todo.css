@@ -1,22 +1,25 @@
 @charset "UTF-8";
-todoCaldendar
+/* todoCalendar */
+.todoCalendar {
+	width: 650px;
+}
+.todoCalendar table {
+	table-layout: fixed;
+	width: 100%;
+}
 .todoCalendar td {
-	width: 90px;
 	height: 100px;
 	vertical-align: top;
 	font-size: 0.9em;
 	overflow: hidden;
 }
 .todoCalendar .todo {
-	width: inherit;
-	box-sizing: border-box;
 	border-radius: 5px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	padding: 0 5px;
 }
-
 /* todoList */
 .todoList {
 	border: 1px solid black;
@@ -49,19 +52,68 @@ todoCaldendar
 	clear: both;
 }
 
-
 @media (min-width: 769px) and (max-width: 1024px) {
+	section .container {
+		width: 100% !important;
+		background: #cccccc !important;
+	}
+	.todoCalendar  {
+		width: 60%;
+	}
+	.todoCalendar td {
+		height: 90px;
+	}
 }
 @media (min-width: 561px) and (max-width: 768px) {
+	section .container {
+		width: 100% !important;
+		background: #ccccaa !important;
+	}
+	.todoCalendar  {
+		width: 100%;
+	}
+	.todoCalendar td {
+		height: 80px;
+	}
+	.memo {
+		height: 150px !important;
+	}
+	
+	.todoCalendar {
+		display: none;
+	}
+	.todoList {
+		display: none;
+	}
+	.mobileShow {
+		display: unset;
+	}
 }
 @media (max-width: 560px) {
 	section .container {
 		width: 100% !important;
+		background: #cccc88 !important;
 	}
-	.todoCalendar {
+	.todoCalendar  {
 		width: 100%;
 	}
 	.todoCalendar td {
-		width: 30%;
+		height: 70px;
+	}
+	.todoCalendar .todo {
+		color: #FFFFFF00;
+		height: 10px;
+	}
+	.memo {
+		height: 100px !important;
+	}
+	.todoCalendar {
+		display: none;
+	}
+	.todoList {
+		display: none;
+	}
+	.mobileShow {
+		display: unset;
 	}
 }
