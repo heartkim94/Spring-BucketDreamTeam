@@ -12,54 +12,9 @@
 		.todoCalendar {
 			float: left;
 		}
-		.todoCalendar td {
-			width: 90px;
-			height: 100px;
-			vertical-align: top;
-			font-size: 0.9em;
-			overflow: hidden;
-		}
-		.todoCalendar .todo {
-			width: inherit;
-			box-sizing: border-box;
-			border-radius: 5px;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			padding: 0 5px;
-		}
-		
 		/* todoList */
 		.todoList {
 			float: right;
-			border: 1px solid black;
-			width: 250px;
-			margin-top: 30px;
-		}
-		.todoList .selected {
-			background: #ccc;
-		}
-		.todoList input[type=text] {
-			border: 1px solid black;
-		}
-		.folded {
-			display: none;
-		}
-		.line {
-			border:0.5px solid black
-		}
-		.todoContent td:first-child {
-			width: 70px;
-		}
-		.todoContent input:not([type=checkbox]) {
-			width: fill-available;
-		}
-		.todoContent .memo {
-			width: fill-available;
-			height: 200px;
-		}
-		.clear {
-			clear: both;
 		}
 	</style>
 </head>

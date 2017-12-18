@@ -3,6 +3,16 @@ var todoList
 $(function() {
 	isFirst = (isFirst == undefined);
 	if(!isFirst) { return; }
+	// insert css
+	let head = $("head");
+	let link = $("<link/>", {
+		cssId: "todo",
+		rel: "stylesheet",
+		type: "text/css",
+		href: "/project/resources/css/todo.css",
+		medial: "all"
+	});
+	$(head).append(link);
 	
 	// get todoList
 	todoList = new TodoList();

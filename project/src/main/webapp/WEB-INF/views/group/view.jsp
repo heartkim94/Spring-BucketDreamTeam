@@ -11,48 +11,10 @@
 	#todoList, #todoCalendar, .todoContent {
 		float: left;
 	}
-	.todoList {
-		border: 1px solid black;
-		width: 250px;
-		margin-top: 30px;
-	}
-	.todoCalendar {
-		width: 630px;
-	}
-	.todoCalendar td {
-		width: 90px;
-		height: 100px;
-		vertical-align: top;
-		font-size: 0.9em;
-		overflow: hidden;
-	}
-	.todoCalendar .todo {
-		width: inherit;
-		box-sizing: border-box;
-		border-radius: 5px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		padding: 0 5px;
-	}
-	.folded {
-		display: none;
-	}
 	.todoContent {
 		border: 1px solid black;
-		width: 250px;
 		margin-top: 30px;
 		margin-left: 50px;
-	}
-	.todoContent td:first-child {
-		width: 70px;
-	}
-	.todoContent input:not([type=checkbox]) {
-		width: fill-available;
-	}
-	.todoContent .memo {
-		width: fill-available;
-		height: 200px;
 	}
 	</style>
 </head>
