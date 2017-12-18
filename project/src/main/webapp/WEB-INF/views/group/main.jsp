@@ -153,7 +153,7 @@
 		.group, .newGroup {
 			margin: 5%;
 			width: 40%;
-			height: 160px;
+			height: 200px;
 		}
 	}
 </style>
