@@ -14,6 +14,21 @@ $(function() {
 	});
 	$(head).append(link);
 	
+	// switchTodo at mobile display
+	$(".switchRight").on("click", function() {
+		$(".mobileShow").removeClass("mobileShow");
+		
+		$(".switchLeft").addClass("mobileShow");
+		$(".todoList").addClass("mobileShow");
+	});
+	
+	$(".switchLeft").on("click", function() {
+		$(".mobileShow").removeClass("mobileShow");
+		
+		$(".switchRight").addClass("mobileShow");
+		$(".todoCalendar").addClass("mobileShow");
+	});
+	
 	// get todoList
 	todoList = new TodoList();
 	$.post("getTodoList", function(data) {

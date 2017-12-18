@@ -3,17 +3,20 @@
 .todoCalendar {
 	float: left;
 }
+.switchRight, .switchLeft {
+	border: 1px solid black;
+    height: 615px;
+    margin-top: 30;
+    line-height: 32;
+    display: none;
+}
 .switchRight {
 	float: left;
-	border: 1px solid black;
-	height: 60%;
-	margin: auto 0;
+	margin-left: 5px;
 }
 .switchLeft {
-	float: right;	
-	border: 1px solid black;
-	height: 60%;
-	margin: auto 0;
+	float: right;
+	margin-right: 5px;	
 }
 /* todoList */
 .todoList {
@@ -62,20 +65,19 @@
 	width: 70px;
 }
 .todoContent input:not([type=checkbox]) {
-	width: fill-available;
+	width: 180px;
 }
 .todoContent .memo {
-	width: fill-available;
+	width: 180px;
 	height: 200px;
 }
 .clear {
 	clear: both;
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (max-width: 1024px) {
 	section .container {
 		width: 100% !important;
-		background: #cccccc !important;
 	}
 	.todoCalendar  {
 		width: 60%;
@@ -84,14 +86,7 @@
 		height: 90px;
 	}
 }
-@media (min-width: 561px) and (max-width: 768px) {
-	section .container {
-		width: 100% !important;
-		background: #ccccaa !important;
-	}
-	.todoCalendar  {
-		width: 100%;
-	}
+@media (max-width: 768px) {
 	.todoCalendar td {
 		height: 80px;
 	}
@@ -100,6 +95,7 @@
 	}
 	
 	.todoCalendar {
+		width: 90%;
 		display: none;
 	}
 	.todoList {
@@ -108,15 +104,11 @@
 	.mobileShow {
 		display: unset;
 	}
+	.switchLeft, .switchRight {
+		height: 565px;
+	}
 }
 @media (max-width: 560px) {
-	section .container {
-		width: 100% !important;
-		background: #cccc88 !important;
-	}
-	.todoCalendar  {
-		width: 100%;
-	}
 	.todoCalendar td {
 		height: 70px;
 	}
@@ -127,13 +119,8 @@
 	.memo {
 		height: 100px !important;
 	}
-	.todoCalendar {
-		display: none;
-	}
-	.todoList {
-		display: none;
-	}
-	.mobileShow {
-		display: unset;
+	
+	.switchLeft, .switchRight {
+		height: 515px;
 	}
 }

@@ -77,7 +77,7 @@
 							<button class="saveBtn">저장</button>
 						</div>
 					</div>
-					<div class="switchLeft">◀</div>
+					<div class="switchLeft mobileShow">◀</div>
 				</div>
 				<div class="clear"></div>
 			</div>
