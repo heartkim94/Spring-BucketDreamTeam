@@ -59,6 +59,19 @@
 			background: #507BE8;
 			padding: 5px;
 		}
+		.paintTools button {
+			padding: 2px 5px;
+			margin: 1px 3px;
+			font-size: 15px;
+			background: #B2EBF4;
+			width: 50px;
+			box-sizing: border-box;
+			border: 1px solid;
+			border-collapse: collapse;
+		}
+		.paintTools button:hover {
+			color: gray;
+		}
 	</style>
 </head>
 <body>
@@ -83,20 +96,23 @@
 						<button class="undo">Undo</button>
 						<button class="redo">Redo</button>
 					</div>
+					<div class="chatroomBtnDiv"></div>
 				</div>
 				<div class="clear"></div>
 			</div>
-			<div class="chatroom">
-				<div class="chatLog">
-					<div class="insertPoint"></div>
-				</div>
-				<div>
-					<input type="text" name="message">
-					<button class="send">전송</button>
-				</div>
-				<div>
-					<button class="paintBtn">그림판</button>
-					<a href="chatrooms"><button class="leave">나가기</button></a>
+			<div class="chatroomContainer">
+				<div class="chatroom">
+					<div class="chatLog">
+						<div class="insertPoint"></div>
+					</div>
+					<div>
+						<input type="text" name="message">
+						<button class="send">전송</button>
+					</div>
+					<div>
+						<button class="paintBtn">그림판</button>
+						<a href="chatrooms"><button class="leave">나가기</button></a>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -222,21 +238,38 @@ $(function() {
 	
 	
 	// paint buttons
-	$(".paintBtn").on("click", function() {
-		if($(".canvasContainer").css("display")=="none") {
-			// 그림판 열기
-			let d = (windowWidth*2 + gap) - document.body.clientWidth;
-			window.resizeBy(d, 0);
-			window.moveBy(-d, 0);
+	if(screen.width > 660) {
+		$(".paintBtn").on("click", function() {
+			if($(".canvasContainer").css("display")=="none") {
+				// 그림판 열기
+				let d = (windowWidth*2 + gap) - document.body.clientWidth;
+				window.resizeBy(d, 0);
+				window.moveBy(-d, 0);
+				$(".canvasContainer").css("display", "");
+			} else {
+				// 그림판 닫기
+				let d = windowWidth - document.body.clientWidth;
+				$(".canvasContainer").css("display", "none");
+				window.resizeBy(d, 0);
+				window.moveBy(-d, 0);
+			}
+		});
+	} else {
+		$(".paintBtn").on("click", function() {
+			// 그림판으로 전환
 			$(".canvasContainer").css("display", "");
-		} else {
-			// 그림판 닫기
-			let d = windowWidth - document.body.clientWidth;
-			$(".canvasContainer").css("display", "none");
-			window.resizeBy(d, 0);
-			window.moveBy(-d, 0);
-		}
-	});
+			$(".chatroomContainer").css("display", "none");
+			// 채팅창으로 전환 버튼 붙이기
+			let html = "<button class='chatroomBtn'>채팅창</button>";
+			$(".chatroomBtnDiv").html(html);
+			
+			// 채팅창으로 전환
+			$(".chatroomBtn").on("click", function(){
+				$(".canvasContainer").css("display", "none");
+				$(".chatroomContainer").css("display", "");
+			});
+		});
+	}
 	
 	$(".paintTools .pen").on("click", function() {
 		paint.penMode();
