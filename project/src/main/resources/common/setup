@@ -156,12 +156,26 @@ insert into users(id, pass, name, nickname, email, phoneNumber, gender, certkey,
     values('test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Hong', 'KKong', 'kkong@email','010-1111-1111', 'm', 'test certkey', 1);
 
 -- Group
-insert into Categorys(catName, parentNum, path) values('generic', 0, '1');
-insert into Categorys(catName, parentNum, path) values('philosophy', 0, '2');
-insert into Categorys(catName, parentNum, path) values('religion', 0, '3');
-insert into Categorys(catName, parentNum, path) values('bibliography', 1, '1.4');
-insert into Categorys(catName, parentNum, path) values('information science', 1, '1.5');
-insert into Categorys(catName, parentNum, path) values('encyclopedia', 1, '1.6');
+/*
+insert into Categorys(catName, parentNum, path) values('generic', 0, '0.1');
+insert into Categorys(catName, parentNum, path) values('philosophy', 0, '0.2');
+insert into Categorys(catName, parentNum, path) values('religion', 0, '0.3');
+insert into Categorys(catName, parentNum, path) values('bibliography', 1, '0.1.4');
+insert into Categorys(catName, parentNum, path) values('information science', 1, '0.1.5');
+insert into Categorys(catName, parentNum, path) values('encyclopedia', 1, '0.1.6');
+*/
+--/*
+insert into Categorys(catName, parentNum, path) values('여행', 0, '0.1');
+insert into Categorys(catName, parentNum, path) values('과제', 0, '0.2');
+insert into Categorys(catName, parentNum, path) values('운동', 0, '0.3');
+insert into Categorys(catName, parentNum, path) values('건강', 0, '0.4');
+insert into Categorys(catName, parentNum, path) values('학습', 0, '0.5');
+insert into Categorys(catName, parentNum, path) values('수집', 0, '0.6');
+insert into Categorys(catName, parentNum, path) values('요리', 0, '0.7');
+insert into Categorys(catName, parentNum, path) values('여행', 0, '0.8');
+insert into Categorys(catName, parentNum, path) values('맛집탐방', 0, '0.9');
+insert into Categorys(catName, parentNum, path) values('취미', 0, '0.10');
+--*/
 
 insert into Groups(groupName, groupOwner, catNum, profileImg) values('TestGroup1', 1, 3, '/GroupProfileImg/profileImg_default.jpg');
 INSERT INTO Members VALUES(1, 1);
