@@ -10,6 +10,40 @@
 	<link rel="stylesheet" href="resources/nivo/nivo-slider.css">
 	<link rel="stylesheet" href="resources/nivo/default.css">
 	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
+	
+	<style>
+		.clsBannerScreen {
+			overflow: hidden;
+			position: relative;
+/* 			height: 150px; */
+/* 			width: 300px;  */
+			cursor:pointer; 
+			clear:both;
+			margin: 0 auto;
+		}
+		.clsBannerScreen .images {
+			position:absolute; 
+			display:none; 
+/* 			height: 150px; */
+/* 			width: 300px;  */
+		}
+
+	</style>
+	<script type="text/javascript" src="resources/js/jquery.banner.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#image_list_1").jQBanner({	//롤링을 할 영역의 ID 값
+				nWidth:300,					//영역의 width
+				nHeight:300,				//영역의 height
+				nCount:3,					//돌아갈 이미지 개수
+				isActType:"up",				//움직일 방향 (left, right, up, down)
+				nOrderNo:1,					//초기 이미지
+				nDelay:2000					//롤링 시간 타임 (1000 = 1초)
+				/*isBtnType:"li"*/			//라벨(버튼 타입) - 여기는 안쓰임
+				}
+			);
+		});
+	</script>
 </head>
 
 <body>
@@ -20,12 +54,33 @@
 		<div class="container mainContent">
 			<div class="contentRow contentRow1">
 				<article>
-					<div class="intro">
-						<img src="resources/img/흐엉.jpg" width="300" height="300" alt="홈페이지 소개 사진이나 글, 슬라이드"><br>
-						<h1>Hello, world!</h1>
-						<p>blah blah</p>
-						<button type="button" onclick="alert('Coming Soon!!!')">Click!!</button>
-					</div>
+<!-- 					<div class="intro"> -->
+<!-- 						<img src="resources/img/흐엉.jpg" width="300" height="300" alt="홈페이지 소개 사진이나 글, 슬라이드"><br> -->
+<!-- 						<h1>Hello, world!</h1> -->
+<!-- 						<p>blah blah</p> -->
+<!-- 						<button type="button" onclick="alert('Coming Soon!!!')">Click!!</button> -->
+<!-- 					</div> -->
+						<div class="intro">
+							<div id="image_list_1">
+								<div class="clsBannerScreen" > 
+		 							<div class="images" style="display:block">  
+										<img src="resources/img/111.jpg" /> 
+		 							</div> 
+		 							<div class="images">
+		 								<br><br><br><br><br>
+		 								<h1>함께 성공을 달성하세요.</h1> 
+		 							</div> 
+		 							<div class="images"> 
+		 								<br><br><br><br><br><br>
+		 								<h1>Dogether와 함께</h1> 
+		 							</div> 
+		 						</div> 
+		 					</div>
+		 				</div>
+ 					<p>&nbsp;</p>
+ 					<p>&nbsp;</p> 
+						
+
 					<div class="centerLineWrap">
 						<p class="centerLine"></p>
 					</div>
