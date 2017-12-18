@@ -46,7 +46,7 @@
 			if ($("#privacyagree").prop("checked") == false) {
 				$("#privacyagree").focus();
 				// 				alert('개인정보 수집/이용 및 국외이전에 동의해주세요');
-				swal("필수", "개인정보 수집/이용 및 국외이전에 동의해주세요!", "error")
+				swal("필수", "개인정보 수집 및 이용에 대한 안내에 동의합니다!", "error")
 // 				fr.privacyagree.focus();
 				return false;
 			}
@@ -54,7 +54,6 @@
 		});
 	});
 </script>
-<!-- <link rel="stylesheet" href="./resources/css/submit.css"> -->
 </head>
 <body>
 	<div id="wrapper">
