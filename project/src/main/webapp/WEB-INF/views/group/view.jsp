@@ -41,6 +41,7 @@
 	.todoContent {
 		border: 1px solid black;
 		width: 250px;
+		margin-top: 30px;
 		margin-left: 50px;
 	}
 	.todoContent td:first-child {
