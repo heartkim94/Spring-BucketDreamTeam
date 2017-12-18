@@ -140,33 +140,7 @@
 <script src="/project/resources/js/calendar.js"></script>
 <script src="/project/resources/js/todoTools.js"></script>
 <script>
-let todoList
 $(function() {
-	todoList = new TodoList(); 
-	<c:forEach var="todo" items="${todoList}">
-	todoList.push(new Todo({
-		doNum: "${todo.doNum}",
-		doName: "${todo.doName}",
-		doWhen: "${todo.doWhen}",
-		doWhenTime: "${todo.doWhenTime}",
-		doEnd: "${todo.doEnd}",
-		doEndTime: "${todo.doEndTime}",
-		doAllDay: "${todo.doAllDay}",
-		color: "${todo.color}",
-		done: "${todo.done}",
-		memo: "${todo.memo}",
-		parentNum: "${todo.parentNum}",
-		path: "${todo.path}",
-		pos: "${todo.pos}",
-		depth: "${todo.depth}",
-		groupNum: "${todo.groupNum}",
-		userNum: "${todo.userNum}"
-	}));
-	</c:forEach>
-	
-	todoList.list();
-	
-	
 	$(".calendar").on("click", ".calendarLeft", function() {
 		todoList.list();
 	});

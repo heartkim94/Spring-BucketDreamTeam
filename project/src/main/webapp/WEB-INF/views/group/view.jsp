@@ -54,9 +54,6 @@
 		width: fill-available;
 		height: 200px;
 	}
-	.todoContent.display input, .todoContent.display textarea{
-		disabled: true;
-	}
 	</style>
 </head>
 <body>
@@ -83,11 +80,11 @@
 						<div class="calendar"></div>
 					</div>
 				</div>
-				<div class="todoContent display">
+				<div class="todoContent">
 					<table>
 						<tr>
 							<td>이름: </td>
-							<td><input type="text" name="doName" disabled></td>
+							<td><input type="text" name="doName" readonly></td>
 						</tr>
 						<tr>
 							<td>일시: </td>
@@ -95,7 +92,7 @@
 						</tr>
 						<tr>
 							<td>시작: </td>
-							<td><input type="date" name="doWhen"></td>
+							<td><input type="date" name="doWhen" readonly></td>
 						</tr>
 						<tr>
 							<td>시작시간: </td>
@@ -103,7 +100,7 @@
 						</tr>
 						<tr>
 							<td>종료: </td>
-							<td><input type="date" name="doEnd"></td>
+							<td><input type="date" name="doEnd" readonly></td>
 						</tr>
 						<tr>
 							<td>종료시간: </td>
@@ -111,11 +108,11 @@
 						</tr>
 						<tr>
 							<td>색깔: </td>
-							<td><input type="color" name="color" value="#73AD21"></td>
+							<td><input type="color" name="color" value="#73AD21" readonly></td>
 						</tr>
 						<tr>
 							<td>메모</td>
-							<td><textarea class="memo"></textarea></td>
+							<td><textarea class="memo" readonly></textarea></td>
 						</tr>
 					</table>
 				</div>
@@ -129,18 +126,4 @@
 <script	src="/project/resources/js/tabs.js"></script>
 <script src="/project/resources/js/calendar.js"></script>
 <script src="/project/resources/js/todoTools.js"></script>
-<script>
-var todoList
-$(function() {
-	todoList = new TodoList();
-	test = []
-	$.post("getTodoList", function(data) {
-		$.each(data, function(index, item) {
-			todoList.push(new Todo(item));
-		})
-		console.log(todoList.length);
-		todoList.list();
-	}, "json");
-});
-</script>
 </html>

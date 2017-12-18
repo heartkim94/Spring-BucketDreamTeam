@@ -28,7 +28,7 @@
 						</a>
 					</li>
 					<li>${group.groupName}</li>
-					<li><div class="chatRoomList">채팅방</div></li>
+					<li><a class="chatRoomList">채팅방</a></li>
 				<c:if test="${id == group.groupOwnerId || id == 'admin'}">
 					<li><a href="todoSetting">목표 설정</a></li>
 				<li><a href="boardSetting">게시판 설정</a><li>
