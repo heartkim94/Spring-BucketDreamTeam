@@ -142,7 +142,6 @@
 <script>
 let todoList
 $(function() {
-	console.log("asdad", TodoList);
 	todoList = new TodoList(); 
 	<c:forEach var="todo" items="${todoList}">
 	todoList.push(new Todo({

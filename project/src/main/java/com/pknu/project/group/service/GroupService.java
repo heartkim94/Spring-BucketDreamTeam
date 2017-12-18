@@ -19,7 +19,7 @@ public interface GroupService {
 	public void leaveGroup(String id, int groupNum);
 	
 	/* todo */
-	public void getTodoList(int groupNum, Model model);
+	public List<TodoDto> getTodoList(int groupNum, Model model);
 	public String updateTodoList(int groupNum, String userId, List<TodoDto> todoList);
 	public String deleteTodoList(List<Integer> deleteList);
 }

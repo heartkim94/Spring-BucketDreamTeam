@@ -1,11 +1,11 @@
 @charset "UTF-8";
-.tabs li {
+.tabs > ul li {
 	float: left;
 	padding-right: 10px;
 	border-top: 1px solid black;
 	border-right: 1px solid black;
 }
-.tabs .tabCurrent {
+.tabs > ul li.tabCurrent {
 	background: #ccc;
 }
 .tabContent {

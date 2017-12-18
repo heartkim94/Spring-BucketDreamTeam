@@ -125,8 +125,12 @@ public class GroupServiceImpl implements GroupService {
 	
 	/* todo */
 	@Override
-	public void getTodoList(int groupNum, Model model) {
-		model.addAttribute("todoList", groupDao.getTodoList(groupNum));
+	public List<TodoDto> getTodoList(int groupNum, Model model) {
+		List<TodoDto> todoList = groupDao.getTodoList(groupNum);
+		if(model != null) {
+			model.addAttribute("todoList", todoList);
+		}
+		return todoList;
 	}
 	
 	@Override

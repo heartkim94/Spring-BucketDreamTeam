@@ -11,7 +11,6 @@
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
-			<%@ include file="asideMenu.jsp" %>
 			<div class="container subContent">
 				<%@ include file="../common/writeForm.jsp" %>
 			</div>

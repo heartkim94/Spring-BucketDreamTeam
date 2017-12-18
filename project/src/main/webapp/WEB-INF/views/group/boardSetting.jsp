@@ -35,7 +35,6 @@
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp" %>
 		<section>
-			<%@ include file="asideMenu.jsp" %>
 			<div class="container subContent">
 				<h3>게시판 목록</h3>
 				<div class="boardContainer">

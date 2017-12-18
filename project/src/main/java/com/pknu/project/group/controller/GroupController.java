@@ -236,6 +236,13 @@ public class GroupController {
 		return "group/todoSetting";
 	}
 	
+	@RequestMapping(value="/{groupNum}/getTodoList", method=RequestMethod.POST)
+	@ResponseBody
+	public List<TodoDto> getTodoList(
+			@PathVariable("groupNum") int groupNum) {
+		return groupService.getTodoList(groupNum, null);
+	}
+	
 	@RequestMapping(value="/{groupNum}/updateTodoList", method=RequestMethod.POST)
 	@ResponseBody
 	public String updateTodoList(

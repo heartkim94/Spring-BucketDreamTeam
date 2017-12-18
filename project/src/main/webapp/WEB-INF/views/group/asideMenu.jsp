@@ -7,15 +7,8 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<style>
-		.groupMenu, .groupApp {
-			position: absolute;
-			left: 0px;
-			border: 1px solid black;
-		}
-	</style>
-	<style>
-		.groupInfo .groupNum {
-			display: none;
+		.groupMenu .profile {
+			width: 100%;
 		}
 	</style>
 </head>
@@ -24,28 +17,16 @@
 		<aside class="groupMenu">
 			<div class="groupInfo">
 				<ul>
-					<li><a href="view">프로필이미지</a></li>
+					<li>
+						<a href="view">
+							<img class="profile" src="/project/displayFile?fileName=${group.profileImg}">
+						</a>
+					</li>
 					<li>${group.groupName}</li>
-					<li class="groupNum">${groupNum}</li>
-					<li><a href="todoSetting">설정</a></li>
-				</ul>
-			</div>
-			<hr>
-			메뉴<br>
-			<hr>
-			<ul>
-				<li><a href="list?boardNum=0&pageNum=1">전체글보기</a><li>
-				<c:forEach var="board" items="${boardList}">
-					<li><a href="list?boardNum=${board.boardNum}&pageNum=1">${board.boardName}</a></li>
-				</c:forEach>
-				<li><a href="boardSetting">게시판 설정</a><li>
-				<li>기타 기능</li>
-				<li>
-					<div class="chatRoomList">
-						채팅방
-					</div>
-				</li>
+					<li><div class="chatRoomList">채팅방</div></li>
 				<c:if test="${id == group.groupOwnerId || id == 'admin'}">
+					<li><a href="todoSetting">목표 설정</a></li>
+				<li><a href="boardSetting">게시판 설정</a><li>
 					<li>
 						<input type="button" id="deleteGroup" value="그룹 없애기" onclick="document.location.href='deleteGroup?groupNum=${groupNum}'">
 					</li>
@@ -59,6 +40,14 @@
 	<%-- 				</c:if> --%>
 	<%-- 			</c:forEach> --%>
 				<div id="groupIO"></div>
+				</ul>
+			</div>
+			<hr>
+			<ul>
+				<li><a href="list?boardNum=0&pageNum=1">전체글보기</a><li>
+				<c:forEach var="board" items="${boardList}">
+					<li><a href="list?boardNum=${board.boardNum}&pageNum=1">${board.boardName}</a></li>
+				</c:forEach>
 			</ul>
 		</aside>
 	</c:if>

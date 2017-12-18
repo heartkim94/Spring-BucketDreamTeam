@@ -282,7 +282,6 @@
 				alert("회원가입 이메일 인증을 안하셨습니다.");
 				document.location.href="./";
 			}
-			alert("after ready load?");
 		});
 		
 		if ("ontouchstart" in document.documentElement) {

@@ -17,6 +17,7 @@ $(function() {
 	
 	// 그룹 접기
 	$(".todoList").on("click", ".fold", function() {
+		console.log("fold button clicked");
 		let doNum = $(this).parent().attr("doNum");
 		let selected = todoList.find(function(todo) {
 			return todo.doNum == doNum;
@@ -135,7 +136,7 @@ $(function() {
 		let min = todoList.reduce(function(res, item) {
 			if(res.doNum < item.doNum) { return res; }
 			else { return item; }
-		});
+		}, { doNum: 0 });
 		if(min.doNum > 0) { min = 0; }
 		else { min = min.doNum; }
 		let pos = todoList.getSub(0).length+1;
