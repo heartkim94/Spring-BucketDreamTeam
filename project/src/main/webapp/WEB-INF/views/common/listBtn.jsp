@@ -7,7 +7,24 @@
 <meta charset="utf-8">
 <title>listBtn</title>
 <style>
-	
+	.btnArea {
+		overflow: hidden;
+		margin-top: 10px;
+	}
+	.btnArea a {
+		float: right;
+		display: inline-block;
+	    margin: 0 0 0 15px;
+	    padding: 5px 30px;
+	    color: #fff;
+	    font-weight: 500;
+	    font-size: 14px;
+	    border-radius: 2px;
+	    background: #5c5b65;
+	    cursor: pointer;
+	    outline: none;
+	    border: none;
+	}
 </style>
 </head>
 <body>

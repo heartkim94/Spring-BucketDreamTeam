@@ -296,9 +296,9 @@
 // 			}
 		});
 		// 스크롤 아래로 움직일 시 헤더 브라우저에 고정!
-		let headerOffset = $('header').offset();
+		let headerOuterHeight = $('header').outerHeight();
         $( window ).scroll( function() {
-          if ( $( document ).scrollTop() > headerOffset.top ) {
+          if ( $( document ).scrollTop() > headerOuterHeight ) {
         	  $('header').addClass('headerFixed');
           }
           else {

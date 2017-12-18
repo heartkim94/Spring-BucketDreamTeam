@@ -20,7 +20,7 @@
 		console.log(windowWh);
 		if(windowWh >1024){
 			$("footer").css({
-				"position": "fixed",
+				"position": "relative",
 				"bottom" : "0",
 				"z-index" : "100"
 			});

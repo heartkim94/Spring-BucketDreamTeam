@@ -7,6 +7,22 @@
 <head>
 <meta charset="UTF-8">
 <title>글 쓰기</title>
+
+</head>
+<body>
+<div id="wrapper">
+
+	<%@ include file="../common/header.jsp" %>
+	<section>
+		<div class="container subContent">
+			<%@ include file="../common/boardNav.jsp" %>
+			<%@ include file="../common/writeForm.jsp" %>
+		</div>
+	</section>
+	<%@ include file="../common/footer.jsp" %>
+
+</div> <!-- wrapper End -->
+</body>
 <style>
 
 
@@ -46,29 +62,34 @@ input, textarea {
 }
 textarea {
 	width: 100%;
-	height: 300px;
+	height: 200px;
 }
 .btnConfirm {
 	margin: 20px 0;
 	text-align: center;
 }
-input.submitBtn {
-	padding: 8px;
-    border: 0;
-    background: orange;
-    color: #fff;
-    letter-spacing: -0.1em;
-    cursor: pointer;
-}
-.cancelBtn {
-	display: inline-block;
-    padding: 7px;
-    border: 1px solid #ccc;
-    background: #fafafa;
-    color: #000;
-    text-decoration: none;
-    vertical-align: middle;
-}
+.submitBtn, .cancelBtn { 
+ 	display: inline-block; 
+     margin: 0 0 0 15px; 
+     padding: 5px 30px; 
+     color: #fff; 
+     font-weight: 500; 
+     font-size: 14px; 
+     border-radius: 2px; 
+     background: #5c5b65; 
+     cursor: pointer; 
+  	outline: none; 
+  	border: none; 
+ } 
+ .submitBtn b { 
+ 	font-weight: normal; 
+ } 
+ .cancelBtn { 
+ 	background-color: #fff; 
+ 	border: 1px solid #e0e0e0; 
+ 	box-sizing: border-box; 
+ 	color: #111; 
+} 
 .uploadListWrap {
 	display: block;
 	margin-top: 10px;
@@ -92,45 +113,33 @@ input.submitBtn {
 	height: auto;
 }
 .allDelete {
-	cursor: pointer;
-	padding: 8px;
-    border: 0;
-    background: #E83F38;
-    font-size: 14px;
-    color: #fff;
-    letter-spacing: -0.1em;
+ 	float: right; 
+    padding: 8px; 
+    border: 0; 
+    background-color: #f2f5f9; 
+    letter-spacing: -0.1em; 
+    cursor: pointer; 
+    color: #111; 
 }
-.human {
-	cursor: pointer;
-	color: red;
+@media (max-width: 1024px) {
+	div.subContent {
+		width: 100%; 
+	}
+}
+@media (max-width: 768px) {
+	.writeFormWrap th {
+		padding: 0;
+		width: 60px;
+	}
+	tr:nth-child(4){ 
+ 		display: none; 
+ 	} 
+}
+@media (max-width: 560px) {
+	div.subContent {
+		padding-left: 3%;
+		padding-right: 3%;
+	}
 }
 </style>
-</head>
-<body>
-<div id="wrapper">
-
-	<%@ include file="../common/header.jsp" %>
-	<section>
-		<div class="container subContent">
-			<nav>
-				<c:if test="${boardNum == 1}">
-					<h1>NOTICE</h1>
-					<span>home > community > notice</span>
-				</c:if>
-				<c:if test="${boardNum == 2}">
-					<h1>QnA</h1>
-					<span>home > community > QnA</span>
-				</c:if>
-				<c:if test="${boardNum == 3}">
-					<h1>FAQ</h1>
-					<span>home > community > FAQ</span>
-				</c:if>
-			</nav>
-			<%@ include file="../common/writeForm.jsp" %>
-		</div>
-	</section>
-	<%@ include file="../common/footer.jsp" %>
-
-</div> <!-- wrapper End -->
-</body>
 </html>

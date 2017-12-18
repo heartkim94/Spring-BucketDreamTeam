@@ -15,6 +15,7 @@
 	<%@ include file="../common/header.jsp" %>
 	<section>
 		<div class="container subContent">
+		<%@ include file="../common/boardNav.jsp" %>
 			<jsp:include page="${view}"/>
 		</div>
 	</section>
