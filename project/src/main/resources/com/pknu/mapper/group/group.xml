@@ -79,8 +79,10 @@
 	</update>
 	
 	<delete id="deleteGroup" parameterType="int">
-		DELETE FROM groups 
-		WHERE groupNum=#{groupNum}
+		DELETE g, f FROM groups g
+		LEFT JOIN ProfileOf po ON po.groupNum = g.groupNum
+		LEFT JOIN FileList f ON f.fileNum = po.fileNum
+		WHERE g.groupNum=#{groupNum}
 	</delete>
 	
 	<insert id="joinGroup" parameterType="HashMap">

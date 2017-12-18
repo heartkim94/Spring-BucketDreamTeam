@@ -272,12 +272,12 @@ $(function() {
 	
 	
 	// save all changes
-	$(".saveBtn").on("click", function() {
+	$(".saveBtn").on("click", function(event) {
+		event.preventDefault();
+		
 		todoList.orderByPos();
-		todoList.list();
 		let updateList = [];
 		let deleteList = [];
-		todoList.show();
 		for(let i=0; i<todoList.length; i++) {
 			let todo = Object.assign({}, todoList[i]);
 			if(todo.doNum<0) {
@@ -320,6 +320,7 @@ $(function() {
 			}),
 			success: function(data) {
 				console.log(data);
+				location.href = "view";
 			},
 			error: function(xhr) {
 				alert("error html = "+xhr.statusText);
