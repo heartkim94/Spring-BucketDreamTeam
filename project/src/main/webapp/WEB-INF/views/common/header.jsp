@@ -37,7 +37,8 @@
 	}
 	/* header normal style */
     header {
-   		position: relative;
+   		position: fixed;
+   		top: 0;
     	width: 100%;
 	    background: #fff;
 	    border-bottom: 1px solid #eee;
@@ -104,10 +105,10 @@
    	 	display: none;
    	 	z-index: 999;
    	 	background-color: #eef0f3;
+   	 	overflow-y: scroll;
    	 }
    	 .sideMenuLayer > div {
    	 	width: 100%;
-   	 	border-bottom: 1px solid #999;
    	 	margin: 0 auto;
    	 }
    	 .myInfo {
@@ -138,8 +139,12 @@
 	    background-position: center;
 	    font-size: 0;
    	 }
+   	 .MypageMenuWrap {
+   	 	border-bottom: 1px solid #999;
+   	 }
    	 .MypageMenu {
    	 	overflow: hidden;
+   	 	width: 100%;
    	 }
    	 .MypageMenu li {
    	 	float: left;
@@ -169,28 +174,35 @@
    	 	background-position: 50%;
    	 	font-size: 12px;
    	 }
+   	 
+   	 .communityBoard {
+   	 	overflow: hidden;
+   	 	border-bottom: 1px solid #999;
+   	 }
+   	 .boardToggleBtn {
+   	 	display: block;
+   	 	padding: 15px;
+   	 	background-color: #e9e9e9;
+   	 }
+   	 .communityBoard ul {
+   	 	display: none;
+   	 }
+   	 .communityBoard ul li {
+   	 	padding: 5px 0;
+   	 }
+   	 .communityBoard ul li:hover {
+   	 	background-color: #e0e0e0;
+   	 }
+   	 .communityBoard ul a {
+   	 	display: block;
+   	 	margin-left: 15px;
+   	 }
     /* header response style */
      @media (max-width: 1024px) { 
   		
-   		header .wrap .menubar { 
-   			width: 100%; 
+   		header .menubar {    
+   			width: 100% !important; 
    		} 
-   		/* 사이드 메뉴 */
-/*    		.sideMenuLayer { */
-/* 	   	 	display: none; */
-/* 	   	 	position: fixed; */
-/* 	   	 	top: 0; */
-/* 	   	 	right: 0; */
-/* 	   	 	width: 300px; */
-/* 	   	 	height: 100%; */
-/* 	   	 } */
-/* 	   	 .sideMenuLayer > div { */
-/* 	   	 	width: 100%; */
-/* 	   	 } */
-	   	 .MypageMenuWrap {
-	   	 	width: 250px;
-	   	 	margin: 0 auto;
-	   	 }
      }
      @media (max-width: 768px) {
      
@@ -202,6 +214,7 @@
 
 </head>
 <body>
+<div class="dummyHeader"></div>
 <header>
 	<!-- 위로올라가기 버튼 -->
 	<a id="btnTop"> 상단으로 이동 </a>
@@ -250,10 +263,23 @@
 							<li><a href="/project/logout">로그아웃</a></li>
 						</ul>
 					</div>
-					<div>
-						<%@ include file="../group/asideMenu.jsp" %>
-					</div>
 				</c:if>
+				<div class="communityBoard">
+					<a href="#" class="boardToggleBtn"><span>커뮤니티 게시판</span></a>
+					<ul>
+						<c:forEach var="board" items="${communityBoardList}" varStatus="status">
+							<li>
+								<a href="/project/community/list?pageNum=1&boardNum=${board.boardNum}">
+									<span>${board.boardName}</span>
+								</a>
+							</li>
+<%-- 							<c:if test="${!status.last}"></c:if> --%>
+						</c:forEach>
+					</ul>
+				</div>
+				<div>
+					<%@ include file="../group/asideMenu.jsp" %>
+				</div>
 			</div>
 		</div>
 	</div> <!-- wrap end -->
@@ -264,6 +290,8 @@
 <script src="/project/resources/js/toTop.js"></script>
 <script>
 	$(function(){
+		$(".dummyHeader").css("height", $("header").height());
+		$("header").css("position", "fixed");
 		// 헤더 마이페이지 버튼 클릭 시 토글효과
 		$('.mypageBtnIcon').on("click", function(event){
 			event.preventDefault();
@@ -296,14 +324,21 @@
 // 			}
 		});
 		// 스크롤 아래로 움직일 시 헤더 브라우저에 고정!
-		let headerOuterHeight = $('header').outerHeight();
-        $( window ).scroll( function() {
-          if ( $( document ).scrollTop() > headerOuterHeight ) {
-        	  $('header').addClass('headerFixed');
-          }
-          else {
-        	  $('header').removeClass('headerFixed');
-          }
+// 		let headerOuterHeight = $('header').outerHeight();
+//         $( window ).scroll( function() {
+//           if ( $( document ).scrollTop() > headerOuterHeight ) {
+//         	  $('header').addClass('headerFixed');
+//           }
+//           else {
+//         	  $('header').removeClass('headerFixed');
+//           }
+//         });
+        
+        // 사이드 메뉴에서 게시판 목록 보기
+        $(".boardToggleBtn").on("click", function(event){
+        	event.preventDefault()
+        	$(".communityBoard ul").css("border", "none");
+        	$(".communityBoard ul").slideToggle(400);
         });
         
 	});

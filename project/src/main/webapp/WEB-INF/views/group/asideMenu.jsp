@@ -10,6 +10,11 @@
 		.groupMenu .profile {
 			width: 100%;
 		}
+		a.view {
+			width: 150px;
+			display: block;
+			margin: 10px auto;
+		}
 	</style>
 </head>
 <body>
@@ -18,7 +23,7 @@
 			<div class="groupInfo">
 				<ul>
 					<li>
-						<a href="view">
+						<a href="view" class="view">
 							<img class="profile" src="/project/displayFile?fileName=${group.profileImg}">
 						</a>
 					</li>

@@ -127,7 +127,8 @@ textarea {
 </head>
 <body>
 <div>
-	<form action="${action}" method="post">
+	<form action="${action}" name="fr" method="post">
+<%-- 	<form action="${action}" method="post"> --%>
 		<!-- 글쓰기 영역 전체 감쌈 -->
 		<div class="writeFormWrap"> 
 			<input type="hidden" name="boardNum" value="${boardNum}">
@@ -238,6 +239,22 @@ textarea {
 			$(deleteFileName).appendTo("form");
 		});
 	});
+// 	function check() {
+// 		console.log(fr.title.value);
+// 		console.log(fr.content.value.length);
+// 		alert("33");
+// 		if(fr.title.value=="") {
+// 			alert("제목을 입력해주세요.");
+// 			fr.title.focus();
+// 			return false;
+// 		}else if(fr.content.value.length==0) {
+// 			alert("내용을 입력해주세요.");
+// 			fr.content.focus();
+// 			return false;
+// 		}else {
+// 			return true;
+// 		}
+// 	}
 </script>
  
 </body>

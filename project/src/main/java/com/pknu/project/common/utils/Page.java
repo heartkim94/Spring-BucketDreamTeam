@@ -25,7 +25,7 @@ public class Page {
 		
 		sb = new StringBuffer();
 		if(startPage < pageBlock) {
-			sb.append("<a><<</a>");
+			sb.append("<a></a>");
 		} else {
 			sb.append("<a href='list.do?pageNum=");
 			sb.append(startPage - pageBlock);

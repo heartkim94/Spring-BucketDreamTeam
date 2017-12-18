@@ -424,7 +424,7 @@ textarea {
 		}
 		$("#showComment").html(html);
 		$("#commentContent").val("");
-		$("#commentContent").focus();
+// 		$("#commentContent").focus();
 	}
 	
 	function getComment(commPageNum, event) {

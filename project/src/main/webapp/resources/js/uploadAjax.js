@@ -3,6 +3,16 @@ $(function(){
 			event.stopPropagation();
 			event.preventDefault();
 			
+			if($("[name=title]").val() == "") {
+				alert("제목을 입력해주세요.");
+				fr.title.focus();
+				return false;
+			}else if($("[name=content]").val().length==0) {
+				alert("내용을 입력해주세요.");
+				fr.content.focus();
+				return false;
+			}
+			
 			let files = [];
 			$.each($("[name=storedFname]"), function(index, item) {
 				let file = {
