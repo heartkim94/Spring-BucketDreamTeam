@@ -79,12 +79,12 @@
 									<td><textarea class="memo"></textarea></td>
 								</tr>
 							</table>
+							<button onclick="location.href='view'">취소</button>
+							<button class="saveBtn">저장</button>
 						</div>
 					</div>
 				</div>
 				<div class="clear"></div>
-				<button onclick="location.href='view'">취소</button>
-				<button class="saveBtn" onclick="location_href='view'">저장</button>
 			</div>
 		</section>
 		<%@ include file="../common/footer.jsp" %>
