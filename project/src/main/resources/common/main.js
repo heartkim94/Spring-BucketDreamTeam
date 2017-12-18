@@ -121,6 +121,7 @@ io.sockets.on('connection', function(socket) {
 		let res = roomList.filter(function(room) {
 			return room.groupNum == data.groupNum;
 		});
+		console.log('getRoomList', data);
 		socket.emit('getRoomList', { roomList: res });
 	});
 
