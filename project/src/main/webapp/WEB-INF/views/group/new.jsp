@@ -15,8 +15,7 @@
 			<div class="container">
 				<div class="makeGroup">
 					<form method="post" action="new" id="groupForm">
-						<h3>그룹</h3>
-						<hr>
+						<h3>그룹 만들기</h3>
 						<input type="hidden" name="groupOwnerId" value="${id}">
 						<input type="hidden" name="profileImg" value="${profileImg}">
 						<div class="inputGroupName">
@@ -35,13 +34,20 @@
 								</select>
 							</label>
 						</div>
-						<label><a href="javascript:void(window.open('/project/group/profileImg', '_blank','width=350, height=510'))">그룹 메인 설정</a></label><br>
-						<h3>목표</h3>
-						<hr>
-						<a href="javascript:void(window.open('/project/group/goalSettingForm', '_blank','width=450, height=300'))">목표 설정</a>
-						<!--menubar, status, resizable, titlebar, location, top, left -->
-						<br><br>
-						<input type="submit" value="만들기">
+						<div class="profileImg">
+							<label>
+								<a href="javascript:void(window.open('/project/group/profileImg', '_blank','width=350, height=510'))">그룹 메인 설정</a>
+							</label>
+						</div>
+<!-- 						<h3>목표</h3> -->
+<!-- 						<hr> -->
+<!-- 						<a href="javascript:void(window.open('/project/group/goalSettingForm', '_blank','width=450, height=300'))">목표 설정</a> -->
+<!-- 						menubar, status, resizable, titlebar, location, top, left -->
+<!-- 						<br><br> -->
+						<div class="btnArea">
+							<input type="submit" value="만들기">
+							<a href="/project/home" class="cancelBtn"><span>취소</span></a>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -50,7 +56,12 @@
 	</div> <!-- wrapper End -->
 </body>
 <style>
+	#groupForm h3 {
+		padding-bottom: 20px;
+	}
 	.makeGroup {
+		width: 800px;
+		margin: 0 auto;
 		padding: 100px 0;
 	}
 	.nameLabel {
@@ -59,10 +70,11 @@
 	    height: 1px;
 	    width: 1px;
 	}
-	.inputGroupName{
+	.inputGroupName, .kind, .profileImg {
 		width: 100%;
 		height: 50px;
 		margin-bottom: 20px;
+		text-align: center;
 	}
 	input#groupName {
 	    position: relative;
@@ -78,7 +90,57 @@
 	    color: #333;
 	}
 	.kind {
-		border: 1px solid red;
+		padding: 0 0 50px 0;
 	}
+	.profileImg a {
+	    width: 100%;
+	    height: 100%;
+	    background-color: #5c5b65;
+	    color: #fff;
+	    display: block;
+	    line-height: 3;
+	    overflow: hidden;
+	}
+	.btnArea {
+		width: 100%;
+		text-align: center;
+    	padding: 20px 0;
+	}
+	input[value="만들기"], a.cancelBtn {
+		display: inline-block;
+	    margin: 0 0 0 15px;
+	    padding: 5px 30px;
+	    color: #fff;
+	    font-weight: 500;
+	    font-size: 14px;
+	    border-radius: 2px;
+	    background: #5c5b65;
+	    cursor: pointer;
+	 	outline: none;
+	 	border: none;
+	}
+	a.cancelBtn {
+		background-color: #fff;
+		border: 1px solid #e0e0e0;
+		box-sizing: border-box;
+		color: #111;
+	}
+	footer {
+		position: fixed !important;
+		bottom: 0;
+	}
+	
+	 @media (max-width: 1024px) { 
+	 	section .container {
+	 		width: 100%;
+	 	}
+     }
+     @media (max-width: 768px) {
+     	.makeGroup {
+     		width: 100%;
+     	}
+  	 }
+     @media (max-width: 660px) {
+     }
 </style>
 </html>

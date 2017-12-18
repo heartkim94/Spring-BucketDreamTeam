@@ -79,7 +79,9 @@
 	</update>
 	
 	<delete id="deleteGroup" parameterType="int">
-		DELETE FROM groups 
+		DELETE FROM groups g
+		LEFT JOIN ProfileOf po ON po.groupNum = g.groupNum
+		LEFT JOIN FileList f ON f.fileNum = po.fileNum
 		WHERE groupNum=#{groupNum}
 	</delete>
 	
