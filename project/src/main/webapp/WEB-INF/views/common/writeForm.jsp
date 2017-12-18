@@ -214,7 +214,7 @@ textarea {
 		</div>
 		<!-- 글 작성 버튼 영역 -->
 		<div class="btnConfirm">
-			<button type="submit" class="submitBtn" on>
+			<button type="submit" class="submitBtn" >
 					<b>작성완료</b>
 			</button>
 <!-- 			<input type="submit" value="작성 완료" class="submitBtn" /> -->
