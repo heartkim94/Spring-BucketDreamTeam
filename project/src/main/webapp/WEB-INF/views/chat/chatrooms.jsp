@@ -5,6 +5,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<title>채팅방 목록</title>
 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
@@ -15,18 +17,20 @@
 				<ul class="chatroomList">
 				</ul>
 				<button class="newRoom">새로운 채팅방 만들기</button>
+				<div class="test"></div>
 		</section>
 	</div> <!-- wrapper End -->
 </body>
 <script>
+console.log(io);
 $(function() {
-	let socket = io.connect("http://210.119.12.240:50000");
+	let url = "http://nodejs-ex-dogether--chat.1d35.starter-us-east-1.openshiftapps.com:50000/";
+// 	let socket = io.connect("http://210.119.12.240:50000");
+	let socket = io.connect(url);
 	socket.emit("getRoomList", {groupNum: "${groupNum}"});
 	socket.on("getRoomList", function(data) {
-		console.log(data);
 		let list = $(".chatroomList").html("");
 		for(let i in data.roomList) {
-			console.log(data.roomList[i]);
 			let roomName = data.roomList[i].roomName;
 			let roomNum = data.roomList[i].roomNum;
 			let str = "<li><a href='chat?roomNum="+roomNum+"'>"+roomName+"</a></li>";
@@ -43,6 +47,10 @@ $(function() {
 	socket.on("newRoom", function(data) {
 		location.href = "chat?roomNum="+data.roomNum;
 	});
+	
+	setTimeout(function() {
+		$(".test").append(""+socket.connected);
+	}, 1000);
 });
 </script>
 </html>

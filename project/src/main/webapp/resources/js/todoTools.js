@@ -1,7 +1,19 @@
 var isFirst;
+var todoList
 $(function() {
 	isFirst = (isFirst == undefined);
 	if(!isFirst) { return; }
+	
+	// get todoList
+	todoList = new TodoList();
+	$.post("getTodoList", function(data) {
+		$.each(data, function(index, item) {
+			todoList.push(new Todo(item));
+		})
+		console.log(todoList.length);
+		todoList.list();
+	}, "json");
+	
 	
 	// todo 선택
 	$(".todoList > ul").on("click", "li", function() {
