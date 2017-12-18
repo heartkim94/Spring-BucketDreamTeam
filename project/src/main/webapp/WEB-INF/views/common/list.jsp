@@ -106,7 +106,12 @@
 						<!-- 모바일 반응형 크기에서 제목 밑으로 가는 작성일 태그 -->
 						<p class="respDate" style="margin-left:${20 * article.depth}">${article.writeDate}</p>
 					</td>
-					<td>${article.id}</td>
+					<c:if test="${article.id == '' }">
+						<td>Guest</td>
+					</c:if>
+					<c:if test="${article.id != '' }">
+						<td>${article.id}</td>
+					</c:if>
 					<td>${article.writeDate}</td>
 					<td>${article.hit}</td>
 				</tr>

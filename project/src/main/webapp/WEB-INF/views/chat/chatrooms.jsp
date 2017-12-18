@@ -22,10 +22,9 @@
 	</div> <!-- wrapper End -->
 </body>
 <script>
-console.log(io);
 $(function() {
-	let url = "http://nodejs-ex-dogether--chat.1d35.starter-us-east-1.openshiftapps.com:50000/";
-// 	let socket = io.connect("http://210.119.12.240:50000");
+// 	let url = "http://nodejs-ex-dogether--chat.1d35.starter-us-east-1.openshiftapps.com:50000/";
+	let socket = io.connect("http://210.119.12.240:50000");
 	let socket = io.connect(url);
 	socket.emit("getRoomList", {groupNum: "${groupNum}"});
 	socket.on("getRoomList", function(data) {

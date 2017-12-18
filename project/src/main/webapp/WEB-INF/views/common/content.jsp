@@ -230,7 +230,12 @@ textarea {
 	</p>
 	<dl>
 		<dt>작성자</dt>
-		<dd>${article.id}</dd>
+		<c:if test="${article.id == '' }">
+			<dd>Guest</dd>
+		</c:if>
+		<c:if test="${artidle.id != '' }">
+			<dd>${article.id}</dd>
+		</c:if>
 	</dl>
 	<div class="content">
 		<p>${article.content}</p>
