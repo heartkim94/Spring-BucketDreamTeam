@@ -8,14 +8,7 @@
 	<meta charset="UTF-8">
 	<title>그룹 일정 관리</title>
 	<style>
-		/* todoCaldendar */
-		.todoCalendar {
-			float: left;
-		}
-		/* todoList */
-		.todoList {
-			float: right;
-		}
+		
 	</style>
 </head>
 <body>
@@ -29,7 +22,8 @@
 					<div class="todoCalendar">
 						<div class="calendar"></div>
 					</div>
-					<div class="todoList">
+					<div class="switchRight">▶</div>
+					<div class="todoList mobileShow">
 						<ul></ul>
 						<hr class="line">
 						<span class="todoTools">
@@ -83,6 +77,7 @@
 							<button class="saveBtn">저장</button>
 						</div>
 					</div>
+					<div class="switchLeft">◀</div>
 				</div>
 				<div class="clear"></div>
 			</div>
