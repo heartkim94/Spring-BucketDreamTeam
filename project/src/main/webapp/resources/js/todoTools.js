@@ -277,28 +277,36 @@ $(function() {
 		todoList.list();
 		let updateList = [];
 		let deleteList = [];
+		todoList.show();
 		for(let i=0; i<todoList.length; i++) {
 			let todo = Object.assign({}, todoList[i]);
 			if(todo.doNum<0) {
 				todo.doNum = 0;
 			}
 						
-			if(!todo.doWhen) {
-				todo.doWhen = null;
-				todo.doWhenTime = null;
+//			if(!todo.doWhen) {
+//				todo.doWhen = null;
+//				todo.doWhenTime = null;
+//			}
+//			
+//			if(!todo.doEnd) {
+//				todo.doEnd = null;
+//				todo.doEndTime = null;
+//			}
+			if(todo.doWhenTime == null) {
+				todo.doWhenTime = '';
 			}
 			
-			if(!todo.doEnd) {
-				todo.doEnd = null;
-				todo.doEndTime = null;
+			if(todo.doEndTime == null) {
+				todo.doEndTime = '';
 			}
 			
 			updateList.push(todo);
 		}
+		todoList.show();
 		for(let i=0; i<todoList.deleteList.length; i++) {
 			deleteList.push(todoList.deleteList[i].doNum);
 		}
-		
 		
 		// update 요청
 		$.ajax({
