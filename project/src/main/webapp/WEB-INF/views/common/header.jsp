@@ -179,10 +179,14 @@
    	 	overflow: hidden;
    	 	border-bottom: 1px solid #999;
    	 }
-   	 .boardToggleBtn {
+   	 .boardToggleBtn, .groupSetting {
    	 	display: block;
    	 	padding: 15px;
    	 	background-color: #e9e9e9;
+   	 }
+   	 #groupSetting {
+   	 	overflow: hidden;
+   	 	border-bottom: 1px solid #999;
    	 }
    	 .communityBoard ul {
    	 	display: none;
@@ -197,6 +201,11 @@
    	 	display: block;
    	 	margin-left: 15px;
    	 }
+   	 
+   	 #groupSetting > div {
+   	 	display: block;
+   	 }
+   	 
     /* header response style */
      @media (max-width: 1024px) { 
   		
@@ -265,7 +274,7 @@
 					</div>
 				</c:if>
 				<div class="communityBoard">
-					<a href="#" class="boardToggleBtn"><span>커뮤니티 게시판</span></a>
+					<a href="#" class="boardToggleBtn"><span>커뮤니티 게시판 ▼</span></a>
 					<ul>
 						<c:forEach var="board" items="${communityBoardList}" varStatus="status">
 							<li>
@@ -277,8 +286,11 @@
 						</c:forEach>
 					</ul>
 				</div>
-				<div>
-					<%@ include file="../group/asideMenu.jsp" %>
+				<div id="groupSetting">
+					<a href="#" class="groupSetting"><span>그룹 설정 ▼</span></a>
+					<div>
+						<%@ include file="../group/asideMenu.jsp" %>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -336,9 +348,14 @@
         
         // 사이드 메뉴에서 게시판 목록 보기
         $(".boardToggleBtn").on("click", function(event){
-        	event.preventDefault()
+        	event.preventDefault();
         	$(".communityBoard ul").css("border", "none");
         	$(".communityBoard ul").slideToggle(400);
+        });
+        
+        $(".groupSetting").on("click", function(event){
+        	event.preventDefault();
+        	$("#groupSetting > div").slideToggle(400);
         });
         
 	});
